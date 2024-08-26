@@ -5,7 +5,7 @@ package: Neo
 base theme: FALSE
 core_version_requirement: 10.x
 dependencies:
-  - neo_build:neo_build
+  - neo:neo
 
 neo:
   scope:
