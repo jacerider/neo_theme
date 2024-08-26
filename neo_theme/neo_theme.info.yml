@@ -6,6 +6,7 @@ base theme: FALSE
 core_version_requirement: 10.x
 dependencies:
   - neo:neo
+  - neo_twig:neo_twig
 
 neo:
   scope:
