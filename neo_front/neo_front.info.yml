@@ -2,7 +2,7 @@ name: Neo | Frontend
 type: theme
 description: 'An opinionated frontend theme.'
 package: Neo
-base theme: neo_theme
+base theme: neo_base
 core_version_requirement: 10.x
 neo:
   scope: front

@@ -7,13 +7,13 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Template\Attribute;
-use Drupal\neo_theme\NeoThemeProcess;
+use Drupal\neo_base\NeoBaseProcess;
 
 /**
  * Implements hook_element_info_alter().
  */
-function neo_theme_element_info_alter(array &$info) {
-  $info['submit']['#process'][] = 'neo_theme_submit_process';
+function neo_base_element_info_alter(array &$info) {
+  $info['submit']['#process'][] = 'neo_base_submit_process';
   foreach ($info as &$element) {
     if (isset($element['#process'])) {
       $supportsGroupProcessing = !empty(array_filter($element['#process'], function ($callback) {
@@ -21,7 +21,7 @@ function neo_theme_element_info_alter(array &$info) {
       }));
       if ($supportsGroupProcessing) {
         $element['#process'][] = [
-          NeoThemeProcess::class,
+          NeoBaseProcess::class,
           'group',
         ];
       }
@@ -32,7 +32,7 @@ function neo_theme_element_info_alter(array &$info) {
 /**
  * Implements hook_theme_suggestions_alter().
  */
-function neo_theme_suggestions_alter(&$suggestions, array &$variables, $hook) {
+function neo_base_suggestions_alter(&$suggestions, array &$variables, $hook) {
   if (in_array($hook, ['details', 'fieldset', 'container', 'form_element'])) {
     $suggestions = array_merge([$variables['theme_hook_original'] . '__group'], $suggestions);
   }
@@ -124,7 +124,7 @@ function neo_theme_suggestions_alter(&$suggestions, array &$variables, $hook) {
 /**
  * Submit button element process callback.
  */
-function neo_theme_submit_process(&$element, FormStateInterface $form_state, &$complete_form) {
+function neo_base_submit_process(&$element, FormStateInterface $form_state, &$complete_form) {
   $form_object = $form_state->getFormObject();
   switch ($form_object->getFormId()) {
     case 'entity_form_display_edit_form':
@@ -142,7 +142,7 @@ function neo_theme_submit_process(&$element, FormStateInterface $form_state, &$c
 /**
  * Implements hook_preprocess_input__submit().
  */
-function neo_theme_preprocess_input__submit(&$variables) {
+function neo_base_preprocess_input__submit(&$variables) {
   $variables['title'] = $variables['element']['#title'] ?? $variables['element']['#value'];
   $variables['as_input'] = !empty($variables['element']['#as_input']);
 }
@@ -150,7 +150,7 @@ function neo_theme_preprocess_input__submit(&$variables) {
 /**
  * Implements hook_preprocess_radios().
  */
-function neo_theme_preprocess_form_element__type_radio(&$variables) {
+function neo_base_preprocess_form_element__type_radio(&$variables) {
   // if
   // ksm($variables);
 }
@@ -158,7 +158,7 @@ function neo_theme_preprocess_form_element__type_radio(&$variables) {
 /**
  * Implements hook_preprocess_radios().
  */
-function neo_theme_preprocess_radios(&$variables) {
+function neo_base_preprocess_radios(&$variables) {
 
   if (!empty($variables['element']['#style'])) {
     switch ($variables['element']['#style']) {
@@ -206,7 +206,7 @@ function neo_theme_preprocess_radios(&$variables) {
 /**
  * Implements hook_preprocess_block().
  */
-function neo_theme_preprocess_checkboxes(&$variables) {
+function neo_base_preprocess_checkboxes(&$variables) {
   if (!empty($variables['element']['#style'])) {
     switch ($variables['element']['#style']) {
       case 'inline':
@@ -252,7 +252,7 @@ function neo_theme_preprocess_checkboxes(&$variables) {
 /**
  * Implements hook_preprocess_block().
  */
-function neo_theme_preprocess_block(&$variables) {
+function neo_base_preprocess_block(&$variables) {
   // Add id to template.
   $variables['id'] = '';
   if (isset($variables['elements']['#id'])) {
@@ -263,14 +263,14 @@ function neo_theme_preprocess_block(&$variables) {
 /**
  * Implements hook_preprocess_fieldset().
  */
-function neo_theme_preprocess_fieldset(&$variables) {
+function neo_base_preprocess_fieldset(&$variables) {
   $variables['fieldset_content_attributes'] = new Attribute($variables['fieldset_content_attributes'] ?? []);
 }
 
 /**
  * Implements hook_preprocess_form_element().
  */
-function neo_theme_preprocess_form_element(&$variables) {
+function neo_base_preprocess_form_element(&$variables) {
   $variables['label']['#element_parent_type'] = $variables['element']['#type'];
   $variables['element_id'] = $variables['element']['#id'] ?? '';
 }
@@ -278,7 +278,7 @@ function neo_theme_preprocess_form_element(&$variables) {
 /**
  * Implements hook_preprocess_details().
  */
-function neo_theme_preprocess_details(&$variables) {
+function neo_base_preprocess_details(&$variables) {
   $variables['summary_title_attributes'] = new Attribute($variables['summary_title_attributes'] ?? []);
   $variables['content_attributes'] = new Attribute($variables['content_attributes'] ?? []);
   $variables['description_attributes'] = new Attribute($variables['description_attributes'] ?? []);
@@ -287,7 +287,7 @@ function neo_theme_preprocess_details(&$variables) {
 /**
  * Implements hook_preprocess_page().
  */
-function neo_theme_preprocess_page(&$variables) {
+function neo_base_preprocess_page(&$variables) {
   $route_name = \Drupal::routeMatch()->getRouteName();
   switch ($route_name) {
     case 'user.login':
@@ -312,7 +312,7 @@ function neo_theme_preprocess_page(&$variables) {
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function neo_theme_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+function neo_base_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   $form['actions']['submit']['#button_type'] = 'primary';
   $form['actions']['submit']['#attributes']['class'][] = 'w-full';
 }
@@ -320,7 +320,7 @@ function neo_theme_form_user_login_form_alter(&$form, FormStateInterface $form_s
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function neo_theme_form_user_pass_alter(&$form, FormStateInterface $form_state, $form_id) {
+function neo_base_form_user_pass_alter(&$form, FormStateInterface $form_state, $form_id) {
   $form['actions']['submit']['#button_type'] = 'primary';
   $form['actions']['submit']['#attributes']['class'][] = 'w-full';
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\neo_theme;
+namespace Drupal\neo_base;
 
 use Drupal\Core\Security\TrustedCallbackInterface;
 
@@ -9,7 +9,7 @@ use Drupal\Core\Security\TrustedCallbackInterface;
  *
  * @internal
  */
-class NeoThemePreRender implements TrustedCallbackInterface {
+class NeoBasePreRender implements TrustedCallbackInterface {
 
   /**
    * Prerender callback for managed_file.

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\neo_theme;
+namespace Drupal\neo_base;
 
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
@@ -10,7 +10,7 @@ use Drupal\Core\Form\FormStateInterface;
  *
  * @internal
  */
-class NeoThemeProcess {
+class NeoBaseProcess {
 
   /**
    * Process callback for elements that support groups.

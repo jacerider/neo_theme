@@ -1,6 +1,6 @@
-name: Neo | Theme
+name: Neo | Base
 type: theme
-description: 'An opinionated core of blessings.'
+description: 'An opinionated base theme of blessings.'
 package: Neo
 base theme: FALSE
 core_version_requirement: 10.x
@@ -69,20 +69,20 @@ neo:
       '@apply btn btn-primary': {}
 
 libraries:
-  - neo_theme/global
+  - neo_base/global
 libraries-extend:
   # core/drupal.ajax:
-  #   - neo_theme/ajax
+  #   - neo_base/ajax
   core/drupal.vertical-tabs:
-    - neo_theme/vertical-tabs
+    - neo_base/vertical-tabs
   core/drupal.tabledrag:
-    - neo_theme/tabledrag
+    - neo_base/tabledrag
   core/drupal.dropbutton:
-    - neo_theme/dropbutton
+    - neo_base/dropbutton
   core/drupal.dialog:
-    - neo_theme/dialog
+    - neo_base/dialog
   # media_library/view:
-  #   - neo_theme/media.library
+  #   - neo_base/media.library
 libraries-override:
   system/base:
     css:

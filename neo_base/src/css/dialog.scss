@@ -15,13 +15,11 @@
     }
 
     .ui-button-icon.ui-icon.ui-icon-closethick {
+      background-image: none;
       @apply left-0 top-0 m-0 flex h-6 w-6 items-center justify-center rounded bg-white indent-0;
       @include neo-icon.icon('times', before) {
         @apply text-lg text-primary-800;
       }
-
-      background-image: none;
-      // mask-image: url('../../images/sprite.svg#close-view');
     }
   }
 

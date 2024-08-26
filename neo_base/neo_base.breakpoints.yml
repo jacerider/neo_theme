@@ -1,28 +1,28 @@
-neo_theme.sm:
+neo_base.sm:
   label: small
   mediaQuery: 'all'
   weight: 0
   multipliers:
     - 1x
-neo_theme.md:
+neo_base.md:
   label: medium
   mediaQuery: 'all and (min-width: 768px)'
   weight: 1
   multipliers:
     - 1x
-neo_theme.lg:
+neo_base.lg:
   label: large
   mediaQuery: 'all and (min-width: 1024px)'
   weight: 2
   multipliers:
     - 1x
-neo_theme.xl:
+neo_base.xl:
   label: xlarge
   mediaQuery: 'all and (min-width: 1280px)'
   weight: 3
   multipliers:
     - 1x
-neo_theme.2xl:
+neo_base.2xl:
   label: xlarge
   mediaQuery: 'all and (min-width: 1536px)'
   weight: 4
