@@ -1,0 +1,23 @@
+.progress {
+  @apply flow-root;
+
+  .progress__label {
+    @apply text-xs font-bold;
+  }
+
+  .progress__track {
+    @apply my-1 w-full rounded-full bg-base-200 p-0.5;
+  }
+
+  .progress__bar {
+    @apply h-4 rounded-full bg-primary-500 transition-all;
+  }
+
+  .progress__percentage {
+    @apply float-start text-xs;
+  }
+
+  .progress__description {
+    @apply float-end ml-auto pl-6 text-xs;
+  }
+}

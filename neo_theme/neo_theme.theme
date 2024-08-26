@@ -1,0 +1,326 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the Neo Theme theme.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Template\Attribute;
+use Drupal\neo_theme\NeoThemeProcess;
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function neo_theme_element_info_alter(array &$info) {
+  $info['submit']['#process'][] = 'neo_theme_submit_process';
+  foreach ($info as &$element) {
+    if (isset($element['#process'])) {
+      $supportsGroupProcessing = !empty(array_filter($element['#process'], function ($callback) {
+        return is_array($callback) && $callback[1] === 'processGroup';
+      }));
+      if ($supportsGroupProcessing) {
+        $element['#process'][] = [
+          NeoThemeProcess::class,
+          'group',
+        ];
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_alter().
+ */
+function neo_theme_suggestions_alter(&$suggestions, array &$variables, $hook) {
+  if (in_array($hook, ['details', 'fieldset', 'container', 'form_element'])) {
+    $suggestions = array_merge([$variables['theme_hook_original'] . '__group'], $suggestions);
+  }
+  if (isset($variables['element']) && !empty($variables['element']['#group_type'])) {
+    $suggestions[] = $variables['theme_hook_original'] . '__group_' . $variables['element']['#group_type'];
+  }
+
+  switch ($hook) {
+    case 'page':
+      $route_name = \Drupal::routeMatch()->getRouteName();
+      switch ($route_name) {
+        case 'user.login':
+        case 'user.register':
+        case 'user.pass':
+        case 'user.reset.form':
+          $suggestions[] = $variables['theme_hook_original'] . '__auth';
+          break;
+      }
+      break;
+
+    case 'region':
+      $route_name = \Drupal::routeMatch()->getRouteName();
+      switch ($route_name) {
+        case 'user.login':
+        case 'user.register':
+        case 'user.pass':
+        case 'user.reset.form':
+          $suggestions[] = $variables['theme_hook_original'] . '__' . $variables['elements']['#region'] . '__auth';
+          break;
+      }
+      break;
+
+    case 'user':
+      $suggestions[] = $variables['theme_hook_original'] . '__' . $variables['elements']['#view_mode'];
+      break;
+
+    case 'input':
+      if (!empty($variables['theme_hook_original'])) {
+        if ($variables['theme_hook_original'] === 'input__submit' && !empty($variables['element']['#button_type'])) {
+          $suggestions[] = $variables['theme_hook_original'] . '__type_' . $variables['element']['#button_type'];
+        }
+        if ($variables['theme_hook_original'] === 'input__checkbox') {
+          if (!empty($variables['element']['#parents']) && end($variables['element']['#parents']) !== $variables['element']['#return_value']) {
+            $suggestions[] = $variables['theme_hook_original'] . '_single';
+          }
+        }
+      }
+      break;
+
+    case 'form_element_label':
+      if (!empty($variables['element']['#element_parent_type'])) {
+        $suggestions[] = $variables['theme_hook_original'] . '__type_' . $variables['element']['#element_parent_type'];
+      }
+      break;
+  }
+
+  if (in_array($hook, ['fieldset', 'container', 'form_element'])) {
+    $element_type = $variables['element']['#type'] ?? $variables['element']['value']['#type'] ?? '';
+    if ($element_type !== $hook) {
+      $suggestions[] = $variables['theme_hook_original'] . '__type_' . $element_type;
+      if ($element_type === 'checkbox') {
+        if (!empty($variables['element']['#parents']) && end($variables['element']['#parents']) !== $variables['element']['#return_value']) {
+          $suggestions[] = $variables['theme_hook_original'] . '__type_' . $element_type . '_single';
+        }
+      }
+    }
+  }
+  if (in_array($hook, ['container']) && isset($variables['element']['#type']) && $variables['element']['#type'] === 'container' && isset($variables['element']['#array_parents'])) {
+    if (isset($variables['element']['node_bulk_form'])) {
+      $suggestions[] = $variables['theme_hook_original'] . '__node_bulk_form';
+    }
+    foreach ($variables['element']['#array_parents'] as $delta => $key) {
+      if ($key === 'widget') {
+        $parts = array_filter(array_splice($variables['element']['#array_parents'], $delta + 1), function ($part) {
+          return !is_int($part);
+        });
+        if (!empty($parts)) {
+          $suggestions[] = $variables['theme_hook_original'] . '__widget_' . preg_replace('/[0-9]+/', '', implode('_', $parts));
+        }
+      }
+    }
+  }
+
+  if ($hook === 'form_element' && empty($variables['element']['#parents']) && empty($variables['element']['#array_parents'])) {
+    $suggestions[] = $variables['theme_hook_original'] . '__formless';
+  }
+}
+
+/**
+ * Submit button element process callback.
+ */
+function neo_theme_submit_process(&$element, FormStateInterface $form_state, &$complete_form) {
+  $form_object = $form_state->getFormObject();
+  switch ($form_object->getFormId()) {
+    case 'entity_form_display_edit_form':
+    case 'entity_view_display_edit_form';
+      // Force submit buttons to be rendered as input elements to allow Drupal
+      // to properly bind ajax behaviors.
+      if (!empty($element['#ajax'])) {
+        $element['#as_input'] = TRUE;
+      }
+      break;
+  }
+  return $element;
+}
+
+/**
+ * Implements hook_preprocess_input__submit().
+ */
+function neo_theme_preprocess_input__submit(&$variables) {
+  $variables['title'] = $variables['element']['#title'] ?? $variables['element']['#value'];
+  $variables['as_input'] = !empty($variables['element']['#as_input']);
+}
+
+/**
+ * Implements hook_preprocess_radios().
+ */
+function neo_theme_preprocess_form_element__type_radio(&$variables) {
+  // if
+  // ksm($variables);
+}
+
+/**
+ * Implements hook_preprocess_radios().
+ */
+function neo_theme_preprocess_radios(&$variables) {
+
+  if (!empty($variables['element']['#style'])) {
+    switch ($variables['element']['#style']) {
+      case 'inline':
+        $variables['attributes']['class'][] = 'flex';
+        $variables['attributes']['class'][] = 'flex-wrap';
+        $variables['attributes']['class'][] = '[&>div]:mr-2';
+        $variables['attributes']['class'][] = '[&>div:last-child]:mr-0';
+        break;
+
+      case 'inline_buttons':
+        $variables['attributes']['class'][] = 'flex';
+        $variables['attributes']['class'][] = 'flex-wrap';
+        $variables['attributes']['class'][] = '[&>div]:mr-2';
+        $variables['attributes']['class'][] = '[&>div:last-child]:mr-0';
+        $variables['attributes']['class'][] = '[&_label]:block';
+        $variables['attributes']['class'][] = '[&_label]:leading-none';
+        $variables['attributes']['class'][] = '[&_label]:btn';
+        $variables['attributes']['class'][] = '[&_label]:btn-primary-outline';
+        $variables['attributes']['class'][] = '[&_input:checked+label]:btn-primary';
+        $variables['attributes']['class'][] = '[&_input:focus+label]:ring';
+        $variables['attributes']['class'][] = '[&_input:focus+label]:ring-primary-600';
+        $variables['attributes']['class'][] = '[&_input:focus+label]:ring-offset-2';
+        $variables['attributes']['class'][] = '[&_input]:sr-only';
+        break;
+
+      case 'inline_elements':
+        $variables['attributes']['class'][] = 'flex';
+        $variables['attributes']['class'][] = 'flex-wrap';
+        $variables['attributes']['class'][] = 'gap-2';
+        $variables['attributes']['class'][] = '[&>div]:border';
+        $variables['attributes']['class'][] = '[&>div]:border-base-200';
+        $variables['attributes']['class'][] = '[&>div]:bg-base-100';
+        $variables['attributes']['class'][] = '[&>div]:rounded';
+        $variables['attributes']['class'][] = '[&>div]:overflow-hidden';
+        $variables['attributes']['class'][] = '[&>div]:p-1';
+        $variables['attributes']['class'][] = '[&_label>div]:m-0';
+        $variables['attributes']['class'][] = '[&_input]:ml-1';
+        $variables['attributes']['class'][] = '[&_input]:mr-2';
+        break;
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function neo_theme_preprocess_checkboxes(&$variables) {
+  if (!empty($variables['element']['#style'])) {
+    switch ($variables['element']['#style']) {
+      case 'inline':
+        $variables['attributes']['class'][] = 'flex';
+        $variables['attributes']['class'][] = '[&>div]:mr-2';
+        $variables['attributes']['class'][] = '[&>div:last-child]:mr-0';
+        break;
+
+      case 'inline_buttons':
+        $variables['attributes']['class'][] = 'flex';
+        $variables['attributes']['class'][] = '[&>div]:mr-2';
+        $variables['attributes']['class'][] = '[&>div:last-child]:mr-0';
+        $variables['attributes']['class'][] = '[&_label]:block';
+        $variables['attributes']['class'][] = '[&_label]:leading-none';
+        $variables['attributes']['class'][] = '[&_label]:ml-0';
+        $variables['attributes']['class'][] = '[&_label]:btn';
+        $variables['attributes']['class'][] = '[&_label]:btn-primary-outline';
+        $variables['attributes']['class'][] = '[&_input:checked+label]:btn-primary';
+        $variables['attributes']['class'][] = '[&_input:focus+label]:ring';
+        $variables['attributes']['class'][] = '[&_input:focus+label]:ring-primary-600';
+        $variables['attributes']['class'][] = '[&_input:focus+label]:ring-offset-2';
+        $variables['attributes']['class'][] = '[&_input]:sr-only';
+        break;
+
+      case 'inline_elements':
+        $variables['attributes']['class'][] = 'flex';
+        $variables['attributes']['class'][] = 'flex-wrap';
+        $variables['attributes']['class'][] = 'gap-2';
+        $variables['attributes']['class'][] = '[&>div]:border';
+        $variables['attributes']['class'][] = '[&>div]:border-base-200';
+        $variables['attributes']['class'][] = '[&>div]:bg-base-100';
+        $variables['attributes']['class'][] = '[&>div]:rounded';
+        $variables['attributes']['class'][] = '[&>div]:overflow-hidden';
+        $variables['attributes']['class'][] = '[&>div]:p-1';
+        $variables['attributes']['class'][] = '[&_label>div]:m-0';
+        $variables['attributes']['class'][] = '[&_input]:ml-1';
+        $variables['attributes']['class'][] = '[&_input]:mr-2';
+        break;
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function neo_theme_preprocess_block(&$variables) {
+  // Add id to template.
+  $variables['id'] = '';
+  if (isset($variables['elements']['#id'])) {
+    $variables['id'] = 'block--' . str_replace('_', '-', $variables['elements']['#id']);
+  }
+}
+
+/**
+ * Implements hook_preprocess_fieldset().
+ */
+function neo_theme_preprocess_fieldset(&$variables) {
+  $variables['fieldset_content_attributes'] = new Attribute($variables['fieldset_content_attributes'] ?? []);
+}
+
+/**
+ * Implements hook_preprocess_form_element().
+ */
+function neo_theme_preprocess_form_element(&$variables) {
+  $variables['label']['#element_parent_type'] = $variables['element']['#type'];
+  $variables['element_id'] = $variables['element']['#id'] ?? '';
+}
+
+/**
+ * Implements hook_preprocess_details().
+ */
+function neo_theme_preprocess_details(&$variables) {
+  $variables['summary_title_attributes'] = new Attribute($variables['summary_title_attributes'] ?? []);
+  $variables['content_attributes'] = new Attribute($variables['content_attributes'] ?? []);
+  $variables['description_attributes'] = new Attribute($variables['description_attributes'] ?? []);
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function neo_theme_preprocess_page(&$variables) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  switch ($route_name) {
+    case 'user.login':
+    case 'user.register':
+    case 'user.pass':
+    case 'user.reset.form':
+      $variables['attributes']['class'][] = 'user--auth';
+      $uri = $variables['base_path'] . $variables['directory'] . '/logo.svg';
+      if (!file_exists(ltrim($uri, '/'))) {
+        $uri = $variables['base_path'] . $variables['directory'] . '/logo.png';
+      }
+      if (file_exists(ltrim($uri, '/'))) {
+        $variables['logo'] = [
+          '#theme' => 'image',
+          '#uri' => $uri,
+        ];
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function neo_theme_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['actions']['submit']['#button_type'] = 'primary';
+  $form['actions']['submit']['#attributes']['class'][] = 'w-full';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function neo_theme_form_user_pass_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['actions']['submit']['#button_type'] = 'primary';
+  $form['actions']['submit']['#attributes']['class'][] = 'w-full';
+}

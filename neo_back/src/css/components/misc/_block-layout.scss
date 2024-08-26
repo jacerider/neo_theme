@@ -1,0 +1,13 @@
+.block-admin-display-form {
+  .region-title {
+    @apply bg-base-100 dark:bg-base-900;
+
+    td {
+      @apply mb-3 mt-6 text-xl font-semibold text-black dark:text-white;
+
+      .region-title__action {
+        @apply float-end;
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+.field-option {
+  @apply p-0;
+}
+
+.subfield-option {
+  @apply p-3;
+}
+
+.field-option,
+.subfield-option {
+  @apply overflow-hidden rounded border-base-300;
+
+  &.focus,
+  &.selected {
+    @apply border-base-300 outline-none ring ring-primary-600 ring-offset-2 transition;
+
+    .field-option__thumb {
+      @apply bg-primary-500 text-white;
+
+      .field-option__icon {
+        filter: brightness(0) invert(1);
+      }
+    }
+  }
+
+  .option,
+  label {
+    @apply font-bold;
+  }
+
+  .field-option__item {
+    @apply p-2 pl-0;
+  }
+
+  ul,
+  .field-option__description {
+    @apply mt-1 text-xs;
+  }
+}
+
+.group-field-options-wrapper {
+  @apply max-w-screen-md text-sm;
+}

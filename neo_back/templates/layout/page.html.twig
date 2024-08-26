@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Theme override to display a single page.
+ *
+ * @see template_preprocess_page()
+ * @see html.html.twig
+ */
+#}
+{%
+  set page_classes = [
+    'section',
+    'page',
+  ]
+%}
+<div{{ attributes.addClass(page_classes) }}>
+
+  {{ page.status }}
+  {{ page.breadcrumb }}
+  {{ page.header }}
+
+  <div class="flex flex-col flex-1">
+    <main class="section main max-w-none" role="main">
+      <div class="p-4 mx-auto max-w-screen-2xl md:p-6 2xl:px-10">
+        {{ page.content }}
+      </div>
+    </main>
+  </div>
+
+  {{ page.footer }}
+
+</div>{# /.layout-container #}

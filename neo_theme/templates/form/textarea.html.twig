@@ -1,0 +1,7 @@
+{% extends 'input.html.twig' %}
+
+{% block input %}
+  <div{{ wrapper_attributes }}>
+    <textarea{{ attributes.addClass(classes) }}>{{ value }}</textarea>
+  </div>
+{% endblock %}

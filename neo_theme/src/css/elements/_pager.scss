@@ -1,0 +1,7 @@
+.pager + div {
+  @apply mb-6;
+}
+
+div + .pager {
+  @apply mt-6;
+}

@@ -1,0 +1,51 @@
+{% extends 'details.html.twig' %}
+
+{%
+  set classes = [
+    'card',
+    'group',
+    '-mt-px',
+  ]
+%}
+{%
+  set summary_classes = [
+    'relative',
+    'flex',
+    'flex-wrap',
+    'cursor-pointer',
+    'list-none',
+    'items-center',
+    'font-bold',
+    'py-4',
+    'px-form',
+    'transition',
+    'rounded-sm',
+    'hover:text-primary-500',
+    'hover:bg-base-50',
+    'focus:ring',
+    'focus:ring-primary-600',
+    'focus:z-10',
+    '[&>.summary]:w-full',
+    '[&>.summary]:text-xs',
+    '[&>.summary]:font-light',
+    '[&>.summary]:leading-tight',
+    '[&>.summary]:ml-7',
+    required ? 'js-form-required',
+    required ? 'form-required',
+  ]
+%}
+{%
+  set content_classes = [
+    'm-6',
+    '-mt-4',
+  ]
+%}
+
+{% block summary %}
+  <div class="w-7 grow-0">
+    <svg class="transform group-open:rotate-180" fill="none" height="20" width="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </div>
+  <div{{ summary_title_attributes.addClass('details--title') }}>{{ title }}</div>
+{% endblock %}

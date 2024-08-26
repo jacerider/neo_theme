@@ -1,0 +1,13 @@
+.messages {
+  @apply rounded-b border-t-4 border-success-500 bg-success-100 px-4 py-3 text-xs text-success-900 shadow-md;
+
+  &.messages--warning,
+  &.messages--warning-500 {
+    @apply border-warning-500 bg-warning-100 text-warning-900;
+  }
+
+  &.messages--error,
+  &.messages--alert-500 {
+    @apply border-alert-500 bg-alert-100 text-alert-900;
+  }
+}

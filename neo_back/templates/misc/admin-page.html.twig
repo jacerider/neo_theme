@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ * Default theme implementation for an administrative page.
+ *
+ * Available variables:
+ * - system_compact_link: Themed link to toggle compact view.
+ * - containers: A list of administrative blocks keyed by position: left or
+ *   right. Contains:
+ *   - blocks: A list of blocks within a container.
+ *
+ * @see template_preprocess_admin_page()
+ *
+ * @ingroup themeable
+ */
+#}
+
+<div class="admin-page">
+  {{ system_compact_link }}
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {% for container in containers %}
+      <div class="layout-column layout-column--half">
+        {% for block in container.blocks %}
+          {{ block }}
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+</div>

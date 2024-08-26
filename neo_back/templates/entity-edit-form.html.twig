@@ -1,0 +1,36 @@
+{#
+/**
+ * @file
+ * Theme override for a node edit form.
+ *
+ * Two column template for the node add/edit form.
+ *
+ * This template will be used when a node edit form specifies 'node_edit_form'
+ * as its #theme callback.  Otherwise, by default, node add/edit forms will be
+ * themed by form.html.twig.
+ *
+ * Available variables:
+ * - form: The node add/edit form.
+ *
+ * @see neo_back_form_node_form_alter()
+ */
+#}
+<div class="layout-entity-form lg:grid lg:grid-cols-[minmax(0,3fr)_minmax(26rem,1fr)] lg:grid-rows-[auto_1fr]">
+  <div class="layout-region layout-region--entity-main [&>*:first-child]:lg:-mt-form">
+    <div class="layout-region--content">
+      {{ form|without('advanced', 'footer', 'actions') }}
+    </div>
+  </div>
+  <div class="layout-region layout-region--entity-secondary lg:row-span-2 lg:ml-form">
+    <div class="layout-region--content">
+      {{ form.advanced }}
+    </div>
+  </div>
+  <div class="layout-region layout-region--entity-footer [&>*:last-child]:lg:-my-form">
+    <div class="layout-region--content">
+      <div class="divider h-0.5 bg-base-200 mt-form"></div>
+      {{ form.footer }}
+      {{ form.actions }}
+    </div>
+  </div>
+</div>

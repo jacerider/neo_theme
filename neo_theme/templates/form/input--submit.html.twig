@@ -1,0 +1,14 @@
+{% extends 'input.html.twig' %}
+
+{%
+  set classes = [
+    'button',
+  ]
+%}
+{% block input %}
+  {% if as_input %}
+    <input{{ attributes.addClass(classes) }} />{{ children }}
+  {% else %}
+    <button{{ attributes|without('type').addClass(classes) }} >{% if title %}{{ title }}{% else %}{{ attributes.value }}{% endif %}</button>{{ children }}
+  {% endif %}
+{% endblock %}

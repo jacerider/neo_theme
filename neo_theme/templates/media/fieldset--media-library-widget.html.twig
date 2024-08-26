@@ -1,0 +1,27 @@
+{% extends 'fieldset--group.html.twig' %}
+
+{%
+  set attributes = attributes.addClass('relative')
+%}
+
+{% block prefix %}
+  <span class="block mb-2 text-sm media-library-widget--prefix">
+    {% if prefix.weight_toggle %}
+      {{ prefix.weight_toggle|add_class('compact-link compact-float') }}
+    {% endif %}
+    {{ prefix|without('weight_toggle') }}
+  </span>
+{% endblock %}
+
+{% block children %}
+  {{ attach_library('neo_theme/media.library') }}
+  {{ children }}
+{% endblock %}
+
+{% block suffix %}
+  <span class="block mt-2 text-sm media-library-widget--suffix">{{ suffix }}</span>
+{% endblock %}
+
+{% block description %}
+  <div{{ description.attributes.addClass('!mt-2', base_description_classes, description_classes) }}>{{ description.content }}</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+form,
+.ui-dialog-buttonset {
+  .button {
+    @apply btn;
+  }
+
+  .button--primary {
+    @apply btn btn-primary font-bold;
+  }
+
+  .button--danger {
+    @apply btn btn-danger;
+  }
+
+  .ui-dialog-buttonset {
+    > button {
+      @apply mx-4;
+    }
+  }
+}
+
+body .ui-dialog:not(.ui-dialog-off-canvas) .ui-dialog-buttonpane button {
+  @apply mx-1;
+
+  &:first-child {
+    @apply ml-0;
+  }
+
+  &:last-child {
+    @apply mr-0;
+  }
+}

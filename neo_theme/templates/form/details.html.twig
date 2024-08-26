@@ -1,0 +1,58 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a details element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the details element.
+ * - errors: (optional) Any errors for this details element, may not be set.
+ * - title: (optional) The title of the element, may not be set.
+ * - summary_attributes: A list of HTML attributes for the summary element.
+ * - description: (optional) The description of the element, may not be set.
+ * - children: (optional) The children of the element, may not be set.
+ * - value: (optional) The value of the element, may not be set.
+ * - is_tab: (optional) Will be TRUE if the details element is a tab.
+ *
+ * @see template_preprocess_details()
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = classes is defined ? classes : []
+%}
+{%
+  set summary_title_classes = summary_title_classes is defined ? summary_title_classes : ['details--title']
+%}
+{%
+  set content_classes = content_classes is defined ? content_classes : ['details--content']
+%}
+{%
+  set description_classes = description_classes is defined ? description_classes : ['details--description', 'text-xs', 'my-4']
+%}
+<details{{ attributes.addClass(classes) }}>
+  {%- if title -%}
+    <summary{{ summary_attributes.addClass(summary_classes) }}>
+      {% block summary %}
+        <div{{ summary_title_attributes.addClass(summary_title_classes) }}>{{ title }}</div>
+      {% endblock %}
+    </summary>
+  {%- endif -%}
+
+  <div{{ content_attributes.addClass(content_classes) }}>
+    {% if errors %}
+      <div>
+        {{ errors }}
+      </div>
+    {% endif %}
+
+    {% if description %}
+      <div{{ description_attributes.addClass(description_classes) }}>
+        {{ description }}
+      </div>
+    {% endif %}
+
+    {{ children }}
+    {{ value }}
+  </div>
+</details>

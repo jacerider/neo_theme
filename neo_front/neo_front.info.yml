@@ -1,0 +1,13 @@
+name: Neo | Frontend
+type: theme
+description: 'An opinionated frontend theme.'
+package: Neo
+base theme: neo_theme
+core_version_requirement: 10.x
+neo:
+  scope: front
+regions:
+  header: Header
+  status: Status
+  content: Content
+  footer: Footer

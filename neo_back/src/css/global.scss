@@ -1,0 +1,21 @@
+////////////////////////////////////////////////////////////////////////////////
+// COMPONENT
+// -----------------------------------------------------------------------------
+// For smaller components, there is the components/ folder. While region/ is
+// kind of macro (defining the global wireframe), components/ is more micro. It
+// can contain all kinds of specific modules like a slider, a loader, a widget,
+// or anything along those lines. There are usually a lot of files in
+// components/ since your site should be mostly composed of tiny modules.
+@import 'components/**/*.scss';
+
+body {
+  @apply relative z-0 text-base font-normal;
+}
+
+.page-wrapper {
+  @apply bg-base-50;
+}
+
+.sticky-header {
+  @apply z-40;
+}

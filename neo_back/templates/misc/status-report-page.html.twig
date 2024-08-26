@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the status report page.
+ *
+ * Available variables:
+ * - counters: The list of counter elements.
+ * - general_info: A render array to create general info element.
+ * - requirements: A render array to create requirements table.
+ *
+ * @see template_preprocess_status_report()
+ */
+#}
+
+{% if counters|length == 3 %}
+  {% set element_width_class = ' grid-cols-1 md:grid-cols-3' %}
+{% elseif counters|length == 2 %}
+  {% set element_width_class = ' grid-cols-1 md:grid-cols-2' %}
+{% endif %}
+
+<div class="grid gap-6{{ element_width_class }}">
+  {% for counter in counters %}
+    {{ counter }}
+  {% endfor %}
+</div>
+
+{{ general_info }}
+
+{{ requirements }}

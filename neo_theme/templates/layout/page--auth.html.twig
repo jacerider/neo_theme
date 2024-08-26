@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Theme override to display the login page.
+ *
+ * @see template_preprocess_page()
+ * @see html.html.twig
+ */
+#}
+{%
+  set page_classes = [
+    'section',
+    'page',
+  ]
+%}
+
+<div{{ attributes.addClass(page_classes) }}>
+  <a id="main-content" tabindex="-1"></a>
+  <main class="section main flex items-center justify-center w-screen min-h-screen" role="main">
+    <div class="max-w-lg border bg-white shadow rounded my-6 [&_.block]:p-6 [&_.block]:m-0 [&_.block]:w-full [&_.block]:flex [&_.block]:justify-center [&_form]:p-6">
+      {% if logo %}
+        <div class="p-6">
+          {{ logo }}
+        </div>
+      {% endif %}
+      {{ page.status }}
+      {{ page.content }}
+    </div>
+  </main>
+</div>{# /.layout-container #}

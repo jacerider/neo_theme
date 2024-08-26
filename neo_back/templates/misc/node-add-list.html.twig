@@ -1,0 +1,36 @@
+{#
+/**
+ * @file
+ * Default theme implementation to list node types available for adding content.
+ *
+ * This list is displayed on the Add content admin page.
+ *
+ * Available variables:
+ * - types: A list of content types, each with the following properties:
+ *   - add_link: Link to create a piece of content of this type.
+ *   - description: Description of this type of content.
+ *
+ * @see template_preprocess_node_add_list()
+ *
+ * @ingroup themeable
+ */
+#}
+{% if types is not empty %}
+  <dl{{ attributes.addClass(classes, 'card mt-6 first:mt-0') }}>
+    {% for type in types %}
+      <div class="px-6 py-4 border-b border-base-300 list-group--item last:border-b-0">
+        <dt class="list-group--link font-bold text-lg [&_a]:text-primary-500 [&_a:hover]:text-primary-700">{{ type.add_link }}</dt>
+        {% if type.description %}
+          <dd class="text-xs list-group--description">{{ type.description }}</dd>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </dl>
+{% else %}
+  <p>
+    {% set create_content = path('node.type_add') %}
+    {% trans %}
+      You have not created any content types yet. Go to the <a href="{{ create_content }}">content type creation page</a> to add a new content type.
+    {% endtrans %}
+  </p>
+{% endif %}

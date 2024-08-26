@@ -1,0 +1,53 @@
+{#
+/**
+ * @file
+ * Theme override to display a view of unformatted rows.
+ *
+ * @see template_preprocess_views_view_unformatted()
+ */
+#}
+{%
+  set base_classes = base_classes is defined ? base_classes : []
+%}
+{%
+  set classes = classes is defined ? classes : []
+%}
+{%
+  set base_row_classes = base_row_classes is defined ? base_row_classes : []
+%}
+{%
+  set row_classes = row_classes is defined ? row_classes : []
+%}
+{% if base_classes or classes %}
+  {%
+    set wrapper_attributes = create_attribute()
+  %}
+  <div{{ wrapper_attributes.addClass(base_classes, classes) }}>
+{% endif %}
+{% if title %}
+  <div{{ attributes.addClass('views-group') }}>
+  <h3>{{ title }}</h3>
+{% endif %}
+{% for row in rows %}
+  {%
+    set showWrapper = default_row_class or row.attributes.toArray|length
+  %}
+  {% if showWrapper %}
+    {%
+      set inline_row_classes = [
+        default_row_class ? 'views-row',
+      ]
+    %}
+    <div{{ row.attributes.addClass(base_row_classes, inline_row_classes, row_classes) }}>
+  {% endif %}
+    {{ row.content }}
+  {% if showWrapper %}
+    </div>
+  {% endif %}
+{% endfor %}
+{% if title %}
+  </div>
+{% endif %}
+{% if base_classes or classes %}
+  </div>
+{% endif %}

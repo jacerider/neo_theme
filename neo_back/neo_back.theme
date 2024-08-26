@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the neo theme.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function neo_back_theme() {
+  return [
+    'entity_edit_form' => [
+      'render element' => 'form',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter() for \Drupal\node\NodeForm.
+ *
+ * Changes vertical tabs to container.
+ */
+function neo_back_form_node_form_alter(&$form, FormStateInterface $form_state) {
+  /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+  $form_object = $form_state->getFormObject();
+  /** @var \Drupal\node\NodeInterface $entity */
+  $entity = $form_object->getEntity();
+
+  $form['#theme'] = ['entity_edit_form'];
+
+  $form['advanced']['#type'] = 'container';
+  $form['advanced']['#group_type'] = 'accordion';
+
+  $form['meta']['#type'] = 'container';
+  $form['meta']['#access'] = TRUE;
+  $form['meta']['#attributes']['class'][] = 'card';
+  $form['meta']['#attributes']['class'][] = 'px-form-item';
+
+  if (isset($form['meta']['published'])) {
+    $form['meta']['published']['#wrapper_attributes']['class'][] = 'mt-0';
+    $form['meta']['published']['#wrapper_attributes']['class'][] = '-ml-form-item';
+    $form['meta']['published']['#wrapper_attributes']['class'][] = '-mr-form-item';
+    $form['meta']['published']['#wrapper_attributes']['class'][] = 'px-form-item';
+    $form['meta']['published']['#wrapper_attributes']['class'][] = 'py-4';
+    $form['meta']['published']['#wrapper_attributes']['class'][] = 'font-bold';
+    $form['meta']['published']['#wrapper_attributes']['class'][] = 'rounded-t-sm';
+    if ($entity->isPublished()) {
+      $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-success-500';
+      $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-success-content-500';
+    }
+    else {
+      $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-warning-500';
+      $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-warning-content-500';
+    }
+  }
+
+  $form['revision_information']['#type'] = 'container';
+  $form['revision_information']['#group'] = 'meta';
+  $form['revision_information']['#attributes']['class'][] = 'entity-meta--revision';
+}

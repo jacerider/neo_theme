@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the status report counter.
+ *
+ * Available variables:
+ * - amount: The number shown on counter.
+ * - text: The text shown on counter.
+ * - severity: The severity of the counter.
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% if severity == 'error' %}
+  {% set element_classes = ' bg-alert-500 border-alert-600' %}
+  {% set button_classes = ' bg-alert-700 hover:bg-alert-800' %}
+{% elseif severity == 'warning' %}
+  {% set element_classes = ' bg-warning-500 border-warning-600' %}
+  {% set button_classes = ' bg-warning-700 hover:bg-warning-800' %}
+{% elseif severity == 'checked' %}
+  {% set element_classes = ' bg-success-500 border-success-600' %}
+  {% set button_classes = ' bg-success-700 hover:bg-success-800' %}
+{% endif %}
+
+<div class="rounded border p-6 text-white shadow-default shadow-sm{{ element_classes }}">
+  <div class="text-lg font-bold">{{ amount }} {{ text }}</div>
+  <a href="#{{ severity }}" class="inline-block font-bold text-xs py-2 px-4 rounded mt-1{{ button_classes }}"><span class="visually-hidden">{{ text }} </span>{{ 'Details'|t }}</a>
+</div>

@@ -1,0 +1,155 @@
+name: Neo | Theme
+type: theme
+description: 'An opinionated core of blessings.'
+package: Neo
+base theme: FALSE
+core_version_requirement: 10.x
+dependencies:
+  - neo_build:neo_build
+
+neo:
+  scope:
+    - front
+    - back
+  theme:
+    extend:
+      spacing:
+        form: 'var(--form-spacing, 0)'
+        form-item: 'var(--form-item-spacing, 1.5rem)'
+        displace-t: 'var(--drupal-displace-offset-top, 0)'
+        displace-r: 'var(--drupal-displace-offset-right, 0)'
+        displace-b: 'var(--drupal-displace-offset-bottom, 0)'
+        displace-l: 'var(--drupal-displace-offset-left, 0)'
+  components:
+    .h-displace-y:
+      minHeight: 'calc(100vh - var(--drupal-displace-offset-top, 0px) - var(--drupal-displace-offset-bottom, 0px))'
+    .min-h-displace-y:
+      minHeight: 'calc(100vh - var(--drupal-displace-offset-top, 0px) - var(--drupal-displace-offset-bottom, 0px))'
+    .card:
+      '@apply block': {}
+    .form-label:
+      '@apply block font-bold text-base-600 text-sm mb-1': {}
+    .form-description:
+      '@apply text-base-400 text-xs font-light mt-0.5': {}
+    .form-item .description:
+      '@apply form-description': {}
+    .focus:
+      '@apply focus:outline-none focus:ring focus:ring-primary-600 focus:ring-offset-2': {}
+    .btn:
+      '@apply border-0 bg-base text-base-content hover:bg-base-700 hover:text-base-content inline-block py-2 px-4 rounded focus cursor-pointer mr-2 last:mr-0 transition': {}
+    .btn-outline:
+      '@apply border-2 border-base bg-transparent text-base-500 hover:bg-base hover:text-base-content': {}
+    .btn-primary:
+      '@apply bg-primary text-primary-content hover:bg-primary-700': {}
+    .btn-primary-outline:
+      '@apply border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-content': {}
+    .btn-secondary:
+      '@apply bg-secondary text-secondary-content hover:bg-secondary-700': {}
+    .btn-secondary-outline:
+      '@apply border-2 border-secondary bg-transparent text-secondary hover:bg-secondary hover:text-secondary-content': {}
+    .btn-accent:
+      '@apply bg-accent text-accent-content hover:bg-accent-700': {}
+    .btn-accent-outline:
+      '@apply border-2 border-accent bg-transparent text-accent hover:bg-accent hover:text-accent-content': {}
+    .btn-base:
+      '@apply bg-base text-base-content hover:bg-base-700': {}
+    .btn-danger:
+      '@apply bg-transparent text-alert hover:bg-alert-100': {}
+    .btn-text:
+      '@apply bg-transparent text-primary hover:bg-transparent hover:text-primary-700 first:pl-0 last:pr-0': {}
+    .btn-sm:
+      '@apply text-sm px-3 py-2': {}
+    .btn-xs:
+      '@apply text-xs px-2 py-1': {}
+    .btn-lg:
+      '@apply text-lg': {}
+    .local-action:
+      '@apply btn btn-primary': {}
+
+libraries:
+  - neo_theme/global
+libraries-extend:
+  # core/drupal.ajax:
+  #   - neo_theme/ajax
+  core/drupal.vertical-tabs:
+    - neo_theme/vertical-tabs
+  core/drupal.tabledrag:
+    - neo_theme/tabledrag
+  core/drupal.dropbutton:
+    - neo_theme/dropbutton
+  core/drupal.dialog:
+    - neo_theme/dialog
+  # media_library/view:
+  #   - neo_theme/media.library
+libraries-override:
+  system/base:
+    css:
+      component:
+        css/components/ajax-progress.module.css: false
+        css/components/align.module.css: false
+        css/components/autocomplete-loading.module.css: false
+        css/components/fieldgroup.module.css: false
+        css/components/container-inline.module.css: false
+        css/components/clearfix.module.css: false
+        css/components/details.module.css: false
+        css/components/hidden.module.css: false
+        css/components/item-list.module.css: false
+        css/components/js.module.css: false
+        css/components/nowrap.module.css: false
+        css/components/position-container.module.css: false
+        css/components/progress.module.css: false
+        css/components/reset-appearance.module.css: false
+        css/components/resize.module.css: false
+        css/components/sticky-header.module.css: false
+        css/components/system-status-counter.css: false
+        css/components/system-status-report-counters.css: false
+        css/components/system-status-report-general-info.css: false
+        css/components/tabledrag.module.css: false
+        css/components/tablesort.module.css: false
+        css/components/tree-child.module.css: false
+  system/admin:
+    css:
+      theme:
+        css/system.admin.css: false
+  core/drupal.dialog.off_canvas:
+    css:
+      theme:
+        misc/dialog/off-canvas.theme.css: false
+  core/drupal.dropbutton:
+    css:
+      component:
+        misc/dropbutton/dropbutton.css: false
+  core/drupal.vertical-tabs:
+    css:
+      component:
+        misc/vertical-tabs.css: false
+  core/drupal.autocomplete:
+    css:
+      theme:
+        assets/vendor/jquery.ui/themes/theme/theme.css: false
+  core/drupal.tabbingmanager:
+    css:
+      theme:
+        assets/vendor/jquery.ui/themes/theme/theme.css: false
+  core/drupal.dialog:
+    css:
+      component:
+        assets/vendor/jquery.ui/themes/theme/dialog.css: false
+      theme:
+        assets/vendor/jquery.ui/themes/theme/theme.css: false
+  menu_ui/drupal.menu_ui.adminforms:
+    css:
+      theme:
+        css/menu_ui.admin.css: false
+  user/drupal.user:
+    css:
+      component:
+        css/user.module.css: false
+  address/form:
+    css:
+      theme:
+        css/address.form.css: false
+  # toolbar/toolbar:
+  #   css:
+  #     theme:
+  #       css/toolbar.theme.css: false

@@ -1,0 +1,22 @@
+{% extends 'form-element.html.twig' %}
+
+{%
+  set base_classes = base_classes is defined ? base_classes : [
+    'display-item',
+  ]
+%}
+{%
+  set classes = classes is defined ? classes : []
+%}
+{%
+  set base_description_classes = [
+    'description',
+    description_display == 'invisible' ? 'visually-hidden',
+  ]
+%}
+{%
+  set description_classes = description_classes is defined ? description_classes : []
+%}
+{%
+  set supports_inline = supports_inline is defined ? supports_inline : true
+%}

@@ -1,0 +1,86 @@
+table {
+  // Check field UI before changing.
+  td > .form-wrapper,
+  td > .form-item {
+    @apply m-0 font-normal;
+  }
+
+  td > .form-type--select select {
+    @apply min-w-96;
+  }
+
+  .draggable {
+    a.tabledrag-handle {
+      @apply flex cursor-move items-center pr-2;
+
+      .handle {
+        display: block;
+        width: 16px;
+        height: 16px;
+        padding: 0;
+        margin: 0;
+        background-position: 0 0;
+      }
+    }
+  }
+
+  tr {
+    &.region-populated,
+    &.add-new .tabledrag-changed {
+      @apply hidden;
+    }
+  }
+
+  .marker {
+    @apply h-4 w-4 rounded-full bg-primary-500 px-2 py-px text-xs text-primary-content shadow-sm;
+  }
+
+  .button {
+    @apply m-0;
+  }
+
+  td {
+    &,
+    li {
+      @apply text-sm;
+    }
+
+    &.td--min,
+    &.td--operations,
+    &.td--status,
+    &.td--enabled,
+    &.td--id,
+    &.td--created,
+    &.td--updated,
+    &.td--author,
+    &.td--content-type,
+    &.td--node-bulk-form,
+    &.td--type-image {
+      width: 1%;
+      white-space: nowrap;
+    }
+
+    &.td--name,
+    &.td--title,
+    &.td--label,
+    &.td--menu-link {
+      @apply text-base font-bold leading-tight;
+
+      small {
+        @apply text-xs font-normal text-base-500;
+      }
+    }
+
+    &.td--center {
+      @apply text-center;
+    }
+
+    a {
+      @apply text-primary-500 transition-colors hover:text-primary-700;
+    }
+  }
+}
+
+.tabledrag-toggle-weight-wrapper {
+  @apply flex justify-end;
+}

@@ -1,0 +1,26 @@
+.region--content > article {
+  div[class^='field--name-'],
+  div[class*=' field--name-'] {
+    @apply my-2 border-b pb-2;
+
+    > .field--label {
+      @apply text-xs font-light;
+    }
+
+    > .field--item {
+      @apply text-sm text-black;
+    }
+
+    &.field--label-inline {
+      @apply flex items-center;
+
+      > .field--label {
+        @apply mr-2;
+
+        &::after {
+          content: ':';
+        }
+      }
+    }
+  }
+}

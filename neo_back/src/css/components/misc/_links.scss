@@ -1,0 +1,30 @@
+small .admin-link {
+  &::before {
+    content: ' [';
+  }
+
+  &::after {
+    content: ']';
+  }
+}
+
+table .button,
+form table .button {
+  @apply btn btn-primary-outline btn-xs;
+}
+
+.tabledrag-toggle-weight-wrapper .tabledrag-toggle-weight {
+  @apply btn btn-xs mb-2;
+}
+
+.compact-link {
+  @apply text-right text-xs;
+
+  &.compact-float {
+    @apply md:absolute md:right-form-item md:top-form-item;
+  }
+}
+
+.token-dialog {
+  @apply btn btn-xs;
+}

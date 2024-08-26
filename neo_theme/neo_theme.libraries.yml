@@ -1,0 +1,82 @@
+global:
+  version: VERSION
+  neo: { group: contrib }
+  css:
+    theme:
+      src/css/global.scss: { minified: true }
+  # js:
+  #   src/js/global.ts: { minified: true }
+  dependencies:
+    - core/once
+    - core/drupal
+
+form:
+  version: VERSION
+  neo: { group: contrib }
+  css:
+    theme:
+      src/css/form.scss: { minified: true }
+
+vertical-tabs:
+  version: VERSION
+  neo: { scope: back, group: contrib }
+  css:
+    theme:
+      src/css/vertical-tabs.scss: { minified: true }
+  js:
+    src/js/vertical-tabs.ts: {}
+
+ajax:
+  version: VERSION
+  neo: { group: contrib }
+  css:
+    theme:
+      src/css/ajax.scss: { minified: true }
+  js:
+    src/js/ajax.js: {}
+
+progress:
+  version: VERSION
+  neo: { group: contrib }
+  css:
+    theme:
+      src/css/progress.scss: { minified: true }
+
+tabledrag:
+  version: VERSION
+  neo: { group: contrib }
+  css:
+    theme:
+      src/css/draggable.scss: { minified: true }
+  js:
+    src/js/tabledrag.js: {}
+
+dropbutton:
+  version: VERSION
+  neo: { group: contrib }
+  css:
+    theme:
+      src/css/dropbutton.scss: { minified: true }
+
+dialog:
+  version: VERSION
+  neo: { group: contrib }
+  css:
+    theme:
+      src/css/dialog.scss: { minified: true }
+
+password:
+  version: VERSION
+  neo: { scope: back, group: contrib }
+  css:
+    theme:
+      src/css/password.scss: { minified: true }
+
+media.library:
+  version: VERSION
+  neo: { group: contrib }
+  css:
+    theme:
+      src/css/media.library.scss: { minified: true }
+  js:
+    src/js/media.library.js: {}

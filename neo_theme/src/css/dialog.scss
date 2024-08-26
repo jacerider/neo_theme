@@ -1,0 +1,47 @@
+@use 'neo-icon';
+
+.ui-dialog:not(.ui-dialog-off-canvas) {
+  @apply rounded-md border-0 p-0 shadow-xl;
+
+  .ui-dialog-titlebar {
+    @apply rounded-none rounded-t border-0 bg-primary-800 px-6 py-3 text-primary-content;
+
+    .ui-button {
+      @apply right-6 top-4 m-0 h-5 w-5 border-0 p-0 opacity-70 transition;
+
+      &:hover {
+        @apply bg-transparent opacity-100;
+      }
+    }
+
+    .ui-button-icon.ui-icon.ui-icon-closethick {
+      @apply left-0 top-0 m-0 flex h-6 w-6 items-center justify-center rounded bg-white indent-0;
+      @include neo-icon.icon('times', before) {
+        @apply text-lg text-primary-800;
+      }
+
+      background-image: none;
+      // mask-image: url('../../images/sprite.svg#close-view');
+    }
+  }
+
+  .ui-dialog-content {
+    @apply p-6;
+  }
+
+  .ui-dialog-buttonpane {
+    @apply m-0 flex items-center rounded-none rounded-b border-t bg-base-100 px-6 py-3 text-base text-primary-content;
+
+    .ui-dialog-buttonset {
+      @apply order-2 ml-auto pl-form-item;
+    }
+
+    button {
+      @apply m-0;
+    }
+  }
+}
+
+.ui-widget-overlay {
+  @apply bg-black opacity-60;
+}

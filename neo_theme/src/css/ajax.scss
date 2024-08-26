@@ -1,0 +1,7 @@
+.ajax-progress-throbber {
+  @apply mx-2 inline-flex h-5 items-center justify-center text-base text-xs leading-tight;
+
+  .throbber {
+    @apply mr-1 h-3 w-3 animate-spin;
+  }
+}

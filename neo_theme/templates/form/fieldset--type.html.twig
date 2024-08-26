@@ -1,0 +1,28 @@
+{% extends 'fieldset.html.twig' %}
+
+{%
+  set classes = [
+    'card',
+    'text-base',
+    'my-form-item',
+    'p-6',
+  ]
+%}
+{%
+  set legend_classes = [
+    'mb-6',
+  ]
+%}
+{%
+  set legend_span_classes = [
+    'font-bold',
+    'text-base',
+  ]
+%}
+{%
+  set content_classes = content_classes is defined ? content_classes : [
+    '[&>*:last-child]:mb-0',
+    '[&>p]:my-form-item',
+    '[&>p]:text-sm',
+  ]
+%}

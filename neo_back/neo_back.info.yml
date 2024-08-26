@@ -1,0 +1,29 @@
+name: Neo | Backend
+type: theme
+description: 'An opinionated backend theme.'
+package: Neo
+base theme: neo_theme
+core_version_requirement: 10.x
+libraries:
+  - neo_back/global
+
+neo:
+  scope: back
+  components:
+    .card:
+      '@apply block rounded-sm border border-base-200 bg-white dark:border-base-600 dark:bg-base-800 shadow-sm': {}
+
+regions:
+  status: Status
+  breadcrumb: Breadcrumb
+  header: Header
+  content: Content
+  footer: Footer
+
+libraries-extend:
+  core/drupal.dialog.ajax:
+    - neo_back/dialog-ajax
+  field_ui/drupal.field_ui.manage_fields:
+    - neo_back/field-ui
+  views_ui/views_ui.admin:
+    - neo_back/views-admin

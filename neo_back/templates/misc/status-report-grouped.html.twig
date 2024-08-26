@@ -1,0 +1,60 @@
+{#
+/**
+ * @file
+ * Default theme implementation of grouped status report requirements.
+ *
+ * - grouped_requirements: Contains grouped requirements.
+ *   Each group contains:
+ *   - title: The title of the group.
+ *   - type: The severity of the group.
+ *   - items: The requirement instances.
+ *     Each requirement item contains:
+ *     - title: The title of the requirement.
+ *     - value: (optional) The requirement's status.
+ *     - description: (optional) The requirement's description.
+ *     - severity_title: The title of the severity.
+ *     - severity_status: Indicates the severity status.
+ */
+#}
+{{ attach_library('core/drupal.collapse') }}
+
+<div>
+  {% for group in grouped_requirements %}
+    {% if group.type == 'error' %}
+      {% set icon_classes = ' bg-alert' %}
+      {% set svg_classes = ' fill-white stroke-white' %}
+    {% elseif group.type == 'warning' %}
+      {% set icon_classes = ' bg-warning' %}
+      {% set svg_classes = ' fill-white stroke-white' %}
+    {% elseif group.type == 'checked' %}
+      {% set icon_classes = ' bg-base-100' %}
+      {% set svg_classes = ' fill-primary-500 stroke-primary-500 dark:fill-white dark:stroke-white' %}
+    {% endif %}
+    <div>
+      <h3 id="{{ group.type }}" class="mt-6 mb-3 text-xl font-semibold text-black dark:text-white">{{ group.title }}</h3>
+      {% for requirement in group.items %}
+        <details class="p-6 mb-6 text-base bg-white border rounded-sm group border-base-200 shadow-default dark:border-base-600 dark:bg-base-800 shadow-sm last:mb-0" {% if group.type != 'checked' %} open{% endif %}>
+          <summary class="flex items-center w-full list-none" role="button">
+            <div class="flex items-center justify-center rounded-md w-12 h-12{{ icon_classes }}">
+              <svg class="duration-200 ease-in-out group-open:rotate-180{{ svg_classes }}" width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.28882 8.43257L8.28874 8.43265L8.29692 8.43985C8.62771 8.73124 9.02659 8.86001 9.41667 8.86001C9.83287 8.86001 10.2257 8.69083 10.5364 8.41713L10.5365 8.41721L10.5438 8.41052L16.765 2.70784L16.771 2.70231L16.7769 2.69659C17.1001 2.38028 17.2005 1.80579 16.8001 1.41393C16.4822 1.1028 15.9186 1.00854 15.5268 1.38489L9.41667 7.00806L3.3019 1.38063L3.29346 1.37286L3.28467 1.36548C2.93287 1.07036 2.38665 1.06804 2.03324 1.41393L2.0195 1.42738L2.00683 1.44184C1.69882 1.79355 1.69773 2.34549 2.05646 2.69659L2.06195 2.70196L2.0676 2.70717L8.28882 8.43257Z" fill="" stroke=""></path>
+              </svg>
+            </div>
+            <div class="ml-6 text-lg font-bold text-black dark:text-white">
+              {% if requirement.severity_title %}
+                <span class="sr-only">{{ requirement.severity_title }}</span>
+              {% endif %}
+              {{ requirement.title }}
+            </div>
+          </summary>
+          <div class="pl-2 ml-16">
+            {{ requirement.value }}
+            {% if requirement.description %}
+              <div class="mt-1 text-xs italic">{{ requirement.description }}</div>
+            {% endif %}
+          </div>
+        </details>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</div>

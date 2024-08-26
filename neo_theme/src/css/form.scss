@@ -1,0 +1,83 @@
+form {
+  table {
+    @apply my-form-item;
+  }
+
+  .tabledrag-toggle-weight-wrapper {
+    @apply mt-form-item;
+  }
+
+  .tabledrag-toggle-weight-wrapper + table,
+  .tableresponsive-toggle-columns + table {
+    @apply mt-0;
+  }
+}
+
+.description {
+  // When a label is within a description, we treat it differently.
+  label {
+    @apply text-xs font-normal #{!important};
+  }
+}
+
+.ck-powered-by-balloon {
+  @apply hidden #{!important};
+}
+
+.form-disabled {
+  @apply opacity-40;
+}
+
+.form--inline,
+.form--inline-children > div,
+.form--inline > fieldset > .fieldset--content {
+  // @todo We need to align buttons to bottom of wrapper.
+  @apply flex items-start gap-4;
+
+  &::after {
+    display: none;
+  }
+
+  .form-actions {
+    @apply my-0 #{!important};
+    @apply self-end;
+  }
+
+  .form-item {
+    // Removed !important here as it caused issues with nexted form items.
+    @apply my-0;
+
+    input:not([type='checkbox']):not([type='radio']) {
+      @apply w-full;
+    }
+  }
+}
+
+.form--inline,
+.form--inline-children > div {
+  > * {
+    @apply flex-1;
+  }
+
+  & + div {
+    @apply mt-form-item;
+  }
+
+  div + & {
+    @apply mt-form-item;
+  }
+}
+
+.form-item.description {
+  @apply form-description my-form-item;
+}
+
+.neo-modal--content > form {
+  // &:first-child {
+  //   @apply -mt-form-item;
+  // }
+
+  // &:last-child {
+  //   @apply -mb-form-item;
+  // }
+}

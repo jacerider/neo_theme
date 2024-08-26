@@ -1,0 +1,33 @@
+@import 'elements/**/*.scss';
+
+html,
+body {
+  @apply bg-base-950;
+  scroll-behavior: smooth;
+}
+
+.page-wrapper {
+  min-height: calc(
+    100vh - var(--drupal-displace-offset-top, 0px) - var(
+        --drupal-displace-offset-bottom,
+        0px
+      )
+  );
+}
+
+.visually-hidden {
+  @apply sr-only #{!important};
+}
+
+.js-hide,
+.region-hidden-message {
+  @apply hidden #{!important};
+}
+
+.clearfix {
+  &::after {
+    display: table;
+    clear: both;
+    content: '';
+  }
+}

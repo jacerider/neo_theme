@@ -1,0 +1,23 @@
+{
+  "name": "jacerider/neo_theme",
+  "description": "A base, frontend and backend theme for use with Neo.",
+  "type": "drupal-theme",
+  "license": "proprietary",
+  "homepage": "https://github.com/jacerider/neo_theme",
+  "authors": [
+    {
+      "name": "Cyle Carlson (JaceRider)",
+      "email": "jacerider@gmail.com",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/jacerider/neo_theme/issues",
+    "source": "https://github.com/jacerider/neo_theme"
+  },
+  "minimum-stability": "dev",
+  "require": {
+    "drupal/core": "^10.3",
+    "jacerider/neo": "^1"
+  }
+}

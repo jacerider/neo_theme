@@ -1,0 +1,16 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a single local action link.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the wrapper element.
+ * - link: A rendered link element.
+ *
+ * @see template_preprocess_menu_local_action()
+ *
+ * @ingroup themeable
+ */
+#}
+
+<li{{ attributes.addClass('block mx-1 first:ml-0 last:mr-0') }}>{{ link|neo_class('local-action') }}</li>

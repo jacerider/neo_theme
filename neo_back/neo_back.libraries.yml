@@ -1,0 +1,28 @@
+global:
+  version: VERSION
+  neo: { scope: back, group: contrib }
+  css:
+    theme:
+      src/css/global.scss: { minified: true }
+
+field-ui:
+  version: VERSION
+  neo: { scope: back, group: contrib }
+  css:
+    theme:
+      src/css/field-ui.scss: { minified: true }
+
+views-admin:
+  version: VERSION
+  neo: { scope: back, group: contrib }
+  js:
+    src/js/views-admin.ts: {}
+  css:
+    theme:
+      src/css/views-admin.scss: { minified: true }
+
+dialog-ajax:
+  version: VERSION
+  neo: { scope: back, group: contrib }
+  js:
+    src/js/dialog-ajax.ts: {}
