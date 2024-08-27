@@ -1,0 +1,22 @@
+uuid: 2b024905-8e48-4d56-b745-298c11e4658a
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - back
+_core:
+  default_config_hash: aeqlWs7HwctZeZC7ADcbxfqehJzBRfZKmuZz3DsH3_4
+id: back_messages
+theme: back
+region: status
+weight: -2
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  label_display: '0'
+  provider: system
+visibility: {  }

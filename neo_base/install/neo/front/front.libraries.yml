@@ -1,0 +1,11 @@
+global:
+  version: VERSION
+  neo: true
+  css:
+    theme:
+      src/css/front.scss: { minified: true }
+  # js:
+  #   src/js/front.ts: { minified: true }
+  dependencies:
+    - core/once
+    - core/drupal

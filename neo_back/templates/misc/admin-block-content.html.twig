@@ -28,7 +28,7 @@
   <dl{{ attributes.addClass(classes, 'card mt-6 first:mt-0') }}>
     {% for item in content %}
       <div class="px-6 py-4 border-b border-base-200 list-group--item last:border-b-0">
-        <dt class="list-group--link font-bold text-lg [&_a]:text-primary-500 [&_a:hover]:text-primary-700">{{ item.link }}</dt>
+        <dt class="list-group--link">{{ item.link|neo_class(['font-bold', 'text-lg', 'text-primary-500', 'hover::text-primary-700', '[&>i]:text-primary-700']) }}</dt>
         {% if item.description %}
           <dd class="text-xs list-group--description">{{ item.description }}</dd>
         {% endif %}

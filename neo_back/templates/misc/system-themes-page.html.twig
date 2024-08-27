@@ -74,7 +74,7 @@
               <div class="text-sm">{{ theme.description }}</div>
               {% if theme.module_dependencies %}
                 <div class="theme--requires">
-                  {{ 'Requires: @module_dependencies'|t({'@module_dependencies': theme.module_dependencies|render}) }}
+                  {{ 'Requires: @module_dependencies'|t({'@module_dependencies': theme.module_dependencies|neo_class(['flex', 'text-xs', 'text-base-500'])|render}) }}
                 </div>
               {% endif %}
               {# Display operation links if the theme is compatible. #}

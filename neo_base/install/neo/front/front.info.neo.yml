@@ -1,0 +1,39 @@
+name: Front
+type: theme
+description: 'A theme based on Neo | Front.'
+package: Neo
+base theme: neo_front
+core_version_requirement: 10.x
+neo:
+  scope: front
+  components:
+    .max-w-content:
+      '@apply max-w-[1500px] ml-auto mr-auto': {}
+    .btn:
+      '@apply border-0 bg-base text-base-content font-bold hover:bg-base-700 hover:text-base-content inline-block py-3 px-6 rounded-full focus cursor-pointer mr-2 last:mr-0 transition': {}
+    .btn-xs:
+      '@apply text-xs px-2 py-1 font-normal': {}
+    .px-content:
+      '@apply px-4 md:px-10 xl:px-20': {}
+    .py-content:
+      '@apply py-4 md:py-6': {}
+    .pt-content:
+      '@apply pt-4 md:pt-6': {}
+    .pb-content:
+      '@apply pb-4 md:pb-6': {}
+    .py-component:
+      '@apply py-4 md:py-10': {}
+    .btn-secondary:
+      '@apply bg-secondary-500 text-secondary-800 hover:bg-secondary-700': {}
+    .btn-secondary-outline:
+      '@apply border-2 border-secondary-500 bg-transparent text-white font-bold hover:bg-secondary-500': {}
+    .btn-white-outline:
+      '@apply border-2 border-white bg-transparent text-white font-bold hover:bg-white hover:text-primary-500': {}
+
+libraries:
+  - front/global
+regions:
+  header: Header
+  status: Status
+  content: Content
+  footer: Footer

@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.visually-hidden {
+  @apply sr-only;
+}
+
+a {
+  @apply text-primary-500 transition-colors hover:text-primary-700;
+}
+
+.region--inset + .main--content {
+  @apply ml-48 md:ml-72;
+}
+
+.region--content {
+  > form {
+    @apply px-content;
+
+    &:first-child {
+      @apply pt-content;
+    }
+
+    &:last-child {
+      @apply pb-content;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// COMPONENT
+// -----------------------------------------------------------------------------
+// For smaller components, there is the components/ folder. While region/ is
+// kind of macro (defining the global wireframe), components/ is more micro. It
+// can contain all kinds of specific modules like a slider, a loader, a widget,
+// or anything along those lines. There are usually a lot of files in
+// components/ since your site should be mostly composed of tiny modules.
+@import 'components/**/*.scss';

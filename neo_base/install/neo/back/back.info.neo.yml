@@ -1,0 +1,15 @@
+name: Back
+type: theme
+description: 'A theme based on Neo | Back.'
+package: Neo
+base theme: neo_back
+core_version_requirement: 10.x
+neo: { scope: back }
+libraries:
+  - back/global
+regions:
+  status: Status
+  breadcrumb: Breadcrumb
+  header: Header
+  content: Content
+  footer: Footer

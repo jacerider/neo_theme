@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the neo theme.
+ */
+
+/**
+ * Implements hook_preprocess_radios().
+ */
+function back_preprocess_form_element_label(&$variables) {
+  if (isset($variables['title']['#markup']) && is_array($variables['title']['#markup'])) {
+    // $variables['title'] = $variables['title']['#markup'];
+  }
+}
