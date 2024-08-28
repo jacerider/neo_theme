@@ -39,6 +39,14 @@ table {
     @apply m-0;
   }
 
+  &.field-multiple-table {
+
+    .td--item {
+      width: auto;
+      white-space: wrap;
+    }
+  }
+
   td {
     &,
     li {
@@ -83,4 +91,8 @@ table {
 
 .tabledrag-toggle-weight-wrapper {
   @apply flex justify-end;
+}
+
+.js .field--widget-paragraphs td {
+  @apply p-2;
 }
