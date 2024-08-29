@@ -3,7 +3,8 @@ type: theme
 description: 'An opinionated base theme of blessings.'
 package: Neo
 base theme: FALSE
-core_version_requirement: 10.x
+version: 0.0.0
+core_version_requirement: ^10.3 || ^11
 dependencies:
   - neo:neo
   - neo_twig:neo_twig
