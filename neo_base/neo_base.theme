@@ -219,6 +219,7 @@ function neo_base_preprocess_checkboxes(&$variables) {
 
       case 'inline_buttons':
         $variables['attributes']['class'][] = 'flex';
+        $variables['attributes']['class'][] = 'flex-wrap';
         $variables['attributes']['class'][] = '[&>div]:mr-2';
         $variables['attributes']['class'][] = '[&>div:last-child]:mr-0';
         $variables['attributes']['class'][] = '[&_label]:block';
