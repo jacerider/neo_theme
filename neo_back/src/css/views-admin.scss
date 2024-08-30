@@ -23,7 +23,7 @@
   }
 
   .views-override:not(:empty) {
-    @apply card m-0 mx-2 bg-transparent p-form-item;
+    @apply card m-0 mx-form-item mt-form-item bg-transparent p-form-item;
   }
 
   .views-filterable-options {

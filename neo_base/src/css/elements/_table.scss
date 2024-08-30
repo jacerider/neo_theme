@@ -11,7 +11,7 @@ table {
 
   .draggable {
     a.tabledrag-handle {
-      @apply flex cursor-move items-center pr-2;
+      @apply float-start flex cursor-move items-center pr-2;
 
       .handle {
         display: block;
@@ -40,7 +40,6 @@ table {
   }
 
   &.field-multiple-table {
-
     .td--item {
       width: auto;
       white-space: wrap;
