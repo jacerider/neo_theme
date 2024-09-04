@@ -81,6 +81,10 @@
     {% if legend.title %}
       <legend{{ legend.attributes.addClass(base_legend_classes, legend_classes) }}>
         <span{{ legend_span.attributes.addClass(base_legend_span_classes, legend_span_classes) }}>{{ legend.title }}</span>
+        {% if required %}
+          <abbr class="font-normal form-required text-alert" aria-hidden="true">*</abbr>
+          <span class="visually-hidden">{{ 'required'|t }}</span>
+        {% endif %}
       </legend>
     {% endif %}
     <div{{ fieldset_content_attributes.addClass(base_content_classes, content_classes) }}>
