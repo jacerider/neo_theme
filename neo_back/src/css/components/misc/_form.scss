@@ -1,0 +1,48 @@
+@use 'neo-icon';
+
+form {
+  .button {
+    &[value^='Save'],
+    &[value^='Update'] {
+      @include neo-icon.icon('check-square', before) {
+        @apply mr-1;
+      }
+    }
+
+    &[value^='Delete'],
+    &[value^='Cancel'],
+    &[id$='-delete'] {
+      @apply btn-danger;
+      @include neo-icon.icon('times-square', before) {
+        @apply mr-1;
+      }
+    }
+
+    &[value^='Edit'] {
+      @include neo-icon.icon('edit', before) {
+        @apply mr-1;
+      }
+    }
+
+    &[value^='Remove'] {
+      @apply btn-danger;
+      @include neo-icon.icon('trash', before) {
+        @apply mr-1;
+      }
+    }
+
+    &[value^='Add'] {
+      @include neo-icon.icon('plus-square', before) {
+        @apply mr-1;
+      }
+    }
+
+    &[value^='Clone'],
+    &[value^='Copy'],
+    &[value^='Duplicate'] {
+      @include neo-icon.icon('clone', before) {
+        @apply mr-1;
+      }
+    }
+  }
+}

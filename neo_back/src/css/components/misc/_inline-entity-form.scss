@@ -1,0 +1,18 @@
+@use 'neo-icon';
+
+.ief-row-entity-form {
+  .table--cell {
+    @include neo-icon.icon('edit', before) {
+      @apply mr-1;
+    }
+  }
+}
+
+.ief-form {
+  // @apply p-form-item;
+
+  > .form-wrapper {
+    @apply m-form-item;
+    // @apply -mt-form-item;
+  }
+}

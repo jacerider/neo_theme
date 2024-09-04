@@ -81,7 +81,7 @@
               {% set columnClasses = columnClasses|merge([columnClass]) %}
               {%
                 set cell_classes = [
-                  'th--' ~ columnClass,
+                  columnClass ? 'th--' ~ columnClass,
                   cell.active_table_sort ? 'is-active',
                 ]
               %}

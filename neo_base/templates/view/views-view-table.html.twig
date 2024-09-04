@@ -68,7 +68,7 @@
               {% set columnClasses = columnClasses|merge([columnClass]) %}
               {%
                 set column_classes = [
-                  'th--' ~ columnClass,
+                  columnClass ? 'th--' ~ columnClass,
                   'views-field',
                   'views-field-' ~ fields[key],
                 ]
