@@ -25,6 +25,7 @@
   set base_classes = base_classes is defined ? base_classes : [
     has_parent ? 'js-form-wrapper',
     has_parent ? 'form-wrapper',
+    has_parent ? '': 'container',
   ]
 %}
 {%

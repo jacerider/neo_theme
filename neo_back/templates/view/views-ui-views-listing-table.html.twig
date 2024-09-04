@@ -29,19 +29,19 @@
     <tbody class="bg-white dark:bg-base-800">
       {% for row in rows %}
         <tr{{ row.attributes.addClass('border border-base-100 dark:border-base-700 hover:bg-base-50 transition') }}>
-          <td class="p-4 views-ui-view-name td--name text-base dark:text-base-400">
+          <td class="p-4 views-ui-view-name td--name">
             <strong data-drupal-selector="views-table-filter-text-source">{{ row.data.view_name.data }}</strong>
           </td>
-          <td class="p-4 views-ui-view-machine-name text-base dark:text-base-400" data-drupal-selector="views-table-filter-text-source">
+          <td class="p-4 views-ui-view-machine-name td--min" data-drupal-selector="views-table-filter-text-source">
             {{ row.data.machine_name.data }}
           </td>
-          <td class="p-4 views-ui-view-description text-base dark:text-base-400" data-drupal-selector="views-table-filter-text-source">
+          <td class="p-4 views-ui-view-description" data-drupal-selector="views-table-filter-text-source">
             {{ row.data.description.data }}
           </td>
-          <td class="p-4 views-ui-view-displays text-base dark:text-base-400">
+          <td class="p-4 views-ui-view-displays td--min">
             {{ row.data.displays.data }}
           </td>
-          <td class="p-4 views-ui-view-operations td--operations text-base dark:text-base-400">
+          <td class="p-4 views-ui-view-operations td--operations">
             {{ row.data.operations.data }}
           </td>
         </tr>

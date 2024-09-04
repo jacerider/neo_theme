@@ -19,3 +19,9 @@ body {
 .sticky-header {
   @apply z-40;
 }
+
+.container {
+  > h2 {
+    @apply my-form-item text-lg font-bold;
+  }
+}

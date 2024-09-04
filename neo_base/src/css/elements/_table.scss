@@ -52,6 +52,10 @@ table {
       @apply text-sm;
     }
 
+    &.td--xs {
+      @apply text-xs;
+    }
+
     &.td--min,
     &.td--operations,
     &.td--status,
