@@ -1,5 +1,4 @@
 global:
-  version: VERSION
   neo: true
   css:
     theme:
