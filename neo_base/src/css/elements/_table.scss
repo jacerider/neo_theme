@@ -39,6 +39,23 @@ table {
     @apply m-0;
   }
 
+  &.sticky-header {
+    thead tr {
+      @apply sticky z-10;
+      top: var(--drupal-displace-offset-top, 0px);
+
+      &:after {
+        @apply pointer-events-none absolute block border shadow-md;
+        z-index: -1;
+        top: -1px;
+        right: 0;
+        bottom: -1px;
+        left: -1px;
+        content: '';
+      }
+    }
+  }
+
   &.field-multiple-table {
     .td--item {
       width: auto;

@@ -1,0 +1,13 @@
+.permissions {
+  td {
+    &.module {
+      @apply bg-base-100 font-bold;
+    }
+  }
+
+  .td--permission {
+    .description {
+      @apply text-xs text-base-500;
+    }
+  }
+}
