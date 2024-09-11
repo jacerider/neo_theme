@@ -10,6 +10,7 @@ libraries:
 
 neo:
   scope: back
+  group: contrib
   components:
     .card:
       '@apply block rounded-sm border border-base-200 bg-white dark:border-base-600 dark:bg-base-800 shadow-sm': {}

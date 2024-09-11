@@ -7,6 +7,7 @@ version: 0.0.0
 core_version_requirement: ^10.3 || ^11
 neo:
   scope: front
+  group: contrib
 regions:
   header: Header
   status: Status
