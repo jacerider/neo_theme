@@ -58,7 +58,7 @@ neo:
     .btn-base:
       '@apply bg-base text-base-content hover:bg-base-700': {}
     .btn-danger:
-      '@apply bg-transparent text-alert hover:bg-alert-100': {}
+      '@apply bg-transparent text-alert hover:bg-alert-100 hover:text-alert': {}
     .btn-text:
       '@apply bg-transparent text-primary hover:bg-transparent hover:text-primary-700 first:pl-0 last:pr-0': {}
     .btn-sm:
