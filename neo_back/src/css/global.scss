@@ -6,7 +6,7 @@
 // can contain all kinds of specific modules like a slider, a loader, a widget,
 // or anything along those lines. There are usually a lot of files in
 // components/ since your site should be mostly composed of tiny modules.
-@import 'components/**/*.scss';
+@import 'components/**/*';
 
 body {
   @apply relative z-0 text-base font-normal;
@@ -18,6 +18,16 @@ body {
 
 .sticky-header {
   @apply z-40;
+}
+
+.region--content {
+  h2 {
+    @apply my-form-item text-2xl font-bold;
+  }
+
+  h3 {
+    @apply my-form-item text-lg font-bold;
+  }
 }
 
 .container {

@@ -13,17 +13,25 @@
 #}
 
 {% if severity == 'error' %}
+  {% set icon = icon('sensor-fire') %}
   {% set element_classes = ' bg-alert-500 border-alert-600' %}
-  {% set button_classes = ' bg-alert-700 hover:bg-alert-800' %}
+  {% set button_classes = ' transition bg-alert-700 text-alert-content-700 hover:bg-alert-800 hover:text-alert-content-800' %}
 {% elseif severity == 'warning' %}
+  {% set icon = icon('sensor-alert') %}
   {% set element_classes = ' bg-warning-500 border-warning-600' %}
-  {% set button_classes = ' bg-warning-700 hover:bg-warning-800' %}
+  {% set button_classes = ' transition bg-warning-700 text-warning-content-700 hover:bg-warning-800 hover:text-warning-content-800' %}
 {% elseif severity == 'checked' %}
+  {% set icon = icon('sensor') %}
   {% set element_classes = ' bg-success-500 border-success-600' %}
-  {% set button_classes = ' bg-success-700 hover:bg-success-800' %}
+  {% set button_classes = ' transition bg-success-700 text-success-content-700 hover:bg-success-800 hover:text-success-content-800' %}
 {% endif %}
 
-<div class="rounded border p-6 text-white shadow-default shadow-sm{{ element_classes }}">
-  <div class="text-lg font-bold">{{ amount }} {{ text }}</div>
-  <a href="#{{ severity }}" class="inline-block font-bold text-xs py-2 px-4 rounded mt-1{{ button_classes }}"><span class="visually-hidden">{{ text }} </span>{{ 'Details'|t }}</a>
+<div class="flex items-center rounded border p-6 text-white shadow-default shadow-sm{{ element_classes }}">
+  <div class="text-6xl mr-6">
+    {{ icon }}
+  </div>
+  <div>
+    <div class="text-lg font-bold">{{ amount }} {{ text }}</div>
+    <a href="#{{ severity }}" class="inline-block font-bold text-xs py-2 px-4 rounded mt-1{{ button_classes }}"><span class="visually-hidden">{{ text }} </span>{{ 'Details'|t }}</a>
+  </div>
 </div>

@@ -1,0 +1,15 @@
+.version-latest {
+  @apply py-2 text-xs;
+
+  .compatible {
+    @apply mb-0 mt-2;
+  }
+}
+
+.project-update__status {
+  @apply flex text-xs;
+}
+
+.project-updates__details {
+  @apply whitespace-normal text-xs;
+}

@@ -11,6 +11,10 @@ form {
   .tableresponsive-toggle-columns + table {
     @apply mt-0;
   }
+
+  p {
+    @apply text-xs font-normal;
+  }
 }
 
 .description {
