@@ -23,11 +23,11 @@
 %}
 {% if content %}
   <{{ tag|default('div') }}{{ attributes.addClass(base_classes, classes) }}>
-    {% if attributes_inner %}
-      <div{{ attributes_inner }}>
+    {% if inner_attributes %}
+      <div{{ inner_attributes.addClass() }}>
     {% endif %}
     {{ content }}
-    {% if attributes_inner %}
+    {% if inner_attributes %}
       </div>
     {% endif %}
   </{{ tag|default('div') }}>

@@ -2,23 +2,32 @@
 
 {%
   set classes = [
-    'bg-base-50/75',
-    'border-b',
-    'border-base-50',
     'sticky',
     'top-displace-t',
     'z-30',
+    'transition-all',
+    'is-active:bg-base-0/75',
+    'is-active:backdrop-blur',
+    'is-active:shadow-lg',
+    'is-active:border-b',
+    'is-active:border-base-0',
+  ]
+%}
+
+{%
+  set inner_classes = [
     'flex',
     'flex-col',
     'md:flex-row',
-    'items-center',
-    'gap-6',
     'mx-auto',
     'max-w-screen-2xl',
+    'items-center',
+    'gap-6',
     'py-2',
     'px-4',
     'md:px-6',
     '2xl:px-10',
-    'backdrop-blur',
   ]
 %}
+
+{% set inner_attributes = create_attribute().addClass(inner_classes) %}
