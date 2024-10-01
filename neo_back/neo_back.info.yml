@@ -13,7 +13,7 @@ neo:
   group: contrib
   components:
     .card:
-      '@apply block rounded-sm border border-base-200 bg-white dark:border-base-600 dark:bg-base-800 shadow-sm': {}
+      '@apply block rounded-sm border border-base-200 bg-base-0 shadow-sm': {}
 
 regions:
   status: Status

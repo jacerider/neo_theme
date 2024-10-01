@@ -41,20 +41,20 @@
       ]
     %}
     <div{{ theme_group.attributes.addClass(theme_group_classes) }}>
-      <h4 class="mt-0 mb-6 text-xl font-bold text-black dark:text-white">{{ theme_group.title }}</h4>
+      <h4 class="mt-0 mb-6 text-xl font-bold text-black">{{ theme_group.title }}</h4>
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
         {% for theme in theme_group.themes %}
           {%
             set theme_classes = [
               'theme',
-              theme.is_default ? 'theme--default border-base-400 dark:border-base-300',
-              theme.is_admin ? 'theme--admin border-base-400 dark:border-base-300',
-              not theme.is_default and not theme.is_admin ? 'border-base-200 dark:border-base-600',
+              theme.is_default ? 'theme--default border-base-400',
+              theme.is_admin ? 'theme--admin border-base-400',
+              not theme.is_default and not theme.is_admin ? 'border-base-200',
             ]
           %}
           {%
             set title_classes = [
-              theme.is_default ? 'text-black dark:text-white',
+              theme.is_default ? 'text-black',
               not theme.is_default ? 'text-base',
             ]
           %}
@@ -65,7 +65,7 @@
               </div>
             {% endif %}
             <div class="theme-info">
-              <h3 class="flex items-center mb-3 text-xl font-semibold text-black dark:text-white">
+              <h3 class="flex items-center mb-3 text-xl font-semibold text-black">
                 {{- theme.name }} {{ theme.version -}}
                 {% if theme.notes %}
                   <div class="ml-3 text-sm font-normal">({{ theme.notes|safe_join(', ') }})</div>

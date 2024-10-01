@@ -1,0 +1,20 @@
+uuid: 477d93e7-a670-4c48-b917-407e245b88a5
+langcode: en
+status: true
+dependencies:
+  theme:
+    - front
+_core:
+  default_config_hash: ABoKnlk20KHqZRw_2Qr4EvaFvH4lnQ2nuhunHeE1JIU
+id: front_local_actions
+theme: front
+region: content
+weight: -10
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

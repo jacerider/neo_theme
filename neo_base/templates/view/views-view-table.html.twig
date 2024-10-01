@@ -95,7 +95,7 @@
         </tr>
       </thead>
     {% endif %}
-    <tbody class="bg-white dark:bg-base-800">
+    <tbody class="bg-base-0">
       {% for row in rows %}
         <tr{{ row.attributes.addClass('border border-base-200 hover:bg-base-50 transition') }}>
           {% set count = 0 %}
@@ -111,7 +111,7 @@
                 {% set column_classes = column_classes|merge(['views-field-' ~ field]) %}
               {% endfor %}
             {% endif %}
-            <td{{ column.attributes.addClass(column_classes, 'p-4 text-base dark:text-base-400') }}>
+            <td{{ column.attributes.addClass(column_classes, 'p-4 text-base') }}>
               {%- if column.wrapper_element -%}
                 <{{ column.wrapper_element }}>
                 {% for content in column.content %}

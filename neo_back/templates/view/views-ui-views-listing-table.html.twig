@@ -22,13 +22,13 @@
     <thead>
       <tr>
         {% for header in headers %}
-          <th{{ header.attributes.addClass('table--cell', 'bg-base-100 border dark:border-base-600 font-light text-sm px-4 py-3 text-base-400 dark:text-base-200 text-left whitespace-nowrap') }}>{{ header.data }}</th>
+          <th{{ header.attributes.addClass('table--cell', 'bg-base-100 border font-light text-sm px-4 py-3 text-base-400 text-left whitespace-nowrap') }}>{{ header.data }}</th>
         {% endfor %}
       </tr>
     </thead>
-    <tbody class="bg-white dark:bg-base-800">
+    <tbody class="bg-base-0">
       {% for row in rows %}
-        <tr{{ row.attributes.addClass('border border-base-100 dark:border-base-700 hover:bg-base-50 transition') }}>
+        <tr{{ row.attributes.addClass('border border-base-100 hover:bg-base-50 transition') }}>
           <td class="p-4 views-ui-view-name td--name">
             <strong data-drupal-selector="views-table-filter-text-source">{{ row.data.view_name.data }}</strong>
           </td>

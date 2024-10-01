@@ -1,0 +1,20 @@
+uuid: 0ff2446e-eeb1-453e-964e-d74f2d23750f
+langcode: en
+status: true
+dependencies:
+  theme:
+    - front
+_core:
+  default_config_hash: Oh72CHUkp6cj6dbrXMK2hzCsM05w9cHVoD22rMLQUfk
+id: front_page_title
+theme: front
+region: content
+weight: -30
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility: {  }

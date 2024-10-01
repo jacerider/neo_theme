@@ -15,7 +15,7 @@
     @apply border-base-300 outline-none ring ring-primary-600 ring-offset-2 transition;
 
     .field-option__thumb {
-      @apply bg-primary-500 text-white;
+      @apply bg-primary-500 text-primary-content-500;
 
       .field-option__icon {
         filter: brightness(0) invert(1);

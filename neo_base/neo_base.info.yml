@@ -18,16 +18,14 @@ neo:
   theme:
     extend:
       spacing:
-        form: 'var(--form-spacing, 0)'
+        form: 'var(--form-spacing, 0px)'
         form-item: 'var(--form-item-spacing, 1.5rem)'
-        displace-t: 'var(--drupal-displace-offset-top, 0)'
-        displace-r: 'var(--drupal-displace-offset-right, 0)'
-        displace-b: 'var(--drupal-displace-offset-bottom, 0)'
-        displace-l: 'var(--drupal-displace-offset-left, 0)'
+        displace-t: 'var(--drupal-displace-offset-top, 0px)'
+        displace-r: 'var(--drupal-displace-offset-right, 0px)'
+        displace-b: 'var(--drupal-displace-offset-bottom, 0px)'
+        displace-l: 'var(--drupal-displace-offset-left, 0px)'
   components:
-    .h-displace-y:
-      minHeight: 'calc(100vh - var(--drupal-displace-offset-top, 0px) - var(--drupal-displace-offset-bottom, 0px))'
-    .min-h-displace-y:
+    .min-h-displace:
       minHeight: 'calc(100vh - var(--drupal-displace-offset-top, 0px) - var(--drupal-displace-offset-bottom, 0px))'
     .card:
       '@apply block': {}
@@ -44,7 +42,7 @@ neo:
     .btn-outline:
       '@apply border-2 border-base bg-transparent text-base-500 hover:bg-base hover:text-base-content': {}
     .btn-primary:
-      '@apply bg-primary text-primary-content hover:bg-primary-700': {}
+      '@apply bg-primary text-primary-content hover:bg-primary-700 hover:text-primary-content-700': {}
     .btn-primary-outline:
       '@apply border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-content': {}
     .btn-secondary:
@@ -69,6 +67,8 @@ neo:
       '@apply text-lg': {}
     .local-action:
       '@apply btn btn-primary': {}
+  variants:
+    'is-active': ['&.is-active']
 
 libraries:
   - neo_base/global

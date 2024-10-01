@@ -79,11 +79,11 @@
     }
 
     &:hover {
-      @apply bg-white;
+      @apply bg-base-0;
     }
 
     &.is-active {
-      @apply -mb-px bg-white text-primary-500;
+      @apply bg-base-0 -mb-px text-primary-500;
 
       &::before {
         @apply bg-primary-500;

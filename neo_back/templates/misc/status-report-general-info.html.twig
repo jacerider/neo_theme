@@ -30,17 +30,17 @@
  */
 #}
 
-<h2 class="mt-6 mb-3 text-xl font-semibold text-black dark:text-white">{{ 'General System Information'|t }}</h2>
+<h2 class="mt-6 mb-3 text-xl font-semibold text-base">{{ 'General System Information'|t }}</h2>
 <div class="grid gap-6 grid-cols-1 md:grid-cols-3 [&_a]:text-primary-500 [&_a:hover]:text-primary-700 [&_span]:block [&_span]:mt-2">
   <div class="p-6 text-sm card">
-    <h3 class="text-lg font-bold text-black dark:text-white">{{ 'Drupal Version'|t }}</h3>
+    <h3 class="text-lg font-bold text-base">{{ 'Drupal Version'|t }}</h3>
     {{ drupal.value }}
     {% if drupal.description %}
       {{ drupal.description }}
     {% endif %}
   </div>
   <div class="p-6 text-sm card">
-    <h3 class="text-lg font-bold text-black dark:text-white">{{ 'Last Cron Run'|t }}</h3>
+    <h3 class="text-lg font-bold text-base">{{ 'Last Cron Run'|t }}</h3>
     {{ cron.value }}
     {% if cron.run_cron %}
       {{ cron.run_cron }}
@@ -50,14 +50,14 @@
     {% endif %}
   </div>
   <div class="p-6 text-sm card">
-    <h3 class="text-lg font-bold text-black dark:text-white">{{ 'Web Server'|t }}</h3>
+    <h3 class="text-lg font-bold text-base">{{ 'Web Server'|t }}</h3>
     {{ webserver.value }}
     {% if webserver.description %}
       {{ webserver.description }}
     {% endif %}
   </div>
   <div class="p-6 text-sm card">
-    <h3 class="text-lg font-bold text-black dark:text-white">{{ 'PHP'|t }}</h3>
+    <h3 class="text-lg font-bold text-base">{{ 'PHP'|t }}</h3>
     <h4>{{ 'Version'|t }}</h4> {{ php.value }}
     {% if php.description %}
       {{ php.description }}
@@ -69,7 +69,7 @@
     {% endif %}
   </div>
   <div class="p-6 text-sm card">
-    <h3 class="text-lg font-bold text-black dark:text-white">{{ 'Database'|t }}</h3>
+    <h3 class="text-lg font-bold text-base">{{ 'Database'|t }}</h3>
     <h4>{{ 'Version'|t }}</h4>{{ database_system_version.value }}
     {% if database_system_version.description %}
       {{ database_system_version.description }}

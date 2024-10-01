@@ -22,7 +22,7 @@
 %}
 <div{{ attributes.addClass(classes, 'mb-6') }}>
   {% if block.title %}
-    <h3 class="mb-1 text-xl font-semibold text-black admin-page--panel-title dark:text-white">{{ block.title }}</h3>
+    <h3 class="mb-1 text-xl font-semibold text-black admin-page--panel-title">{{ block.title }}</h3>
   {% endif %}
   {% if block.content %}
     <div class="admin-page--panel--content">{{ block.content }}</div>

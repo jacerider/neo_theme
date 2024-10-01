@@ -3,7 +3,7 @@
 }
 
 .vertical-tabs__menu {
-  @apply card -mr-5 w-4/12 bg-base-100 py-3 pr-5 dark:bg-base-700;
+  @apply card -mr-5 w-4/12 bg-base-100 py-3 pr-5;
 }
 
 .vertical-tabs__menu-link {
@@ -11,17 +11,17 @@
 }
 
 .vertical-tabs__menu-item {
-  @apply mx-3 text-base dark:text-base-content;
+  @apply mx-3 text-base;
 
   &.is-selected {
     .vertical-tabs__menu-link {
-      @apply border bg-white p-3 shadow dark:bg-base-800;
+      @apply bg-base-0 border p-3 shadow;
     }
   }
 }
 
 .vertical-tabs__menu-item-title {
-  @apply block leading-tight dark:text-base-100;
+  @apply block leading-tight;
 }
 
 .vertical-tabs__menu-link-summary {
@@ -29,7 +29,7 @@
 }
 
 .vertical-tabs__panes {
-  @apply card block w-full px-6;
+  @apply card w-full px-6;
 }
 
 .vertical-tabs__pane {

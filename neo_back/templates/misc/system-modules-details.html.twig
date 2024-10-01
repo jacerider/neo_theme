@@ -32,17 +32,17 @@
       <th class="description visually-hidden priority-low">{{ 'Description'|t }}</th>
     </tr>
   </thead>
-  <tbody class="bg-white dark:bg-base-800">
+  <tbody class="bg-base-0">
     {% for module in modules %}
       {% set zebra = cycle(['odd', 'even'], loop.index0) %}
       <tr{{ module.attributes.addClass(zebra, 'hover:bg-base-50 transition') }}>
-        <td class="p-4 border checkbox border-base-100 dark:border-base-700 text-base dark:text-base-400">
+        <td class="p-4 border checkbox border-base-100 text-base">
           {{ module.checkbox }}
         </td>
-        <td class="p-4 font-bold border module border-base-100 dark:border-base-700 text-base dark:text-base-400 whitespace-nowrap">
+        <td class="p-4 font-bold border module border-base-100 text-base whitespace-nowrap">
           <label id="{{ module.id }}" for="{{ module.enable_id }}" class="module-name table-filter-text-source">{{ module.name }}</label>
         </td>
-        <td class="w-full p-4 text-sm border description expand priority-low border-base-100 dark:border-base-700 text-base dark:text-base-400">
+        <td class="w-full p-4 text-sm border description expand priority-low border-base-100 text-base">
           <details class="js-form-wrapper form-wrapper" id="{{ module.enable_id }}-description">
             <summary aria-controls="{{ module.enable_id }}-description" role="button" aria-expanded="false"><span class="text module-description">{{ module.description }}</span></summary>
             <div class="details-wrapper">
