@@ -11,7 +11,14 @@
       }
       observer = new IntersectionObserver(entries => {
         entries.forEach(e => {
-          e.target.classList.toggle('is-active', e.intersectionRatio < 1);
+          const target = e.target as HTMLElement;
+          target.classList.toggle('is-active', e.intersectionRatio < 1);
+          if (e.intersectionRatio < 1) {
+            document.documentElement.style.setProperty('--neo-header-top', target.offsetHeight + 'px');
+          }
+          else {
+            document.documentElement.style.removeProperty('--neo-header-top');
+          }
         });
       }, {
         rootMargin: '-' + (top + 1) + 'px 0px 0px 0px',

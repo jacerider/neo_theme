@@ -42,7 +42,9 @@ table {
   &.sticky-header {
     thead tr {
       @apply sticky z-10;
-      top: var(--drupal-displace-offset-top, 0px);
+      top: calc(
+        var(--drupal-displace-offset-top, 0px) + var(--neo-header-top, 0px)
+      );
 
       &:after {
         @apply pointer-events-none absolute block border shadow-md;
