@@ -74,7 +74,7 @@
                 ]
               %}
             {% endif %}
-            <th{{ column.attributes.addClass(column_classes, 'bg-base-100 border border-base-300 font-light text-sm px-4 py-3 text-base-400 text-left whitespace-nowrap').setAttribute('scope', 'col') }}>
+            <th{{ column.attributes.addClass(column_classes, 'bg-base-100 border border-base-300 font-light text-xs px-4 py-3 text-base-600 text-left whitespace-nowrap').setAttribute('scope', 'col') }}>
               {%- if column.wrapper_element -%}
                 <{{ column.wrapper_element }}>
                   {%- if column.url -%}
@@ -111,7 +111,7 @@
                 {% set column_classes = column_classes|merge(['views-field-' ~ field]) %}
               {% endfor %}
             {% endif %}
-            <td{{ column.attributes.addClass(column_classes, 'p-4 text-base') }}>
+            <td{{ column.attributes.addClass(column_classes, 'p-4 text-base-content-50') }}>
               {%- if column.wrapper_element -%}
                 <{{ column.wrapper_element }}>
                 {% for content in column.content %}

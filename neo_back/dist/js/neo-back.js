@@ -14,7 +14,7 @@
   a.behaviors.neoBack = {
     attach: function(o) {
       const r = u("region--header", ".region--header", o);
-      r && e && (e(!1), f(r[0]), window.addEventListener("resize", h(f, 205)));
+      r.length && e && (e(!1), f(r[0]), window.addEventListener("resize", h(f, 205)));
     }
   };
 })(Drupal, Drupal.displace, Drupal.debounce, once);

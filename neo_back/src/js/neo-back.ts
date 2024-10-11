@@ -31,7 +31,7 @@
   Drupal.behaviors.neoBack = {
     attach: function (context:HTMLElement) {
       const elements = once('region--header', '.region--header', context);
-      if (elements && displace) {
+      if (elements.length && displace) {
         displace(false);
         observeHeader(elements[0]);
         window.addEventListener('resize', debounce(observeHeader, 205) as any);

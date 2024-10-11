@@ -3,7 +3,8 @@
 form {
   .button {
     &[value^='Save'],
-    &[value^='Update'] {
+    &[value^='Update'],
+    &[value^='Apply'] {
       @include neo-icon.icon('check-square', before) {
         @apply mr-1;
       }
@@ -41,6 +42,12 @@ form {
     &[value^='Copy'],
     &[value^='Duplicate'] {
       @include neo-icon.icon('clone', before) {
+        @apply mr-1;
+      }
+    }
+
+    &[value^='Filter'] {
+      @include neo-icon.icon('filter', before) {
         @apply mr-1;
       }
     }

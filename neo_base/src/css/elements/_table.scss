@@ -1,4 +1,40 @@
+@use 'neo-icon';
+
 table {
+  a {
+    @apply transition-colors;
+  }
+
+  th {
+    &.select-all {
+      @apply text-center;
+    }
+
+    a {
+      @include neo-icon.icon('sort-alt', before) {
+        @apply mr-1;
+      }
+    }
+
+    &[aria-sort='ascending'] {
+      a {
+        @apply font-bold;
+        @include neo-icon.icon('sort-amount-up-alt', before) {
+          @apply mr-1;
+        }
+      }
+    }
+
+    &[aria-sort='descending'] {
+      a {
+        @apply font-bold;
+        @include neo-icon.icon('sort-amount-down-alt', before) {
+          @apply mr-1;
+        }
+      }
+    }
+  }
+
   // Check field UI before changing.
   td > .form-wrapper,
   td > .form-item {
@@ -85,12 +121,14 @@ table {
     &.td--author,
     &.td--content-type,
     &.td--node-bulk-form,
-    &.td--type-image {
+    &.td--type-image,
+    &.views-field-user-bulk-form {
       width: 1%;
       white-space: nowrap;
     }
 
     &.td--name,
+    &.td--username,
     &.td--title,
     &.td--label,
     &.td--menu-link {
@@ -104,15 +142,27 @@ table {
     &.td--center {
       @apply text-center;
     }
-
-    a {
-      @apply text-primary-500 transition-colors hover:text-primary-700;
-    }
   }
 }
 
 .tabledrag-toggle-weight-wrapper {
-  @apply flex justify-end;
+  @apply relative flex justify-end;
+
+  .tabledrag-toggle-weight {
+    @apply btn btn-outline btn-xs absolute bottom-0 right-0 mb-2;
+  }
+
+  .action-link--icon-show {
+    @include neo-icon.icon('toggle-on', before) {
+      @apply mr-1;
+    }
+  }
+
+  .action-link--icon-hide {
+    @include neo-icon.icon('toggle-off', before) {
+      @apply mr-1;
+    }
+  }
 }
 
 .js .field--widget-paragraphs td {
