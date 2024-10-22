@@ -9,6 +9,32 @@
   @apply bg-base-50;
 }
 
+.views-displays {
+  @apply p-0;
+
+  .views-ui-display-tab-bucket__title {
+    @apply text-base font-bold mt-0 mb-1;
+  }
+}
+
+.views-display-columns {
+  @apply grid grid-cols-3 gap-3;
+
+  > * {
+    @apply float-none w-full m-0;
+  }
+}
+
+div.views-display-column {
+  @apply p-3;
+}
+
+details.views-display-column {
+  > div {
+    @apply my-0 mx-3;
+  }
+}
+
 .view-preview-form__title {
   @apply border bg-transparent;
 }
@@ -74,6 +100,12 @@
   .form-item-options-expose-field-identifier,
   .form-item-options-expose-description {
     @apply ml-0;
+  }
+}
+
+.views-ui-display-tab-bucket {
+  .views-display-setting {
+    @apply p-0 py-1;
   }
 }
 
