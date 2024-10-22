@@ -145,6 +145,7 @@ function neo_base_submit_process(&$element, FormStateInterface $form_state, &$co
 function neo_base_preprocess_input__submit(&$variables) {
   $variables['title'] = $variables['element']['#title'] ?? $variables['element']['#value'];
   $variables['as_input'] = !empty($variables['element']['#as_input']);
+  $variables['disabled'] = !empty($variables['element']['#disabled']);
 }
 
 /**

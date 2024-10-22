@@ -80,9 +80,14 @@
 
 <div{{ attributes.addClass(base_classes, classes) }}>
   <fieldset>
-    {% if legend.title %}
+    {% if legend.title or description_display == 'before' and description.content %}
       <legend{{ legend.attributes.addClass(base_legend_classes, legend_classes) }}>
-        <span{{ legend_span.attributes.addClass(base_legend_span_classes, legend_span_classes) }}>{{ legend.title }}</span>
+        <span{{ legend_span.attributes.addClass(base_legend_span_classes, legend_span_classes) }}>
+          {{ legend.title }}
+          {% if description_display == 'before' and description.content %}
+            <div{{ description.attributes.addClass('description') }}>{{ description.content }}</div>
+          {% endif %}
+        </span>
         {% if required %}
           <abbr class="font-normal form-required text-alert" aria-hidden="true">*</abbr>
           <span class="visually-hidden">{{ 'required'|t }}</span>
@@ -90,9 +95,6 @@
       </legend>
     {% endif %}
     <div{{ fieldset_content_attributes.addClass(base_content_classes, content_classes) }}>
-      {% if description_display == 'before' and description.content %}
-        <div{{ description.attributes.addClass('description') }}>{{ description.content }}</div>
-      {% endif %}
       {% if errors %}
         <div>
           {{ errors }}

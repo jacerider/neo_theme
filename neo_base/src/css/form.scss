@@ -55,6 +55,10 @@ form {
       @apply w-full;
     }
   }
+
+  > .button {
+    @apply grow-0 text-nowrap;
+  }
 }
 
 .form--inline,

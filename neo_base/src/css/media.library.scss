@@ -31,7 +31,8 @@
 }
 
 .media-library-selection {
-  @apply grid grid-cols-2 gap-form-item md:grid-cols-4 lg:grid-cols-5;
+  @apply flex gap-form-item;
+  // @apply grid grid-cols-2 gap-form-item md:grid-cols-4 lg:grid-cols-5;
 
   .fieldset--content {
     > .field-suffix {
@@ -58,7 +59,7 @@
   }
 
   .media-library-selection {
-    @apply lg:grid-cols-6;
+    @apply grid grid-cols-2 gap-form-item md:grid-cols-4 lg:grid-cols-6;
   }
 
   .view-filters {

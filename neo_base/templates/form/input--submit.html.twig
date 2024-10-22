@@ -3,6 +3,8 @@
 {%
   set classes = [
     'button',
+    disabled == 'disabled' ? 'form-disabled',
+    disabled ? 'opacity-50 pointer-events-none',
   ]
 %}
 {% block input %}
