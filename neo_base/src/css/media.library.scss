@@ -1,10 +1,10 @@
 @use 'neo-icon';
 
 .media-library-item--preview {
-  @apply relative overflow-hidden rounded-xl pb-[100%];
+  @apply relative overflow-hidden rounded-xl border-2;
 
   img {
-    @apply absolute inset-0 h-full w-full object-cover;
+    @apply h-20 w-20 object-cover lg:h-32 lg:w-32;
   }
 }
 
@@ -15,6 +15,12 @@
     @apply absolute right-2 top-2 z-10 m-0 h-8 w-8 overflow-hidden rounded-full border-0 bg-alert-500 p-0 text-lg leading-8 text-alert-content-500 shadow-lg hover:bg-alert-content-500 hover:text-alert-500;
     @include neo-icon.icon('times', before) {
       @apply flex h-8 w-8 items-center justify-center;
+    }
+  }
+
+  .media-library-item--preview {
+    img {
+      @apply h-20 w-full min-w-20 lg:h-32 lg:min-w-32;
     }
   }
 
@@ -84,7 +90,7 @@
     }
 
     &.is-active {
-      @apply bg-base-0 -mb-px text-primary-500;
+      @apply -mb-px bg-base-0 text-primary-500;
 
       &::before {
         @apply bg-primary-500;
