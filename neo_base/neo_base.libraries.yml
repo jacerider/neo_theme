@@ -19,7 +19,7 @@ form:
 
 vertical-tabs:
   version: VERSION
-  neo: { scope: back, group: contrib }
+  neo: { group: contrib }
   css:
     theme:
       src/css/vertical-tabs.scss: { minified: true }
@@ -67,16 +67,16 @@ dialog:
 
 password:
   version: VERSION
-  neo: { scope: back, group: contrib }
+  neo: { group: contrib }
   css:
     theme:
       src/css/password.scss: { minified: true }
 
-media.library:
+media-library:
   version: VERSION
   neo: { group: contrib }
   css:
     theme:
-      src/css/media.library.scss: { minified: true }
+      src/css/media-library.scss: { minified: true }
   js:
-    src/js/media.library.js: {}
+    src/js/media-library.js: {}

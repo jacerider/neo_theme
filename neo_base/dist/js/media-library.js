@@ -36,4 +36,4 @@
     }
   };
 })(Drupal, once);
-//# sourceMappingURL=media.library.js.map
+//# sourceMappingURL=media-library.js.map
