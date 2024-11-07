@@ -52,4 +52,13 @@ form {
       }
     }
   }
+
+  a {
+    &[id$='cancel'] {
+      @apply btn btn-danger;
+      @include neo-icon.icon('times-square', before) {
+        @apply mr-1;
+      }
+    }
+  }
 }

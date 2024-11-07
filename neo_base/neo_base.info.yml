@@ -40,19 +40,19 @@ neo:
     .btn:
       '@apply border-0 bg-base text-base-content hover:bg-base-700 hover:text-base-content inline-block py-2 px-4 rounded focus cursor-pointer mr-2 last:mr-0 transition': {}
     .btn-outline:
-      '@apply border-2 border-base bg-transparent text-base-500 hover:bg-base hover:text-base-content': {}
+      '@apply border-2 border-base bg-transparent py-[6px] text-base-500 hover:bg-base hover:text-base-content': {}
     .btn-primary:
       '@apply bg-primary text-primary-content hover:bg-primary-700 hover:text-primary-content-700': {}
     .btn-primary-outline:
-      '@apply border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-content': {}
+      '@apply border-2 border-primary bg-transparent py-[6px] text-primary hover:bg-primary hover:text-primary-content': {}
     .btn-secondary:
       '@apply bg-secondary text-secondary-content hover:bg-secondary-700': {}
     .btn-secondary-outline:
-      '@apply border-2 border-secondary bg-transparent text-secondary hover:bg-secondary hover:text-secondary-content': {}
+      '@apply border-2 border-secondary bg-transparent py-[6px] text-secondary hover:bg-secondary hover:text-secondary-content': {}
     .btn-accent:
       '@apply bg-accent text-accent-content hover:bg-accent-700': {}
     .btn-accent-outline:
-      '@apply border-2 border-accent bg-transparent text-accent hover:bg-accent hover:text-accent-content': {}
+      '@apply border-2 border-accent bg-transparent py-[6px] text-accent hover:bg-accent hover:text-accent-content': {}
     .btn-base:
       '@apply bg-base text-base-content hover:bg-base-700': {}
     .btn-danger:

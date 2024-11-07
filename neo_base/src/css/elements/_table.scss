@@ -65,6 +65,10 @@ table {
     &.add-new .tabledrag-changed {
       @apply hidden;
     }
+
+    &.tr--focus {
+      @apply bg-warning-50 hover:bg-warning-100;
+    }
   }
 
   .marker {
