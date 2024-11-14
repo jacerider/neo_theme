@@ -146,6 +146,9 @@ function neo_base_preprocess_input__submit(&$variables) {
   $variables['title'] = $variables['element']['#title'] ?? $variables['element']['#value'];
   $variables['as_input'] = !empty($variables['element']['#as_input']);
   $variables['disabled'] = !empty($variables['element']['#disabled']);
+  if (!is_array($variables['title'])) {
+    $variables['attributes']['data-label'] = strtolower($variables['title']);
+  }
 }
 
 /**
@@ -275,7 +278,7 @@ function neo_base_preprocess_fieldset(&$variables) {
  * Implements hook_preprocess_form_element().
  */
 function neo_base_preprocess_form_element(&$variables) {
-  $variables['label']['#element_parent_type'] = $variables['element']['#type'];
+  $variables['label']['#element_parent_type'] = $variables['element']['#type'] ?? '';
   $variables['element_id'] = $variables['element']['#id'] ?? '';
 }
 

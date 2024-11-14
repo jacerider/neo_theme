@@ -55,8 +55,10 @@ neo:
       '@apply border-2 border-accent bg-transparent py-[6px] text-accent hover:bg-accent hover:text-accent-content': {}
     .btn-base:
       '@apply bg-base text-base-content hover:bg-base-700': {}
-    .btn-danger:
-      '@apply bg-transparent text-alert hover:bg-alert-100 hover:text-alert': {}
+    .btn-warning:
+      '@apply bg-transparent text-warning hover:bg-warning-100 hover:text-warning border-0': {}
+    .btn-alert:
+      '@apply bg-transparent text-alert hover:bg-alert-100 hover:text-alert border-0': {}
     .btn-text:
       '@apply bg-transparent text-primary hover:bg-transparent hover:text-primary-700 first:pl-0 last:pr-0': {}
     .btn-sm:

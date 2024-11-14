@@ -2,51 +2,53 @@
 
 form {
   .button {
-    &[value^='Save'],
-    &[value^='Update'],
-    &[value^='Apply'] {
+    &[data-label*='save'],
+    &[data-label*='update'],
+    &[data-label*='apply'],
+    &[data-label*='publish'] {
       @include neo-icon.icon('check-square', before) {
         @apply mr-1;
       }
     }
 
-    &[value^='Delete'],
-    &[value^='Cancel'],
-    &[id$='-delete'] {
-      @apply btn-danger;
+    &[data-label*='delete'],
+    &[data-label*='cancel'],
+    &[data-label*='remove'] {
+      @apply btn-alert;
       @include neo-icon.icon('times-square', before) {
         @apply mr-1;
       }
     }
 
-    &[value^='Edit'] {
+    &[data-label*='edit'] {
       @include neo-icon.icon('edit', before) {
         @apply mr-1;
       }
     }
 
-    &[value^='Remove'] {
-      @apply btn-danger;
+    &[data-label*='remove'] {
+      @apply btn-alert;
       @include neo-icon.icon('trash', before) {
         @apply mr-1;
       }
     }
 
-    &[value^='Add'] {
+    &[data-label*='add'],
+    &[data-drupal-selector*='add'] {
       @include neo-icon.icon('plus-square', before) {
         @apply mr-1;
       }
     }
 
-    &[value^='Clone'],
-    &[value^='Copy'],
-    &[value^='Duplicate'] {
+    &[data-label*='clone'],
+    &[data-label*='copy'],
+    &[data-label*='duplicate'] {
       @include neo-icon.icon('clone', before) {
         @apply mr-1;
       }
     }
 
-    &[value^='Filter'] {
+    &[data-label*='filter'] {
       @include neo-icon.icon('filter', before) {
         @apply mr-1;
       }
@@ -54,8 +56,9 @@ form {
   }
 
   a {
-    &[id$='cancel'] {
-      @apply btn btn-danger;
+    &[id$='cancel'],
+    &[id$='delete'] {
+      @apply btn-alert btn;
       @include neo-icon.icon('times-square', before) {
         @apply mr-1;
       }
