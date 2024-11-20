@@ -153,7 +153,7 @@ table {
   @apply relative flex justify-end;
 
   .tabledrag-toggle-weight {
-    @apply btn btn-outline btn-xs absolute bottom-0 right-0 mb-2;
+    @apply btn btn-outline btn-xs mb-1;
   }
 
   .action-link--icon-show {
