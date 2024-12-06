@@ -25,6 +25,8 @@ neo:
         displace-b: 'var(--drupal-displace-offset-bottom, 0px)'
         displace-l: 'var(--drupal-displace-offset-left, 0px)'
   components:
+    .ui:
+      '@apply font-ui': {}
     .min-h-displace:
       minHeight: 'calc(100vh - var(--drupal-displace-offset-top, 0px) - var(--drupal-displace-offset-bottom, 0px))'
     .card:
