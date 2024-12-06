@@ -9,6 +9,7 @@ dependencies:
   - neo:neo
   - neo_twig:neo_twig
   - neo_icon:neo_icon
+  - neo_font:neo_font
 
 neo:
   scope:
