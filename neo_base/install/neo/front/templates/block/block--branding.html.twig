@@ -1,10 +1,9 @@
 {% extends 'block.html.twig' %}
-{% set attributes = attributes.addClass('w-32') %}
 
 {% block content %}
   {% if site_logo %}
-    <a href="{{ path('<front>') }}" rel="home">
-      <img src="{{ site_logo }}" alt="{{ 'Home'|t }}" fetchpriority="high" />
+    <a href="{{ path('<front>') }}" rel="home" class="block focus transition">
+      <img src="{{ site_logo }}" alt="{{ 'Home'|t }}" fetchpriority="high" class="block h-14" />
     </a>
   {% endif %}
   {% if site_name %}
