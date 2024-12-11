@@ -1,0 +1,6 @@
+{% extends 'block.html.twig' %}
+
+{#
+  Specify the classes for the block.
+#}
+{% set classes = ['example'] %}

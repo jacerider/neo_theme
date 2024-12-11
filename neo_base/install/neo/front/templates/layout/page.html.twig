@@ -21,12 +21,14 @@
   <main class="section main" role="main">
     {{ page.header }}
     <div class="flex">
-      <div class="w-full main--content max-w-content">
+      <div class="w-full main--content">
         {{ page.status }}
         {{ page.content }}
-        {{ page.footer }}
       </div>
     </div>
   </main>
+  <footer>
+    {{ page.footer }}
+  </footer>
 
 </div>{# /.layout-container #}

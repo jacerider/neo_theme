@@ -6,7 +6,7 @@ dependencies:
     - front
 _core:
   default_config_hash: ABoKnlk20KHqZRw_2Qr4EvaFvH4lnQ2nuhunHeE1JIU
-id: front_local_actions
+id: local_actions
 theme: front
 region: content
 weight: -10

@@ -21,13 +21,17 @@
 {%
   set classes = classes is defined ? classes : []
 %}
+{%
+  set inner_classes = inner_classes is defined ? inner_classes : []
+%}
 {% if content %}
   <{{ tag|default('div') }}{{ attributes.addClass(base_classes, classes) }}>
-    {% if inner_attributes %}
-      <div{{ inner_attributes.addClass() }}>
+    {% if inner_classes is not empty %}
+      {% set inner_attributes = create_attribute()  %}
+      <div{{ inner_attributes.addClass(inner_classes) }}>
     {% endif %}
     {{ content }}
-    {% if inner_attributes %}
+    {% if inner_classes is not empty %}
       </div>
     {% endif %}
   </{{ tag|default('div') }}>

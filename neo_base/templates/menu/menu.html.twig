@@ -22,19 +22,59 @@
 #}
 {% import _self as menus %}
 
+{%
+  set base_classes = base_classes is defined ? base_classes : [
+    'menu',
+    'menu--' ~ menu_name|clean_class,
+  ]
+%}
+{%
+  set classes = classes is defined ? classes : []
+%}
+{%
+  set depth_classes = depth_classes is defined ? depth_classes : []
+%}
+{%
+  set base_item_classes = base_item_classes is defined ? base_item_classes : [
+    'menu--item',
+  ]
+%}
+{%
+  set item_classes = item_classes is defined ? item_classes : []
+%}
+{%
+  set base_link_classes = base_link_classes is defined ? base_link_classes : [
+    'menu--link',
+  ]
+%}
+{%
+  set link_classes = link_classes is defined ? link_classes : []
+%}
+{%
+  set item_depth_classes = item_depth_classes is defined ? item_depth_classes : []
+%}
+{%
+  set link_depth_classes = link_depth_classes is defined ? link_depth_classes : []
+%}
+
 {#
   We call a macro which calls itself to render the full tree.
   @see https://twig.symfony.com/doc/3.x/tags/macro.html
 #}
-{% set attributes = attributes.addClass('menu') %}
-{{ menus.menu_links(items, attributes, 0) }}
+{% set attributes = attributes.addClass(base_classes, classes) %}
+{%
+  set item_classes = base_item_classes|merge(item_classes)
+%}
+{%
+  set link_classes = base_link_classes|merge(link_classes)
+%}
+{{ menus.menu_links(items, attributes, 0, depth_classes, item_classes, link_classes, item_depth_classes, link_depth_classes) }}
 
-{% macro menu_links(items, attributes, menu_level) %}
+{% macro menu_links(items, attributes, menu_level, depth_classes, item_classes, link_classes, item_depth_classes, link_depth_classes) %}
   {% set primary_nav_level = 'menu--level-' ~ (menu_level + 1) %}
   {% import _self as menus %}
   {% if items %}
-    <ul {{ attributes.addClass('menu', primary_nav_level) }}>
-      {% set attributes = attributes.removeClass(primary_nav_level) %}
+    <ul {{ attributes.addClass(primary_nav_level) }}>
       {% for item in items %}
 
         {% if item.url.isRouted and item.url.routeName == '<nolink>' %}
@@ -45,8 +85,8 @@
           {% set menu_item_type = 'link' %}
         {% endif %}
 
-        {% set item_classes = [
-            'menu--item',
+        {%
+          set instance_item_classes = [
             'menu--item-' ~ menu_item_type,
             'menu--item-level-' ~ (menu_level + 1),
             item.in_active_trail ? 'menu--item-active-trail',
@@ -54,8 +94,16 @@
           ]
         %}
 
-        {% set link_classes = [
-            'menu--link',
+        {%
+          set instance_item_depth_classes = item_depth_classes[(menu_level + 1)] is defined ? item_depth_classes[(menu_level + 1)] : []
+        %}
+
+        {%
+          set instance_link_depth_classes = link_depth_classes[(menu_level + 1)] is defined ? link_depth_classes[(menu_level + 1)] : []
+        %}
+
+        {%
+          set instance_link_classes = [
             'menu--link-' ~ menu_item_type,
             'menu--link-level-' ~ (menu_level + 1),
             item.in_active_trail ? 'menu--link-active-trail',
@@ -63,7 +111,7 @@
           ]
         %}
 
-        <li{{ item.attributes.addClass(item_classes) }}>
+        <li{{ item.attributes.addClass(item_classes, instance_item_classes, instance_item_depth_classes) }}>
           {#
             A unique HTML ID should be used, but that isn't available through
             Twig yet, so the |clean_id filter is used for now.
@@ -77,7 +125,7 @@
             </div>
           {% endif %}
 
-          {{ link(item.title, item.url, {'class': link_classes}) }}
+          {{ link(item.title, item.url, {'class': link_classes|merge(instance_link_classes)|merge(instance_link_depth_classes)}) }}
 
           {% if item.suffix %}
             <div class="menu--suffix">
@@ -86,7 +134,11 @@
           {% endif %}
 
           {% if item.below %}
-            {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+            {%
+              set instance_depth_classes = depth_classes[(menu_level + 1)] is defined ? depth_classes[(menu_level + 1)] : []
+            %}
+            {% set attributes = create_attribute().addClass(instance_depth_classes) %}
+            {{ menus.menu_links(item.below, attributes, menu_level + 1, depth_classes, item_classes, link_classes, item_depth_classes, link_depth_classes) }}
           {% endif %}
 
         </li>

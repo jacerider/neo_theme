@@ -8,7 +8,7 @@ dependencies:
     - front
 _core:
   default_config_hash: aeqlWs7HwctZeZC7ADcbxfqehJzBRfZKmuZz3DsH3_4
-id: front_messages
+id: messages
 theme: front
 region: status
 weight: -3
