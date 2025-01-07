@@ -25,6 +25,8 @@
 {%
   set classes = classes is defined ? classes : [
     'form-label',
+    neo_size == 'sm' ? 'text-sm',
+    neo_size == 'xs' ? 'text-xs',
   ]
 %}
 {% if title is not empty or required -%}

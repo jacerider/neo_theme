@@ -33,6 +33,12 @@ table {
         }
       }
     }
+
+    &.th--center {
+      > div {
+        @apply justify-center;
+      }
+    }
   }
 
   // Check field UI before changing.
@@ -105,47 +111,63 @@ table {
     }
   }
 
+  .style--heading {
+    @apply text-base font-bold leading-tight;
+
+    small {
+      @apply text-xs font-normal text-base-500;
+    }
+  }
+
+  .align--center {
+    @apply text-center;
+
+    > div {
+      @apply justify-center;
+    }
+  }
+
+  .size--min {
+    width: 1%;
+    white-space: nowrap;
+  }
+
   td {
     &,
     li {
       @apply text-sm;
     }
 
-    &.td--xs {
-      @apply text-xs;
-    }
+    // &.td--xs {
+    //   @apply text-xs;
+    // }
 
-    &.td--min,
-    &.td--operations,
-    &.td--status,
-    &.td--enabled,
-    &.td--id,
-    &.td--created,
-    &.td--updated,
-    &.td--author,
-    &.td--content-type,
-    &.td--node-bulk-form,
-    &.td--type-image,
-    &.views-field-user-bulk-form {
-      width: 1%;
-      white-space: nowrap;
-    }
+    // &.td--operations,
+    // &.td--status,
+    // &.td--enabled,
+    // &.td--id,
+    // &.td--created,
+    // &.td--updated,
+    // &.td--author,
+    // &.td--content-type,
+    // &.td--node-bulk-form,
+    // &.td--type-image,
+    // &.views-field-user-bulk-form {
+    //   width: 1%;
+    //   white-space: nowrap;
+    // }
 
-    &.td--name,
-    &.td--username,
-    &.td--title,
-    &.td--label,
-    &.td--menu-link {
-      @apply text-base font-bold leading-tight;
+    // &.td--name,
+    // &.td--username,
+    // &.td--title,
+    // &.td--label,
+    // &.td--menu-link {
+    //   @apply text-base font-bold leading-tight;
 
-      small {
-        @apply text-xs font-normal text-base-500;
-      }
-    }
-
-    &.td--center {
-      @apply text-center;
-    }
+    //   small {
+    //     @apply text-xs font-normal text-base-500;
+    //   }
+    // }
   }
 }
 

@@ -41,6 +41,7 @@
  * @ingroup themeable
  */
 #}
+{{ attach_library('neo_base/table') }}
 <div class="mt-6 first:mt-0">
   <table{{ attributes.addClass('border-collapse w-full') }}>
     {% if caption %}
@@ -59,13 +60,11 @@
       {% endif %}
     {% endfor %}
 
-    {% set columnClasses = [] %}
     {% if header %}
       <thead>
         <tr>
           {% for key, cell in header %}
             {% if '<a' in cell.content|render|render %}
-              {% set columnClasses = columnClasses|merge(['item']) %}
               {%
                 set cell_classes = [
                   'th--item',
@@ -78,7 +77,6 @@
               {% else %}
                 {% set columnClass = key %}
               {% endif %}
-              {% set columnClasses = columnClasses|merge([columnClass]) %}
               {%
                 set cell_classes = [
                   columnClass ? 'th--' ~ columnClass,
@@ -102,7 +100,7 @@
           <tr{{ row.attributes.addClass('border border-base-200 hover:bg-base-50 transition') }}>
             {% set count = 0 %}
             {% for key, cell in row.cells %}
-              {% set cell_classes = [columnClasses[count] ? 'td--' ~ columnClasses[count] : 'td--item td--' ~ key|clean_class] %}
+              {% set cell_classes = ['td--item td--' ~ key] %}
               {% if '<img' in cell.content|render|render %}
                 {% set cell_classes = cell_classes|merge(['td--type-image']) %}
               {% endif %}

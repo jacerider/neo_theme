@@ -7,6 +7,7 @@
     'my-form-item',
     'p-form',
     'pb-0',
+    legend.title is empty or description_display == 'before' and description.content is empty ? 'pt-0',
   ]
 %}
 {%
@@ -29,5 +30,6 @@
     '[&>.field-prefix]:text-sm',
     '[&>.field-prefix]:block',
     '[&>.field-prefix]:mb-2',
+    legend.title is empty or description_display == 'before' and description.content is empty ? '[&>*:first-child]:mt-form-item',
   ]
 %}

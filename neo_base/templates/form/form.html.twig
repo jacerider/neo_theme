@@ -12,9 +12,25 @@
  * @ingroup themeable
  */
 #}
+{%
+  set classes = classes is defined ? classes : [
+    not neo_style ? 'card',
+    'mt-form',
+    'first:mt-0',
+  ]
+%}
+{%
+  set inner_classes = inner_classes is defined ? inner_classes : [
+    'form--inner',
+    'm-form',
+    '[&>*:first-child]:mt-0 [&>*:last-child]:mb-0',
+  ]
+%}
+{% set inner_attributes = create_attribute()  %}
+
 {{ attach_library('neo_base/form') }}
-<form{{ attributes.addClass('form', 'card', 'mt-form', 'first:mt-0') }}>
-  <div class="form--inner m-form [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
+<form{{ attributes.addClass('form', classes) }}>
+  <div{{ inner_attributes.addClass(inner_classes) }}>
     {{ children }}
   </div>
 </form>

@@ -1,4 +1,14 @@
 form {
+  // .neo-modal--content > & {
+  //   &:first-child {
+  //     @apply -mt-form-item;
+  //   }
+
+  //   &:last-child {
+  //     @apply -mb-form-item;
+  //   }
+  // }
+
   table {
     @apply my-form-item;
   }
@@ -12,8 +22,12 @@ form {
     @apply mt-0;
   }
 
-  p {
+  *:not(.ck) > p {
     @apply text-xs font-normal;
+  }
+
+  .ck-content {
+    // @apply prose max-w-none;
   }
 }
 
@@ -36,7 +50,11 @@ form {
 .form--inline-children > div,
 .form--inline > fieldset > .fieldset--content {
   // @todo We need to align buttons to bottom of wrapper.
-  @apply flex items-start gap-4;
+  @apply flex gap-4;
+
+  &:not([class^='items-']):not([class*=' items-']) {
+    @apply items-start;
+  }
 
   &::after {
     display: none;
@@ -63,7 +81,7 @@ form {
 
 .form--inline,
 .form--inline-children > div {
-  > * {
+  &:not(.form--inline-min) > * {
     @apply flex-1;
   }
 

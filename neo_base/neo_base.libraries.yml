@@ -17,6 +17,13 @@ form:
     theme:
       src/css/form.scss: { minified: true }
 
+table:
+  version: VERSION
+  neo: { group: contrib }
+  css:
+    theme:
+      src/css/table.scss: { minified: true }
+
 vertical-tabs:
   version: VERSION
   neo: { group: contrib }

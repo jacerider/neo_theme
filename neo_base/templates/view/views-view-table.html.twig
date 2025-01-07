@@ -43,6 +43,7 @@
     'shadow',
   ]
 %}
+{{ attach_library('neo_base/table') }}
 <div class="mt-6 first:mt-0">
   <table{{ attributes.addClass(classes) }}>
     {% if caption_needed %}
@@ -58,17 +59,13 @@
       </caption>
     {% endif %}
 
-    {% set columnClasses = [] %}
     {% if header %}
       <thead>
         <tr>
           {% for key, column in header %}
             {% if column.default_classes %}
-              {% set columnClass = column.content|render|clean_class %}
-              {% set columnClasses = columnClasses|merge([columnClass]) %}
               {%
                 set column_classes = [
-                  columnClass ? 'th--' ~ columnClass,
                   'views-field',
                   'views-field-' ~ fields[key],
                 ]
@@ -103,7 +100,7 @@
             {% if column.default_classes %}
               {%
                 set column_classes = [
-                  columnClasses[count] ? 'td--' ~ columnClasses[count] : 'td--item td--' ~ key|clean_class,
+                  'td--item',
                   'views-field'
                 ]
               %}

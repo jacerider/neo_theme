@@ -3,11 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    // Forms.
-    --form-spacing: 1.5rem;
-  }
-
   a,
   .link,
   button.link {

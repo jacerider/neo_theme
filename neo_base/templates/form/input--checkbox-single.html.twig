@@ -4,8 +4,6 @@
   set classes = [
     'peer',
     'block',
-    'h-6',
-    'w-10',
     'cursor-pointer',
     'border-2',
     'border-base-400',
@@ -24,13 +22,38 @@
     'focus:ring-primary-600',
     'focus:ring-offset-2',
     'transition',
+    neo_size == 'lg' ? 'w-12 h-8',
+    neo_size == 'md' ? 'w-10 h-6',
+    neo_size == 'sm' ? 'w-8 h-5',
+    neo_size == 'xs' ? 'w-6 h-4',
   ]
 %}
+
+{%
+  set inner_classes = [
+    'absolute',
+    'flex',
+    'items-center',
+    'justify-center',
+    'rounded-full',
+    'pointer-events-none',
+    'transition',
+    'bg-base-400',
+    'dot',
+    'left-1',
+    'top-1',
+    'peer-checked:bg-primary-50',
+    neo_size == 'lg' ? 'w-6 h-6 peer-checked:translate-x-4',
+    neo_size == 'md' ? 'w-4 h-4 peer-checked:translate-x-4',
+    neo_size == 'sm' ? 'h-3 w-3 peer-checked:translate-x-3',
+    neo_size == 'xs' ? 'h-2 w-2 peer-checked:translate-x-2',
+  ]
+%}
+{% set inner_attributes = create_attribute()  %}
 
 {% block input %}
   <div class="relative">
     <input{{ attributes.addClass(classes) }} role="switch" />{{ children }}
-    <div class="absolute flex items-center justify-center w-4 h-4 rounded-full pointer-events-none transition bg-base-400 dot left-1 top-1 peer-checked:translate-x-full peer-checked:bg-primary-50">
-    </div>
+    <div{{ inner_attributes.addClass(inner_classes) }}></div>
   </div>
 {% endblock %}

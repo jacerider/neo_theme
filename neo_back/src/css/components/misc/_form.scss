@@ -53,12 +53,22 @@ form {
         @apply mr-1;
       }
     }
+
+    &.icon-only {
+      &:before {
+        @apply mr-0;
+      }
+
+      span {
+        display: none;
+      }
+    }
   }
 
   a {
     &[id$='cancel'],
     &[id$='delete'] {
-      @apply btn-alert btn;
+      @apply btn btn-alert;
       @include neo-icon.icon('times-square', before) {
         @apply mr-1;
       }

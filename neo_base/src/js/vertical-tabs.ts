@@ -22,7 +22,14 @@
   Drupal.theme.verticalTab = (settings) => {
     const tab:any = {};
     tab.title = $('<strong class="vertical-tabs__menu-item-title"></strong>');
-    tab.title[0].textContent = settings.title;
+    const title = settings.details.find('> summary > .details--title');
+    if (title.length) {
+      // Allow HTML.
+      tab.title[0].innerHTML = title[0].innerHTML;
+    }
+    else {
+      tab.title[0].textContent = settings.title;
+    }
     tab.item = $(
       '<li class="vertical-tabs__menu-item" tabindex="-1"></li>',
     ).append(
