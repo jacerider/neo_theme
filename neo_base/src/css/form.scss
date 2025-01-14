@@ -86,11 +86,21 @@ form {
   }
 
   & + div {
-    @apply mt-form-item;
+    @apply my-form-item;
   }
 
   div + & {
-    @apply mt-form-item;
+    @apply my-form-item;
+  }
+
+  &.form-wrapper {
+    @apply my-form-item;
+  }
+
+  legend & {
+    &.form-wrapper {
+      @apply my-0;
+    }
   }
 }
 

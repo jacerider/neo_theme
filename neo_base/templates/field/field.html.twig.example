@@ -1,0 +1,10 @@
+{% extends 'field.html.twig' %}
+
+{#
+  Specify the classes for the field.
+#}
+{% set classes = ['example'] %}
+
+{% block content %}
+  {{ item.content }}
+{% endblock %}
