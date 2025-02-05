@@ -119,6 +119,14 @@ table {
     }
   }
 
+  .style--sm {
+    @apply text-sm text-base-500;
+  }
+
+  .style--xs {
+    @apply text-xs text-base-500;
+  }
+
   .align--center {
     @apply text-center;
 

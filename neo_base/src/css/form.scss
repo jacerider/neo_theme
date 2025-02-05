@@ -81,8 +81,14 @@ form {
 
 .form--inline,
 .form--inline-children > div {
-  &:not(.form--inline-min) > * {
-    @apply flex-1;
+  &:not(.form--inline-min) {
+    > *:not([class^='flex-']):not([class*=' flex-']) {
+      @apply flex-1;
+
+      // &.size--min {
+      //   @apply flex-none;
+      // }
+    }
   }
 
   & + div {

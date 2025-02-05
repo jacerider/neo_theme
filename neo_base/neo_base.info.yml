@@ -70,7 +70,9 @@ neo:
     .btn-alert:
       '@apply bg-transparent text-alert border-0 hover:bg-alert-100 hover:text-alert is-active:bg-alert-100 is-active:text-alert': {}
     .btn-text:
-      '@apply bg-transparent text-primary hover:bg-transparent hover:text-primary-700 is-active:bg-transparent is-active:text-primary-700 first:pl-0 last:pr-0': {}
+      '@apply bg-transparent text-inherit hover:bg-transparent hover:text-inherit hover:underline is-active:bg-transparent is-active:underline first:pl-0 last:pr-0': {}
+    .btn-text-primary:
+      '@apply bg-transparent text-primary-500 hover:bg-transparent hover:text-primary-700 is-active:bg-transparent is-active:text-primary-700 first:pl-0 last:pr-0': {}
     .btn-sm:
       '@apply text-sm px-3 py-2': {}
     .btn-xs:
@@ -80,7 +82,8 @@ neo:
     .local-action:
       '@apply btn btn-primary': {}
   variants:
-    'is-active': ['&.is-active']
+    'is-active': ['&.is-active', '.is-active &']
+    'is-focus': ['&.is-focus', '.is-focus &']
 
 libraries:
   - neo_base/global

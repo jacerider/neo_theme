@@ -8,8 +8,6 @@ core_version_requirement: ^10.3 || ^11
 neo:
   scope: front
   components:
-    .max-w-content:
-      '@apply max-w-[1500px] ml-auto mr-auto': {}
     .px-content:
       '@apply px-6 md:px-10 xl:px-20': {}
     .py-content:

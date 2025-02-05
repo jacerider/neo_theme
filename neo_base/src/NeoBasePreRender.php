@@ -19,7 +19,7 @@ class NeoBasePreRender implements TrustedCallbackInterface {
   public static function fieldset($element) {
     if (!empty($element['#title'])) {
       foreach (Element::children($element) as $key) {
-        if (isset($element[$key]['#neo_fieldset_region'])) {
+        if (isset($element[$key]['#neo_fieldset_region']) && ($element[$key]['#type'] ?? '') !== 'fieldset') {
           // Currently supports placing 'legend_start' and 'legend_end'.
           $element['#neo_fieldset_region'][$element[$key]['#neo_fieldset_region']][$key] = $element[$key];
           unset($element[$key]);
@@ -75,7 +75,9 @@ class NeoBasePreRender implements TrustedCallbackInterface {
           $element['#rows'][$i]['data'][$ii] = ['data' => $element['#rows'][$i]['data'][$ii]];
         }
         if (!isset($element['#rows'][$i]['data'][$ii]['data'])) {
-          $element['#rows'][$i]['data'][$ii] = ['data' => $element['#rows'][$i]['data'][$ii]];
+          $data = array_filter($element['#rows'][$i]['data'][$ii], fn($v) => is_array($v));
+          $props = array_filter($element['#rows'][$i]['data'][$ii], fn($v) => !is_array($v));
+          $element['#rows'][$i]['data'][$ii] = ['data' => $data] + $props;
         }
         $cell = &$element['#rows'][$i]['data'][$ii];
         $classes = $cell['class'] ?? [];
