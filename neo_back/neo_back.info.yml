@@ -14,6 +14,8 @@ neo:
   components:
     .card:
       '@apply block rounded-sm border border-base-200 bg-base-0 shadow-sm': {}
+    .form--inner:
+      '@apply m-form': {}
 
 regions:
   status: Status

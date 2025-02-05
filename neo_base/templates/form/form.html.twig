@@ -14,15 +14,14 @@
 #}
 {%
   set classes = classes is defined ? classes : [
+    'form--wrapper',
     not neo_style ? 'card',
-    'mt-form',
     'first:mt-0',
   ]
 %}
 {%
   set inner_classes = inner_classes is defined ? inner_classes : [
     'form--inner',
-    'm-form',
     '[&>*:first-child]:mt-0 [&>*:last-child]:mb-0',
   ]
 %}
