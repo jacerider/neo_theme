@@ -90,7 +90,7 @@
           </div>
         {% endif %}
         <div{{ legend_span.attributes.addClass(base_legend_span_classes, legend_span_classes) }}>
-          <div class="flex gap-1">
+          <div class="flex align-center gap-1">
             {{ legend.title }}
             {% if required %}
               <abbr class="font-normal form-required text-alert" aria-hidden="true">*</abbr>
@@ -108,6 +108,7 @@
         {% endif %}
       </legend>
     {% endif %}
+    <div class="clearfix"></div>
     <div{{ fieldset_content_attributes.addClass(base_content_classes, content_classes) }}>
       {% if errors %}
         <div>

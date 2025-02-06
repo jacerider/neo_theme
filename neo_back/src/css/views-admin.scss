@@ -13,7 +13,7 @@
   @apply p-0;
 
   .views-ui-display-tab-bucket__title {
-    @apply text-base font-bold mt-0 mb-1;
+    @apply mb-1 mt-0 text-base font-bold;
   }
 }
 
@@ -21,7 +21,7 @@
   @apply grid grid-cols-3 gap-3;
 
   > * {
-    @apply float-none w-full m-0;
+    @apply float-none m-0 w-full;
   }
 }
 
@@ -31,13 +31,25 @@ div.views-display-column {
 
 details.views-display-column {
   > div {
-    @apply my-0 mx-3;
+    @apply mx-3 my-0;
   }
 }
 
 .view-preview-form__title {
   @apply border bg-transparent;
 }
+
+// .views-ui-edit-display-form {
+//   min-height: 100%;
+
+//   > .form--inner {
+//     min-height: 100%;
+
+//     > .scroll {
+//       min-height: 100%;
+//     }
+//   }
+// }
 
 .views-ui-dialog {
   .form--inner {
@@ -73,7 +85,7 @@ details.views-display-column {
   }
 
   .scroll {
-    @apply -my-form-item border-none p-6;
+    @apply m-0 overflow-visible border-none p-0;
   }
 
   // .clearfix {

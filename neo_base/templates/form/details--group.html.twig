@@ -4,7 +4,7 @@
   set classes = [
     'card',
     'group',
-    'my-form-item',
+    'form--item',
   ]
 %}
 {%
@@ -15,8 +15,6 @@
     'cursor-pointer',
     'list-none',
     'items-center',
-    'font-bold',
-    'p-4',
     'transition',
     'rounded-sm',
     'hover:text-primary-500',
@@ -29,6 +27,9 @@
     '[&>.summary]:font-light',
     '[&>.summary]:leading-tight',
     '[&>.summary]:ml-7',
+    neo_size == 'md' ? 'p-4 font-bold',
+    neo_size == 'sm' ? 'px-4 py-2 font-semibold text-sm',
+    neo_size == 'xs' ? 'px-4 py-1 font-semibold text-xm',
     required ? 'js-form-required',
     required ? 'form-required',
   ]
@@ -39,9 +40,13 @@
   ]
 %}
 
+{%
+  set use_alpine = true
+%}
+
 {% block summary %}
   <div class="w-7 grow-0">
-    <svg class="transform group-open:rotate-180" fill="none" height="20" width="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <svg class="transform" fill="none" height="20" width="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"  :class="{ 'rotate-180': expanded }">
       <polyline points="6 9 12 15 18 9"></polyline>
     </svg>
   </div>

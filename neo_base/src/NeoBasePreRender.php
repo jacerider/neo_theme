@@ -30,6 +30,28 @@ class NeoBasePreRender implements TrustedCallbackInterface {
   }
 
   /**
+   * Prerender callback for vertical tabs.
+   */
+  public static function verticalTabs($element) {
+    if (empty($element['#printed'])) {
+      $group = implode('][', $element['#parents']);
+      $visible = Element::getVisibleChildren($element['group']['#groups'][$group]);
+      $hasContent = [];
+      foreach ($visible as $key) {
+        $subElement = $element['group']['#groups'][$group];
+        foreach (Element::children($subElement) as $subKey) {
+          $hasContent[$key][$subKey] = !empty(Element::getVisibleChildren($subElement[$subKey]));
+        }
+      }
+      $hasContent = array_filter($hasContent, fn($v) => array_filter($v));
+      if (!$hasContent) {
+        $element['#printed'] = TRUE;
+      }
+    }
+    return $element;
+  }
+
+  /**
    * Prerender callback for table.
    */
   public static function table($element) {
@@ -166,6 +188,7 @@ class NeoBasePreRender implements TrustedCallbackInterface {
   public static function trustedCallbacks() {
     return [
       'fieldset',
+      'verticalTabs',
       'table',
     ];
   }

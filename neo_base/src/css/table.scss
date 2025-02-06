@@ -117,6 +117,10 @@ table {
     small {
       @apply text-xs font-normal text-base-500;
     }
+
+    .neo-icon {
+      @apply mr-1 inline-block min-w-6 text-center text-xl leading-none text-base-700;
+    }
   }
 
   .style--sm {

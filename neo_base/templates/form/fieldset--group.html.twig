@@ -4,16 +4,13 @@
   set classes = [
     'card',
     'text-base',
-    'my-form-item',
-    'p-form',
-    'pb-0',
+    'form--item',
+    'p-form-item',
     legend.title is empty or description_display == 'before' and description.content is empty ? 'pt-0',
   ]
 %}
 {%
-  set legend_classes = [
-    'mb-6',
-  ]
+  set legend_classes = []
 %}
 {%
   set legend_span_classes = [
@@ -24,12 +21,12 @@
 %}
 {%
   set content_classes = content_classes is defined ? content_classes : [
-    '[&>*:last-child]:mb-form-item',
+    'clearfix',
     '[&>p]:my-form-item',
     '[&>p]:text-sm',
     '[&>.field-prefix]:text-sm',
     '[&>.field-prefix]:block',
     '[&>.field-prefix]:mb-2',
-    legend.title is empty or description_display == 'before' and description.content is empty ? '[&>*:first-child]:mt-form-item',
+    '[&>*:first-child]:!mt-form-item',
   ]
 %}

@@ -19,7 +19,7 @@
  */
 #}
 {%
-  set classes = classes is defined ? classes : []
+  set classes = classes is defined ? classes : ['py-form-item']
 %}
 {%
   set summary_title_classes = summary_title_classes is defined ? summary_title_classes : ['details--title']
@@ -30,15 +30,22 @@
 {%
   set description_classes = description_classes is defined ? description_classes : ['details--description', 'text-xs', 'my-4']
 %}
-<details{{ attributes.addClass(classes) }}>
+{%
+  set use_alpine = use_alpine is defined ? use_alpine : false
+%}
+{% if use_alpine %}
+  {{ attach_library('neo/library.alpine.collapse') }}
+{% endif %}
+<{% if use_alpine %}div{% else %}details{% endif %}{{ attributes.addClass(classes) }}{% if use_alpine %} x-data="{ expanded: {% if open %}true{% else %}false{% endif %} }"{% endif %}>
   {%- if title -%}
-    <summary{{ summary_attributes.addClass(summary_classes) }}>
+    <{% if use_alpine %}div{% else %}summary{% endif %}{{ summary_attributes.addClass(summary_classes) }}{% if use_alpine %} @click="expanded = ! expanded"{% endif %}>
       {% block summary %}
         <div{{ summary_title_attributes.addClass(summary_title_classes) }}>{{ title }}</div>
       {% endblock %}
-    </summary>
+    </{% if use_alpine %}div{% else %}summary{% endif %}>
   {%- endif -%}
 
+  {% if use_alpine %}<div x-show="expanded" x-collapse x-cloak>{% endif %}
   <div{{ content_attributes.addClass(content_classes) }}>
     {% if errors %}
       <div>
@@ -55,4 +62,5 @@
     {{ children }}
     {{ value }}
   </div>
-</details>
+  {% if use_alpine %}</div>{% endif %}
+</{% if use_alpine %}div{% else %}details{% endif %}>

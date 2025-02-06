@@ -74,9 +74,16 @@
   {% endif %}
 
   {% if rows %}
-    <div{{ content_attributes.addClass(base_content_classes, content_classes) }}>
-      {{ rows }}
-    </div>
+    {%
+      set showWrapper = base_content_classes or content_classes
+    %}
+    {% if showWrapper %}
+      <div{{ content_attributes.addClass(base_content_classes, content_classes) }}>
+    {% endif %}
+    {{ rows }}
+    {% if showWrapper %}
+      </div>
+    {% endif %}
   {% elseif empty %}
     <div class="view-empty">
       {{ empty }}

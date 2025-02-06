@@ -30,7 +30,7 @@
 {% endif %}
 {% for row in rows %}
   {%
-    set showWrapper = default_row_class or row.attributes.toArray|length
+    set showWrapper = default_row_class or row_classes or row.attributes.toArray|length
   %}
   {% if showWrapper %}
     {%

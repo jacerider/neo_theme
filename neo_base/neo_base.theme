@@ -22,6 +22,8 @@ function neo_base_element_info_alter(array &$info) {
 
   $info['fieldset']['#pre_render'] = array_merge([[NeoBasePreRender::class, 'fieldset']], $info['fieldset']['#pre_render']);
 
+  $info['vertical_tabs']['#pre_render'][] = [NeoBasePreRender::class, 'verticalTabs'];
+
   foreach ($info as $id => &$element) {
     if (isset($element['#process'])) {
       $supportsGroupProcessing = !empty(array_filter($element['#process'], function ($callback) {
@@ -236,6 +238,7 @@ function neo_base_preprocess_textarea(&$variables) {
  * Implements hook_preprocess_details().
  */
 function neo_base_preprocess_details(&$variables) {
+  $variables['open'] = $variables['element']['#open'] ?? FALSE;
   $variables['summary_title_attributes'] = new Attribute($variables['summary_title_attributes'] ?? []);
   $variables['content_attributes'] = new Attribute($variables['content_attributes'] ?? []);
   $variables['description_attributes'] = new Attribute($variables['description_attributes'] ?? []);

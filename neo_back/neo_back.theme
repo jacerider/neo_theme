@@ -37,7 +37,7 @@ function neo_back_form_node_form_alter(&$form, FormStateInterface $form_state) {
   $form['meta']['#type'] = 'container';
   $form['meta']['#access'] = TRUE;
   $form['meta']['#attributes']['class'][] = 'card';
-  $form['meta']['#attributes']['class'][] = 'px-form-item';
+  $form['meta']['#attributes']['class'][] = 'p-form-item pt-0';
 
   if (isset($form['meta']['published'])) {
     $form['meta']['published']['#wrapper_attributes']['class'][] = 'mt-0';
@@ -46,6 +46,7 @@ function neo_back_form_node_form_alter(&$form, FormStateInterface $form_state) {
     $form['meta']['published']['#wrapper_attributes']['class'][] = 'px-form-item';
     $form['meta']['published']['#wrapper_attributes']['class'][] = 'py-4';
     $form['meta']['published']['#wrapper_attributes']['class'][] = 'font-bold';
+    $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-xl';
     $form['meta']['published']['#wrapper_attributes']['class'][] = 'rounded-t-sm';
     if ($entity->isPublished()) {
       $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-success-500';

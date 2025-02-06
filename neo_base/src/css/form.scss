@@ -1,8 +1,4 @@
 form {
-  table {
-    @apply my-form-item;
-  }
-
   .tabledrag-toggle-weight-wrapper {
     @apply mt-form-item;
   }
@@ -18,6 +14,20 @@ form {
 
   .ck-content {
     // @apply prose max-w-none;
+  }
+}
+
+.form--item {
+  @apply my-form-item;
+
+  &:first-child {
+    @apply mt-0;
+  }
+
+  &:last-child,
+  &:has(+ input[type='hidden']),
+  &:has(+ div[style*='display: none;']) {
+    @apply mb-0;
   }
 }
 
@@ -40,10 +50,14 @@ form {
 .form--inline-children > div,
 .form--inline > fieldset > .fieldset--content {
   // @todo We need to align buttons to bottom of wrapper.
-  @apply flex gap-4;
+  @apply flex flex-col gap-4 md:flex-row md:flex-wrap;
+
+  > * {
+    @apply min-w-40;
+  }
 
   &:not([class^='items-']):not([class*=' items-']) {
-    @apply items-start;
+    @apply md:items-start;
   }
 
   &::after {
@@ -91,6 +105,15 @@ form {
 
   &.form-wrapper {
     @apply my-form-item;
+
+    &:first-child {
+      @apply mt-0;
+    }
+
+    &:last-child,
+    &:has(+ input[type='hidden']) {
+      @apply mb-0;
+    }
   }
 
   legend & {
