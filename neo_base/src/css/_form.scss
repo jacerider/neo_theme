@@ -20,7 +20,9 @@ form {
 .form--item {
   @apply my-form-item;
 
-  &:first-child {
+  &:first-child,
+  &:has(~ input[type='hidden']),
+  &:has(~ div[style*='display: none;']) {
     @apply mt-0;
   }
 

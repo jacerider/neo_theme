@@ -48,7 +48,13 @@ function neo_back_form_node_form_alter(&$form, FormStateInterface $form_state) {
     $form['meta']['published']['#wrapper_attributes']['class'][] = 'font-bold';
     $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-xl';
     $form['meta']['published']['#wrapper_attributes']['class'][] = 'rounded-t-sm';
-    if ($entity->isPublished()) {
+    if ($entity->isNew()) {
+      $form['meta']['published']['#access'] = TRUE;
+      $form['meta']['published']['#markup'] = t('Draft');
+      $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-base-500';
+      $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-base-content-500';
+    }
+    elseif ($entity->isPublished()) {
       $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-success-500';
       $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-success-content-500';
     }
