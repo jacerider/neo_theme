@@ -1,4 +1,6 @@
-@use 'elements/**/*.scss';
+@use 'elements/button';
+@use 'elements/messages';
+@use 'elements/pager';
 
 html,
 body {

@@ -1,8 +1,6 @@
 global:
   version: VERSION
-  neo: { scope: back, group: contrib }
-  js:
-    src/js/neo-back.ts: {}
+  neo: { scope: front, group: contrib }
   css:
     theme:
       src/css/global.scss: { minified: true }
@@ -11,45 +9,23 @@ global:
     - core/drupal
     - core/drupal.displace
 
-field-ui:
-  version: VERSION
-  neo: { scope: back, group: contrib }
-  css:
-    theme:
-      src/css/field-ui.scss: { minified: true }
-
-views-admin:
-  version: VERSION
-  neo: { scope: back, group: contrib }
-  js:
-    src/js/views-admin.ts: {}
-  css:
-    theme:
-      src/css/views-admin.scss: { minified: true }
-
-dialog-ajax:
-  version: VERSION
-  neo: { scope: back, group: contrib }
-  js:
-    src/js/dialog-ajax.ts: {}
-
 ajax:
   version: VERSION
-  neo: { scope: back, group: contrib }
+  neo: { scope: front, group: contrib }
   css:
     theme:
       src/css/ajax.scss: { minified: true }
 
 dialog:
   version: VERSION
-  neo: { scope: back, group: contrib }
+  neo: { scope: front, group: contrib }
   css:
     theme:
       src/css/dialog.scss: { minified: true }
 
 dropbutton:
   version: VERSION
-  neo: { scope: back, group: contrib }
+  neo: { scope: front, group: contrib }
   css:
     theme:
       src/css/dropbutton.scss: { minified: true }
@@ -63,21 +39,21 @@ form:
 
 media-library:
   version: VERSION
-  neo: { scope: back, group: contrib }
+  neo: { scope: front, group: contrib }
   css:
     theme:
       src/css/media-library.scss: { minified: true }
 
 password:
   version: VERSION
-  neo: { scope: back, group: contrib }
+  neo: { scope: front, group: contrib }
   css:
     theme:
       src/css/password.scss: { minified: true }
 
 progress:
   version: VERSION
-  neo: { scope: back, group: contrib }
+  neo: { scope: front, group: contrib }
   css:
     theme:
       src/css/progress.scss: { minified: true }
@@ -91,14 +67,14 @@ table:
 
 tabledrag:
   version: VERSION
-  neo: { scope: back, group: contrib }
+  neo: { scope: front, group: contrib }
   css:
     theme:
       src/css/tabledrag.scss: { minified: true }
 
 vertical-tabs:
   version: VERSION
-  neo: { scope: back, group: contrib }
+  neo: { scope: front, group: contrib }
   css:
     theme:
       src/css/vertical-tabs.scss: { minified: true }

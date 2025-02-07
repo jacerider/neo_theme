@@ -15,6 +15,7 @@ neo:
   scope:
     - front
     - back
+    - shared
   group: contrib
   theme:
     extend:
@@ -91,8 +92,8 @@ neo:
     'is-active': ['&.is-active', '.is-active &']
     'is-focus': ['&.is-focus', '.is-focus &']
 
-libraries:
-  - neo_base/global
+# libraries:
+#   - neo_base/global
 libraries-extend:
   core/drupal.vertical-tabs:
     - neo_base/vertical-tabs

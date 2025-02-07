@@ -5,6 +5,9 @@ package: Neo
 base theme: neo_base
 version: 0.0.0
 core_version_requirement: ^10.3 || ^11
+libraries:
+  - neo_front/global
+
 neo:
   scope: front
   group: contrib
@@ -13,3 +16,25 @@ regions:
   status: Status
   content: Content
   footer: Footer
+
+libraries-extend:
+  neo_base/ajax:
+    - neo_front/ajax
+  neo_base/dialog:
+    - neo_front/dialog
+  neo_base/dropbutton:
+    - neo_front/dropbutton
+  neo_base/form:
+    - neo_front/form
+  neo_base/media-library:
+    - neo_front/media-library
+  neo_base/password:
+    - neo_front/password
+  neo_base/progress:
+    - neo_front/progress
+  neo_base/table:
+    - neo_front/table
+  neo_base/tabledrag:
+    - neo_front/tabledrag
+  neo_base/vertical-tabs:
+    - neo_front/vertical-tabs

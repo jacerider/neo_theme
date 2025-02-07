@@ -31,3 +31,23 @@ libraries-extend:
     - neo_back/field-ui
   views_ui/views_ui.admin:
     - neo_back/views-admin
+  neo_base/ajax:
+    - neo_back/ajax
+  neo_base/dialog:
+    - neo_back/dialog
+  neo_base/tabledrag:
+    - neo_back/tabledrag
+  neo_base/dropbutton:
+    - neo_back/dropbutton
+  neo_base/form:
+    - neo_back/form
+  neo_base/media-library:
+    - neo_back/media-library
+  neo_base/password:
+    - neo_back/password
+  neo_base/progress:
+    - neo_back/progress
+  neo_base/table:
+    - neo_back/table
+  neo_base/vertical-tabs:
+    - neo_back/vertical-tabs
