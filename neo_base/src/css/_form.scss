@@ -21,14 +21,14 @@ form {
   @apply my-form-item;
 
   &:first-child,
-  &:has(~ input[type='hidden']),
-  &:has(~ div[style*='display: none;']) {
+  &:has(~ input[type='hidden']:first-child),
+  &:has(~ div[style*='display: none;']:first-child) {
     @apply mt-0;
   }
 
   &:last-child,
-  &:has(+ input[type='hidden']),
-  &:has(+ div[style*='display: none;']) {
+  &:has(+ input[type='hidden']:last-child),
+  &:has(+ div[style*='display: none;']:last-child) {
     @apply mb-0;
   }
 }
@@ -54,13 +54,13 @@ form {
   // @todo We need to align buttons to bottom of wrapper.
   @apply flex flex-col gap-4 md:flex-row md:flex-wrap;
 
-  > * {
-    @apply min-w-40;
-  }
+  // > * {
+  //   @apply min-w-40;
+  // }
 
-  &:not([class^='items-']):not([class*=' items-']) {
-    @apply md:items-start;
-  }
+  // &:not([class^='items-']):not([class*=' items-']) {
+  //   @apply md:items-start;
+  // }
 
   &::after {
     display: none;
@@ -68,7 +68,7 @@ form {
 
   .form-actions {
     @apply my-0 #{!important};
-    @apply self-end;
+    // @apply self-end;
   }
 
   .form-item {
