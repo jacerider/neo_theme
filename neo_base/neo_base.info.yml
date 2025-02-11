@@ -20,6 +20,7 @@ neo:
   theme:
     extend:
       spacing:
+        container: 'var(--container-spacing, 1rem)'
         form: 'var(--form-spacing, 0px)'
         form-item: 'var(--form-item-spacing, 1.5rem)'
         displace-t: 'var(--drupal-displace-offset-top, 0px)'
@@ -28,6 +29,7 @@ neo:
         displace-l: 'var(--drupal-displace-offset-left, 0px)'
   base:
     :root:
+      --container-spacing: spacing.4
       --form-spacing: spacing.6
   components:
     .ui:

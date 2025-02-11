@@ -51,6 +51,12 @@ table {
     @apply min-w-96;
   }
 
+  tbody {
+    th {
+      @apply text-left;
+    }
+  }
+
   .draggable {
     a.tabledrag-handle {
       @apply float-start flex cursor-move items-center pr-2;

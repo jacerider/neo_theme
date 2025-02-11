@@ -5,12 +5,14 @@
 %}
 
 {% block prefix %}
-  <span class="block mb-2 text-sm media-library-widget--prefix">
-    {% if prefix.weight_toggle %}
-      {{ prefix.weight_toggle|add_class('compact-link compact-float') }}
-    {% endif %}
-    {{ prefix|without('weight_toggle') }}
-  </span>
+  {% if prefix %}
+    <span class="block text-sm media-library-widget--prefix">
+      {% if prefix.weight_toggle %}
+        {{ prefix.weight_toggle|add_class('compact-link compact-float') }}
+      {% endif %}
+      {{ prefix|without('weight_toggle') }}
+    </span>
+  {% endif %}
 {% endblock %}
 
 {% block children %}

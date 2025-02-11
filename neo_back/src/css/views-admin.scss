@@ -9,16 +9,26 @@
   @apply bg-base-50;
 }
 
-.views-displays {
-  @apply p-0;
+.views-admin {
+  .views-displays {
+    @apply p-0;
 
-  .views-ui-display-tab-bucket__title {
-    @apply mb-1 mt-0 text-base font-bold;
+    .views-ui-display-tab-bucket__title {
+      @apply mb-1 mt-0 text-base font-bold;
+    }
+  }
+
+  .edit-display-settings {
+    @apply m-4;
+  }
+
+  .form-edit .form-actions {
+    @apply border;
   }
 }
 
 .views-display-columns {
-  @apply grid grid-cols-3 gap-3;
+  @apply m-0 grid grid-cols-3 gap-3;
 
   > * {
     @apply float-none m-0 w-full;
@@ -54,6 +64,12 @@ details.views-display-column {
 .views-ui-dialog {
   .form--inner {
     @apply m-0 p-0;
+
+    &:after {
+      display: table;
+      clear: both;
+      content: '';
+    }
   }
 
   .views-override:empty {
@@ -61,7 +77,7 @@ details.views-display-column {
   }
 
   .views-override:not(:empty) {
-    @apply card m-0 mx-form-item mt-form-item bg-transparent p-form-item;
+    @apply card m-0 mb-4 mt-form-item bg-transparent p-form-item;
   }
 
   .views-filterable-options {
@@ -88,25 +104,6 @@ details.views-display-column {
     @apply m-0 overflow-visible border-none p-0;
   }
 
-  // .clearfix {
-  //   > .form-item {
-  //     @apply mt-0;
-
-  //     &:last-child {
-  //       @apply mb-0;
-  //     }
-  //   }
-  // }
-  // .views-left-40 {
-  //   @apply card mt-form-item p-form-item pt-0;
-  // }
-  // .views-right-60 {
-
-  //   .clearfix {
-  //     @apply card mt-form-item p-form-item pt-0;
-  //   }
-  // }
-
   .form-item-options-expose-required,
   .form-item-options-expose-label,
   .form-item-options-expose-field-identifier,
@@ -122,7 +119,7 @@ details.views-display-column {
 }
 
 .edit-display-settings-top.views-ui-display-tab-bucket {
-  @apply flex border bg-base-50 p-2;
+  @apply mb-4 flex border bg-base-50 p-2;
 
   .views-display-setting {
     @apply p-2;
@@ -135,6 +132,11 @@ details.views-display-column {
   .dropbutton-wrapper {
     @apply relative order-2 ml-auto pl-6;
   }
+}
+
+.views-left-40:not(.views-group-box),
+.views-right-60:not(.views-group-box) {
+  @apply mt-form-item;
 }
 
 .views-ui-display-tab-bucket .views-display-setting:nth-of-type(2n) {
