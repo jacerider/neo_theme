@@ -27,11 +27,11 @@ views-admin:
     theme:
       src/css/views-admin.scss: { minified: true }
 
-dialog-ajax:
-  version: VERSION
-  neo: { scope: back, group: contrib }
-  js:
-    src/js/dialog-ajax.ts: {}
+# dialog-ajax:
+#   version: VERSION
+#   neo: { scope: back, group: contrib }
+#   js:
+#     src/js/dialog-ajax.ts: {}
 
 ajax:
   version: VERSION
