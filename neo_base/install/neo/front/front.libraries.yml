@@ -8,3 +8,5 @@ global:
   dependencies:
     - core/once
     - core/drupal
+    - neo_base/displace
+    - neo_base/sticky

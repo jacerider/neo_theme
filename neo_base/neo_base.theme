@@ -179,8 +179,13 @@ function neo_base_submit_process(&$element, FormStateInterface $form_state, &$co
  * Implements hook_preprocess_fieldset().
  */
 function neo_base_preprocess_fieldset(&$variables) {
+  if (!empty($variables['element']['#wrapper_attributes'])) {
+    $attributes = new Attribute($variables['attributes'] ?? []);
+    $attributes->merge(new Attribute($variables['element']['#wrapper_attributes']));
+    $variables['attributes'] = $attributes->toArray();
+  }
   $variables['neo_fieldset_region'] = $variables['element']['#neo_fieldset_region'] ?? [];
-  $variables['fieldset_content_attributes'] = new Attribute($variables['fieldset_content_attributes'] ?? []);
+  $variables['content_attributes'] = new Attribute($variables['element']['#content_attributes'] ?? []);
 }
 
 /**

@@ -20,9 +20,11 @@ form {
 .form--item {
   @apply my-form-item;
 
-  &:first-child,
-  &:has(~ input[type='hidden']:first-child),
-  &:has(~ div[style*='display: none;']:first-child) {
+  &.card {
+    @apply p-card;
+  }
+
+  &:first-child {
     @apply mt-0;
   }
 
@@ -30,6 +32,14 @@ form {
   &:has(+ input[type='hidden']:last-child),
   &:has(+ div[style*='display: none;']:last-child) {
     @apply mb-0;
+  }
+}
+
+// Previous sibling selectors for form--item.
+input[type='hidden']:first-child,
+div[style*='display: none;']:first-child {
+  + .form--item {
+    @apply mt-0;
   }
 }
 

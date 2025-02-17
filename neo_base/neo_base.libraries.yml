@@ -11,6 +11,29 @@ global:
   #   - core/once
   #   - core/drupal
 
+sticky:
+  version: VERSION
+  neo: { group: contrib }
+  css: {}
+  # css:
+  #   theme:
+  #     src/css/global.scss: { minified: true }
+  js:
+    src/js/sticky.ts: { minified: true }
+  dependencies:
+    # Remove dependency as soon as drupal.display removes jquery.
+    - core/jquery
+
+displace:
+  version: VERSION
+  neo: { group: contrib }
+  css: {}
+  js:
+    src/js/displace.ts: { minified: true }
+  dependencies:
+    # Remove dependency as soon as drupal.display removes jquery.
+    - core/jquery
+
 form:
   version: VERSION
   neo: { group: contrib }

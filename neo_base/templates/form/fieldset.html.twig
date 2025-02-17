@@ -109,7 +109,7 @@
       </legend>
     {% endif %}
     <div class="clearfix"></div>
-    <div{{ fieldset_content_attributes.addClass(base_content_classes, content_classes) }}>
+    <div{{ content_attributes.addClass(base_content_classes, content_classes) }}>
       {% if errors %}
         <div>
           {{ errors }}

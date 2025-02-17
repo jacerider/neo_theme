@@ -22,9 +22,16 @@
   set classes = classes is defined ? classes : []
 %}
 {%
+  set wrapper_classes = wrapper_classes is defined ? wrapper_classes : []
+%}
+{%
   set inner_classes = inner_classes is defined ? inner_classes : []
 %}
 {% if content %}
+  {% if wrapper_classes is not empty %}
+    {% set wrapper_attributes = create_attribute() %}
+    <div{{ wrapper_attributes.addClass(wrapper_classes) }}>
+  {% endif %}
   <{{ tag|default('div') }}{{ attributes.addClass(base_classes, classes) }}>
     {% if inner_classes is not empty %}
       {% set inner_attributes = create_attribute()  %}
@@ -35,4 +42,7 @@
       </div>
     {% endif %}
   </{{ tag|default('div') }}>
+  {% if wrapper_classes is not empty %}
+    </div>
+  {% endif %}
 {% endif %}

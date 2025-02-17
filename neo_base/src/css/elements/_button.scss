@@ -1,6 +1,6 @@
 form,
 .ui-dialog-buttonset {
-  .button {
+  .button:not([class*='btn']) {
     @apply btn;
   }
 

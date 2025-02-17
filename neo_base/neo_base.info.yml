@@ -23,29 +23,33 @@ neo:
         container: 'var(--container-spacing, 1rem)'
         form: 'var(--form-spacing, 0px)'
         form-item: 'var(--form-item-spacing, 1.5rem)'
+        card: '0px'
         displace-t: 'var(--drupal-displace-offset-top, 0px)'
         displace-r: 'var(--drupal-displace-offset-right, 0px)'
         displace-b: 'var(--drupal-displace-offset-bottom, 0px)'
         displace-l: 'var(--drupal-displace-offset-left, 0px)'
+        neo-t: 'calc(var(--drupal-displace-offset-top, 0px) + var(--neo-displace-offset-top, 0px))'
   base:
     :root:
       --container-spacing: spacing.4
-      --form-spacing: spacing.6
+      --form-spacing: spacing.0
   components:
     .ui:
       '@apply font-ui': {}
     .min-h-displace:
       minHeight: 'calc(100vh - var(--drupal-displace-offset-top, 0px) - var(--drupal-displace-offset-bottom, 0px))'
+    .max-h-displace:
+      maxHeight: 'calc(100vh - var(--drupal-displace-offset-top, 0px) - var(--drupal-displace-offset-bottom, 0px))'
     .h-displace:
       height: 'calc(100vh - var(--drupal-displace-offset-top, 0px) - var(--drupal-displace-offset-bottom, 0px))'
+    .max-height-neo:
+      maxHeight: 'calc(100vh - var(--drupal-displace-offset-top, 0px) - var(--drupal-displace-offset-bottom, 0px) - var(--neo-displace-offset-top, 0px) - var(--neo-displace-offset-bottom, 0px))'
     .card:
       '@apply block': {}
     .form--wrapper:
       '@apply mt-form': {}
     .form--inner:
       '@apply my-form': {}
-    .form-spacing-0:
-      --form-spacing: 0px
     .form-label:
       '@apply block font-bold text-base-600 text-sm mb-1': {}
     .form-description:
@@ -93,6 +97,7 @@ neo:
   variants:
     'is-active': ['&.is-active', '.is-active &']
     'is-focus': ['&.is-focus', '.is-focus &']
+    'is-stuck': ['&.is-stuck', '.is-stuck &']
 
 # libraries:
 #   - neo_base/global
