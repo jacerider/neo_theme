@@ -19,13 +19,16 @@
   ]
 %}
 {%
-  set content_classes = content_classes is defined ? content_classes : [
-    'clearfix',
+  set content_classes = [
     '[&>p]:my-form-item',
     '[&>p]:text-sm',
     '[&>.field-prefix]:text-sm',
     '[&>.field-prefix]:block',
     '[&>.field-prefix]:mb-2',
-    title_display != 'invisible' ? '[&>*:first-child]:!mt-form-item',
+  ]
+%}
+{%
+  set spacing_classes = [
+    title_display != 'invisible' ? 'mt-form-item',
   ]
 %}

@@ -79,6 +79,12 @@
 {%
   set description_classes = description_classes is defined ? description_classes : []
 %}
+{%
+  set base_spacing_classes = []
+%}
+{%
+  set spacing_classes = spacing_classes is defined ? spacing_classes : []
+%}
 
 <div{{ attributes.addClass(base_classes, classes) }}>
   <fieldset>
@@ -107,8 +113,10 @@
           </div>
         {% endif %}
       </legend>
+      {% set spacing_attributes = create_attribute() %}
     {% endif %}
     <div class="clearfix"></div>
+    <div{{ spacing_attributes.addClass(base_spacing_classes, spacing_classes) }}></div>
     <div{{ content_attributes.addClass(base_content_classes, content_classes) }}>
       {% if errors %}
         <div>
