@@ -32,9 +32,7 @@ function neo_back_form_alter(&$form, FormStateInterface $form_state) {
   $form_object = $form_state->getFormObject();
   if ($form_object instanceof EntityFormInterface) {
     $entity = $form_object->getEntity();
-    if ($entity instanceof NodeInterface) {
-      $form['#theme'] = ['entity_edit_form'];
-    }
+    $form['#theme'] = ['entity_edit_form'];
     neo_back_form_meta($form, $form_state, $entity);
   }
 }
@@ -43,43 +41,53 @@ function neo_back_form_alter(&$form, FormStateInterface $form_state) {
  * Implements meta alterations.
  */
 function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterface $entity) {
+  if (!empty($form['status'])) {
+    $form['status']['#group'] = 'footer';
+  }
+  if (!empty($form['actions'])) {
+    $form['actions']['#weight'] = 1000;
+  }
   if (!empty($form['advanced'])) {
     $form['advanced']['#type'] = 'accordion';
   }
 
-  $form['meta']['#type'] = 'container';
-  $form['meta']['#access'] = TRUE;
-  $form['meta']['#attributes']['class'][] = 'p-card !py-0 text-sm';
+  if (!empty($form['meta'])) {
+    $form['meta']['#type'] = 'container';
+    $form['meta']['#access'] = TRUE;
+    $form['meta']['#attributes']['class'][] = 'p-card !py-0 text-sm';
 
-  if (isset($form['meta']['published'])) {
-    if ($form['meta']['published']['#type'] === 'html_tag' && isset($form['meta']['published']['#value'])) {
-      $form['meta']['published'] = [
-        '#type' => 'item',
-        '#markup' => $form['meta']['published']['#value'],
-      ];
-    }
-    $form['meta']['published']['#wrapper_attributes']['class'][] = 'mt-0';
-    $form['meta']['published']['#wrapper_attributes']['class'][] = '-ml-form-item';
-    $form['meta']['published']['#wrapper_attributes']['class'][] = '-mr-form-item';
-    $form['meta']['published']['#wrapper_attributes']['class'][] = 'px-form-item';
-    $form['meta']['published']['#wrapper_attributes']['class'][] = 'py-4';
-    $form['meta']['published']['#wrapper_attributes']['class'][] = 'font-bold';
-    $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-xl';
-    $form['meta']['published']['#wrapper_attributes']['class'][] = 'rounded-t-sm';
-    if ($entity->isNew()) {
-      $form['meta']['published']['#access'] = TRUE;
-      $form['meta']['published']['#markup'] = t('Draft');
-      $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-base-500';
-      $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-base-content-500';
-    }
-    elseif ($entity instanceof EntityPublishedInterface) {
-      if ($entity instanceof EntityPublishedInterface && $entity->isPublished()) {
-        $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-success-500';
-        $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-success-content-500';
+    if (isset($form['meta']['published'])) {
+      if ($form['meta']['published']['#type'] === 'html_tag' && isset($form['meta']['published']['#value'])) {
+        $form['meta']['published'] = [
+          '#type' => 'item',
+          '#markup' => $form['meta']['published']['#value'],
+        ];
       }
-      else {
-        $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-warning-500';
-        $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-warning-content-500';
+      $form['meta']['published']['#wrapper_attributes']['class'][] = 'mt-0';
+      $form['meta']['published']['#wrapper_attributes']['class'][] = '-ml-form-item';
+      $form['meta']['published']['#wrapper_attributes']['class'][] = '-mr-form-item';
+      $form['meta']['published']['#wrapper_attributes']['class'][] = 'px-form-item';
+      $form['meta']['published']['#wrapper_attributes']['class'][] = 'py-4';
+      $form['meta']['published']['#wrapper_attributes']['class'][] = 'font-bold';
+      $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-xl';
+      $form['meta']['published']['#wrapper_attributes']['class'][] = 'rounded-t-sm';
+      if ($entity->isNew()) {
+        $form['meta']['published']['#access'] = TRUE;
+        $form['meta']['published']['#markup'] = neo_icon('Draft');
+        $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-base-500';
+        $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-base-content-500';
+      }
+      elseif ($entity instanceof EntityPublishedInterface) {
+        if ($entity instanceof EntityPublishedInterface && $entity->isPublished()) {
+          $form['meta']['published']['#markup'] = neo_icon('Published');
+          $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-success-500';
+          $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-success-content-500';
+        }
+        else {
+          $form['meta']['published']['#markup'] = neo_icon('Unpublished');
+          $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-warning-500';
+          $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-warning-content-500';
+        }
       }
     }
   }
