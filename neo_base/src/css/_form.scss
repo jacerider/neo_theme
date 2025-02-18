@@ -24,6 +24,10 @@ form {
     @apply p-card;
   }
 
+  &.details {
+    @apply p-0;
+  }
+
   &:first-child {
     @apply mt-0;
   }

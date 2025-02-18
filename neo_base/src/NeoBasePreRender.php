@@ -82,7 +82,9 @@ class NeoBasePreRender implements TrustedCallbackInterface {
     $headerKeys = [];
     foreach ($element['#header'] as $i => $data) {
       $key = is_array($data) ? $i : ($data ?: $i);
-      $headerKeys[$count] = Html::getClass($key);
+      if ($key && !is_int($key)) {
+        $headerKeys[$count] = Html::getClass($key);
+      }
       $count++;
     }
 
@@ -98,8 +100,8 @@ class NeoBasePreRender implements TrustedCallbackInterface {
         }
         if (!isset($element['#rows'][$i]['data'][$ii]['data'])) {
           $data = array_filter($element['#rows'][$i]['data'][$ii], fn($v) => is_array($v));
-          $props = array_filter($element['#rows'][$i]['data'][$ii], fn($v) => !is_array($v));
-          $element['#rows'][$i]['data'][$ii] = ['data' => $data] + $props;
+          $dataProps = array_filter($element['#rows'][$i]['data'][$ii], fn($v) => !is_array($v));
+          $element['#rows'][$i]['data'][$ii] = ['data' => $data] + $dataProps;
         }
         $cell = &$element['#rows'][$i]['data'][$ii];
         $classes = $cell['class'] ?? [];
@@ -116,6 +118,7 @@ class NeoBasePreRender implements TrustedCallbackInterface {
           }
         }
         if (isset($headerKeys[$count])) {
+          // ksm($headerKeys);
           $classes[] = 'td--' . $headerKeys[$count];
           foreach (self::getTableClassesByKey($headerKeys[$count], $ii) as $class) {
             $classes[] = $class;

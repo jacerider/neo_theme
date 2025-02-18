@@ -111,9 +111,9 @@ table {
   }
 
   &.field-multiple-table {
-    .td--item {
-      width: auto;
-      white-space: wrap;
+    .field-multiple-drag {
+      width: 1%;
+      white-space: nowrap;
     }
   }
 
@@ -193,7 +193,7 @@ table {
   @apply relative flex justify-end;
 
   .tabledrag-toggle-weight {
-    @apply btn btn-outline btn-xs mb-1;
+    @apply mb-0 rounded-t px-2 py-1 text-xs text-base-content-100/60 transition-opacity hover:text-base-content-100;
   }
 
   .action-link--icon-show {

@@ -94,6 +94,36 @@ neo:
       '@apply text-lg': {}
     .local-action:
       '@apply btn btn-primary': {}
+    .page-title:
+      '@apply text-3xl md:text-4xl lg:text-5xl font-bold': {}
+    .page-supertitle:
+      '@apply text-xl font-bold md:mb-1': {}
+    .page-subtitle:
+      '@apply text-xl md:mt-1': {}
+    .page-title-spacing-t:
+      '@apply pt-10': {}
+    .page-title-spacing-b:
+      '@apply mb-10': {}
+    .m-component-xs:
+      '@apply m-2 md:m-2 lg:m-2': {}
+    .m-component-sm:
+      '@apply m-2 md:m-4 lg:m-6': {}
+    .m-component:
+      '@apply m-4 md:m-6 lg:m-14': {}
+    .m-component-lg:
+      '@apply m-6 md:m-14 lg:m-24': {}
+    .m-component-xl:
+      '@apply m-12 md:m-20 lg:m-32': {}
+    .p-component-xs:
+      '@apply p-2 md:p-2 lg:p-2': {}
+    .p-component-sm:
+      '@apply p-2 md:p-4 lg:p-6': {}
+    .p-component:
+      '@apply p-4 md:p-6 lg:p-14': {}
+    .p-component-lg:
+      '@apply p-6 md:p-14 lg:p-24': {}
+    .p-component-xl:
+      '@apply p-12 md:p-20 lg:p-32': {}
   variants:
     'is-active': ['&.is-active', '.is-active &']
     'is-focus': ['&.is-focus', '.is-focus &']

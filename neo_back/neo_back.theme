@@ -5,7 +5,11 @@
  * Functions to support theming in the neo theme.
  */
 
+use Drupal\Core\Entity\EntityFormInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityPublishedInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_theme().
@@ -23,23 +27,37 @@ function neo_back_theme() {
  *
  * Changes vertical tabs to container.
  */
-function neo_back_form_node_form_alter(&$form, FormStateInterface $form_state) {
+function neo_back_form_alter(&$form, FormStateInterface $form_state) {
   /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
   $form_object = $form_state->getFormObject();
-  /** @var \Drupal\node\NodeInterface $entity */
-  $entity = $form_object->getEntity();
+  if ($form_object instanceof EntityFormInterface) {
+    $entity = $form_object->getEntity();
+    if ($entity instanceof NodeInterface) {
+      $form['#theme'] = ['entity_edit_form'];
+    }
+    neo_back_form_meta($form, $form_state, $entity);
+  }
+}
 
-  $form['#theme'] = ['entity_edit_form'];
-
-  $form['advanced']['#type'] = 'container';
-  $form['advanced']['#group_type'] = 'accordion';
+/**
+ * Implements meta alterations.
+ */
+function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterface $entity) {
+  if (!empty($form['advanced'])) {
+    $form['advanced']['#type'] = 'accordion';
+  }
 
   $form['meta']['#type'] = 'container';
   $form['meta']['#access'] = TRUE;
-  $form['meta']['#attributes']['class'][] = 'card';
-  $form['meta']['#attributes']['class'][] = 'p-form-item pt-0';
+  $form['meta']['#attributes']['class'][] = 'p-card !py-0 text-sm';
 
   if (isset($form['meta']['published'])) {
+    if ($form['meta']['published']['#type'] === 'html_tag' && isset($form['meta']['published']['#value'])) {
+      $form['meta']['published'] = [
+        '#type' => 'item',
+        '#markup' => $form['meta']['published']['#value'],
+      ];
+    }
     $form['meta']['published']['#wrapper_attributes']['class'][] = 'mt-0';
     $form['meta']['published']['#wrapper_attributes']['class'][] = '-ml-form-item';
     $form['meta']['published']['#wrapper_attributes']['class'][] = '-mr-form-item';
@@ -54,17 +72,21 @@ function neo_back_form_node_form_alter(&$form, FormStateInterface $form_state) {
       $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-base-500';
       $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-base-content-500';
     }
-    elseif ($entity->isPublished()) {
-      $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-success-500';
-      $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-success-content-500';
-    }
-    else {
-      $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-warning-500';
-      $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-warning-content-500';
+    elseif ($entity instanceof EntityPublishedInterface) {
+      if ($entity instanceof EntityPublishedInterface && $entity->isPublished()) {
+        $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-success-500';
+        $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-success-content-500';
+      }
+      else {
+        $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-warning-500';
+        $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-warning-content-500';
+      }
     }
   }
 
-  $form['revision_information']['#type'] = 'container';
-  $form['revision_information']['#group'] = 'meta';
-  $form['revision_information']['#attributes']['class'][] = 'entity-meta--revision';
+  if (!empty($form['revision_information'])) {
+    $form['revision_information']['#type'] = 'container';
+    $form['revision_information']['#group'] = 'meta';
+    $form['revision_information']['#attributes']['class'][] = 'entity-meta--revision';
+  }
 }

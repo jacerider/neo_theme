@@ -11,6 +11,11 @@ libraries:
 neo:
   scope: front
   group: contrib
+  components:
+    .page-title-spacing-t:
+      '@apply pt-4 md:pt-6 lg:pt-14': {}
+    .page-title-spacing-b:
+      '@apply mb-4 md:mb-6 lg:mb-14': {}
 regions:
   header: Header
   status: Status
