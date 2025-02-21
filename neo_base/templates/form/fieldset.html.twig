@@ -116,7 +116,9 @@
       {% set spacing_attributes = create_attribute() %}
     {% endif %}
     <div class="clearfix"></div>
-    <div{{ spacing_attributes.addClass(base_spacing_classes, spacing_classes) }}></div>
+    {% if children %}
+      <div{{ spacing_attributes.addClass(base_spacing_classes, spacing_classes) }}></div>
+    {% endif %}
     <div{{ content_attributes.addClass(base_content_classes, content_classes) }}>
       {% if errors %}
         <div>
