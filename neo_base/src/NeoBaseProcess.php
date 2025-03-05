@@ -22,9 +22,6 @@ class NeoBaseProcess {
       if (isset($group['#type'])) {
         $element['#group_type'] = $group['#group_type'] ?? $group['#type'];
       }
-      if (in_array('visibility_tabs', $path)) {
-        $element['#group_type'] = 'vertical_tabs';
-      }
     }
     return $element;
   }

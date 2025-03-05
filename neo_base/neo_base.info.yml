@@ -134,6 +134,8 @@ neo:
 libraries-extend:
   core/drupal.vertical-tabs:
     - neo_base/vertical-tabs
+  field_group/element.horizontal_tabs:
+    - neo_base/horizontal-tabs
   core/drupal.tabledrag:
     - neo_base/tabledrag
   core/drupal.dropbutton:
@@ -208,3 +210,7 @@ libraries-override:
     css:
       theme:
         css/address.form.css: false
+  field_group/element.horizontal_tabs:
+    css:
+      component:
+        formatters/tabs/horizontal-tabs.css: false

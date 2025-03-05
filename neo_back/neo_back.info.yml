@@ -58,3 +58,5 @@ libraries-extend:
     - neo_back/table
   neo_base/vertical-tabs:
     - neo_back/vertical-tabs
+  neo_base/horizontal-tabs:
+    - neo_back/horizontal-tabs

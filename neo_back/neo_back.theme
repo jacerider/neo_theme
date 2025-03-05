@@ -49,12 +49,13 @@ function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterf
   }
   if (!empty($form['advanced'])) {
     $form['advanced']['#type'] = 'accordion';
+    $form['advanced']['#wrapper_attributes']['class'][] = '!m-0';
   }
 
   if (!empty($form['meta'])) {
     $form['meta']['#type'] = 'container';
     $form['meta']['#access'] = TRUE;
-    $form['meta']['#attributes']['class'][] = 'p-card !py-0 text-sm';
+    $form['meta']['#attributes']['class'][] = 'p-card !pt-0 text-sm';
 
     if (isset($form['meta']['published'])) {
       if ($form['meta']['published']['#type'] === 'html_tag' && isset($form['meta']['published']['#value'])) {

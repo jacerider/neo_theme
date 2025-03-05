@@ -43,3 +43,5 @@ libraries-extend:
     - neo_front/tabledrag
   neo_base/vertical-tabs:
     - neo_front/vertical-tabs
+  neo_base/horizontal-tabs:
+    - neo_front/horizontal-tabs

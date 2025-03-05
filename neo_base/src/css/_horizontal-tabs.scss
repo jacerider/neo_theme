@@ -1,0 +1,25 @@
+.horizontal-tabs {
+  .horizontal-tabs-list {
+    @apply card relative z-10 flex items-center rounded-b-none bg-base-100 p-3 pb-0 shadow-none;
+
+    li {
+      a {
+        @apply -mb-px block rounded-t p-3 text-base;
+      }
+
+      &.selected {
+        a {
+          @apply z-20 block border border-b-0 bg-base-0 p-3;
+        }
+      }
+    }
+  }
+
+  .horizontal-tabs-panes {
+    @apply card relative z-0 rounded-t-none border-t-0 px-form-item shadow-none;
+
+    summary {
+      @apply hidden;
+    }
+  }
+}

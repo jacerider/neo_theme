@@ -35,20 +35,42 @@ class NeoBasePreRender implements TrustedCallbackInterface {
   public static function verticalTabs($element) {
     if (empty($element['#printed'])) {
       $group = implode('][', $element['#parents']);
-      $visible = Element::getVisibleChildren($element['group']['#groups'][$group]);
-      $hasContent = [];
-      foreach ($visible as $key) {
-        $subElement = $element['group']['#groups'][$group];
-        foreach (Element::children($subElement) as $subKey) {
-          $hasContent[$key][$subKey] = !empty(Element::getVisibleChildren($subElement[$subKey]));
+      foreach (Element::children($element['group']['#groups'][$group]) as $key) {
+        $child = $element['group']['#groups'][$group][$key];
+        if (isset($child['#type']) && $child['#type'] === 'details') {
+          // Set group type so child detail elements uses the proper template.
+          $element['group']['#groups'][$group][$key]['#group_type'] = 'vertical_tabs';
         }
       }
-      $hasContent = array_filter($hasContent, fn($v) => array_filter($v));
-      if (!$hasContent) {
+      if (!static::hasVisibleChildren($element['group']['#groups'][$group])) {
         $element['#printed'] = TRUE;
       }
     }
     return $element;
+  }
+
+  /**
+   * Check if element has visible children.
+   */
+  public static function hasVisibleChildren($element) {
+    foreach (Element::getVisibleChildren($element) as $key) {
+      $child = $element[$key];
+      if (isset($child['#type']) && $child['#type'] === 'details') {
+        if (!empty(Element::getVisibleChildren($child))) {
+          return TRUE;
+        }
+        if (isset($child['#group'])) {
+          $child = $child['#groups'][implode('][', $child['#parents'])];
+          if (static::hasVisibleChildren($child)) {
+            return TRUE;
+          }
+        }
+      }
+      else {
+        return TRUE;
+      }
+    }
+    return FALSE;
   }
 
   /**

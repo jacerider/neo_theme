@@ -234,7 +234,12 @@ function neo_base_preprocess_form_element(&$variables) {
  * Implements hook_preprocess_form_element().
  */
 function neo_base_preprocess_textarea(&$variables) {
-  if (isset($variables['element']['#allowed_formats'])) {
+  if (($variables['element']['#rows'] ?? 5) <= 1) {
+    return;
+  }
+  // Kinda ugly bug we only want this running on CKEditor instances and this
+  // works for now.
+  if (isset($variables['element']['#attributes']['data-media-embed-host-entity-langcode'])) {
     $variables['wrapper_attributes']->addClass('prose max-w-none font-primary');
   }
 }

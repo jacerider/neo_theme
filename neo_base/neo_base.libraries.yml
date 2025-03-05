@@ -56,6 +56,11 @@ vertical-tabs:
   js:
     src/js/vertical-tabs.ts: {}
 
+horizontal-tabs:
+  version: VERSION
+  neo: { group: contrib }
+  css: {}
+
 ajax:
   version: VERSION
   neo: { group: contrib }

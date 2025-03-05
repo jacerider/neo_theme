@@ -78,3 +78,10 @@ vertical-tabs:
   css:
     theme:
       src/css/vertical-tabs.scss: { minified: true }
+
+horizontal-tabs:
+  version: VERSION
+  neo: { scope: front, group: contrib }
+  css:
+    theme:
+      src/css/horizontal-tabs.scss: { minified: true }
