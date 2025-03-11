@@ -81,8 +81,7 @@ div[style*='display: none;']:first-child {
   }
 
   .form-actions {
-    @apply my-0 #{!important};
-    // @apply self-end;
+    @apply my-0 whitespace-nowrap #{!important};
   }
 
   .form-item {

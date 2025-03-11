@@ -213,6 +213,13 @@ function neo_base_preprocess_form_element_label(&$variables) {
 /**
  * Implements hook_preprocess_block().
  */
+function neo_base_preprocess_form(&$variables) {
+  $variables['inner_attributes'] = new Attribute($variables['element']['#inner_attributes'] ?? []);
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
 function neo_base_preprocess_block(&$variables) {
   // Add id to template.
   $variables['id'] = '';

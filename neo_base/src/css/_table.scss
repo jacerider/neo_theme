@@ -120,7 +120,8 @@ table {
   .style--heading {
     @apply text-base font-bold leading-tight;
 
-    small {
+    small,
+    strong {
       @apply text-xs font-normal text-base-500;
     }
 
