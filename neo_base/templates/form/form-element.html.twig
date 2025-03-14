@@ -76,9 +76,15 @@
   set description_classes = description_classes is defined ? description_classes : []
 %}
 {%
-  set supports_inline = supports_inline is defined ? supports_inline : true
+  set inline = inline is defined ? inline : false
+%}
+{%
+  set inline_input = inline_input is defined ? inline_input : true
 %}
 <div{{ attributes.addClass(base_classes, classes) }}>
+  {% if inline %}
+    <div class="flex items-center">
+  {% endif %}
   {% if label_display in ['before', 'invisible'] %}
     {{ label }}
   {% endif %}
@@ -87,23 +93,26 @@
       {{ description.content }}
     </div>
   {% endif %}
-  {% if supports_inline and (prefix is not empty or suffix is not empty) %}
+  {% if inline_input and (prefix is not empty or suffix is not empty) %}
     <div class="flex items-center field-inline">
   {% endif %}
   {% if prefix is not empty %}
-    <span class="field-prefix{% if supports_inline %} mr-2 text-xs whitespace-nowrap{% endif %}">{{ prefix }}</span>
+    <span class="field-prefix{% if inline_input %} mr-2 text-xs whitespace-nowrap{% endif %}">{{ prefix }}</span>
   {% endif %}
   {% block children %}
     {{ children }}
   {% endblock %}
   {% if suffix is not empty %}
-    <span class="field-suffix{% if supports_inline %} ml-2 text-xs whitespace-nowrap{% endif %}">{{ suffix }}</span>
+    <span class="field-suffix{% if inline_input %} ml-2 text-xs whitespace-nowrap{% endif %}">{{ suffix }}</span>
   {% endif %}
-  {% if supports_inline and (prefix is not empty or suffix is not empty) %}
+  {% if inline_input and (prefix is not empty or suffix is not empty) %}
     </div>
   {% endif %}
   {% if label_display == 'after' %}
     {{ label }}
+  {% endif %}
+  {% if inline %}
+    </div>
   {% endif %}
   {% if errors %}
     <div class="form-item--alert-message">
