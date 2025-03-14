@@ -1,16 +1,5 @@
 {% extends 'form-element.html.twig' %}
 
-{# {%
-  set attributes = attributes.setAttribute('x-data', '{ toggle: 0 }')
-%} #}
-
-{%
-  set classes = [
-    'form--item',
-    'flex',
-  ]
-%}
-
 {%
   set description_classes = [
     'ml-12',
@@ -18,13 +7,12 @@
 %}
 
 {%
-  set checkbox_label = label
-%}
-
-{%
   set label_display = 'none'
 %}
 
+{%
+  set inline = inline is defined ? inline : true
+%}
 
 {% block children %}
   <label class="flex items-center select-none text-dark" for="{{ element_id }}">
