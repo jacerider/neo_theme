@@ -1,1 +1,5 @@
 @use '../../../neo_base/src/css/form';
+
+.fake-checkbox {
+  @apply relative z-10 h-6 w-10 rounded-full border-2 checked:border-base-400 checked:bg-base-400;
+}
