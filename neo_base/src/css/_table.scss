@@ -93,7 +93,7 @@ table {
 
   &.sticky-header {
     thead tr {
-      @apply sticky z-10;
+      @apply sticky z-20;
       top: calc(
         var(--drupal-displace-offset-top, 0px) + var(--neo-header-top, 0px)
       );
