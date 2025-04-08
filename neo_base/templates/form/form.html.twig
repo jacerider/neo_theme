@@ -15,15 +15,23 @@
 {%
   set classes = classes is defined ? classes : [
     'form--wrapper',
-    not neo_style ? 'card',
+    neo_style == 'card' ? 'card',
     'first:mt-0',
   ]
 %}
+
 {%
   set inner_classes = inner_classes is defined ? inner_classes : [
     'form--inner',
   ]
 %}
+
+{% if neo_size == 'xs' %}
+  {% set attributes = attributes.setAttribute('style', '--form-spacing: 0px; --form-item-spacing: 0.5rem;') %}
+{% elseif neo_size == 'sm' %}
+  {% set attributes = attributes.setAttribute('style', '--form-spacing: 0px; --form-item-spacing: 1rem;') %}
+{% endif %}
+
 {{ attach_library('neo_base/form') }}
 <form{{ attributes.addClass('form', classes) }}>
   <div{{ inner_attributes.addClass(inner_classes) }}>

@@ -11,10 +11,6 @@ libraries:
 neo:
   scope: back
   group: contrib
-  theme:
-    extend:
-      spacing:
-        card: 'var(--form-item-spacing, 1.5rem)'
   base:
     :root:
       --form-spacing: spacing.6

@@ -30,3 +30,22 @@ body .ui-dialog:not(.ui-dialog-off-canvas) .ui-dialog-buttonpane button {
     @apply mr-0;
   }
 }
+
+.btn-group {
+  // @apply hidden;
+  > .btn {
+    @apply m-0;
+
+    &:first-child:not(:last-child) {
+      @apply rounded-r-none;
+    }
+
+    &:last-child:not(:first-child) {
+      @apply rounded-l-none border-l-0;
+    }
+
+    &:not(:last-child):not(:first-child) {
+      @apply rounded-none border-l-0;
+    }
+  }
+}

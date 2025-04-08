@@ -21,6 +21,7 @@ function neo_base_element_info_alter(array &$info) {
   $info['table']['#pre_render'][] = [NeoBasePreRender::class, 'table'];
 
   $info['fieldset']['#pre_render'] = array_merge([[NeoBasePreRender::class, 'fieldset']], $info['fieldset']['#pre_render']);
+  $info['fieldset']['#content_attributes'] = [];
 
   $info['vertical_tabs']['#pre_render'][] = [NeoBasePreRender::class, 'verticalTabs'];
 
@@ -307,6 +308,24 @@ function neo_base_preprocess_page(&$variables) {
       }
       break;
   }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function neo_base_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#after_build'][] = 'neo_base_form_after_build';
+}
+
+/**
+ * Form after build callback.
+ */
+function neo_base_form_after_build($form, FormStateInterface $form_state) {
+  $form['#neo_style'] = $form['#neo_style'] ?? 'default';
+  $form['#neo_size'] = $form['#neo_size'] ?? 'default';
+  $form['#attributes']['data-neo-style'] = $form['#neo_style'];
+  $form['#attributes']['data-neo-size'] = $form['#neo_size'];
+  return $form;
 }
 
 /**

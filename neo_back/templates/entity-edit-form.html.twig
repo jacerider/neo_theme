@@ -24,8 +24,11 @@
       {{ form.advanced|neo_class('mt-form-item lg:mt-0 lg:w-96') }}
     {% endif %}
   </div>
-  <div class="[&>*:first-child]:!mt-form-item">
-    {{ form.footer }}
-    {{ form.actions }}
+  <div class="sticky bottom-form-item bg-base-100 mt-form-item">
+    <div class="relative z-10 p-form-item border border-base-200 rounded">
+      {{ form.footer }}
+      {{ form.actions }}
+    </div>
+    <div class="absolute top-full left-0 z-0 w-full bg-base-0 h-4 pointer-events-none"></div>
   </div>
 </div>

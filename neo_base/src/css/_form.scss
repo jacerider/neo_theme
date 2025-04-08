@@ -41,7 +41,8 @@ form {
 
 // Previous sibling selectors for form--item.
 input[type='hidden']:first-child,
-div[style*='display: none;']:first-child {
+div[style*='display: none;']:first-child,
+div.hidden:first-child {
   + .form--item {
     @apply mt-0;
   }
@@ -66,15 +67,7 @@ div[style*='display: none;']:first-child {
 .form--inline-children > div,
 .form--inline > fieldset > .fieldset--content {
   // @todo We need to align buttons to bottom of wrapper.
-  @apply flex flex-col gap-4 md:flex-row md:flex-wrap;
-
-  // > * {
-  //   @apply min-w-40;
-  // }
-
-  // &:not([class^='items-']):not([class*=' items-']) {
-  //   @apply md:items-start;
-  // }
+  @apply flex flex-col gap-form-item md:flex-row md:flex-wrap;
 
   &::after {
     display: none;
@@ -103,10 +96,6 @@ div[style*='display: none;']:first-child {
   &:not(.form--inline-min) {
     > *:not([class^='flex-']):not([class*=' flex-']) {
       @apply flex-1;
-
-      // &.size--min {
-      //   @apply flex-none;
-      // }
     }
   }
 

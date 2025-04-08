@@ -35,6 +35,7 @@ function neo_back_form_alter(&$form, FormStateInterface $form_state) {
     $form['#theme'] = ['entity_edit_form'];
     neo_back_form_meta($form, $form_state, $entity);
   }
+  $form['#neo_style'] = $form['#neo_style'] ?? 'card';
 }
 
 /**

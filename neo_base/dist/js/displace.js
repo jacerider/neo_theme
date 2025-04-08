@@ -29,7 +29,7 @@
       const r = o[c];
       if (r.style.display === "none")
         continue;
-      let i = parseInt(r.getAttribute(`data-offset-${t}`), 10);
+      let i = parseInt(r.getAttribute(`data-neo-offset-${t}`), 10);
       isNaN(i) && (i = m(r, t)), e = Math.max(e, i);
     }
     return e;

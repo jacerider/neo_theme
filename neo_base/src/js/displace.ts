@@ -72,7 +72,7 @@
         continue;
       }
       // If the offset data attribute contains a displacing value, use it.
-      let displacement = parseInt(el.getAttribute(`data-offset-${edge}`) as string, 10);
+      let displacement = parseInt(el.getAttribute(`data-neo-offset-${edge}`) as string, 10);
       // If the element's offset data attribute exits
       // but is not a valid number then get the displacement
       // dimensions directly from the element.
