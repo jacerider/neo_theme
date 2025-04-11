@@ -138,7 +138,8 @@ table {
     @apply text-xs text-base-500;
   }
 
-  .align--center {
+  .align--center,
+  .views-align-center {
     @apply text-center;
 
     > div {
@@ -146,7 +147,8 @@ table {
     }
   }
 
-  .size--min {
+  .size--min,
+  .views-align-center {
     width: 1%;
     white-space: nowrap;
   }

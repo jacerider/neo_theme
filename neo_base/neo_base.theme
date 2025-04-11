@@ -15,15 +15,17 @@ use Drupal\neo_base\NeoBaseProcess;
  */
 function neo_base_element_info_alter(array &$info) {
   $info['submit']['#process'][] = 'neo_base_submit_process';
-  $info['table']['#neo_style'] = [];
-  $info['table']['#neo_align'] = [];
-  $info['table']['#neo_size'] = [];
   $info['table']['#pre_render'][] = [NeoBasePreRender::class, 'table'];
 
   $info['fieldset']['#pre_render'] = array_merge([[NeoBasePreRender::class, 'fieldset']], $info['fieldset']['#pre_render']);
   $info['fieldset']['#content_attributes'] = [];
 
   $info['vertical_tabs']['#pre_render'][] = [NeoBasePreRender::class, 'verticalTabs'];
+
+  $info['form']['#inner_attributes'] = [];
+
+  $info['radios']['#pre_render'][] = [NeoBasePreRender::class, 'radios'];
+  $info['checkboxes']['#pre_render'][] = [NeoBasePreRender::class, 'checkboxes'];
 
   foreach ($info as $id => &$element) {
     if (isset($element['#process'])) {
@@ -54,8 +56,8 @@ function neo_base_theme_registry_alter(&$theme_registry) {
  * Implements hook_preprocess().
  */
 function neo_base_preprocess(&$variables) {
-  $variables['neo_style'] = $variables['neo_style'] ?? $variables['element']['#neo_style'] ?? '';
-  $variables['neo_align'] = $variables['neo_align'] ?? $variables['element']['#neo_align'] ?? '';
+  $variables['neo_style'] = $variables['neo_style'] ?? $variables['element']['#neo_style'] ?? 'default';
+  $variables['neo_align'] = $variables['neo_align'] ?? $variables['element']['#neo_align'] ?? 'default';
   $variables['neo_size'] = $variables['neo_size'] ?? $variables['element']['#neo_size'] ?? 'md';
 }
 
@@ -234,8 +236,37 @@ function neo_base_preprocess_block(&$variables) {
  */
 function neo_base_preprocess_form_element(&$variables) {
   $variables['label']['#element_parent_type'] = $variables['element']['#type'] ?? '';
+  $variables['label']['#neo_style'] = $variables['element']['#neo_style'] ?? 'default';
+  $variables['label']['#neo_align'] = $variables['element']['#neo_align'] ?? 'default';
   $variables['label']['#neo_size'] = $variables['element']['#neo_size'] ?? 'md';
+  if (!empty($variables['element']['#label_attributes'])) {
+    $attributes = new Attribute($variables['label']['#attributes']);
+    $attributes->merge(new Attribute($variables['element']['#label_attributes']));
+    $variables['label']['#attributes'] = $attributes->toArray();
+  }
   $variables['element_id'] = $variables['element']['#id'] ?? '';
+}
+
+/**
+ * Implements hook_preprocess_form_element().
+ */
+function neo_base_preprocess_radios(&$variables) {
+  if (!empty($variables['element']['#inner_attributes'])) {
+    $attributes = new Attribute($variables['attributes']);
+    $attributes->merge(new Attribute($variables['element']['#inner_attributes']));
+    $variables['attributes'] = $attributes->toArray();
+  }
+}
+
+/**
+ * Implements hook_preprocess_form_element().
+ */
+function neo_base_preprocess_checkboxes(&$variables) {
+  if (!empty($variables['element']['#inner_attributes'])) {
+    $attributes = new Attribute($variables['attributes']);
+    $attributes->merge(new Attribute($variables['element']['#inner_attributes']));
+    $variables['attributes'] = $attributes->toArray();
+  }
 }
 
 /**

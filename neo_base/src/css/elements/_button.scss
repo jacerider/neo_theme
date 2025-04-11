@@ -31,6 +31,13 @@ body .ui-dialog:not(.ui-dialog-off-canvas) .ui-dialog-buttonpane button {
   }
 }
 
+.btn {
+  &:last-child,
+  &:has(+ input[type='hidden']) {
+    @apply mr-0;
+  }
+}
+
 .btn-group {
   // @apply hidden;
   > .btn {

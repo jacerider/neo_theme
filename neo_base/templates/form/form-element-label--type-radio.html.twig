@@ -5,7 +5,11 @@
     'text-base',
     'cursor-pointer',
     neo_size == 'lg' ? 'text-lg',
+    neo_size == 'md' ? 'text-md',
     neo_size == 'sm' ? 'text-sm',
     neo_size == 'xs' ? 'text-xs',
+    neo_style == 'inline_buttons' ? 'block leading-none ml-0 btn btn-outline checked-prev:btn-primary focus-prev:ring focus-prev:ring-primary-600 focus-prev:ring-offset-2',
+    neo_style == 'inline_elements' ? 'pl-2 [&>div]:m-0',
+    neo_style == 'grid_buttons' ? 'block leading-none ml-0 btn btn-outline checked-prev:btn-primary focus-prev:ring focus-prev:ring-primary-600 focus-prev:ring-offset-2',
   ]
 %}

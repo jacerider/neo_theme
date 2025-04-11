@@ -5,6 +5,7 @@ namespace Drupal\neo_base;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Security\TrustedCallbackInterface;
+use Drupal\Core\Template\Attribute;
 
 /**
  * Implements trusted prerender callbacks for the Claro theme.
@@ -12,6 +13,36 @@ use Drupal\Core\Security\TrustedCallbackInterface;
  * @internal
  */
 class NeoBasePreRender implements TrustedCallbackInterface {
+
+  /**
+   * Prerender callback for radios.
+   */
+  public static function radios($element) {
+    foreach (Element::children($element) as $key) {
+      $child = &$element[$key];
+      if ($element['#item_attributes'] ?? FALSE) {
+        $attributes = new Attribute($element['#item_attributes']);
+        $child['#label_attributes'] = $attributes->toArray();
+      }
+      $child['#neo_style'] = $child['#neo_style'] ?? $element['#neo_style'] ?? 'default';
+    }
+    return $element;
+  }
+
+  /**
+   * Prerender callback for checkboxes.
+   */
+  public static function checkboxes($element) {
+    foreach (Element::children($element) as $key) {
+      $child = &$element[$key];
+      if ($element['#item_attributes'] ?? FALSE) {
+        $attributes = new Attribute($element['#item_attributes']);
+        $child['#label_attributes'] = $attributes->toArray();
+      }
+      $child['#neo_style'] = $child['#neo_style'] ?? $element['#neo_style'] ?? 'default';
+    }
+    return $element;
+  }
 
   /**
    * Prerender callback for table.
@@ -140,7 +171,6 @@ class NeoBasePreRender implements TrustedCallbackInterface {
           }
         }
         if (isset($headerKeys[$count])) {
-          // ksm($headerKeys);
           $classes[] = 'td--' . $headerKeys[$count];
           foreach (self::getTableClassesByKey($headerKeys[$count], $ii) as $class) {
             $classes[] = $class;
@@ -212,6 +242,8 @@ class NeoBasePreRender implements TrustedCallbackInterface {
    */
   public static function trustedCallbacks() {
     return [
+      'radios',
+      'checkboxes',
       'fieldset',
       'verticalTabs',
       'table',

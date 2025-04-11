@@ -79,11 +79,19 @@
   set inline = inline is defined ? inline : false
 %}
 {%
+  set inline_classes = inline_classes is defined ? inline_classes : [
+    'flex items-center',
+  ]
+%}
+{%
   set inline_input = inline_input is defined ? inline_input : true
 %}
 <div{{ attributes.addClass(base_classes, classes) }}>
   {% if inline %}
-    <div class="flex items-center">
+    {%
+      set inline_attributes = create_attribute()
+    %}
+    <div{{ inline_attributes.addClass(inline_classes) }}>
   {% endif %}
   {% if label_display in ['before', 'invisible'] %}
     {{ label }}

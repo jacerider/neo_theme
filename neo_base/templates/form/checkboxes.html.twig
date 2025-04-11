@@ -16,9 +16,10 @@
 #}
 {%
   set classes = classes is defined ? classes : [
-    neo_style == 'inline' ? 'flex flex-wrap [&>div]:mr-3 [&>div:last-child]:mr-0',
-    neo_style == 'inline_buttons' ? 'flex flex-wrap [&>div]:mr-2 [&>div:last-child]:mr-0 [&>div]:mt-0 [&>div]:mb-0 [&_label]:block [&_label]:leading-none [&_label]:ml-0 [&_label]:btn [&_label]:btn-primary-outline [&_input:checked+label]:btn-primary [&_input:focus+label]:ring [&_input:focus+label]:ring-primary-600 [&_input:focus+label]:ring-offset-2 [&_input]:sr-only',
-    neo_style == 'inline_elements' ? 'flex flex-wrap gap-2 [&>div]:mt-0 [&>div]:mb-0 [&>div]:border [&>div]:border-base-200 [&>div]:bg-base-100 [&>div]:rounded [&>div]:overflow-hidden [&>div]:p-1 [&_label>div]:m-0 [&_input]:ml-1 [&_input]:mr-2 [&_label]:ml-0',
+    neo_style == 'inline' ? 'flex flex-wrap',
+    neo_style == 'inline_buttons' ? 'flex flex-wrap',
+    neo_style == 'inline_elements' ? 'flex flex-wrap gap-form-item',
+    neo_style == 'grid_buttons' ? 'grid gap-form-item',
   ]
 %}
 <div{{ attributes.addClass('form-checkboxes', classes) }}>{{ children }}</div>

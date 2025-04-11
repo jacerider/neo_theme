@@ -2,7 +2,10 @@
 
 {%
   set classes = [
-    'pt-1',
+    neo_style == 'default' ? 'pt-1',
+    neo_style == 'inline' ? 'mr-form-item last:mr-0',
+    neo_style == 'inline_buttons' ? 'mr-form-item last:mr-0',
+    neo_style == 'inline_elements' ? 'mt-0 mb-0 border border-base-200 bg-base-100 rounded overflow-hidden p-1',
   ]
 %}
 
@@ -13,6 +16,8 @@
   ]
 %}
 
-{%
-  set inline = inline is defined ? inline : true
-%}
+{% if neo_style not in ['inline_buttons', 'grid_buttons'] %}
+  {%
+    set inline = inline is defined ? inline : true
+  %}
+{% endif %}
