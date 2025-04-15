@@ -100,3 +100,18 @@ function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterf
     $form['revision_information']['#attributes']['class'][] = 'entity-meta--revision';
   }
 }
+
+function neo_back_preprocess_entity_edit_form(&$variables) {
+  // ksm($variables);
+  $form = &$variables['form'];
+  if (!empty($form['actions'])) {
+    $form['actions']['#neo_style'] = 'sticky';
+  }
+  // $entity = &$variables['entity'];
+  // $form_object = &$variables['form_object'];
+
+  // if ($form_object instanceof EntityFormInterface) {
+  //   $form['#theme'] = ['entity_edit_form'];
+  //   neo_back_form_meta($form, $variables['form_state'], $entity);
+  // }
+}

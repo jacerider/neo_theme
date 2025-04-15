@@ -1,7 +1,7 @@
 form {
-  .tabledrag-toggle-weight-wrapper {
-    @apply mt-form-item;
-  }
+  // .tabledrag-toggle-weight-wrapper {
+  //   @apply mt-form-item;
+  // }
 
   .tabledrag-toggle-weight-wrapper + table,
   .tableresponsive-toggle-columns + table {
@@ -33,7 +33,17 @@ form {
   }
 
   &:last-child,
+  // followed by a hidden element
   &:has(+ input[type='hidden']:last-child),
+  // foloweed by two hidden elements
+  &:has(+ input[type='hidden'] + input[type='hidden']:last-child),
+  // followed by three hidden elements
+  &:has(
+      + input[type='hidden']
+        + input[type='hidden']
+        + input[type='hidden']:last-child
+    ),
+  // followed by a div with display none
   &:has(+ div[style*='display: none;']:last-child) {
     @apply mb-0;
   }

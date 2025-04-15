@@ -31,7 +31,7 @@
 %}
 {% if title is not empty or required -%}
   {% block label %}
-    <label{{ attributes.addClass(base_classes, classes) }}>
+    <{{ tag|default('label') }}{{ attributes.addClass(base_classes, classes) }}>
       {{ title }}
       {% if required %}
         <abbr class="font-normal form-required text-alert" aria-hidden="true">{% if title is empty %}<span class="text-xs">{{ 'Required'|t }}</span>{% endif %} *</abbr>
@@ -39,6 +39,6 @@
           <span class="visually-hidden">{{ 'required'|t }}</span>
         {% endif %}
       {% endif %}
-    </label>
+    </{{ tag|default('label') }}>
   {% endblock %}
 {%- endif %}

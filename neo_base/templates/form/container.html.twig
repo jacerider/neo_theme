@@ -31,8 +31,24 @@
 {%
   set classes = classes is defined ? classes : []
 %}
+{%
+  set inner_classes = inner_classes is defined ? inner_classes : []
+%}
 <div{{ attributes.addClass(base_classes, classes) }}>
+  {% block start %}
+    {{ start }}
+  {% endblock %}
+  {% if inner_classes|filter((v) => v != '') is not empty %}
+    {% set inner_attributes = create_attribute()  %}
+    <div{{ inner_attributes.addClass(inner_classes) }}>
+  {% endif %}
   {% block children %}
     {{ children }}
+  {% endblock %}
+  {% if inner_classes|filter((v) => v != '') is not empty %}
+    </div>
+  {% endif %}
+  {% block end %}
+    {{ end }}
   {% endblock %}
 </div>
