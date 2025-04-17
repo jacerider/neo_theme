@@ -138,68 +138,6 @@
     return 'top';
   }
 
-  function willStickyHaveEffect(element: HTMLElement): boolean {
-    // First check if the element has position:sticky applied
-    const style = window.getComputedStyle(element);
-    if (style.position !== 'sticky') {
-      return false;
-    }
-
-    // Get the necessary sticky offsets that determine when sticking occurs
-    const stickyTop = style.top !== 'auto' ? parseInt(style.top) : null;
-    const stickyBottom = style.bottom !== 'auto' ? parseInt(style.bottom) : null;
-
-    // Sticky needs at least one threshold to work
-    if (stickyTop === null && stickyBottom === null) {
-      return false;
-    }
-
-    // Find the sticky containing block
-    // This is the nearest ancestor with a scrolling mechanism
-    let container = element.parentElement;
-    let stickyContainer = null;
-
-    while (container) {
-      // Check if this container creates a new containing block
-      const containerStyle = window.getComputedStyle(container);
-      if (
-        containerStyle.position === 'absolute' ||
-        containerStyle.position === 'relative' ||
-        containerStyle.position === 'fixed' ||
-        containerStyle.position === 'sticky' ||
-        container === document.body
-      ) {
-        stickyContainer = container;
-        break;
-      }
-      container = container.parentElement;
-    }
-
-    if (!stickyContainer) {
-      return false;
-    }
-
-    // Get the dimensions
-    const elementHeight = element.offsetHeight;
-    const containerHeight = stickyContainer.offsetHeight;
-
-    // For sticky to have an effect:
-    // 1. The container must be taller than the element
-    // 2. There must be scrolling possible within the container or document
-    const containerScrollHeight = Math.max(
-      stickyContainer.scrollHeight,
-      containerHeight
-    );
-
-    // Check if scrolling is possible
-    const canScroll = containerScrollHeight > containerHeight;
-
-    // Check if container is taller than the element
-    const hasSufficientHeight = containerHeight > elementHeight;
-
-    return canScroll && hasSufficientHeight;
-  }
-
   function sticky() {
     // Find all elements with sticky class
     const elements = document.querySelectorAll('[class*=sticky]') as NodeListOf<HTMLElement>;
