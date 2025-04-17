@@ -1,44 +1,73 @@
-var f = Object.defineProperty;
-var l = (t, s, o) => s in t ? f(t, s, { enumerable: !0, configurable: !0, writable: !0, value: o }) : t[s] = o;
-var b = (t, s, o) => l(t, typeof s != "symbol" ? s + "" : s, o);
-(function(t) {
-  const s = document.querySelector("[data-off-canvas-main-canvas]");
-  class o {
+var g = Object.defineProperty;
+var k = (s, e, i) => e in s ? g(s, e, { enumerable: !0, configurable: !0, writable: !0, value: i }) : s[e] = i;
+var d = (s, e, i) => k(s, typeof e != "symbol" ? e + "" : e, i);
+(function(s) {
+  const e = document.querySelector("[data-off-canvas-main-canvas]");
+  function i(r) {
+    let t = 0, o = r;
+    for (; o; )
+      t += o.offsetTop, o = o.offsetParent;
+    return t;
+  }
+  class v {
     constructor() {
-      b(this, "observerMap", {});
+      d(this, "observerMap", {});
     }
-    observe(e, i, u) {
-      if (!s || !s.parentNode)
+    observe(t, o, c, a) {
+      if (!e || !e.parentNode)
         return;
-      e.style.position = "static";
-      let c = e.offsetTop;
-      const v = window.getComputedStyle(e);
-      v.top && (c -= parseFloat(v.top)), e.style.position = "";
-      var r = document.createElement("div");
-      r.setAttribute("data-neo-sticky-observe", e.id), r.style.top = c - 1 + "px", s.after(r);
-      const d = new IntersectionObserver(u, i);
-      d.observe(r), this.observerMap[e.id] = {
-        observer: d,
-        element: r
+      const y = t.style.position;
+      t.style.position = "static";
+      let p = i(t);
+      const u = window.getComputedStyle(t);
+      a === "top" && u.top && (p -= parseFloat(u.top)), a === "bottom" && u.bottom && (p += parseFloat(u.bottom)), t.style.position = y;
+      var n = document.createElement("div");
+      if (n.setAttribute("data-neo-sticky-observe", t.id), a === "top")
+        n.style.top = p - 1 + "px";
+      else {
+        const h = t.offsetHeight;
+        n.style.top = p + h + 1 + "px";
+      }
+      e.after(n);
+      const f = new IntersectionObserver(c, o);
+      f.observe(n), this.observerMap[t.id] = {
+        observer: f,
+        element: n,
+        position: a
       };
     }
-    unobserve(e) {
-      this.observerMap[e.id] && (this.observerMap[e.id].observer.unobserve(e), this.observerMap[e.id].element.remove(), delete this.observerMap[e.id]);
+    unobserve(t) {
+      this.observerMap[t.id] && (this.observerMap[t.id].observer.unobserve(this.observerMap[t.id].element), this.observerMap[t.id].element.remove(), delete this.observerMap[t.id]);
     }
-    getObserver(e) {
-      return this.observerMap[e.id].observer;
+    getObserver(t) {
+      var o;
+      return (o = this.observerMap[t.id]) == null ? void 0 : o.observer;
+    }
+    getPosition(t) {
+      var o;
+      return (o = this.observerMap[t.id]) == null ? void 0 : o.position;
     }
   }
-  const a = new o();
-  function p() {
-    document.querySelectorAll("[class*=sticky]").forEach((e) => {
-      e.id || (e.id = "sticky-" + Math.random().toString(16).slice(2)), a.unobserve(e), a.observe(e, { threshold: [0, 1] }, (i) => {
-        i[0].intersectionRatio === 0 ? e.classList.add("is-stuck") : i[0].intersectionRatio === 1 && e.classList.remove("is-stuck");
-      });
+  const b = new v();
+  function l(r) {
+    const t = window.getComputedStyle(r);
+    return (t.position === "sticky" || t.position === "-webkit-sticky") && (t.bottom && t.bottom !== "auto" && t.bottom !== "0px" || t.bottom && t.bottom !== "auto" && (!t.top || t.top === "auto")) ? "bottom" : "top";
+  }
+  function m() {
+    document.querySelectorAll("[class*=sticky]").forEach((t) => {
+      t.id || (t.id = "sticky" + Math.random().toString(16).slice(2));
+      const o = l(t);
+      b.unobserve(t), b.observe(t, { threshold: [0, 1] }, (c) => {
+        if (window.getComputedStyle(t).position !== "sticky") {
+          t.classList.remove("is-stuck");
+          return;
+        }
+        c[0].intersectionRatio === 0 ? t.classList.add("is-stuck") : c[0].intersectionRatio === 1 && t.classList.remove("is-stuck");
+      }, o);
     });
   }
-  t(document).on("drupalViewportOffsetChange.neoBase", (n, e) => {
-    p();
+  s(document).on("drupalViewportOffsetChange.neoBase", (r, t) => {
+    m();
   });
 })(jQuery);
 //# sourceMappingURL=sticky.js.map
