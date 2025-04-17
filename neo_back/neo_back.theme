@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
 use Drupal\node\NodeInterface;
 
 /**
@@ -56,9 +57,10 @@ function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterf
   if (!empty($form['meta'])) {
     $form['meta']['#type'] = 'container';
     $form['meta']['#access'] = TRUE;
-    $form['meta']['#attributes']['class'][] = 'p-card !pt-0 text-sm';
+    $form['meta']['#attributes']['class'][] = 'p-card text-sm';
 
     if (isset($form['meta']['published'])) {
+      $form['meta']['#attributes']['class'][] = '!pt-0';
       if ($form['meta']['published']['#type'] === 'html_tag' && isset($form['meta']['published']['#value'])) {
         $form['meta']['published'] = [
           '#type' => 'item',
@@ -102,16 +104,12 @@ function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterf
 }
 
 function neo_back_preprocess_entity_edit_form(&$variables) {
-  // ksm($variables);
   $form = &$variables['form'];
-  if (!empty($form['actions'])) {
+  if (isset($form['actions']) && Element::getVisibleChildren($form['actions'])) {
+    $exclude = ['view_preview_form', 'view_edit_form'];
+    if (in_array($form['#form_id'], $exclude)) {
+      return;
+    }
     $form['actions']['#neo_style'] = 'sticky';
   }
-  // $entity = &$variables['entity'];
-  // $form_object = &$variables['form_object'];
-
-  // if ($form_object instanceof EntityFormInterface) {
-  //   $form['#theme'] = ['entity_edit_form'];
-  //   neo_back_form_meta($form, $variables['form_state'], $entity);
-  // }
 }

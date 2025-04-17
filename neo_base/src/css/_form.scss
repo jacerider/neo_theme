@@ -11,10 +11,6 @@ form {
   *:not(.ck) > p {
     @apply text-xs font-normal;
   }
-
-  .ck-content {
-    // @apply prose max-w-none;
-  }
 }
 
 .form--item {

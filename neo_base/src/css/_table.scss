@@ -158,37 +158,6 @@ table {
     li {
       @apply text-sm;
     }
-
-    // &.td--xs {
-    //   @apply text-xs;
-    // }
-
-    // &.td--operations,
-    // &.td--status,
-    // &.td--enabled,
-    // &.td--id,
-    // &.td--created,
-    // &.td--updated,
-    // &.td--author,
-    // &.td--content-type,
-    // &.td--node-bulk-form,
-    // &.td--type-image,
-    // &.views-field-user-bulk-form {
-    //   width: 1%;
-    //   white-space: nowrap;
-    // }
-
-    // &.td--name,
-    // &.td--username,
-    // &.td--title,
-    // &.td--label,
-    // &.td--menu-link {
-    //   @apply text-base font-bold leading-tight;
-
-    //   small {
-    //     @apply text-xs font-normal text-base-500;
-    //   }
-    // }
   }
 }
 
@@ -214,4 +183,21 @@ table {
 
 .js .field--widget-paragraphs td {
   @apply p-2;
+}
+
+.table-wrapper {
+  // followed by a hidden element
+  &:has(+ input[type='hidden']:last-child),
+  // foloweed by two hidden elements
+  &:has(+ input[type='hidden'] + input[type='hidden']:last-child),
+  // followed by three hidden elements
+  &:has(
+      + input[type='hidden']
+        + input[type='hidden']
+        + input[type='hidden']:last-child
+    ),
+  // followed by a div with display none
+  &:has(+ div[style*='display: none;']:last-child) {
+    @apply mb-0;
+  }
 }

@@ -18,7 +18,7 @@ neo:
     .card:
       '@apply block rounded-sm border border-base-200 bg-base-0 shadow-sm': {}
     .form--inner:
-      '@apply m-form': {}
+      '@apply m-form modal:m-0': {}
 
 regions:
   status: Status

@@ -50,7 +50,7 @@ neo:
     .form--wrapper:
       '@apply mt-form': {}
     .form--inner:
-      '@apply my-form': {}
+      '@apply my-form modal:my-0': {}
     .form-label:
       '@apply block font-bold text-base-600 text-sm mb-1': {}
     .form-description:
@@ -62,7 +62,7 @@ neo:
     .badge:
       '@apply min-w-4 rounded-2xl px-1 py-px text-center text-[10px] font-semibold': {}
     .btn:
-      '@apply border-2 bg-base-500 border-transparent text-base-content-500 hover:bg-base-700 hover:text-base-content-700 is-active:bg-base-700 is-active:text-base-content-700 inline-block py-2 px-4 rounded focus cursor-pointer mr-2 transition': {}
+      '@apply border-2 bg-base-500 border-transparent text-base-content-500 hover:bg-base-700 hover:text-base-content-700 is-active:bg-base-700 is-active:text-base-content-700 inline-block py-2 px-4 rounded focus cursor-pointer transition': {}
     .btn-outline:
       '@apply border-base-500 bg-transparent text-base-500 hover:bg-base-500 hover:text-base-content-500 is-active:bg-base-500 is-active:text-base-content-500': {}
     .btn-primary:
@@ -80,13 +80,13 @@ neo:
     .btn-base:
       '@apply bg-base text-base-content hover:bg-base-700 is-active:bg-base-700': {}
     .btn-warning:
-      '@apply bg-transparent text-warning hover:bg-warning-100 hover:text-warning is-active:bg-warning-100 is-active:text-warning border-0': {}
+      '@apply bg-transparent border-transparent text-warning hover:bg-warning-100 hover:text-warning is-active:bg-warning-100 is-active:text-warning': {}
     .btn-alert:
       '@apply bg-transparent border-transparent text-alert hover:bg-alert-100 hover:text-alert is-active:bg-alert-100 is-active:text-alert': {}
     .btn-text:
-      '@apply bg-transparent text-inherit hover:bg-transparent hover:text-inherit hover:underline is-active:bg-transparent is-active:underline first:pl-0 last:pr-0': {}
+      '@apply bg-transparent border-transparent text-inherit hover:bg-transparent hover:text-inherit hover:underline is-active:bg-transparent is-active:underline first:pl-0 last:pr-0': {}
     .btn-text-primary:
-      '@apply bg-transparent text-primary-500 hover:bg-transparent hover:text-primary-700 is-active:bg-transparent is-active:text-primary-700 first:pl-0 last:pr-0': {}
+      '@apply bg-transparent border-transparent text-primary-500 hover:bg-transparent hover:text-primary-700 is-active:bg-transparent is-active:text-primary-700 first:pl-0 last:pr-0': {}
     .btn-sm:
       '@apply text-sm px-3 py-2': {}
     .btn-xs:

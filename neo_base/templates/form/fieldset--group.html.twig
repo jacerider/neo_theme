@@ -2,9 +2,9 @@
 
 {%
   set classes = [
-    'card',
     'text-base',
     'form--item',
+    neo_style == 'default' ? 'card',
     legend.title is empty or description_display == 'before' and description.content is empty ? 'pt-0',
   ]
 %}

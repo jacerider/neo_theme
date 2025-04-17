@@ -2,14 +2,14 @@
 
 {%
   set classes = [
-    'form--item',
-    neo_style == 'sticky' ? 'sticky bottom-form-item bg-base-100 z-10',
+    neo_style == 'default' ? 'flex items-center gap-2',
+    neo_style == 'sticky' ? 'sticky bottom-0 bg-base-100 z-10',
   ]
 %}
 
 {%
   set inner_classes = [
-    neo_style == 'sticky' ? 'relative z-10 p-form-item border border-base-200 rounded',
+    neo_style == 'sticky' ? 'flex items-center gap-2 relative z-10 p-form-item border border-base-200 rounded',
   ]
 %}
 
@@ -17,8 +17,8 @@
   {% set end = '<div class="absolute top-full left-0 z-0 w-full bg-base-0 h-4 pointer-events-none"></div>' %}
 {% endif %}
 
-  {% block end %}
-    {% if neo_style == 'sticky' %}
-      <div class="absolute top-full left-0 z-0 w-full bg-base-0 h-4 pointer-events-none"></div>
-    {% endif %}
-  {% endblock %}
+{% block end %}
+  {% if neo_style == 'sticky' %}
+    <div class="absolute top-full left-0 z-0 w-full bg-base-0 h-form-item pointer-events-none"></div>
+  {% endif %}
+{% endblock %}
