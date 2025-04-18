@@ -62,7 +62,7 @@ neo:
     .badge:
       '@apply min-w-4 rounded-2xl px-1 py-px text-center text-[10px] font-semibold': {}
     .btn:
-      '@apply border-2 bg-base-500 border-transparent text-base-content-500 hover:bg-base-700 hover:text-base-content-700 is-active:bg-base-700 is-active:text-base-content-700 inline-block py-2 px-4 rounded focus cursor-pointer transition': {}
+      '@apply border-2 bg-base-500 border-transparent text-base-content-500 hover:bg-base-700 hover:text-base-content-700 is-active:bg-base-700 is-active:text-base-content-700 inline-block py-1.5 px-4 rounded focus cursor-pointer transition': {}
     .btn-outline:
       '@apply border-base-500 bg-transparent text-base-500 hover:bg-base-500 hover:text-base-content-500 is-active:bg-base-500 is-active:text-base-content-500': {}
     .btn-primary:
@@ -88,7 +88,7 @@ neo:
     .btn-text-primary:
       '@apply bg-transparent border-transparent text-primary-500 hover:bg-transparent hover:text-primary-700 is-active:bg-transparent is-active:text-primary-700 first:pl-0 last:pr-0': {}
     .btn-sm:
-      '@apply text-sm px-3 py-2': {}
+      '@apply text-sm px-3 py-1.5': {}
     .btn-xs:
       '@apply text-xs px-2 py-1': {}
     .btn-lg:
