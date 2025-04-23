@@ -71,10 +71,18 @@
 {{ menus.menu_links(items, attributes, 0, depth_classes, item_classes, link_classes, item_depth_classes, link_depth_classes) }}
 
 {% macro menu_links(items, attributes, menu_level, depth_classes, item_classes, link_classes, item_depth_classes, link_depth_classes) %}
-  {% set primary_nav_level = 'menu--level-' ~ (menu_level + 1) %}
   {% import _self as menus %}
   {% if items %}
-    <ul {{ attributes.addClass(primary_nav_level) }}>
+    {%
+      set instance_depth_classes = depth_classes[(menu_level + 1)] is defined ? depth_classes[(menu_level + 1)] : []
+    %}
+    {% if menu_level == 0 %}
+      {% set attributes = attributes.merge(attributes).addClass(instance_depth_classes) %}
+    {% else %}
+      {% set attributes = create_attribute().addClass(instance_depth_classes) %}
+    {% endif %}
+    {% set level = 'menu--level-' ~ (menu_level + 1) %}
+    <ul {{ attributes.addClass(level) }}>
       {% for item in items %}
 
         {% if item.url.isRouted and item.url.routeName == '<nolink>' %}
@@ -134,10 +142,6 @@
           {% endif %}
 
           {% if item.below %}
-            {%
-              set instance_depth_classes = depth_classes[(menu_level + 1)] is defined ? depth_classes[(menu_level + 1)] : []
-            %}
-            {% set attributes = create_attribute().addClass(instance_depth_classes) %}
             {{ menus.menu_links(item.below, attributes, menu_level + 1, depth_classes, item_classes, link_classes, item_depth_classes, link_depth_classes) }}
           {% endif %}
 

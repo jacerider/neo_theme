@@ -28,7 +28,7 @@ function neo_back_theme() {
  *
  * Changes vertical tabs to container.
  */
-function neo_back_form_alter(&$form, FormStateInterface $form_state) {
+function neo_back_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
   $form_object = $form_state->getFormObject();
   if ($form_object instanceof EntityFormInterface) {
@@ -37,6 +37,12 @@ function neo_back_form_alter(&$form, FormStateInterface $form_state) {
     neo_back_form_meta($form, $form_state, $entity);
   }
   $form['#neo_style'] = $form['#neo_style'] ?? 'card';
+
+  switch ($form_id) {
+    case 'user_admin_permissions':
+      $form['actions']['#neo_style'] = 'sticky';
+      break;
+  }
 }
 
 /**
