@@ -62,7 +62,7 @@ neo:
     .badge:
       '@apply min-w-4 rounded-2xl px-1 py-px text-center text-[10px] font-semibold': {}
     .btn:
-      '@apply border-2 bg-base-500 border-transparent text-base-content-500 hover:bg-base-700 hover:text-base-content-700 is-active:bg-base-700 is-active:text-base-content-700 inline-block py-1.5 px-4 rounded focus cursor-pointer transition': {}
+      '@apply border-2 bg-base-500 border-transparent text-base-content-500 no-underline text-center hover:bg-base-700 hover:text-base-content-700 is-active:bg-base-700 is-active:text-base-content-700 inline-block py-1.5 px-4 rounded focus cursor-pointer transition': {}
     .btn-outline:
       '@apply border-base-500 bg-transparent text-base-500 hover:bg-base-500 hover:text-base-content-500 is-active:bg-base-500 is-active:text-base-content-500': {}
     .btn-primary:
