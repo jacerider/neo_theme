@@ -389,7 +389,3 @@ function neo_base_form_user_pass_alter(&$form, FormStateInterface $form_state, $
   $form['actions']['submit']['#button_type'] = 'primary';
   $form['actions']['submit']['#attributes']['class'][] = 'w-full';
 }
-
-function neo_base_preprocess_entity_edit_form(&$variables) {
-  ksm($variables);
-}
