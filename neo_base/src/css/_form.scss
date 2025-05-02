@@ -13,6 +13,13 @@ form {
   }
 }
 
+.form--inner {
+
+  > p {
+    @apply my-form-item first:mt-0 last:mb-0;
+  }
+}
+
 .form--item {
   @apply my-form-item;
 
