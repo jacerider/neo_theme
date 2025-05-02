@@ -32,9 +32,12 @@ function neo_back_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
   $form_object = $form_state->getFormObject();
   if ($form_object instanceof EntityFormInterface) {
-    $entity = $form_object->getEntity();
-    $form['#theme'] = ['entity_edit_form'];
-    neo_back_form_meta($form, $form_state, $entity);
+    // Only apply if we have no neo style set.
+    if (empty($form['#no_entity_edit_form'])) {
+      $entity = $form_object->getEntity();
+      $form['#theme'] = ['entity_edit_form'];
+      neo_back_form_meta($form, $form_state, $entity);
+    }
   }
   $form['#neo_style'] = $form['#neo_style'] ?? 'card';
 
@@ -106,16 +109,5 @@ function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterf
     $form['revision_information']['#type'] = 'container';
     $form['revision_information']['#group'] = 'meta';
     $form['revision_information']['#attributes']['class'][] = 'entity-meta--revision';
-  }
-}
-
-function neo_back_preprocess_entity_edit_form(&$variables) {
-  $form = &$variables['form'];
-  if (isset($form['actions']) && Element::getVisibleChildren($form['actions'])) {
-    $exclude = ['view_preview_form', 'view_edit_form'];
-    if (in_array($form['#form_id'], $exclude)) {
-      return;
-    }
-    $form['actions']['#neo_style'] = 'sticky';
   }
 }

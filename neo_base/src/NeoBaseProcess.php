@@ -26,4 +26,29 @@ class NeoBaseProcess {
     return $element;
   }
 
+  /**
+   * Process callback for elements that support groups.
+   */
+  public static function submit(&$element, FormStateInterface $form_state, &$complete_form) {
+    $element['#title'] = $element['#title'] ?? $element['#value'];
+
+    // Add the label as a data attribute. This allows styling on the value.
+    if (!is_array($element['#value'])) {
+      $element['#attributes']['data-label'] = trim(strip_tags(strtolower((string) $element['#value'])));
+    }
+
+    $form_object = $form_state->getFormObject();
+    switch ($form_object->getFormId()) {
+      case 'entity_form_display_edit_form':
+      case 'entity_view_display_edit_form':
+        // Force submit buttons to be rendered as input elements to allow Drupal
+        // to properly bind ajax behaviors.
+        if (!empty($element['#ajax'])) {
+          $element['#as_input'] = TRUE;
+        }
+        break;
+    }
+    return $element;
+  }
+
 }

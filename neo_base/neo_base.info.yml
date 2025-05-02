@@ -79,14 +79,30 @@ neo:
       '@apply border-accent-500 bg-transparent text-accent-500 hover:bg-accent-500 hover:text-accent-content-500 is-active:bg-accent-500 is-active:text-accent-content-500': {}
     .btn-base:
       '@apply bg-base text-base-content hover:bg-base-700 is-active:bg-base-700': {}
+    .btn-success:
+      '@apply bg-success-500 border-transparent text-success-content-500 hover:bg-success-600 hover:text-success-content-600 is-active:bg-success-600 is-active:bg-success-600 is-active:text-success-content-600': {}
+    .btn-success-outline:
+      '@apply border-success-500 bg-transparent text-success-500 hover:bg-success-500 hover:text-success-content-500 is-active:bg-success-500 is-active:text-success-content-500': {}
     .btn-warning:
-      '@apply bg-transparent border-transparent text-warning hover:bg-warning-100 hover:text-warning is-active:bg-warning-100 is-active:text-warning': {}
+      '@apply bg-warning-500 border-transparent text-warning-content-500 hover:bg-warning-600 hover:text-warning-content-600 is-active:bg-warning-600 is-active:bg-warning-600 is-active:text-warning-content-600': {}
+    .btn-warning-outline:
+      '@apply border-warning-500 bg-transparent text-warning-500 hover:bg-warning-500 hover:text-warning-content-500 is-active:bg-warning-500 is-active:text-warning-content-500': {}
     .btn-alert:
-      '@apply bg-transparent border-transparent text-alert hover:bg-alert-100 hover:text-alert is-active:bg-alert-100 is-active:text-alert': {}
+      '@apply bg-alert-500 border-transparent text-alert-content-500 hover:bg-alert-600 hover:text-alert-content-600 is-active:bg-alert-600 is-active:bg-alert-600 is-active:text-alert-content-600': {}
+    .btn-alert-outline:
+      '@apply border-alert-500 bg-transparent text-alert-500 hover:bg-alert-500 hover:text-alert-content-500 is-active:bg-alert-500 is-active:text-alert-content-500': {}
     .btn-text:
       '@apply bg-transparent border-transparent text-inherit hover:bg-transparent hover:text-inherit hover:underline is-active:bg-transparent is-active:underline first:pl-0 last:pr-0': {}
     .btn-text-primary:
       '@apply bg-transparent border-transparent text-primary-500 hover:bg-transparent hover:text-primary-700 is-active:bg-transparent is-active:text-primary-700 first:pl-0 last:pr-0': {}
+    .btn-text-secondary:
+      '@apply bg-transparent border-transparent text-secondary-500 hover:bg-transparent hover:text-secondary-700 is-active:bg-transparent is-active:text-secondary-700 first:pl-0 last:pr-0': {}
+    .btn-text-success:
+      '@apply bg-transparent border-transparent text-success-500 hover:bg-transparent hover:text-success-700 is-active:bg-transparent is-active:text-success-700 first:pl-0 last:pr-0': {}
+    .btn-text-warning:
+      '@apply bg-transparent border-transparent text-warning-500 hover:bg-transparent hover:text-warning-700 is-active:bg-transparent is-active:text-warning-700 first:pl-0 last:pr-0': {}
+    .btn-text-alert:
+      '@apply bg-transparent border-transparent text-alert-500 hover:bg-transparent hover:text-alert-700 is-active:bg-transparent is-active:text-alert-700 first:pl-0 last:pr-0': {}
     .btn-sm:
       '@apply text-sm px-3 py-1.5': {}
     .btn-xs:

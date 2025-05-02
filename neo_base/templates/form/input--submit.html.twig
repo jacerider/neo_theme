@@ -2,9 +2,17 @@
 
 {%
   set classes = [
-    'button',
+    'btn',
     disabled == 'disabled' ? 'form-disabled',
     disabled ? 'opacity-50 pointer-events-none',
+    neo_style == 'primary' ? 'btn-primary' : '',
+    neo_style == 'secondary' ? 'btn-secondary' : '',
+    neo_style == 'tertiary' ? 'btn-tertiary' : '',
+    neo_style == 'success' ? 'btn-success' : '',
+    neo_style == 'warning' ? 'btn-warning' : '',
+    neo_style == 'alert' ? 'btn-alert' : '',
+    neo_size == 'xs' ? 'btn-xs' : '',
+    neo_size == 'sm' ? 'btn-sm' : '',
   ]
 %}
 {% block input %}

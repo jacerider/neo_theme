@@ -1,7 +1,7 @@
 @use 'neo-icon';
 
 form {
-  .button {
+  .button:not(.has-icon) {
     &[data-label*='save'],
     &[data-label*='update'],
     &[data-label*='apply'],

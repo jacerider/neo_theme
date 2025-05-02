@@ -6,15 +6,16 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
 use Drupal\Core\Template\Attribute;
 use Drupal\neo_base\NeoBasePreRender;
 use Drupal\neo_base\NeoBaseProcess;
+use Drupal\neo_icon\IconElementInterface;
 
 /**
  * Implements hook_element_info_alter().
  */
 function neo_base_element_info_alter(array &$info) {
-  $info['submit']['#process'][] = 'neo_base_submit_process';
   $info['table']['#pre_render'][] = [NeoBasePreRender::class, 'table'];
 
   $info['fieldset']['#pre_render'] = array_merge([[NeoBasePreRender::class, 'fieldset']], $info['fieldset']['#pre_render']);
@@ -26,6 +27,8 @@ function neo_base_element_info_alter(array &$info) {
 
   $info['radios']['#pre_render'][] = [NeoBasePreRender::class, 'radios'];
   $info['checkboxes']['#pre_render'][] = [NeoBasePreRender::class, 'checkboxes'];
+
+  $info['submit']['#process'] = array_merge([[NeoBaseProcess::class, 'submit']], $info['submit']['#process']);
 
   foreach ($info as $id => &$element) {
     if (isset($element['#process'])) {
@@ -158,24 +161,6 @@ function neo_base_theme_suggestions_alter(&$suggestions, array &$variables, $hoo
   if ($hook === 'form_element' && empty($variables['element']['#parents']) && empty($variables['element']['#array_parents'])) {
     $suggestions[] = $variables['theme_hook_original'] . '__formless';
   }
-}
-
-/**
- * Submit button element process callback.
- */
-function neo_base_submit_process(&$element, FormStateInterface $form_state, &$complete_form) {
-  $form_object = $form_state->getFormObject();
-  switch ($form_object->getFormId()) {
-    case 'entity_form_display_edit_form':
-    case 'entity_view_display_edit_form';
-      // Force submit buttons to be rendered as input elements to allow Drupal
-      // to properly bind ajax behaviors.
-      if (!empty($element['#ajax'])) {
-        $element['#as_input'] = TRUE;
-      }
-      break;
-  }
-  return $element;
 }
 
 /**
@@ -346,6 +331,9 @@ function neo_base_preprocess_page(&$variables) {
  */
 function neo_base_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   $form['#after_build'][] = 'neo_base_form_after_build';
+
+  // Preprocess all form buttons.
+  neo_base_preprocess_buttons($form);
 }
 
 /**
@@ -357,6 +345,33 @@ function neo_base_form_after_build($form, FormStateInterface $form_state) {
   $form['#attributes']['data-neo-style'] = $form['#neo_style'];
   $form['#attributes']['data-neo-size'] = $form['#neo_size'];
   return $form;
+}
+
+/**
+ * Preprocess buttons.
+ *
+ * Currently used to properly handle buttons with icons as the #value. Drupal
+ * does not handle this well and we need to set the #title to the icon and the
+ * #value to the text.
+ *
+ * @param array $element
+ *   The element to preprocess.
+ */
+function neo_base_preprocess_buttons(&$element) {
+  if (is_array($element)) {
+    if (isset($element['#type']) && $element['#type'] === 'submit') {
+      if (isset($element['#value']) && $element['#value'] instanceof IconElementInterface) {
+        $element['#title'] = $element['#value'];
+        $element['#value'] = $element['#value']->getText();
+        $element['#attributes']['class'][] = 'has-icon';
+      }
+    }
+    else {
+      foreach (Element::children($element) as $key) {
+        neo_base_preprocess_buttons($element[$key]);
+      }
+    }
+  }
 }
 
 /**
@@ -373,4 +388,8 @@ function neo_base_form_user_login_form_alter(&$form, FormStateInterface $form_st
 function neo_base_form_user_pass_alter(&$form, FormStateInterface $form_state, $form_id) {
   $form['actions']['submit']['#button_type'] = 'primary';
   $form['actions']['submit']['#attributes']['class'][] = 'w-full';
+}
+
+function neo_base_preprocess_entity_edit_form(&$variables) {
+  ksm($variables);
 }

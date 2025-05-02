@@ -26,6 +26,8 @@
     has_parent ? 'js-form-wrapper',
     has_parent ? 'form-wrapper form--item',
     has_parent ? '' : 'container',
+    neo_align == 'inline' ? 'form--inline' : '',
+    neo_align == 'inline' and neo_size == 'min' ? 'form--inline-min' : '',
   ]
 %}
 {%

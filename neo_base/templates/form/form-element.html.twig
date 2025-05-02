@@ -76,7 +76,7 @@
   set description_classes = description_classes is defined ? description_classes : []
 %}
 {%
-  set inline = inline is defined ? inline : false
+  set inline = neo_align == 'inline' ? true : (inline is defined ? inline : false)
 %}
 {%
   set inline_classes = inline_classes is defined ? inline_classes : [
@@ -86,7 +86,7 @@
 {%
   set inline_input = inline_input is defined ? inline_input : true
 %}
-<div{{ attributes.addClass(base_classes, classes) }}>
+<div{{ attributes.addClass(base_classes, classes).setAttribute('data-neo-size', neo_size) }}>
   {% if inline %}
     {%
       set inline_attributes = create_attribute()

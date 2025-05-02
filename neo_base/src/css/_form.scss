@@ -99,6 +99,10 @@ div.hidden:first-child {
 
 .form--inline,
 .form--inline-children > div {
+  .form--inline-min {
+    @apply flex-none;
+  }
+
   &:not(.form--inline-min) {
     > *:not([class^='flex-']):not([class*=' flex-']) {
       @apply flex-1;
