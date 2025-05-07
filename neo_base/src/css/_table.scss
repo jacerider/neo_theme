@@ -91,25 +91,6 @@ table {
     @apply m-0;
   }
 
-  &.sticky-header {
-    thead tr {
-      @apply sticky z-20;
-      top: calc(
-        var(--drupal-displace-offset-top, 0px) + var(--neo-header-top, 0px)
-      );
-
-      &:after {
-        @apply pointer-events-none absolute block border shadow-md;
-        z-index: -1;
-        top: -1px;
-        right: 0;
-        bottom: -1px;
-        left: -1px;
-        content: '';
-      }
-    }
-  }
-
   &.field-multiple-table {
     .field-multiple-drag {
       width: 1%;
@@ -185,7 +166,7 @@ table {
   @apply p-2;
 }
 
-.table-wrapper {
+.table--wrapper {
   // followed by a hidden element
   &:has(+ input[type='hidden']:last-child),
   // foloweed by two hidden elements
@@ -200,4 +181,70 @@ table {
   &:has(+ div[style*='display: none;']:last-child) {
     @apply mb-0;
   }
+}
+
+.table--overflow {
+
+  .table--inner {
+    @apply overflow-x-auto overflow-y-hidden border;
+
+    table tr th {
+
+      &:first-child {
+        @apply border-l-0;
+      }
+
+      &:last-child {
+        @apply border-r-0;
+      }
+    }
+
+    tbody tr {
+      @apply border-l-0 border-r-0 last:border-b-0;
+    }
+  }
+}
+
+.table--sticky {
+
+  .table--header {
+    @apply sticky top-neo-header-t z-20 overflow-hidden shadow-md border;
+
+    th {
+      @apply border-t-0 border-b-0;
+
+      &:first-child {
+        @apply border-l-0;
+      }
+
+      &:last-child {
+        @apply border-r-0;
+      }
+    }
+  }
+
+  .table--inner {
+    @apply overflow-x-auto overflow-y-hidden border border-t-0;
+
+    thead tr {
+      height: 0px;
+      overflow: hidden;
+      padding-top: 0;
+      padding-bottom: 0;
+      visibility: collapse;
+    }
+
+    thead th {
+      @apply border-0;
+    }
+
+    tbody tr {
+      // @apply border-l-0 border-r-0 first:border-t-0 last:border-b-0;
+      @apply border-0 border-b last:border-b-0;
+    }
+  }
+
+  // .sticky-header thead tr {
+  //   @apply top-0 left-0 right-0;
+  // }
 }

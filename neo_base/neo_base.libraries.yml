@@ -15,9 +15,6 @@ sticky:
   version: VERSION
   neo: { group: contrib }
   css: {}
-  # css:
-  #   theme:
-  #     src/css/global.scss: { minified: true }
   js:
     src/js/sticky.ts: { minified: true }
   dependencies:
@@ -38,17 +35,20 @@ form:
   version: VERSION
   neo: { group: contrib }
   css: {}
-  # css:
-  #   theme:
-  #     src/css/form.scss: { minified: true }
 
 table:
   version: VERSION
   neo: { group: contrib }
   css: {}
-  # css:
-  #   theme:
-  #     src/css/table.scss: { minified: true }
+  js:
+    src/js/table.ts: { minified: true }
+
+tableheader:
+  version: VERSION
+  neo: { group: contrib }
+  css: {}
+  js:
+    src/js/tableheader.ts: { minified: true }
 
 vertical-tabs:
   version: VERSION

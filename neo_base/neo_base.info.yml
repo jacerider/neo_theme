@@ -29,6 +29,7 @@ neo:
         displace-b: 'var(--drupal-displace-offset-bottom, 0px)'
         displace-l: 'var(--drupal-displace-offset-left, 0px)'
         neo-t: 'calc(var(--drupal-displace-offset-top, 0px) + var(--neo-displace-offset-top, 0px))'
+        neo-header-t: 'calc(var(--drupal-displace-offset-top, 0px) + var(--neo-header-top, 0px))'
   base:
     :root:
       --container-spacing: spacing.4
@@ -159,8 +160,12 @@ libraries-extend:
     - neo_base/tabledrag
   core/drupal.dropbutton:
     - neo_base/dropbutton
+  neo_tooltip/dropbutton:
+    - neo_base/dropbutton
   core/drupal.dialog:
     - neo_base/dialog
+  core/drupal.tableheader:
+    - neo_base/tableheader
 libraries-override:
   system/base:
     css:

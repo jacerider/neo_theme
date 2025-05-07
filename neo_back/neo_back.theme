@@ -43,6 +43,8 @@ function neo_back_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
   switch ($form_id) {
     case 'user_admin_permissions':
+    case 'better_permissions_page_user_admin_permissions':
+      $form['permissions']['#sticky'] = TRUE;
       $form['actions']['#neo_style'] = 'sticky';
       break;
   }

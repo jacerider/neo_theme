@@ -1,1 +1,12 @@
 @use '../../../neo_base/src/css/table';
+
+// Taxonomy management page.
+table .permission {
+  .title {
+    @apply font-bold whitespace-nowrap;
+  }
+
+  .description {
+    @apply text-xs italic;
+  }
+}

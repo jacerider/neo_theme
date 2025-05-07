@@ -30,6 +30,8 @@
   {% set attributes = attributes.setAttribute('style', '--form-spacing: 0px; --form-item-spacing: 0.5rem;') %}
 {% elseif neo_size == 'sm' %}
   {% set attributes = attributes.setAttribute('style', '--form-spacing: 0px; --form-item-spacing: 1rem;') %}
+{% elseif neo_style == 'flush' %}
+  {% set attributes = attributes.setAttribute('style', '--form-spacing: 0px;') %}
 {% endif %}
 
 {{ attach_library('neo_base/form') }}

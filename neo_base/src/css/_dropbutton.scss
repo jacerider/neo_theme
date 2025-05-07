@@ -1,5 +1,5 @@
 .dropbutton-wrapper {
-  @apply relative z-0 inline-flex;
+  @apply relative inline-flex;
 
   .dropbutton-widget {
     @apply relative h-6;
@@ -100,4 +100,38 @@
 
 .js .field--widget-paragraphs .paragraphs-dropbutton-wrapper {
   @apply mb-form-item;
+}
+
+.neo-dropbutton.dropbutton {
+  @apply static flex;
+
+  .dropbutton-action {
+    @apply transition-opacity m-0;
+  }
+
+  .dropbutton-arrow {
+    @apply transition-transform;
+  }
+
+  &.is-active {
+
+    .dropbutton-action {
+      @apply opacity-50;
+    }
+
+    .dropbutton-toggle .dropbutton-arrow {
+      @apply -rotate-180;
+    }
+  }
+
+  .dropbutton-toggle {
+    @apply static;
+  }
+}
+
+.tippy-box[data-theme~='dropbutton'] {
+
+  a {
+    @apply font-bold text-xs;
+  }
 }

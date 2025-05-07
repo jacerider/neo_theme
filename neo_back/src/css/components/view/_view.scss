@@ -2,9 +2,17 @@
 
 .view-header {
   @apply mb-form-item;
+}
+
+.view-footer {
+  @apply mt-form-item;
+}
+
+.view-header,
+.view-footer {
 
   &:not(:has(div)) {
-    @apply card flex items-center bg-base-100 p-2 align-middle text-xs text-base-content-200;
+    @apply card flex items-center justify-center bg-base-100 p-2 align-middle text-xs text-base-700;
   }
 }
 

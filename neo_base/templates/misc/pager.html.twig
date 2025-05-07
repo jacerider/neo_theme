@@ -47,7 +47,6 @@
     'border',
     'first:rounded-s',
     'last:rounded-e',
-    '-my-px',
   ]
 %}
 {%
@@ -65,7 +64,7 @@
 {% if items %}
   <nav class="pager" role="navigation" aria-labelledby="{{ heading_id }}">
     <{{ pagination_heading_level }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ pagination_heading_level }}>
-    <div class="pager__items js-pager__items inline-flex -space-x-px">
+    <div class="pager__items js-pager__items flex flex-wrap justify-center -space-x-px">
       {# Print first item if we are not on the first page. #}
       {% if items.first %}
           <a href="{{ items.first.href }}" title="{{ 'Go to first page'|t }}"{{ items.first.attributes.addClass(infoClasses, itemClasses)|without('href', 'title') }}>

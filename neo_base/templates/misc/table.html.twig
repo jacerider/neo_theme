@@ -42,95 +42,97 @@
  */
 #}
 {{ attach_library('neo_base/table') }}
-<div class="table-wrapper my-6 first:mt-0 last:mb-0">
-  <table{{ attributes.addClass('border-collapse w-full') }}>
-    {% if caption %}
-      <caption class="text-left font-bold mb-2">{{ caption }}</caption>
-    {% endif %}
-
-    {% for colgroup in colgroups %}
-      {% if colgroup.cols %}
-        <colgroup{{ colgroup.attributes }}>
-          {% for col in colgroup.cols %}
-            <col{{ col.attributes }} />
-          {% endfor %}
-        </colgroup>
-      {% else %}
-        <colgroup{{ colgroup.attributes }} />
+<div class="table--wrapper my-6 first:mt-0 last:mb-0">
+  <div class="table--inner">
+    <table{{ attributes.addClass('border-collapse w-full') }}>
+      {% if caption %}
+        <caption class="text-left font-bold mb-2">{{ caption }}</caption>
       {% endif %}
-    {% endfor %}
 
-    {% if header %}
-      <thead>
-        <tr>
-          {% for key, cell in header %}
-            {% if '<a' in cell.content|render|render %}
-              {%
-                set cell_classes = [
-                  'th--item',
-                  cell.active_table_sort ? 'is-active',
-                ]
-              %}
-            {% else %}
-              {% if key matches '/^\\d+$/' %}
-                {% set columnClass = cell.content|render|clean_class %}
+      {% for colgroup in colgroups %}
+        {% if colgroup.cols %}
+          <colgroup{{ colgroup.attributes }}>
+            {% for col in colgroup.cols %}
+              <col{{ col.attributes }} />
+            {% endfor %}
+          </colgroup>
+        {% else %}
+          <colgroup{{ colgroup.attributes }} />
+        {% endif %}
+      {% endfor %}
+
+      {% if header %}
+        <thead>
+          <tr>
+            {% for key, cell in header %}
+              {% if '<a' in cell.content|render|render %}
+                {%
+                  set cell_classes = [
+                    'th--item',
+                    cell.active_table_sort ? 'is-active',
+                  ]
+                %}
               {% else %}
-                {% set columnClass = key %}
+                {% if key matches '/^\\d+$/' %}
+                  {% set columnClass = cell.content|render|clean_class %}
+                {% else %}
+                  {% set columnClass = key %}
+                {% endif %}
+                {%
+                  set cell_classes = [
+                    columnClass ? 'th--' ~ columnClass,
+                    cell.active_table_sort ? 'is-active',
+                  ]
+                %}
               {% endif %}
-              {%
-                set cell_classes = [
-                  columnClass ? 'th--' ~ columnClass,
-                  cell.active_table_sort ? 'is-active',
-                ]
-              %}
-            {% endif %}
-            <{{ cell.tag }}{{ cell.attributes.addClass('table--cell', cell_classes, 'bg-base-100 border border-base-300 font-light text-xs px-4 py-3 text-base-600 text-left whitespace-nowrap') }}>
-              <div class="flex items-center justify-between">
-                {{- cell.content -}}
-              </div>
-            </{{ cell.tag }}>
-          {% endfor %}
-        </tr>
-      </thead>
-    {% endif %}
+              <{{ cell.tag }}{{ cell.attributes.addClass('table--cell', cell_classes, 'bg-base-100 border border-base-300 font-light text-xs px-4 py-3 text-base-600 text-left whitespace-nowrap') }}>
+                <div class="flex items-center justify-between">
+                  {{- cell.content -}}
+                </div>
+              </{{ cell.tag }}>
+            {% endfor %}
+          </tr>
+        </thead>
+      {% endif %}
 
-    {% if rows %}
-      <tbody class="bg-base-0">
-        {% for row in rows %}
-          <tr{{ row.attributes.addClass('border border-base-200 hover:bg-base-50 transition') }}>
-            {% set count = 0 %}
-            {% for key, cell in row.cells %}
-              {% set cell_classes = ['td--item td--' ~ key] %}
-              {% if '<img' in cell.content|render|render %}
-                {% set cell_classes = cell_classes|merge(['td--type-image']) %}
-              {% endif %}
-              <{{ cell.tag }}{{ cell.attributes.removeClass('block').addClass('table--cell', cell_classes, 'p-4 text-base-50-content') }}>
-                {{- cell.content -}}
-              </{{ cell.tag }}>
-              {% set count = count + 1 %}
-            {% endfor %}
+      {% if rows %}
+        <tbody class="bg-base-0">
+          {% for row in rows %}
+            <tr{{ row.attributes.addClass('border border-base-200 hover:bg-base-50 transition') }}>
+              {% set count = 0 %}
+              {% for key, cell in row.cells %}
+                {% set cell_classes = ['td--item td--' ~ key] %}
+                {% if '<img' in cell.content|render|render %}
+                  {% set cell_classes = cell_classes|merge(['td--type-image']) %}
+                {% endif %}
+                <{{ cell.tag }}{{ cell.attributes.removeClass('block').addClass('table--cell', cell_classes, 'p-4 text-base-50-content') }}>
+                  {{- cell.content -}}
+                </{{ cell.tag }}>
+                {% set count = count + 1 %}
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      {% elseif empty %}
+        <tbody>
+          <tr>
+            <td colspan="{{ header_columns }}" class="p-4 border-b table--cell border-base-100 text-base-50-content">{{ empty }}</td>
           </tr>
-        {% endfor %}
-      </tbody>
-    {% elseif empty %}
-      <tbody>
-        <tr>
-          <td colspan="{{ header_columns }}" class="p-4 border-b table--cell border-base-100 text-base-50-content">{{ empty }}</td>
-        </tr>
-      </tbody>
-    {% endif %}
-    {% if footer %}
-      <tfoot>
-        {% for row in footer %}
-          <tr{{ row.attributes }}>
-            {% for cell in row.cells %}
-              <{{ cell.tag }}{{ cell.attributes }}>
-                {{- cell.content -}}
-              </{{ cell.tag }}>
-            {% endfor %}
-          </tr>
-        {% endfor %}
-      </tfoot>
-    {% endif %}
-  </table>
+        </tbody>
+      {% endif %}
+      {% if footer %}
+        <tfoot>
+          {% for row in footer %}
+            <tr{{ row.attributes }}>
+              {% for cell in row.cells %}
+                <{{ cell.tag }}{{ cell.attributes }}>
+                  {{- cell.content -}}
+                </{{ cell.tag }}>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tfoot>
+      {% endif %}
+    </table>
+  </div>
 </div>

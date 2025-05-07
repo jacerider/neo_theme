@@ -14,7 +14,11 @@
     @apply p-0;
 
     .views-ui-display-tab-bucket__title {
-      @apply mb-1 mt-0 text-base font-bold;
+      @apply m-0 p-0 pb-1 text-base font-bold;
+    }
+
+    .dropbutton-wrapper {
+      @apply right-0;
     }
   }
 
@@ -97,6 +101,8 @@ details.views-display-column {
 }
 
 .views-ui-display-tab-bucket {
+  @apply my-3 first:mt-0 last:mb-0;
+
   .views-display-setting {
     @apply p-0 py-1;
   }

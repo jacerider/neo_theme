@@ -198,13 +198,31 @@ class NeoBasePreRender implements TrustedCallbackInterface {
       }
       $count++;
     }
+    $props = neo_table_props();
     foreach ($rows as $i => $row) {
       $count = 0;
       foreach ($row['columns'] as $ii => $column) {
         if (isset($headerKeys[$count])) {
-          $rows[$i]['columns'][$ii]['attributes']->addClass('td--' . $headerKeys[$count]);
+          /** @var \Drupal\Core\Template\Attribute $attributes */
+          $attributes = $rows[$i]['columns'][$ii]['attributes'];
+          $attributes->addClass('td--' . $headerKeys[$count]);
           if ($keyClasses = self::getTableClassesByKey($headerKeys[$count], $ii)) {
-            $rows[$i]['columns'][$ii]['attributes']->addClass($keyClasses);
+            foreach ($keyClasses as $keyClass) {
+              [$type, $value] = explode('--', $keyClass . '--');
+              if (!isset($props['neo_' . $type])) {
+                continue;
+              }
+              // If we already have a class for this type, skip it.
+              $prop = $props['neo_' . $type];
+              if ($type && $value) {
+                foreach ($prop['options'] as $option => $label) {
+                  if ($attributes->hasClass($type . '--' . $option)) {
+                    continue 2;
+                  }
+                }
+              }
+              $attributes->addClass($keyClass);
+            }
           }
         }
         $count++;
@@ -223,12 +241,20 @@ class NeoBasePreRender implements TrustedCallbackInterface {
       'title' => ['style--heading'],
       'label' => ['style--heading'],
       'name' => ['style--heading'],
-      'id' => ['size--min'],
+      'media-name' => ['style--heading'],
+      'username' => ['style--heading'],
+      'id' => ['size--min', 'style--xs'],
+      'type' => ['size--min', 'style--xs'],
       'operations' => ['size--min'],
-      'author' => ['size--min'],
-      'created' => ['size--min'],
-      'changed' => ['size--min'],
-      'updated' => ['size--min'],
+      'machine-name' => ['size--min', 'style--xs'],
+      'author' => ['size--min', 'style--xs'],
+      'created' => ['size--min', 'style--xs'],
+      'changed' => ['size--min', 'style--xs'],
+      'updated' => ['size--min', 'style--xs'],
+      'roles' => ['size--min', 'style--xs'],
+      'member-for' => ['size--min', 'style--xs'],
+      'last-access' => ['size--min', 'style--xs'],
+      'description' => ['size--min', 'style--xs'],
       'status' => ['size--min', 'align--center'],
       default => match($secondary) {
         'type' => ['size--min'],

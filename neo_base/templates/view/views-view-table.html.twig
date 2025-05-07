@@ -37,94 +37,96 @@
     'views-view-table',
     'cols-' ~ header|length,
     responsive ? 'responsive-enabled',
-    sticky ? 'position-sticky',
+    sticky ? 'sticky-enabled sticky-header',
     'border-collapse',
     'w-full',
     'shadow',
   ]
 %}
 {{ attach_library('neo_base/table') }}
-<div class="mt-6 first:mt-0">
-  <table{{ attributes.addClass(classes) }}>
-    {% if caption_needed %}
-      <caption>
-      {% if caption %}
-        {{ caption }}
-      {% else %}
-        {{ title }}
+<div class="table--wrapper mt-6 first:mt-0">
+  <div class="table--inner">
+    <table{{ attributes.addClass(classes) }}>
+      {% if caption_needed %}
+        <caption>
+        {% if caption %}
+          {{ caption }}
+        {% else %}
+          {{ title }}
+        {% endif %}
+        {% if (summary_element is not empty) %}
+          {{ summary_element }}
+        {% endif %}
+        </caption>
       {% endif %}
-      {% if (summary_element is not empty) %}
-        {{ summary_element }}
-      {% endif %}
-      </caption>
-    {% endif %}
 
-    {% if header %}
-      <thead>
-        <tr>
-          {% for key, column in header %}
-            {% if column.default_classes %}
-              {%
-                set column_classes = [
-                  'views-field',
-                  'views-field-' ~ fields[key],
-                ]
-              %}
-            {% endif %}
-            <th{{ column.attributes.addClass(column_classes, 'bg-base-100 border border-base-300 font-light text-xs px-4 py-3 text-base-600 text-left whitespace-nowrap').setAttribute('scope', 'col') }}>
-              {%- if column.wrapper_element -%}
-                <{{ column.wrapper_element }}>
+      {% if header %}
+        <thead>
+          <tr>
+            {% for key, column in header %}
+              {% if column.default_classes %}
+                {%
+                  set column_classes = [
+                    'views-field',
+                    'views-field-' ~ fields[key],
+                  ]
+                %}
+              {% endif %}
+              <th{{ column.attributes.addClass(column_classes, 'bg-base-100 border border-base-300 font-light text-xs px-4 py-3 text-base-600 text-left whitespace-nowrap').setAttribute('scope', 'col') }}>
+                {%- if column.wrapper_element -%}
+                  <{{ column.wrapper_element }}>
+                    {%- if column.url -%}
+                      <a href="{{ column.url }}" title="{{ column.title }}" rel="nofollow">{{ column.content }}{{ column.sort_indicator }}</a>
+                    {%- else -%}
+                      {{ column.content }}{{ column.sort_indicator }}
+                    {%- endif -%}
+                  </{{ column.wrapper_element }}>
+                {%- else -%}
                   {%- if column.url -%}
                     <a href="{{ column.url }}" title="{{ column.title }}" rel="nofollow">{{ column.content }}{{ column.sort_indicator }}</a>
                   {%- else -%}
-                    {{ column.content }}{{ column.sort_indicator }}
+                    {{- column.content }}{{ column.sort_indicator }}
                   {%- endif -%}
-                </{{ column.wrapper_element }}>
-              {%- else -%}
-                {%- if column.url -%}
-                  <a href="{{ column.url }}" title="{{ column.title }}" rel="nofollow">{{ column.content }}{{ column.sort_indicator }}</a>
-                {%- else -%}
-                  {{- column.content }}{{ column.sort_indicator }}
                 {%- endif -%}
-              {%- endif -%}
-            </th>
-          {% endfor %}
-        </tr>
-      </thead>
-    {% endif %}
-    <tbody class="bg-base-0">
-      {% for row in rows %}
-        <tr{{ row.attributes.addClass('border border-base-200 hover:bg-base-50 transition') }}>
-          {% set count = 0 %}
-          {% for key, column in row.columns %}
-            {% if column.default_classes %}
-              {%
-                set column_classes = [
-                  'td--item',
-                  'views-field'
-                ]
-              %}
-              {% for field in column.fields %}
-                {% set column_classes = column_classes|merge(['views-field-' ~ field]) %}
-              {% endfor %}
-            {% endif %}
-            <td{{ column.attributes.addClass(column_classes, 'p-4 text-base-content-50') }}>
-              {%- if column.wrapper_element -%}
-                <{{ column.wrapper_element }}>
-                {% for content in column.content %}
-                  {{ content.separator }}{{ content.field_output }}
+              </th>
+            {% endfor %}
+          </tr>
+        </thead>
+      {% endif %}
+      <tbody class="bg-base-0">
+        {% for row in rows %}
+          <tr{{ row.attributes.addClass('border border-base-200 hover:bg-base-50 transition') }}>
+            {% set count = 0 %}
+            {% for key, column in row.columns %}
+              {% if column.default_classes %}
+                {%
+                  set column_classes = [
+                    'td--item',
+                    'views-field'
+                  ]
+                %}
+                {% for field in column.fields %}
+                  {% set column_classes = column_classes|merge(['views-field-' ~ field]) %}
                 {% endfor %}
-                </{{ column.wrapper_element }}>
-              {%- else -%}
-                {% for content in column.content %}
-                  {{- content.separator }}{{ content.field_output -}}
-                {% endfor %}
-              {%- endif %}
-            </td>
-            {% set count = count + 1 %}
-          {% endfor %}
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+              {% endif %}
+              <td{{ column.attributes.addClass(column_classes, 'p-4 text-base-content-50') }}>
+                {%- if column.wrapper_element -%}
+                  <{{ column.wrapper_element }}>
+                  {% for content in column.content %}
+                    {{ content.separator }}{{ content.field_output }}
+                  {% endfor %}
+                  </{{ column.wrapper_element }}>
+                {%- else -%}
+                  {% for content in column.content %}
+                    {{- content.separator }}{{ content.field_output -}}
+                  {% endfor %}
+                {%- endif %}
+              </td>
+              {% set count = count + 1 %}
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
