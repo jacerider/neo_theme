@@ -143,9 +143,13 @@ function neo_base_theme_suggestions_alter(&$suggestions, array &$variables, $hoo
     }
   }
   if (in_array($hook, ['container']) && isset($variables['element']['#type']) && $variables['element']['#type'] === 'container' && isset($variables['element']['#array_parents'])) {
-    if (isset($variables['element']['node_bulk_form'])) {
-      $suggestions[] = $variables['theme_hook_original'] . '__node_bulk_form';
+    // Get the last key in the array parents.
+    $key = end($variables['element']['#array_parents']);
+    if (strpos($key, '_bulk_form') !== FALSE) {
+      $suggestions[] = $variables['theme_hook_original'] . '__bulk_form';
+      $suggestions[] = $variables['theme_hook_original'] . '__' . $key;
     }
+
     foreach ($variables['element']['#array_parents'] as $delta => $key) {
       if ($key === 'widget') {
         $parts = array_filter(array_splice($variables['element']['#array_parents'], $delta + 1), function ($part) {

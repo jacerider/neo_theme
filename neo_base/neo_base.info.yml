@@ -38,6 +38,9 @@ neo:
       --form-spacing: spacing.0
       --form-item-spacing: spacing.4
   components:
+    .text-md:
+      font-size: 1rem
+      line-height: 1.5rem
     .ui:
       '@apply font-ui': {}
     .min-h-displace:
@@ -65,7 +68,7 @@ neo:
     .badge:
       '@apply min-w-4 rounded-2xl px-1 py-px text-center text-[10px] font-semibold': {}
     .btn:
-      '@apply border-2 bg-base-500 border-transparent text-base-content-500 no-underline text-center hover:bg-base-700 hover:text-base-content-700 is-active:bg-base-700 is-active:text-base-content-700 inline-block py-1.5 px-4 rounded focus cursor-pointer transition': {}
+      '@apply btn-md border-2 bg-base-500 border-transparent text-base-content-500 no-underline text-center rounded focus cursor-pointer transition hover:bg-base-700 hover:text-base-content-700 is-active:bg-base-700 is-active:text-base-content-700 inline-block': {}
     .btn-outline:
       '@apply border-base-500 bg-transparent text-base-500 hover:bg-base-500 hover:text-base-content-500 is-active:bg-base-500 is-active:text-base-content-500': {}
     .btn-primary:
@@ -110,10 +113,12 @@ neo:
       '@apply text-sm px-3 py-1.5': {}
     .btn-xs:
       '@apply text-xs px-2 py-1': {}
+    .btn-md:
+      '@apply text-base py-1.5 px-4': {}
     .btn-lg:
       '@apply text-lg': {}
     .local-action:
-      '@apply btn btn-primary': {}
+      '@apply btn btn-primary btn-xs md:btn-md': {}
     .page-title:
       '@apply text-3xl md:text-4xl lg:text-5xl font-bold': {}
     .page-supertitle:

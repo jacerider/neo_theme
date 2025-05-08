@@ -77,7 +77,6 @@ div.hidden:first-child {
 }
 
 .form--inline,
-.form--inline-children > div,
 .form--inline > fieldset > .fieldset--content {
   @apply flex flex-col gap-form-item md:flex-row md:flex-wrap;
 
@@ -101,10 +100,17 @@ div.hidden:first-child {
   > .button {
     @apply grow-0 text-nowrap;
   }
+
+  .form-actions {
+    @apply flex;
+
+    > .button {
+      @apply grow btn-xs md:grow-0 md:btn-md;
+    }
+  }
 }
 
-.form--inline,
-.form--inline-children > div {
+.form--inline {
   .form--inline-min {
     @apply flex-none;
   }
@@ -142,21 +148,6 @@ div.hidden:first-child {
     }
   }
 }
-
-// .form--inline-children,
-// .form--inline {
-
-//   &.items-start > div,
-//   &.items-start > fieldset > .fieldset--content {
-//     // align-items: flex-start;
-//   }
-
-//   &.items-end > div,
-//   &.items-start > fieldset > .fieldset--content {
-//     // align-items: flex-end;
-//     // @apply md:items-end;
-//   }
-// }
 
 .form-item.description {
   @apply form-description my-form-item;
