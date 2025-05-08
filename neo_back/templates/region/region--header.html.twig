@@ -6,11 +6,11 @@
     'top-displace-t',
     'z-30',
     'transition-all',
-    'is-active:bg-base-0/75',
-    'is-active:backdrop-blur',
-    'is-active:shadow-lg',
-    'is-active:border-b',
-    'is-active:border-base-0',
+    'is-stuck:bg-base-0/75',
+    'is-stuck:backdrop-blur',
+    'is-stuck:shadow-lg',
+    'is-stuck:border-b',
+    'is-stuck:border-base-0',
   ]
 %}
 
@@ -29,3 +29,5 @@
     '2xl:px-10',
   ]
 %}
+
+{% set attributes = attributes.setAttribute('data-neo-offset-top', '') %}

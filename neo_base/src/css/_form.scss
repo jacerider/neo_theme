@@ -79,7 +79,6 @@ div.hidden:first-child {
 .form--inline,
 .form--inline-children > div,
 .form--inline > fieldset > .fieldset--content {
-  // @todo We need to align buttons to bottom of wrapper.
   @apply flex flex-col gap-form-item md:flex-row md:flex-wrap;
 
   &::after {
@@ -143,6 +142,21 @@ div.hidden:first-child {
     }
   }
 }
+
+// .form--inline-children,
+// .form--inline {
+
+//   &.items-start > div,
+//   &.items-start > fieldset > .fieldset--content {
+//     // align-items: flex-start;
+//   }
+
+//   &.items-end > div,
+//   &.items-start > fieldset > .fieldset--content {
+//     // align-items: flex-end;
+//     // @apply md:items-end;
+//   }
+// }
 
 .form-item.description {
   @apply form-description my-form-item;

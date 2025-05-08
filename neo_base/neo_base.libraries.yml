@@ -2,14 +2,6 @@ global:
   version: VERSION
   neo: { group: contrib }
   css: {}
-  # css:
-  #   theme:
-  #     src/css/global.scss: { minified: true }
-  # js:
-  #   src/js/global.ts: { minified: true }
-  # dependencies:
-  #   - core/once
-  #   - core/drupal
 
 sticky:
   version: VERSION

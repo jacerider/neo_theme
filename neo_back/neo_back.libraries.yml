@@ -1,15 +1,12 @@
 global:
   version: VERSION
   neo: { scope: back, group: contrib }
-  js:
-    src/js/neo-back.ts: {}
   css:
     theme:
       src/css/global.scss: { minified: true }
   dependencies:
-    - core/once
-    - core/drupal
-    - core/drupal.displace
+    - neo_base/displace
+    - neo_base/sticky
 
 field-ui:
   version: VERSION

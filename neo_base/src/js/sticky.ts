@@ -8,7 +8,7 @@
     }
   }
 
-  const main = document.querySelector("[data-off-canvas-main-canvas]") as HTMLElement;
+  const main = document.querySelector('[data-off-canvas-main-canvas]') as HTMLElement;
 
   /**
    * Gets the top offset of an element relative to the document
@@ -27,17 +27,6 @@
 
     return offsetTop;
   }
-
-  // function isElementTallerThanWindow(element: HTMLElement): boolean {
-  //   // Get element height (including padding and border if box-sizing is border-box)
-  //   const elementHeight = element.offsetHeight;
-
-  //   // Get window height
-  //   const windowHeight = window.innerHeight;
-
-  //   // Compare and return result
-  //   return elementHeight > windowHeight;
-  // }
 
   class ObserverManager {
     private observerMap: ElementObserverMap = {};
@@ -70,8 +59,8 @@
       element.style.position = originalPosition;
 
       // Create observer element
-      var newEl = document.createElement("div");
-      newEl.setAttribute("data-neo-sticky-observe", element.id);
+      var newEl = document.createElement('div');
+      newEl.setAttribute('data-neo-sticky-observe', element.id);
 
       // Position observer depending on if we're observing top or bottom stickiness
       if (position === 'top') {
@@ -154,14 +143,14 @@
       observerManager.observe(el, {threshold: [0, 1]}, (entries) => {
         const style = window.getComputedStyle(el);
         if (style.position !== 'sticky') {
-          el.classList.remove("is-stuck");
+          el.classList.remove('is-stuck');
           return;
         }
 
         if (entries[0].intersectionRatio === 0) {
-          el.classList.add("is-stuck");
+          el.classList.add('is-stuck');
         } else if (entries[0].intersectionRatio === 1) {
-          el.classList.remove("is-stuck");
+          el.classList.remove('is-stuck');
         }
       }, position);
     });

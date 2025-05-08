@@ -208,7 +208,7 @@ table {
 .table--sticky {
 
   .table--header {
-    @apply sticky top-neo-header-t z-20 overflow-hidden shadow-md border;
+    @apply sticky top-neo-t z-20 overflow-hidden shadow-md border;
 
     th {
       @apply border-t-0 border-b-0;

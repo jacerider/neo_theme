@@ -55,7 +55,6 @@
         if (index < clonedHeaderCells.length) {
           const width = th.getBoundingClientRect().width;
           clonedHeaderCells[index].style.width = `${width}px`;
-          clonedHeaderCells[index].style.minWidth = `${width}px`;
         }
       });
 
@@ -73,9 +72,6 @@
     table.querySelectorAll('th').forEach(th => {
       resizeObserver.observe(th);
     });
-
-    // Also observe the table itself for overall size changes
-    resizeObserver.observe(table);
   }
 
   Drupal.behaviors.neoBaseTableHeader = {};

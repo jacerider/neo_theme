@@ -29,7 +29,9 @@ neo:
         displace-b: 'var(--drupal-displace-offset-bottom, 0px)'
         displace-l: 'var(--drupal-displace-offset-left, 0px)'
         neo-t: 'calc(var(--drupal-displace-offset-top, 0px) + var(--neo-displace-offset-top, 0px))'
-        neo-header-t: 'calc(var(--drupal-displace-offset-top, 0px) + var(--neo-header-top, 0px))'
+        neo-r: 'calc(var(--drupal-displace-offset-right, 0px) + var(--neo-displace-offset-right, 0px))'
+        neo-b: 'calc(var(--drupal-displace-offset-bottom, 0px) + var(--neo-displace-offset-bottom, 0px))'
+        neo-l: 'calc(var(--drupal-displace-offset-left, 0px) + var(--neo-displace-offset-left, 0px))'
   base:
     :root:
       --container-spacing: spacing.4

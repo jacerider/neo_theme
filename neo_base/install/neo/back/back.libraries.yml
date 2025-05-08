@@ -5,7 +5,3 @@ global:
       src/css/back.scss: { minified: true }
   # js:
   #   src/js/back.ts: {}
-  dependencies:
-    - core/once
-    - core/drupal
-    - neo_back/back

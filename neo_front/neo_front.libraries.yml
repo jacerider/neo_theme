@@ -4,10 +4,6 @@ global:
   css:
     theme:
       src/css/global.scss: { minified: true }
-  dependencies:
-    - core/once
-    - core/drupal
-    - core/drupal.displace
 
 ajax:
   version: VERSION

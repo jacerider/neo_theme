@@ -1,38 +1,38 @@
-(function(a, b) {
-  function f(e) {
-    var u;
-    const r = e.closest(".table--wrapper"), s = r.querySelector(".table--inner");
-    if (!r || !s)
+(function(s, u) {
+  function b(e) {
+    var d;
+    const r = e.closest(".table--wrapper"), o = r.querySelector(".table--inner");
+    if (!r || !o)
       return;
     r.classList.add("table--sticky");
-    const c = e.cloneNode(!0), i = c.querySelector("tbody");
-    i && (i.innerHTML = "");
+    const c = e.cloneNode(!0), a = c.querySelector("tbody");
+    a && (a.innerHTML = "");
     const t = document.createElement("div");
-    t.setAttribute("aria-hidden", "true"), t.classList.add("table--header"), t.appendChild(c), (u = s.parentNode) == null || u.insertBefore(t, s), d();
-    const p = (n) => {
-      const o = n.target;
-      t && (t.scrollLeft = o.scrollLeft);
+    t.setAttribute("aria-hidden", "true"), t.classList.add("table--header"), t.appendChild(c), (d = o.parentNode) == null || d.insertBefore(t, o), i();
+    const f = (n) => {
+      const l = n.target;
+      t && (t.scrollLeft = l.scrollLeft);
     };
-    s.addEventListener("scroll", p);
-    function d() {
-      const n = e.querySelectorAll("th"), o = c.querySelectorAll("th");
-      n.forEach((v, l) => {
-        if (l < o.length) {
-          const y = v.getBoundingClientRect().width;
-          o[l].style.width = `${y}px`, o[l].style.minWidth = `${y}px`;
+    o.addEventListener("scroll", f);
+    function i() {
+      const n = e.querySelectorAll("th"), l = c.querySelectorAll("th");
+      n.forEach((p, h) => {
+        if (h < l.length) {
+          const v = p.getBoundingClientRect().width;
+          l[h].style.width = `${v}px`;
         }
       }), c.style.width = `${e.getBoundingClientRect().width}px`;
     }
-    const h = new ResizeObserver(() => {
-      d();
+    const y = new ResizeObserver(() => {
+      i();
     });
     e.querySelectorAll("th").forEach((n) => {
-      h.observe(n);
-    }), h.observe(e);
+      y.observe(n);
+    });
   }
-  a.behaviors.neoBaseTableHeader = {}, a.behaviors.neoBaseTableHeader.attach = (e) => {
-    b("neoBase.tableheader", ".sticky-header", e).forEach((r) => {
-      f(r);
+  s.behaviors.neoBaseTableHeader = {}, s.behaviors.neoBaseTableHeader.attach = (e) => {
+    u("neoBase.tableheader", ".sticky-header", e).forEach((r) => {
+      b(r);
     });
   };
 })(Drupal, once);
