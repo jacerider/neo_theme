@@ -47,13 +47,11 @@
 {% endif %}
 <{% if use_alpine %}div{% else %}details{% endif %}{{ attributes.addClass(classes) }}{% if use_alpine %} x-data="{ expanded: {% if open %}true{% else %}false{% endif %} }"{% endif %}>
   {%- if title -%}
-    <div{{ summary_attributes.addClass(base_summary_classes, summary_classes) }}{% if use_alpine %} @click="expanded = ! expanded"{% endif %}>
+    <{% if use_alpine %}div{% else %}summary{% endif %}{{ summary_attributes.addClass(base_summary_classes, summary_classes) }}{% if use_alpine %} @click="expanded = ! expanded"{% endif %}>
       {% block summary %}
-        <summary>
-          <div{{ summary_title_attributes.addClass(summary_title_classes) }}>{{ title }}</div>
-        </summary>
+        <div{{ summary_title_attributes.addClass(summary_title_classes) }}>{{ title }}</div>
       {% endblock %}
-    </div>
+    </{% if use_alpine %}div{% else %}summary{% endif %}>
   {%- endif -%}
 
   {% if use_alpine %}<div x-show="expanded" x-collapse x-cloak>{% endif %}
