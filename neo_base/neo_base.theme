@@ -336,8 +336,30 @@ function neo_base_preprocess_page(&$variables) {
 function neo_base_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   $form['#after_build'][] = 'neo_base_form_after_build';
 
+  // Preprocess views bulk operations.
+  neo_base_form_alter_views_bulk_operations($form);
+
   // Preprocess all form buttons.
   neo_base_preprocess_buttons($form);
+}
+
+/**
+ * Alter views bulk operations form.
+ */
+function neo_base_form_alter_views_bulk_operations(&$form) {
+  if (isset($form['header']['views_bulk_operations_bulk_form'])) {
+    $form['header']['views_bulk_operations_bulk_form']['select_all']['#neo_size'] = 'xs';
+    $form['header']['views_bulk_operations_bulk_form']['multipage']['#neo_size'] = 'sm';
+    $form['header']['views_bulk_operations_bulk_form']['multipage']['clear']['#attributes']['class'][] = 'btn btn-xs w-full md:w-auto';
+    $form['header']['views_bulk_operations_bulk_form']['multipage']['list']['#wrapper_attributes']['class'][] = 'text-xs';
+    if (!empty($form['header']['views_bulk_operations_bulk_form']['multipage']['list']['#items'])) {
+      $form['header']['views_bulk_operations_bulk_form']['multipage']['list']['#wrapper_attributes']['class'][] = 'mb-2';
+    }
+    else {
+      $form['header']['views_bulk_operations_bulk_form']['multipage']['clear']['#access'] = FALSE;
+    }
+    $form['header']['views_bulk_operations_bulk_form']['actions']['submit']['#attributes']['class'][] = 'btn btn-xs w-full md:w-auto';
+  }
 }
 
 /**
