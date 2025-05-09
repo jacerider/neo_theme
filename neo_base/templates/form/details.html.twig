@@ -22,6 +22,15 @@
   set classes = classes is defined ? classes : ['py-form-item']
 %}
 {%
+  set summary_classes = summary_classes is defined ? summary_classes : []
+%}
+{%
+  set base_summary_classes = [
+    required ? 'js-form-required',
+    required ? 'form-required',
+  ]
+%}
+{%
   set summary_title_classes = summary_title_classes is defined ? summary_title_classes : ['details--title']
 %}
 {%
@@ -38,11 +47,13 @@
 {% endif %}
 <{% if use_alpine %}div{% else %}details{% endif %}{{ attributes.addClass(classes) }}{% if use_alpine %} x-data="{ expanded: {% if open %}true{% else %}false{% endif %} }"{% endif %}>
   {%- if title -%}
-    <{% if use_alpine %}div{% else %}summary{% endif %}{{ summary_attributes.addClass(summary_classes) }}{% if use_alpine %} @click="expanded = ! expanded"{% endif %}>
+    <div{{ summary_attributes.addClass(base_summary_classes, summary_classes) }}{% if use_alpine %} @click="expanded = ! expanded"{% endif %}>
       {% block summary %}
-        <div{{ summary_title_attributes.addClass(summary_title_classes) }}>{{ title }}</div>
+        <summary>
+          <div{{ summary_title_attributes.addClass(summary_title_classes) }}>{{ title }}</div>
+        </summary>
       {% endblock %}
-    </{% if use_alpine %}div{% else %}summary{% endif %}>
+    </div>
   {%- endif -%}
 
   {% if use_alpine %}<div x-show="expanded" x-collapse x-cloak>{% endif %}
