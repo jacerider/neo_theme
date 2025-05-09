@@ -118,6 +118,10 @@ div.hidden:first-child {
   &:not(.form--inline-min) {
     > *:not([class^='flex-']):not([class*=' flex-']) {
       @apply flex-1;
+
+      &.form-actions {
+        @apply md:grow-0;
+      }
     }
   }
 

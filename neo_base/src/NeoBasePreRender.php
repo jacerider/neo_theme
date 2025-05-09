@@ -241,6 +241,7 @@ class NeoBasePreRender implements TrustedCallbackInterface {
       'title' => ['style--heading'],
       'label' => ['style--heading'],
       'name' => ['style--heading'],
+      'vocabulary-name' => ['style--heading'],
       'media-name' => ['style--heading'],
       'username' => ['style--heading'],
       'id' => ['size--min', 'style--xs'],
@@ -254,7 +255,7 @@ class NeoBasePreRender implements TrustedCallbackInterface {
       'roles' => ['size--min', 'style--xs'],
       'member-for' => ['size--min', 'style--xs'],
       'last-access' => ['size--min', 'style--xs'],
-      'description' => ['size--min', 'style--xs'],
+      'description' => ['style--xs'],
       'status' => ['size--min', 'align--center'],
       default => match($secondary) {
         'type' => ['size--min'],
