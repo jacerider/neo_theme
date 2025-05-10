@@ -26,27 +26,31 @@
   {%- set attributes = attributes.addClass('item-list__' ~ context.list_style) %}
 {% endif %}
 {% if items or empty %}
-  <div{{ wrapper_attributes.addClass('item-list') }}>
-    {%- if title is not empty -%}
-      <div class="font-bold">{{ title }}</div>
-    {%- endif -%}
+  {% if wrapper %}
+    <div{{ wrapper_attributes.addClass('item-list') }}>
+  {% endif %}
+  {%- if title is not empty -%}
+    <div class="font-bold">{{ title }}</div>
+  {%- endif -%}
 
-    {%- if items -%}
-      {% if list_type == 'ul' %}
-        {% set attributes = attributes.addClass('list-disc', 'list-inside') %}
-      {% endif %}
-      {% if list_type == 'ol' %}
-        {% set attributes = attributes.addClass('list-decimal', 'list-inside') %}
-      {% endif %}
-      <{{ list_type }}{{ attributes }}>
-        {%- for item in items -%}
-          <li{{ item.attributes }}>{{ item.value }}</li>
-        {%- endfor -%}
-      </{{ list_type }}>
-    {%- else -%}
-      <div{{ attributes }}>
-        {{- empty -}}
-      </div>
-    {%- endif -%}
-  </div>
+  {%- if items -%}
+    {% if list_type == 'ul' %}
+      {% set attributes = attributes.addClass('list-disc', 'list-inside') %}
+    {% endif %}
+    {% if list_type == 'ol' %}
+      {% set attributes = attributes.addClass('list-decimal', 'list-inside') %}
+    {% endif %}
+    <{{ list_type }}{{ attributes }}>
+      {%- for item in items -%}
+        <li{{ item.attributes }}>{{ item.value }}</li>
+      {%- endfor -%}
+    </{{ list_type }}>
+  {%- else -%}
+    <div{{ attributes }}>
+      {{- empty -}}
+    </div>
+  {%- endif -%}
+  {% if wrapper %}
+    </div>
+  {% endif %}
 {%- endif %}

@@ -41,7 +41,7 @@
 %}
 
 {%
-  set use_alpine = true
+  set use_alpine = use_alpine is defined ? use_alpine : false
 %}
 
 {% block summary %}

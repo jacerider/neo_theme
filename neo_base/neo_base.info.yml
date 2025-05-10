@@ -247,3 +247,7 @@ libraries-override:
     css:
       component:
         formatters/tabs/horizontal-tabs.css: false
+  views_bulk_operations/frontUi:
+    css:
+      component:
+        css/frontUi.css: false
