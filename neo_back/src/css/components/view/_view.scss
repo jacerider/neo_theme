@@ -11,8 +11,17 @@
 .view-header,
 .view-footer {
 
-  &:not(:has(div)) {
-    @apply card flex items-center justify-center bg-base-100 p-2 align-middle text-xs text-base-700;
+  &:not(:has(div)),
+  .view-result {
+    @apply card bg-base-100 text-xs text-base-700 p-2;
+  }
+
+  &:not(:has(*)) {
+    @apply flex items-center justify-center align-middle;
+  }
+
+  p {
+    @apply text-sm mb-2;
   }
 }
 
