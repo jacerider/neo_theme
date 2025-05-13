@@ -46,7 +46,7 @@
 
 {% block summary %}
   <div class="w-7 grow-0">
-    <svg class="transform" fill="none" height="20" width="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"  :class="{ 'rotate-180': expanded }">
+    <svg class="transform" fill="none" height="20" width="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"{% if use_alpine %} :class="{ 'rotate-180': expanded }"{% endif %}>
       <polyline points="6 9 12 15 18 9"></polyline>
     </svg>
   </div>
