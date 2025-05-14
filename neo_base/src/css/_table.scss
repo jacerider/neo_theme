@@ -137,7 +137,7 @@ table {
   td {
     &,
     li {
-      @apply text-sm;
+      @apply text-base;
     }
   }
 }
@@ -184,12 +184,10 @@ table {
 }
 
 .table--overflow {
-
   .table--inner {
-    @apply overflow-x-auto overflow-y-hidden border;
+    @apply scrollbar-none overflow-x-auto overflow-y-hidden border;
 
     table tr th {
-
       &:first-child {
         @apply border-l-0;
       }
@@ -206,12 +204,11 @@ table {
 }
 
 .table--sticky {
-
   .table--header {
-    @apply sticky top-neo-t z-20 overflow-hidden shadow-md border;
+    @apply sticky top-neo-t z-20 overflow-hidden border shadow-md;
 
     th {
-      @apply border-t-0 border-b-0;
+      @apply border-b-0 border-t-0;
 
       &:first-child {
         @apply border-l-0;
@@ -227,8 +224,8 @@ table {
     @apply overflow-x-auto overflow-y-hidden border border-t-0;
 
     thead tr {
-      height: 0px;
       overflow: hidden;
+      height: 0px;
       padding-top: 0;
       padding-bottom: 0;
       visibility: collapse;

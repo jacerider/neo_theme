@@ -40,6 +40,9 @@ neo:
   components:
     .text-default:
       color: 'rgb(var(--color-base-content-0) / var(--tw-text-opacity, 1))'
+    .scrollbar-none:
+      -ms-overflow-style: none
+      scrollbar-width: none
     .text-md:
       font-size: 1rem
       line-height: 1.5rem
