@@ -3,9 +3,9 @@
 {%
   set classes = [
     'block',
-    'cursor-pointer',
     'transition',
     'focus',
+    disabled ? 'cursor-not-allowed' : 'cursor-pointer',
     neo_style == 'simple' ? 'rounded mr-2',
     neo_style == 'default' ? 'peer bg-base-100 border-2 border-base-400 rounded-full hover:bg-base-100 hover:border-base-600 checked:bg-none checked:bg-primary-500 checked:border-primary-500 checked:focus:bg-primary-500 checked:focus:border-primary-500 checked:hover:bg-primary-500 checked:hover:border-base-600',
     neo_style == 'default' and neo_size == 'lg' ? 'w-12 h-8',
@@ -17,6 +17,7 @@
 
 {%
   set inner_classes = [
+    disabled ? 'cursor-not-allowed' : 'cursor-pointer',
     neo_style == 'default' ? 'absolute flex items-center justify-center rounded-full transition bg-base-400 dot left-1 top-1 peer-checked:bg-primary-50',
     neo_style == 'default' and neo_size == 'lg' ? 'w-6 h-6 peer-checked:translate-x-4',
     neo_style == 'default' and neo_size == 'md' ? 'w-4 h-4 peer-checked:translate-x-4',

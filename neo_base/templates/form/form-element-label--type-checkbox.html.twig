@@ -3,7 +3,7 @@
 {%
   set classes = [
     'text-base',
-    'cursor-pointer',
+    disabled ? 'cursor-not-allowed' : 'cursor-pointer',
     neo_size == 'lg' ? 'text-lg',
     neo_size == 'md' ? 'text-md',
     neo_size == 'sm' ? 'text-sm',
