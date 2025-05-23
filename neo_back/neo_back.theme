@@ -5,12 +5,11 @@
  * Functions to support theming in the neo theme.
  */
 
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Render\Element;
-use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_theme().
@@ -32,13 +31,15 @@ function neo_back_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
   $form_object = $form_state->getFormObject();
   if ($form_object instanceof EntityFormInterface) {
-    // Only apply if we have no neo style set.
-    if (empty($form['#no_entity_edit_form'])) {
+    $entity = $form_object->getEntity();
+    if ($entity instanceof ContentEntityInterface && !isset($form['#neo_entity_form'])) {
+      $form['#neo_entity_form'] = TRUE;
       $entity = $form_object->getEntity();
-      $form['#theme'] = ['entity_edit_form'];
+      $form['#theme'] = 'entity_edit_form';
       neo_back_form_meta($form, $form_state, $entity);
     }
   }
+  // Only apply if we have no neo style set.
   $form['#neo_style'] = $form['#neo_style'] ?? 'card';
 
   switch ($form_id) {

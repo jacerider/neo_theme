@@ -37,6 +37,8 @@
 {{ attach_library('neo_base/form') }}
 <form{{ attributes.addClass('form', classes) }}>
   <div{{ inner_attributes.addClass(inner_classes) }}>
-    {{ children }}
+    {% block children %}
+      {{ children }}
+    {% endblock %}
   </div>
 </form>

@@ -130,6 +130,11 @@ function neo_base_theme_suggestions_alter(&$suggestions, array &$variables, $hoo
         $suggestions[] = $variables['theme_hook_original'] . '__type_' . $variables['element']['#element_parent_type'];
       }
       break;
+
+    case 'views_view':
+      $suggestions[] = $variables['theme_hook_original'] . '__' . $variables['view']->id();
+      $suggestions[] = $variables['theme_hook_original'] . '__' . $variables['view']->id() . '__' . $variables['view']->current_display;
+      break;
   }
 
   if (in_array($hook, ['fieldset', 'container', 'form_element'])) {

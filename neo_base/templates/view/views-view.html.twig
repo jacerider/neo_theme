@@ -64,7 +64,9 @@
   {% endif %}
   {% if exposed %}
     <div class="view-filters">
-      {{ exposed }}
+      {% block exposed %}
+        {{ exposed }}
+      {% endblock %}
     </div>
   {% endif %}
   {% if attachment_before %}
