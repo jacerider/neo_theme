@@ -265,6 +265,19 @@ class NeoBasePreRender implements TrustedCallbackInterface {
   }
 
   /**
+   * Prerender callback for table.
+   */
+  public static function tokenTreeTable($element) {
+    $element['#attributes']['class'][] = 'm-0';
+    $element['#neo_style'] = [
+      // 'name' => 'heading',
+      'token' => 'xs',
+      'description' => 'xs',
+    ];
+    return self::table($element);
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function trustedCallbacks() {
@@ -274,6 +287,7 @@ class NeoBasePreRender implements TrustedCallbackInterface {
       'fieldset',
       'verticalTabs',
       'table',
+      'tokenTreeTable',
     ];
   }
 

@@ -18,6 +18,7 @@ use Drupal\neo_icon\IconElementInterface;
  */
 function neo_base_element_info_alter(array &$info) {
   $info['table']['#pre_render'][] = [NeoBasePreRender::class, 'table'];
+  $info['token_tree_table']['#pre_render'][] = [NeoBasePreRender::class, 'tokenTreeTable'];
 
   $info['fieldset']['#pre_render'] = array_merge([[NeoBasePreRender::class, 'fieldset']], $info['fieldset']['#pre_render']);
   $info['fieldset']['#content_attributes'] = [];
