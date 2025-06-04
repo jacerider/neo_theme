@@ -208,6 +208,21 @@ function neo_base_preprocess_input__submit(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_input__submit().
+ */
+function neo_base_preprocess_input__checkbox_single(&$variables) {
+  $variables['container_attributes'] = new Attribute($variables['element']['#container_attributes'] ?? []);
+  $variables['inner_attributes'] = new Attribute($variables['element']['#inner_attributes'] ?? []);
+  if (
+    !empty($variables['attributes']['class']) &&
+    is_array($variables['attributes']['class']) &&
+    in_array('js-hide', $variables['attributes']['class'])) {
+      // Apply the js-hide class to the container attributes.
+      $variables['container_attributes']->addClass('js-hide');
+  }
+}
+
+/**
  * Implements hook_preprocess_input().
  */
 function neo_base_preprocess_input(&$variables) {
