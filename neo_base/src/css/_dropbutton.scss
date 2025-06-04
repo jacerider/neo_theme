@@ -128,10 +128,3 @@
     @apply static;
   }
 }
-
-.tippy-box[data-theme~='dropbutton'] {
-
-  a {
-    @apply font-bold text-xs hover:bg-base-0 hover:text-base-content-0;
-  }
-}
