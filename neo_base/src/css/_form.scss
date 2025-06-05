@@ -1,8 +1,4 @@
 form {
-  // .tabledrag-toggle-weight-wrapper {
-  //   @apply mt-form-item;
-  // }
-
   .tabledrag-toggle-weight-wrapper + table,
   .tableresponsive-toggle-columns + table {
     @apply mt-0;
@@ -11,10 +7,28 @@ form {
   *:not(.ck) > p {
     @apply text-xs font-normal;
   }
+
+  .field {
+    &.field--label-above,
+    &.field--label-inline {
+      @apply m-0;
+    }
+
+    .field--label {
+      @apply inline-block rounded bg-base-200 px-2 py-0.5 text-xs text-base-700;
+    }
+
+    &.field--label-inline {
+      @apply flex items-center;
+
+      .field--label {
+        @apply mr-2 rounded bg-base-200 px-2 py-0.5 text-xs text-base-700;
+      }
+    }
+  }
 }
 
 .form--inner {
-
   > p {
     @apply my-form-item first:mt-0 last:mb-0;
   }
@@ -86,6 +100,11 @@ div.hidden:first-child {
 
   .form-actions {
     @apply my-0 whitespace-nowrap #{!important};
+    @apply flex;
+
+    > .button {
+      @apply btn-xs grow md:btn-md md:grow-0;
+    }
   }
 
   .form-item {
@@ -99,14 +118,6 @@ div.hidden:first-child {
 
   > .button {
     @apply grow-0 text-nowrap;
-  }
-
-  .form-actions {
-    @apply flex;
-
-    > .button {
-      @apply grow btn-xs md:grow-0 md:btn-md;
-    }
   }
 }
 
