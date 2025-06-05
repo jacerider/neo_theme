@@ -89,7 +89,7 @@ neo:
     .btn-accent-outline:
       '@apply border-accent-500 bg-transparent text-accent-500 hover:bg-accent-500 hover:text-accent-content-500 is-active:bg-accent-500 is-active:text-accent-content-500': {}
     .btn-base:
-      '@apply bg-base text-base-content hover:bg-base-700 is-active:bg-base-700': {}
+      '@apply bg-base-500 text-base-content-500 hover:bg-base-700 is-active:bg-base-700': {}
     .btn-success:
       '@apply bg-success-500 border-transparent text-success-content-500 hover:bg-success-600 hover:text-success-content-600 is-active:bg-success-600 is-active:bg-success-600 is-active:text-success-content-600': {}
     .btn-success-outline:
