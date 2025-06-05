@@ -1,1 +1,20 @@
 @use '../../../neo_base/src/css/global';
+
+.region--content .field {
+  &.field--label-above,
+  &.field--label-inline {
+    @apply m-0 border-b py-1;
+  }
+
+  .field--label {
+    @apply inline-block rounded bg-base-200 px-2 py-0.5 text-xs text-base-700;
+  }
+
+  &.field--label-inline {
+    @apply flex items-center;
+
+    .field--label {
+      @apply mr-2 rounded bg-base-200 px-2 py-0.5 text-xs text-base-700;
+    }
+  }
+}
