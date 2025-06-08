@@ -51,6 +51,9 @@
   set link_classes = link_classes is defined ? link_classes : []
 %}
 {%
+  set anchor_classes = anchor_classes is defined ? anchor_classes : link_classes
+%}
+{%
   set item_depth_classes = item_depth_classes is defined ? item_depth_classes : []
 %}
 {%
@@ -68,9 +71,12 @@
 {%
   set link_classes = base_link_classes|merge(link_classes)
 %}
-{{ menus.menu_links(items, attributes, 0, depth_classes, item_classes, link_classes, item_depth_classes, link_depth_classes) }}
+{%
+  set anchor_classes = base_link_classes|merge(anchor_classes)
+%}
+{{ menus.menu_links(items, attributes, 0, depth_classes, item_classes, link_classes, anchor_classes, item_depth_classes, link_depth_classes) }}
 
-{% macro menu_links(items, attributes, menu_level, depth_classes, item_classes, link_classes, item_depth_classes, link_depth_classes) %}
+{% macro menu_links(items, attributes, menu_level, depth_classes, item_classes, link_classes, anchor_classes, item_depth_classes, link_depth_classes) %}
   {% import _self as menus %}
   {% if items %}
     {%
@@ -133,7 +139,11 @@
             </div>
           {% endif %}
 
-          {{ link(item.title, item.url, {'class': link_classes|merge(instance_link_classes)|merge(instance_link_depth_classes)}) }}
+          {% if menu_item_type == 'nolink' and anchor_classes %}
+            {{ link(item.title, item.url, {'class': anchor_classes|merge(instance_link_classes)|merge(instance_link_depth_classes)}) }}
+          {% else %}
+            {{ link(item.title, item.url, {'class': link_classes|merge(instance_link_classes)|merge(instance_link_depth_classes)}) }}
+          {% endif %}
 
           {% if item.suffix %}
             <div class="menu--suffix">
@@ -142,7 +152,7 @@
           {% endif %}
 
           {% if item.below %}
-            {{ menus.menu_links(item.below, attributes, menu_level + 1, depth_classes, item_classes, link_classes, item_depth_classes, link_depth_classes) }}
+            {{ menus.menu_links(item.below, attributes, menu_level + 1, depth_classes, item_classes, link_classes, anchor_classes, item_depth_classes, link_depth_classes) }}
           {% endif %}
 
         </li>
