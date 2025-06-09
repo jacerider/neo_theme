@@ -60,10 +60,14 @@ table {
 
   td {
     &.sticky-right {
-      @apply sticky right-0 z-0 bg-base-50;
+      @apply sticky right-0 bg-base-50;
 
       &:hover {
         z-index: 5;
+      }
+
+      &:has(.dropbutton.is-active) {
+        z-index: 10;
       }
 
       &:before {
@@ -88,6 +92,11 @@ table {
 
     & > .form-type--select select {
       @apply min-w-96;
+    }
+
+    &,
+    li {
+      @apply text-base;
     }
   }
 
@@ -172,13 +181,6 @@ table {
   .views-align-center {
     width: 1%;
     white-space: nowrap;
-  }
-
-  td {
-    &,
-    li {
-      @apply text-base;
-    }
   }
 }
 
