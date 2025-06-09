@@ -106,7 +106,7 @@
   @apply static flex;
 
   .dropbutton-action {
-    @apply transition-opacity m-0;
+    @apply m-0 transition-opacity;
   }
 
   .dropbutton-arrow {
@@ -114,7 +114,6 @@
   }
 
   &.is-active {
-
     .dropbutton-action {
       @apply opacity-50;
     }
