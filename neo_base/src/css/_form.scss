@@ -4,7 +4,7 @@ form {
     @apply mt-0;
   }
 
-  *:not(.ck) > p:not([class^='text-']):not([class^='font-']) {
+  *:not(.ck) > p:not([class*='text-']):not([class*='font-']) {
     @apply text-xs font-normal;
   }
 
