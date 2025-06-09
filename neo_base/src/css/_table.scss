@@ -16,6 +16,23 @@ table {
       }
     }
 
+    &.sticky-right {
+      @apply sticky right-0 z-10 bg-base-200;
+
+      &:before {
+        @apply absolute -left-px bottom-0 top-0 block bg-base-300;
+        width: 1px;
+        content: '';
+      }
+
+      &:after {
+        @apply pointer-events-none absolute bottom-0 top-0 block bg-gradient-to-r from-transparent to-base-900/10;
+        left: -8px;
+        width: 8px;
+        content: '';
+      }
+    }
+
     &[aria-sort='ascending'] {
       a {
         @apply font-bold;
@@ -41,14 +58,33 @@ table {
     }
   }
 
-  // Check field UI before changing.
-  td > .form-wrapper,
-  td > .form-item {
-    @apply m-0 font-normal;
-  }
+  td {
+    &.sticky-right {
+      @apply sticky right-0 z-10 bg-base-50;
 
-  td > .form-type--select select {
-    @apply min-w-96;
+      &:before {
+        @apply pointer-events-none absolute bottom-0 left-0 top-0 block bg-base-300;
+        width: 1px;
+        content: '';
+      }
+
+      &:after {
+        @apply pointer-events-none absolute bottom-0 top-0 block bg-gradient-to-r from-transparent to-base-600/10;
+        left: -8px;
+        width: 8px;
+        content: '';
+      }
+    }
+
+    // Check field UI before changing.
+    & > .form-wrapper,
+    & > .form-item {
+      @apply m-0 font-normal;
+    }
+
+    & > .form-type--select select {
+      @apply min-w-96;
+    }
   }
 
   tbody {
