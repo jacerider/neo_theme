@@ -195,6 +195,9 @@ class NeoBasePreRender implements TrustedCallbackInterface {
       if ($name = Html::getClass((string) $key)) {
         $headerKeys[$count] = $name;
         $headers[$i]['attributes']->addClass('th--' . $name);
+        if ($name === 'operations') {
+          $headers[$i]['attributes']->addClass('sticky-right');
+        }
       }
       $count++;
     }
@@ -206,6 +209,9 @@ class NeoBasePreRender implements TrustedCallbackInterface {
           /** @var \Drupal\Core\Template\Attribute $attributes */
           $attributes = $rows[$i]['columns'][$ii]['attributes'];
           $attributes->addClass('td--' . $headerKeys[$count]);
+          if ($headerKeys[$count] === 'operations') {
+            $attributes->addClass('sticky-right');
+          }
           if ($keyClasses = self::getTableClassesByKey($headerKeys[$count], $ii)) {
             foreach ($keyClasses as $keyClass) {
               [$type, $value] = explode('--', $keyClass . '--');
