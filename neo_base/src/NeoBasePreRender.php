@@ -195,7 +195,7 @@ class NeoBasePreRender implements TrustedCallbackInterface {
       if ($name = Html::getClass((string) $key)) {
         $headerKeys[$count] = $name;
         $headers[$i]['attributes']->addClass('th--' . $name);
-        if ($name === 'operations') {
+        if (in_array($name, ['operations', 'operations-links'])) {
           $headers[$i]['attributes']->addClass('sticky-right');
         }
       }
@@ -209,7 +209,7 @@ class NeoBasePreRender implements TrustedCallbackInterface {
           /** @var \Drupal\Core\Template\Attribute $attributes */
           $attributes = $rows[$i]['columns'][$ii]['attributes'];
           $attributes->addClass('td--' . $headerKeys[$count]);
-          if ($headerKeys[$count] === 'operations') {
+          if (in_array($headerKeys[$count], ['operations', 'operations-links'])) {
             $attributes->addClass('sticky-right');
           }
           if ($keyClasses = self::getTableClassesByKey($headerKeys[$count], $ii)) {
@@ -253,6 +253,7 @@ class NeoBasePreRender implements TrustedCallbackInterface {
       'id' => ['size--min', 'style--xs'],
       'type' => ['size--min', 'style--xs'],
       'operations' => ['size--min'],
+      'operation-links' => ['size--min'],
       'machine-name' => ['size--min', 'style--xs'],
       'author' => ['size--min', 'style--xs'],
       'created' => ['size--min', 'style--xs'],
