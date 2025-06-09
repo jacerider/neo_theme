@@ -60,7 +60,11 @@ table {
 
   td {
     &.sticky-right {
-      @apply sticky right-0 z-10 bg-base-50;
+      @apply sticky right-0 z-0 bg-base-50;
+
+      &:hover {
+        z-index: 5;
+      }
 
       &:before {
         @apply pointer-events-none absolute bottom-0 left-0 top-0 block bg-base-300;
