@@ -1,0 +1,73 @@
+.form--inline,
+.form--inline > fieldset > .fieldset--content {
+  @apply flex flex-col gap-form-item md:flex-row md:flex-wrap;
+
+  &::after {
+    display: none;
+  }
+
+  .form-actions {
+    @apply my-0 whitespace-nowrap #{!important};
+    @apply flex;
+
+    > .button {
+      @apply btn-xs grow md:btn-md md:grow-0;
+    }
+  }
+
+  .form-item {
+    // Removed !important here as it caused issues with nexted form items.
+    @apply my-0;
+
+    input:not([type='checkbox']):not([type='radio']) {
+      @apply w-full;
+    }
+  }
+
+  > .button {
+    @apply grow-0 text-nowrap;
+  }
+}
+
+.form--inline {
+  .form--inline-min {
+    @apply flex-none;
+  }
+
+  &:not(.form--inline-min) {
+    > *:not([class^='flex-']):not([class*=' flex-']) {
+      @apply md:flex-[1_1_160px];
+
+      &.form-actions {
+        @apply md:grow-0;
+      }
+    }
+  }
+
+  & + div {
+    @apply my-form-item;
+  }
+
+  div + & {
+    @apply my-form-item;
+  }
+
+  &.form-wrapper {
+    @apply my-form-item;
+
+    &:first-child {
+      @apply mt-0;
+    }
+
+    &:last-child,
+    &:has(+ input[type='hidden']) {
+      @apply mb-0;
+    }
+  }
+
+  legend & {
+    &.form-wrapper {
+      @apply my-0;
+    }
+  }
+}
