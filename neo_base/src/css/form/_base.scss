@@ -1,0 +1,95 @@
+form {
+  .tabledrag-toggle-weight-wrapper + table,
+  .tableresponsive-toggle-columns + table {
+    @apply mt-0;
+  }
+
+  *:not(.ck) > p:not([class*='text-']):not([class*='font-']) {
+    @apply text-xs font-normal;
+  }
+
+  .field {
+    &.field--label-above,
+    &.field--label-inline {
+      @apply m-0;
+    }
+
+    .field--label {
+      @apply inline-block rounded bg-base-200 px-2 py-0.5 text-xs text-base-700;
+    }
+
+    &.field--label-inline {
+      @apply flex items-center;
+
+      .field--label {
+        @apply mr-2 rounded bg-base-200 px-2 py-0.5 text-xs text-base-700;
+      }
+    }
+  }
+}
+
+.form--inner {
+  > p {
+    @apply my-form-item first:mt-0 last:mb-0;
+  }
+}
+
+.form--item {
+  @apply my-form-item;
+
+  &.card {
+    @apply p-card;
+  }
+
+  &.details {
+    @apply p-0;
+  }
+
+  &:first-child {
+    @apply mt-0;
+  }
+
+  &:last-child,
+  // followed by a hidden element
+  &:has(+ input[type='hidden']:last-child),
+  // foloweed by two hidden elements
+  &:has(+ input[type='hidden'] + input[type='hidden']:last-child),
+  // followed by three hidden elements
+  &:has(
+      + input[type='hidden']
+        + input[type='hidden']
+        + input[type='hidden']:last-child
+    ),
+  // followed by a div with display none
+  &:has(+ div[style*='display: none;']:last-child) {
+    @apply mb-0;
+  }
+}
+
+// Previous sibling selectors for form--item.
+input[type='hidden']:first-child,
+div[style*='display: none;']:first-child,
+div.hidden:first-child {
+  + .form--item {
+    @apply mt-0;
+  }
+}
+
+.description {
+  // When a label is within a description, we treat it differently.
+  label {
+    @apply text-xs font-normal #{!important};
+  }
+}
+
+.ck-powered-by-balloon {
+  @apply hidden #{!important};
+}
+
+.form-disabled {
+  @apply opacity-40;
+}
+
+.form-item.description {
+  @apply form-description my-form-item;
+}
