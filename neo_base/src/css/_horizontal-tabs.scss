@@ -15,6 +15,10 @@
     }
   }
 
+  .horizontal-tab-button {
+    @apply py-0;
+  }
+
   .horizontal-tabs-panes {
     @apply card relative z-0 rounded-t-none border-t-0 px-form-item shadow-none;
 
