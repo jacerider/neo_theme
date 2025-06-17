@@ -10,10 +10,9 @@
 
 .view-header,
 .view-footer {
-
   &:not(:has(div)),
   .view-result {
-    @apply card bg-base-100 text-xs text-base-700 p-2;
+    @apply card bg-base-100 p-2 text-xs text-base-700;
   }
 
   &:not(:has(*)) {
@@ -21,7 +20,7 @@
   }
 
   p {
-    @apply text-sm mb-2;
+    @apply mb-2 text-sm;
   }
 }
 
