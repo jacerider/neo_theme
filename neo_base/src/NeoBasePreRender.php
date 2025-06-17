@@ -162,18 +162,27 @@ class NeoBasePreRender implements TrustedCallbackInterface {
         if (isset($globalClasses[$ii])) {
           $classes = array_merge($classes, $globalClasses[$ii]);
         }
+        $overridden = FALSE;
         foreach ($props as $prop) {
           if (isset($cell["#neo_$prop"])) {
-            $classes[] = $prop . '--' . $cell["#neo_$prop"];
+            $overridden = TRUE;
+            if (!empty($cell["#neo_$prop"])) {
+              $classes[] = $prop . '--' . $cell["#neo_$prop"];
+            }
           }
           if (is_array($cell['data']) && isset($cell['data']["#neo_$prop"])) {
-            $classes[] = $prop . '--' . $cell['data']["#neo_$prop"];
+            $overridden = TRUE;
+            if (!empty($cell['data']["#neo_$prop"])) {
+              $classes[] = $prop . '--' . $cell['data']["#neo_$prop"];
+            }
           }
         }
         if (isset($headerKeys[$count])) {
           $classes[] = 'td--' . $headerKeys[$count];
-          foreach (self::getTableClassesByKey($headerKeys[$count], $ii) as $class) {
-            $classes[] = $class;
+          if (!$overridden) {
+            foreach (self::getTableClassesByKey($headerKeys[$count], $ii) as $class) {
+              $classes[] = $class;
+            }
           }
         }
         $cell['class'] = $classes;
