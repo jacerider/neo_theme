@@ -8,9 +8,9 @@ small .admin-link {
   }
 }
 
-table .button,
-form table .button {
-  @apply btn btn-primary-outline btn-xs;
+table .button:not([class*='btn-']),
+form table .button:not([class*='btn-']) {
+  @apply btn btn-outline btn-xs;
 }
 
 .compact-link {
