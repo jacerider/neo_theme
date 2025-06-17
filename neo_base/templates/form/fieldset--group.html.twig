@@ -13,9 +13,11 @@
 %}
 {%
   set legend_span_classes = [
-    'font-bold',
     'text-base',
     '[&>.form-item]:my-0',
+    neo_size == 'md' ? 'font-bold',
+    neo_size == 'sm' ? 'font-semibold text-sm',
+    neo_size == 'xs' ? 'font-semibold text-xs',
   ]
 %}
 {%
