@@ -97,7 +97,7 @@
     {{ label }}
   {% endif %}
   {% if description_display == 'before' and description.content %}
-    <div{{ description.attributes }}>
+    <div{{ description.attributes.addClass(base_description_classes, description_classes) }}>
       {{ description.content }}
     </div>
   {% endif %}
