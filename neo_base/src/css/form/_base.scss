@@ -32,6 +32,13 @@ form {
   > p {
     @apply my-form-item first:mt-0 last:mb-0;
   }
+
+  // This is not ideal. Sometimes #prefix and #suffix are used for ajax wrappers
+  // and they will not be spaced correctly. Typical elements do not have an #id
+  // so we use this to hopefully catch those cases.
+  > div[id] {
+    @apply my-form-item first:mt-0 last:mb-0;
+  }
 }
 
 .form--item {
@@ -61,7 +68,8 @@ form {
         + input[type='hidden']:last-child
     ),
   // followed by a div with display none
-  &:has(+ div[style*='display: none;']:last-child) {
+  &:has(+ div[style*='display: none;']:last-child),
+  &:has(+ [data-tippy-root]:last-child) {
     @apply mb-0;
   }
 }
