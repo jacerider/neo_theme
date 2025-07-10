@@ -271,6 +271,7 @@ class NeoBasePreRender implements TrustedCallbackInterface {
       'roles' => ['size--min', 'style--xs'],
       'member-for' => ['size--min', 'style--xs'],
       'last-access' => ['size--min', 'style--xs'],
+      'access' => ['size--min', 'style--xs'],
       'description' => ['style--xs'],
       'status' => ['size--min', 'align--center'],
       default => match($secondary) {
