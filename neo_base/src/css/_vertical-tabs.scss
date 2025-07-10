@@ -17,7 +17,7 @@
 }
 
 .vertical-tabs__menu-link {
-  @apply focus relative block rounded border border-transparent p-3 transition hover:bg-base-50;
+  @apply focus relative block rounded border border-transparent p-3 text-base-600 transition hover:bg-base-50;
 }
 
 .vertical-tabs__menu-item-title {
