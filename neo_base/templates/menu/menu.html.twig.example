@@ -27,6 +27,11 @@
 {% set link_classes = ['example-link'] %}
 
 {#
+  Specify the classes for the menu anchor (non-link).
+#}
+{% set anchor_classes = ['example-anchor'] %}
+
+{#
   Specify the classes for the menu item keyed by menu depth.
 #}
 {%
