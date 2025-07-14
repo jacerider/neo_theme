@@ -115,6 +115,16 @@ class NeoBasePreRender implements TrustedCallbackInterface {
       'size',
       'align',
     ];
+
+    switch ($element['#theme']) {
+      case 'table__menu_overview':
+        $element['#neo_size'] = [
+          1 => 'min',
+          3 => 'min',
+        ];
+        break;
+    }
+
     foreach ($props as $prop) {
       if (!isset($element["#neo_$prop"])) {
         continue;
@@ -125,6 +135,7 @@ class NeoBasePreRender implements TrustedCallbackInterface {
           $key = array_search($i, array_keys($element['#header']));
           if ($key !== FALSE) {
             $globalClasses[$key][] = $prop . '--' . $size;
+            $globalClasses[$key] = array_unique($globalClasses[$key]);
           }
         }
         $count++;
@@ -161,6 +172,11 @@ class NeoBasePreRender implements TrustedCallbackInterface {
         $classes = is_array($classes) ? $classes : [$classes];
         if (isset($globalClasses[$ii])) {
           $classes = array_merge($classes, $globalClasses[$ii]);
+        }
+        // Hide columns that are only a hidden input.
+        // Use in menu management.
+        if (isset($cell['data']) && is_array($cell['data']) && isset($cell['data']['#type']) && $cell['data']['#type'] === 'hidden') {
+          $classes[] = 'hidden';
         }
         $overridden = FALSE;
         foreach ($props as $prop) {
