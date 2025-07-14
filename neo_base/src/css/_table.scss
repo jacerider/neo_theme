@@ -108,7 +108,7 @@ table {
 
   .draggable {
     a.tabledrag-handle {
-      @apply float-start flex cursor-move items-center pr-2;
+      @apply float-start ml-0 flex cursor-move items-center p-2;
 
       .handle {
         display: block;
