@@ -150,8 +150,11 @@ table {
   .style--heading {
     @apply text-base font-bold leading-tight;
 
-    small,
     strong {
+      @apply font-bold;
+    }
+
+    small {
       @apply text-xs font-normal text-base-500;
     }
 
