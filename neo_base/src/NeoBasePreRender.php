@@ -284,6 +284,8 @@ class NeoBasePreRender implements TrustedCallbackInterface {
       'created' => ['size--min', 'style--xs'],
       'changed' => ['size--min', 'style--xs'],
       'updated' => ['size--min', 'style--xs'],
+      'field-name' => ['size--min', 'style--xs'],
+      'field-type' => ['size--min', 'style--xs'],
       'roles' => ['size--min', 'style--xs'],
       'member-for' => ['size--min', 'style--xs'],
       'last-access' => ['size--min', 'style--xs'],
