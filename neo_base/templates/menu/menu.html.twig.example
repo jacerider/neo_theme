@@ -6,17 +6,6 @@
 {% set classes = ['example'] %}
 
 {#
-  Specify the classes for the menu keyed by menu depth.
-#}
-{%
-  set depth_classes = {
-    1: [
-      'example-depth-1',
-    ],
-  }
-%}
-
-{#
   Specify the classes for the menu item.
 #}
 {% set item_classes = ['example-item'] %}
@@ -30,6 +19,17 @@
   Specify the classes for the menu anchor (non-link).
 #}
 {% set anchor_classes = ['example-anchor'] %}
+
+{#
+  Specify the classes for the menu keyed by menu depth.
+#}
+{%
+  set depth_classes = {
+    1: [
+      'example-depth-1',
+    ],
+  }
+%}
 
 {#
   Specify the classes for the menu item keyed by menu depth.
@@ -49,6 +49,17 @@
   set link_depth_classes = {
     1: [
       'example-link-depth-1',
+    ],
+  }
+%}
+
+{#
+  Specify the classes for the menu anchor keyed by menu depth.
+#}
+{%
+  set anchor_depth_classes = {
+    1: [
+      'font-bold text-xl uppercase text-default hover:text-primary hover:underline',
     ],
   }
 %}
