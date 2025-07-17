@@ -11,11 +11,11 @@ neo:
     .px-content:
       '@apply px-6 md:px-10 xl:px-20': {}
     .py-content:
-      '@apply py-6': {}
+      '@apply py-6 md:py-10 xl:py-20': {}
     .pt-content:
-      '@apply pt-6': {}
+      '@apply pt-6 md:pt-10 xl:pt-20': {}
     .pb-content:
-      '@apply pb-6': {}
+      '@apply pb-6 md:pb-10 xl:pb-20': {}
 
 libraries:
   - front/global
