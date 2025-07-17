@@ -4,6 +4,12 @@ table {
       @apply flex items-center;
     }
 
+    &.draggable-disabled {
+      .tabledrag-handle {
+        @apply pointer-events-none opacity-50;
+      }
+    }
+
     .tabledrag-handle {
       @apply mr-2 block bg-base-600 p-0;
 
