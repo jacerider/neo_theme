@@ -127,30 +127,32 @@
       {% set spacing_attributes = create_attribute() %}
       <div{{ spacing_attributes.addClass(base_spacing_classes, spacing_classes) }}></div>
     {% endif %}
-    <div{{ content_attributes.addClass(base_content_classes, content_classes) }}>
-      {% if errors %}
-        <div>
-          {{ errors }}
-        </div>
-      {% endif %}
-      {% if prefix %}
-        {% block prefix %}
-          <span class="field-prefix">{{ prefix }}</span>
+    {% if errors or prefix or children or suffix or (description_display in ['after', 'invisible'] and description.content) %}
+      <div{{ content_attributes.addClass(base_content_classes, content_classes) }}>
+        {% if errors %}
+          <div>
+            {{ errors }}
+          </div>
+        {% endif %}
+        {% if prefix %}
+          {% block prefix %}
+            <span class="field-prefix">{{ prefix }}</span>
+          {% endblock %}
+        {% endif %}
+        {% block children %}
+          {{ children }}
         {% endblock %}
-      {% endif %}
-      {% block children %}
-        {{ children }}
-      {% endblock %}
-      {% if suffix %}
-        {% block suffix %}
-          <span class="field-suffix">{{ suffix }}</span>
-        {% endblock %}
-      {% endif %}
-      {% if description_display in ['after', 'invisible'] and description.content %}
-        {% block description %}
-          <div{{ description.attributes.addClass(base_description_classes, description_classes) }}>{{ description.content }}</div>
-        {% endblock %}
-      {% endif %}
-    </div>
+        {% if suffix %}
+          {% block suffix %}
+            <span class="field-suffix">{{ suffix }}</span>
+          {% endblock %}
+        {% endif %}
+        {% if description_display in ['after', 'invisible'] and description.content %}
+          {% block description %}
+            <div{{ description.attributes.addClass(base_description_classes, description_classes) }}>{{ description.content }}</div>
+          {% endblock %}
+        {% endif %}
+      </div>
+    {% endif %}
   </fieldset>
 </div>
