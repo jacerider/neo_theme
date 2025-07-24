@@ -39,6 +39,7 @@ neo:
         form-item-base-50: var(--form-item-base-50-color, rgb(var(--color-base-50)))
         form-item-base-100: var(--form-item-base-100-color, rgb(var(--color-base-100)))
         form-item-base-200: var(--form-item-base-200-color, rgb(var(--color-base-200)))
+        form-item-accent: var(--form-item-content-color, rgb(var(--color-base-400)))
         form-item-content: var(--form-item-content-color, rgb(var(--color-base-900)))
         form-item-label: var(--form-item-label-color, rgb(var(--color-base-600)))
         form-item-description: var(--form-item-description-color, rgb(var(--color-base-400)))
