@@ -114,3 +114,10 @@ function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterf
     $form['revision_information']['#attributes']['class'][] = 'entity-meta--revision';
   }
 }
+
+/**
+ * Implements hook_preprocess_form().
+ */
+function neo_back_preprocess_form(&$variables) {
+  $variables['inner_attributes']->addClass('bg-default');
+}
