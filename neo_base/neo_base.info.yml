@@ -32,14 +32,30 @@ neo:
         neo-r: 'calc(var(--drupal-displace-offset-right, 0px) + var(--neo-displace-offset-right, 0px))'
         neo-b: 'calc(var(--drupal-displace-offset-bottom, 0px) + var(--neo-displace-offset-bottom, 0px))'
         neo-l: 'calc(var(--drupal-displace-offset-left, 0px) + var(--neo-displace-offset-left, 0px))'
+      colors:
+        form-item-primary: var(--form-item-primary-color, rgb(var(--color-primary-500)))
+        form-item-primary-content: var(--form-item-primary-content-color, rgb(var(--color-primary-content-500)))
+        form-item-base: var(--form-item-base-color, rgb(var(--color-base-0)))
+        form-item-base-50: var(--form-item-base-50-color, rgb(var(--color-base-50)))
+        form-item-base-100: var(--form-item-base-100-color, rgb(var(--color-base-100)))
+        form-item-base-200: var(--form-item-base-200-color, rgb(var(--color-base-200)))
+        form-item-content: var(--form-item-content-color, rgb(var(--color-base-900)))
+        form-item-label: var(--form-item-label-color, rgb(var(--color-base-600)))
+        form-item-description: var(--form-item-description-color, rgb(var(--color-base-400)))
+      textColor:
+        default: rgb(var(--color-base-content) / <alpha-value>)
+      backgroundColor:
+        default: rgb(var(--color-base) / <alpha-value>)
+      borderColor:
+        DEFAULT: rgb(var(--color-base-300) / <alpha-value>)
   base:
     :root:
       --container-spacing: spacing.4
       --form-spacing: spacing.0
       --form-item-spacing: spacing.4
+      --form-item-border-width: borderWidth.2
+      --form-item-border-radius: borderRadius.DEFAULT
   components:
-    .text-default:
-      color: 'rgb(var(--color-base-content-0) / var(--tw-text-opacity, 1))'
     .scrollbar-none:
       -ms-overflow-style: none
       scrollbar-width: none
@@ -63,57 +79,217 @@ neo:
     .form--inner:
       '@apply my-form modal:my-0': {}
     .form-label:
-      '@apply block font-bold text-base-600 text-sm mb-1': {}
+      '@apply block mb-1': {}
+      color: 'var(--form-item-label-color, rgb(var(--color-base-600)))'
+      fontSize: fontSize.sm
+      fontWeight: fontWeight.bold
     .form-description:
-      '@apply text-base-400 text-xs font-light mt-0.5': {}
+      '@apply mt-0.5': {}
+      color: 'var(--form-item-description-color, rgb(var(--color-base-400)))'
+      fontSize: fontSize.xs
+      fontWeight: fontWeight.light
     .form-item .description:
       '@apply form-description': {}
-    .focus:
-      '@apply focus:outline-none focus:ring focus:ring-primary-600 focus:ring-offset-2': {}
+    .form-item-bg:
+      backgroundColor: 'var(--form-item-base-color, rgb(var(--color-base-0)))'
+      color: 'var(--form-item-color, rgb(var(--color-base-content-0)))'
+      '&::placeholder':
+        color: 'var(--form-item-placeholder-color, rgb(var(--color-base-700)))'
+    .form-item-border-radius:
+      borderRadius: 'var(--form-item-border-radius, 2px)'
+    .form-item-border:
+      borderColor: 'var(--form-item-border-color, rgb(var(--color-base-300)))'
+      borderWidth: 'var(--form-item-border-width)'
+      '&:hover':
+        borderColor: 'var(--form-item-border-hover-color, rgb(var(--color-base-400)))'
+      '&:focus':
+        borderColor: 'var(--form-item-border-focus-color, rgb(var(--color-base-400)))'
+      '&:checked':
+        backgroundColor: var(--form-item-primary-color, rgb(var(--color-primary-500)))
+        borderColor: var(--form-item-primary-color, rgb(var(--color-primary-500)))
+      '&:checked:focus':
+        backgroundColor: var(--form-item-primary-color, rgb(var(--color-primary-500)))
+        borderColor: var(--form-item-primary-color, rgb(var(--color-primary-500)))
+      '&:checked:hover':
+        backgroundColor: var(--form-item-primary-active-color, rgb(var(--color-primary-600)))
+        borderColor: var(--form-item-primary-active-color, rgb(var(--color-primary-600)))
+      # '&input:focus + &':
+      #   backgroundColor: var(--form-item-primary-active-color, rgb(var(--color-primary-600)))
+      #   borderColor: var(--form-item-primary-active-color, rgb(var(--color-primary-600)))
+    .form-item-focus:
+      '&.focus,&:focus,input:focus + &':
+        outline: 2px solid transparent
+        outline-offset: 2px
+        --tw-ring-offset-width: 2px
+        --tw-ring-offset-shadow: 0 0 0 var(--tw-ring-offset-width) var(--form-item-base-color, rgb(var(--color-base-0)))
+        --tw-ring-shadow: 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--form-item-ring-color, rgb(var(--color-primary-600)))
+        boxShadow: 'var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)'
+    # .focus:
+    #   '@apply focus:outline-none focus:ring focus:ring-primary-600 focus:ring-offset-2': {}
     .badge:
       '@apply min-w-4 rounded-2xl px-1 py-px text-center text-[10px] font-semibold': {}
     .btn:
-      '@apply btn-md border-2 bg-base-500 border-transparent text-base-content-500 no-underline text-center rounded focus cursor-pointer transition hover:bg-base-700 hover:text-base-content-700 is-active:bg-base-700 is-active:text-base-content-700 inline-block': {}
+      --btn-color: var(--form-btn-color, rgb(var(--color-base-500)))
+      --btn-hover-color: var(--form-btn-hover-color, rgb(var(--color-base-700)))
+      --btn-content-color: var(--form-btn-content-color, rgb(var(--color-base-content-500)))
+      --btn-content-hover-color: var(--form-btn-content-hover-color, rgb(var(--color-base-content-700)))
+      --btn-border-color: var(--form-btn-border-color, transparent)
+      --btn-border-hover-color: var(--form-btn-border-hover-color, transparent)
+      '@apply inline-block btn-md form-item-focus border-2 no-underline text-center rounded cursor-pointer transition': {}
+      backgroundColor: var(--btn-color)
+      borderColor: var(--btn-border-color)
+      color: var(--btn-content-color)
+      '&:hover':
+        backgroundColor: var(--btn-hover-color)
+        borderColor: var(--btn-border-hover-color)
+        color: var(--btn-content-hover-color)
     .btn-outline:
-      '@apply border-base-500 bg-transparent text-base-500 hover:bg-base-500 hover:text-base-content-500 is-active:bg-base-500 is-active:text-base-content-500': {}
+      --btn-color: transparent
+      --btn-hover-color: var(--form-btn-color, rgb(var(--color-base-700)))
+      --btn-content-color: var(--form-btn-color, rgb(var(--color-base-500)))
+      --btn-content-hover-color: var(--form-btn-content-color, rgb(var(--color-base-0)))
+      --btn-border-color: var(--form-btn-color, rgb(var(--color-base-500)))
+      --btn-border-hover-color: var(--form-btn-color, rgb(var(--color-base-700)))
     .btn-primary:
-      '@apply bg-primary-500 border-transparent text-primary-content-500 hover:bg-primary-600 hover:text-primary-content-600 is-active:bg-primary-600 is-active:bg-primary-600 is-active:text-primary-content-600': {}
+      --btn-color: var(--form-btn-primary-color, rgb(var(--color-primary-500)))
+      --btn-hover-color: var(--form-btn-primary-hover-color, rgb(var(--color-primary-700)))
+      --btn-content-color: var(--form-btn-primary-content-color, rgb(var(--color-primary-content-500)))
+      --btn-content-hover-color: var(--form-btn-primary-hover-content-color, rgb(var(--color-primary-content-700)))
     .btn-primary-outline:
-      '@apply border-primary-500 bg-transparent text-primary-500 hover:bg-primary-500 hover:text-primary-content-500 is-active:bg-primary-500 is-active:text-primary-content-500': {}
+      --btn-color: transparent
+      --btn-hover-color: var(--form-btn-primary-color, rgb(var(--color-primary-700)))
+      --btn-content-color: var(--form-btn-primary-color, rgb(var(--color-primary-500)))
+      --btn-content-hover-color: var(--form-btn-primary-content-color, rgb(var(--color-primary-0)))
+      --btn-border-color: var(--form-btn-primary-color, rgb(var(--color-primary-500)))
+      --btn-border-hover-color: var(--form-btn-primary-color, rgb(var(--color-primary-700)))
     .btn-secondary:
-      '@apply bg-secondary-500 border-transparent text-secondary-content-500 hover:bg-secondary-600 hover:text-secondary-content-600 is-active:bg-secondary-600 is-active:bg-secondary-600 is-active:text-secondary-content-600': {}
+      --btn-color: var(--form-btn-secondary-color, rgb(var(--color-secondary-500)))
+      --btn-hover-color: var(--form-btn-secondary-hover-color, rgb(var(--color-secondary-700)))
+      --btn-content-color: var(--form-btn-secondary-content-color, rgb(var(--color-secondary-content-500)))
+      --btn-content-hover-color: var(--form-btn-secondary-hover-content-color, rgb(var(--color-secondary-content-700)))
     .btn-secondary-outline:
-      '@apply border-secondary-500 bg-transparent text-secondary-500 hover:bg-secondary-500 hover:text-secondary-content-500 is-active:bg-secondary-500 is-active:text-secondary-content-500': {}
+      --btn-color: transparent
+      --btn-hover-color: var(--form-btn-secondary-color, rgb(var(--color-secondary-700)))
+      --btn-content-color: var(--form-btn-secondary-color, rgb(var(--color-secondary-500)))
+      --btn-content-hover-color: var(--form-btn-secondary-content-color, rgb(var(--color-secondary-0)))
+      --btn-border-color: var(--form-btn-secondary-color, rgb(var(--color-secondary-500)))
+      --btn-border-hover-color: var(--form-btn-secondary-color, rgb(var(--color-secondary-700)))
     .btn-accent:
-      '@apply bg-accent-500 border-transparent text-accent-content-500 hover:bg-accent-600 hover:text-accent-content-600 is-active:bg-accent-600 is-active:bg-accent-600 is-active:text-accent-content-600': {}
+      --btn-color: var(--form-btn-accent-color, rgb(var(--color-accent-500)))
+      --btn-hover-color: var(--form-btn-accent-hover-color, rgb(var(--color-accent-700)))
+      --btn-content-color: var(--form-btn-accent-content-color, rgb(var(--color-accent-content-500)))
+      --btn-content-hover-color: var(--form-btn-accent-hover-content-color, rgb(var(--color-accent-content-700)))
     .btn-accent-outline:
-      '@apply border-accent-500 bg-transparent text-accent-500 hover:bg-accent-500 hover:text-accent-content-500 is-active:bg-accent-500 is-active:text-accent-content-500': {}
-    .btn-base:
-      '@apply bg-base-500 text-base-content-500 hover:bg-base-700 is-active:bg-base-700': {}
+      --btn-color: transparent
+      --btn-hover-color: var(--form-btn-accent-color, rgb(var(--color-accent-700)))
+      --btn-content-color: var(--form-btn-accent-color, rgb(var(--color-accent-500)))
+      --btn-content-hover-color: var(--form-btn-accent-content-color, rgb(var(--color-accent-0)))
+      --btn-border-color: var(--form-btn-accent-color, rgb(var(--color-accent-500)))
+      --btn-border-hover-color: var(--form-btn-accent-color, rgb(var(--color-accent-700)))
     .btn-success:
-      '@apply bg-success-500 border-transparent text-success-content-500 hover:bg-success-600 hover:text-success-content-600 is-active:bg-success-600 is-active:bg-success-600 is-active:text-success-content-600': {}
+      --btn-color: rgb(var(--color-success-500))
+      --btn-hover-color: rgb(var(--color-success-700))
+      --btn-content-color: rgb(var(--color-success-content-500))
+      --btn-content-hover-color: rgb(var(--color-success-content-700))
     .btn-success-outline:
-      '@apply border-success-500 bg-transparent text-success-500 hover:bg-success-500 hover:text-success-content-500 is-active:bg-success-500 is-active:text-success-content-500': {}
+      --btn-color: transparent
+      --btn-hover-color: rgb(var(--color-success-700))
+      --btn-content-color: rgb(var(--color-success-500))
+      --btn-content-hover-color: rgb(var(--color-success-0))
+      --btn-border-color: rgb(var(--color-success-500))
+      --btn-border-hover-color: rgb(var(--color-success-700))
     .btn-warning:
-      '@apply bg-warning-500 border-transparent text-warning-content-500 hover:bg-warning-600 hover:text-warning-content-600 is-active:bg-warning-600 is-active:bg-warning-600 is-active:text-warning-content-600': {}
+      --btn-color: rgb(var(--color-warning-500))
+      --btn-hover-color: rgb(var(--color-warning-700))
+      --btn-content-color: rgb(var(--color-warning-content-500))
+      --btn-content-hover-color: rgb(var(--color-warning-content-700))
     .btn-warning-outline:
-      '@apply border-warning-500 bg-transparent text-warning-500 hover:bg-warning-500 hover:text-warning-content-500 is-active:bg-warning-500 is-active:text-warning-content-500': {}
+      --btn-color: transparent
+      --btn-hover-color: rgb(var(--color-warning-700))
+      --btn-content-color: rgb(var(--color-warning-500))
+      --btn-content-hover-color: rgb(var(--color-warning-0))
+      --btn-border-color: rgb(var(--color-warning-500))
+      --btn-border-hover-color: rgb(var(--color-warning-700))
     .btn-alert:
-      '@apply bg-alert-500 border-transparent text-alert-content-500 hover:bg-alert-600 hover:text-alert-content-600 is-active:bg-alert-600 is-active:bg-alert-600 is-active:text-alert-content-600': {}
+      --btn-color: rgb(var(--color-alert-500))
+      --btn-hover-color: rgb(var(--color-alert-700))
+      --btn-content-color: rgb(var(--color-alert-content-500))
+      --btn-content-hover-color: rgb(var(--color-alert-content-700))
     .btn-alert-outline:
-      '@apply border-alert-500 bg-transparent text-alert-500 hover:bg-alert-500 hover:text-alert-content-500 is-active:bg-alert-500 is-active:text-alert-content-500': {}
+      --btn-color: transparent
+      --btn-hover-color: rgb(var(--color-alert-700))
+      --btn-content-color: rgb(var(--color-alert-500))
+      --btn-content-hover-color: rgb(var(--color-alert-0))
+      --btn-border-color: rgb(var(--color-alert-500))
+      --btn-border-hover-color: rgb(var(--color-alert-700))
     .btn-text:
-      '@apply bg-transparent border-transparent text-inherit hover:bg-transparent hover:text-inherit hover:underline is-active:bg-transparent is-active:underline first:pl-0 last:pr-0': {}
+      --btn-color: transparent
+      --btn-hover-color: transparent
+      --btn-content-color: inherit
+      --btn-content-hover-color: inherit
+      '&:hover':
+        textDecoration: underline
+      '@apply first:pl-0 last:pr-0': {}
     .btn-text-primary:
-      '@apply bg-transparent border-transparent text-primary-500 hover:bg-transparent hover:text-primary-700 is-active:bg-transparent is-active:text-primary-700 first:pl-0 last:pr-0': {}
+      --btn-color: transparent
+      --btn-hover-color: transparent
+      --btn-content-color: var(--form-btn-primary-color, rgb(var(--color-primary-500)))
+      --btn-content-hover-color: var(--form-btn-primary-hover-color, rgb(var(--color-primary-700)))
+      --btn-border-color: transparent
+      --btn-border-hover-color: transparent
+      '&:hover':
+        textDecoration: underline
+      '@apply first:pl-0 last:pr-0': {}
     .btn-text-secondary:
-      '@apply bg-transparent border-transparent text-secondary-500 hover:bg-transparent hover:text-secondary-700 is-active:bg-transparent is-active:text-secondary-700 first:pl-0 last:pr-0': {}
+      --btn-color: transparent
+      --btn-hover-color: transparent
+      --btn-content-color: var(--form-btn-secondary-color, rgb(var(--color-secondary-500)))
+      --btn-content-hover-color: var(--form-btn-secondary-hover-color, rgb(var(--color-secondary-700)))
+      --btn-border-color: transparent
+      --btn-border-hover-color: transparent
+      '&:hover':
+        textDecoration: underline
+      '@apply first:pl-0 last:pr-0': {}
+    .btn-text-accent:
+      --btn-color: transparent
+      --btn-hover-color: transparent
+      --btn-content-color: var(--form-btn-accent-color, rgb(var(--color-accent-500)))
+      --btn-content-hover-color: var(--form-btn-accent-hover-color, rgb(var(--color-accent-700)))
+      --btn-border-color: transparent
+      --btn-border-hover-color: transparent
+      '&:hover':
+        textDecoration: underline
+      '@apply first:pl-0 last:pr-0': {}
     .btn-text-success:
-      '@apply bg-transparent border-transparent text-success-500 hover:bg-transparent hover:text-success-700 is-active:bg-transparent is-active:text-success-700 first:pl-0 last:pr-0': {}
+      --btn-color: transparent
+      --btn-hover-color: transparent
+      --btn-content-color: rgb(var(--color-success-500))
+      --btn-content-hover-color: rgb(var(--color-success-700))
+      --btn-border-color: transparent
+      --btn-border-hover-color: transparent
+      '&:hover':
+        textDecoration: underline
+      '@apply first:pl-0 last:pr-0': {}
     .btn-text-warning:
-      '@apply bg-transparent border-transparent text-warning-500 hover:bg-transparent hover:text-warning-700 is-active:bg-transparent is-active:text-warning-700 first:pl-0 last:pr-0': {}
+      --btn-color: transparent
+      --btn-hover-color: transparent
+      --btn-content-color: rgb(var(--color-warning-500))
+      --btn-content-hover-color: rgb(var(--color-warning-700))
+      --btn-border-color: transparent
+      --btn-border-hover-color: transparent
+      '&:hover':
+        textDecoration: underline
+      '@apply first:pl-0 last:pr-0': {}
     .btn-text-alert:
-      '@apply bg-transparent border-transparent text-alert-500 hover:bg-transparent hover:text-alert-700 is-active:bg-transparent is-active:text-alert-700 first:pl-0 last:pr-0': {}
+      --btn-color: transparent
+      --btn-hover-color: transparent
+      --btn-content-color: rgb(var(--color-alert-500))
+      --btn-content-hover-color: rgb(var(--color-alert-700))
+      --btn-border-color: transparent
+      --btn-border-hover-color: transparent
+      '&:hover':
+        textDecoration: underline
+      '@apply first:pl-0 last:pr-0': {}
     .btn-sm:
       '@apply text-sm px-3 py-1.5': {}
     .btn-xs:

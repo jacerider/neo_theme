@@ -16,7 +16,7 @@ neo:
       --form-spacing: spacing.6
   components:
     .card:
-      '@apply block rounded-sm border border-base-200 bg-base-0 shadow-sm': {}
+      '@apply block rounded-sm border border-base-200 bg-default shadow-sm': {}
     .form--inner:
       '@apply m-form modal:m-0': {}
 

@@ -25,6 +25,7 @@ class NeoBasePreRender implements TrustedCallbackInterface {
         $child['#label_attributes'] = $attributes->toArray();
       }
       $child['#neo_style'] = $child['#neo_style'] ?? $element['#neo_style'] ?? 'default';
+      $child['#neo_size'] = $child['#neo_size'] ?? $element['#neo_size'] ?? 'md';
     }
     return $element;
   }
@@ -40,6 +41,7 @@ class NeoBasePreRender implements TrustedCallbackInterface {
         $child['#label_attributes'] = $attributes->toArray();
       }
       $child['#neo_style'] = $child['#neo_style'] ?? $element['#neo_style'] ?? 'default';
+      $child['#neo_size'] = $child['#neo_size'] ?? $element['#neo_size'] ?? 'md';
     }
     return $element;
   }
@@ -57,6 +59,10 @@ class NeoBasePreRender implements TrustedCallbackInterface {
         }
       }
     }
+    else {
+      $element['#title_display'] = 'invisible';
+    }
+    $element['#neo_size'] = $element['#neo_size'] ?? 'md';
     return $element;
   }
 

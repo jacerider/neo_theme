@@ -2,3 +2,9 @@
 @use 'form/inline';
 @use 'form/autocomplete';
 @use 'form/tagify';
+
+.form-file {
+  &::file-selector-button {
+    @apply rounded-sm bg-primary-500 px-4 py-3 text-xs text-primary-content-500 transition hover:bg-primary-600;
+  }
+}

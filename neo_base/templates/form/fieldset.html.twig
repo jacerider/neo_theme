@@ -43,6 +43,7 @@
   set base_legend_classes = [
     'flex',
     'flex-col',
+    'items-center',
     'md:flex-row',
     'w-full',
     'float-left',
@@ -85,13 +86,16 @@
 {%
   set spacing_classes = spacing_classes is defined ? spacing_classes : []
 %}
+{%
+  set clearfix = clearfix is defined ? clearfix : TRUE
+%}
 
 <div{{ attributes.addClass(base_classes, classes) }}>
   <fieldset>
     {% if legend.title or description_display == 'before' and description.content %}
       <legend{{ legend.attributes.addClass(base_legend_classes, legend_classes) }}>
         {% if neo_fieldset_region.legend_start %}
-          <div class="flex align-center mb-form-item mb:mt-0 md:mr-3">
+          <div class="flex align-center mb-form-item md:mb-0 md:ml-form-item">
             {{ neo_fieldset_region.legend_start }}
           </div>
         {% endif %}
@@ -110,15 +114,17 @@
           {% endif %}
         </div>
         {% if neo_fieldset_region.legend_end %}
-          <div class="flex align-center mt-form-item md:mt-0 md:ml-auto">
+          <div class="flex align-center mt-form-item md:mt-0 md:ml-auto md:mr-form-item">
             {{ neo_fieldset_region.legend_end }}
           </div>
         {% endif %}
       </legend>
-      {% set spacing_attributes = create_attribute() %}
     {% endif %}
-    <div class="clearfix"></div>
-    {% if children %}
+    {% if clearfix %}
+      <div class="clearfix"></div>
+    {% endif %}
+    {% if children and false %}
+      {% set spacing_attributes = create_attribute() %}
       <div{{ spacing_attributes.addClass(base_spacing_classes, spacing_classes) }}></div>
     {% endif %}
     <div{{ content_attributes.addClass(base_content_classes, content_classes) }}>
