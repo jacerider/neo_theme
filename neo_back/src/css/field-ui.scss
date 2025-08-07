@@ -1,3 +1,5 @@
+@use 'neo-icon';
+
 .form-wrapper.field-option {
   @apply m-0 p-0;
 }
@@ -8,7 +10,7 @@
 
 .field-option,
 .subfield-option {
-  @apply overflow-hidden rounded border-base-300;
+  @apply overflow-hidden rounded border-base-300 p-0 transition hover:border-primary-500 hover:shadow;
 
   &.focus,
   &.selected {
@@ -20,6 +22,12 @@
       .field-option__icon {
         filter: brightness(0) invert(1);
       }
+    }
+  }
+
+  &:hover {
+    .field-option__label {
+      @apply text-primary-500;
     }
   }
 
@@ -44,4 +52,11 @@
 
 .group-field-options-wrapper {
   @apply max-w-screen-md text-sm;
+}
+
+.field-icon-neo-component-tree {
+  @apply flex items-center justify-center bg-none;
+  @include neo-icon.icon('shapes', before) {
+    @apply text-default/80 text-3xl;
+  }
 }

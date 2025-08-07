@@ -6,7 +6,7 @@
     'transition',
     'form-item-focus',
     disabled ? 'cursor-not-allowed' : 'cursor-pointer',
-    neo_style == 'simple' ? 'rounded checked:bg-form-item-primary checked:hover:bg-form-item-primary checked:focus:bg-form-item-primary',
+    neo_style == 'reset' ? 'rounded checked:bg-form-item-primary checked:hover:bg-form-item-primary checked:focus:bg-form-item-primary',
     neo_style == 'default' ? 'peer form-item-border form-item-bg rounded-full checked:bg-none',
     neo_style == 'default' and neo_size == 'xl' ? 'w-14 h-10',
     neo_style == 'default' and neo_size == 'lg' ? 'w-12 h-8',
@@ -19,7 +19,7 @@
 {%
   set inner_classes = [
     disabled ? 'cursor-not-allowed' : 'cursor-pointer',
-    neo_style == 'default' ? 'absolute flex items-center justify-center rounded-full transition bg-form-item-accent dot left-1 top-1 peer-checked:bg-form-item-base',
+    neo_style == 'default' ? 'absolute flex items-center justify-center rounded-full transition bg-form-item-accent dot left-1 top-1 peer-checked:bg-form-item-base pointer-events-none',
     neo_style == 'default' and neo_size == 'xl' ? 'w-8 h-8 peer-checked:translate-x-4',
     neo_style == 'default' and neo_size == 'lg' ? 'w-6 h-6 peer-checked:translate-x-4',
     neo_style == 'default' and neo_size == 'md' ? 'w-4 h-4 peer-checked:translate-x-4',

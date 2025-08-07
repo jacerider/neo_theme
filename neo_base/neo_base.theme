@@ -64,6 +64,24 @@ function neo_base_preprocess(&$variables) {
   $variables['neo_style'] = $variables['neo_style'] ?? $variables['element']['#neo_style'] ?? 'default';
   $variables['neo_align'] = $variables['neo_align'] ?? $variables['element']['#neo_align'] ?? 'default';
   $variables['neo_size'] = $variables['neo_size'] ?? $variables['element']['#neo_size'] ?? 'md';
+  if (!empty($variables['neo_size']) && isset($variables['element']) && isset($variables['element']['#parents'])) {
+    // We check #parents to see if this is a form element.
+    switch ($variables['neo_size']) {
+      case 'xl':
+        $variables['attributes']['style'] = '--form-item-spacing: 2.5rem;';
+        break;
+      case 'lg':
+        $variables['attributes']['style'] = '--form-item-spacing: 2rem;';
+        break;
+      case 'sm':
+        $variables['attributes']['style'] = '--form-item-spacing: 1rem;';
+        break;
+      case 'xs':
+        $variables['attributes']['style'] = '--form-item-spacing: 0.5rem;';
+        break;
+    }
+  }
+
 }
 
 /**
@@ -119,7 +137,7 @@ function neo_base_theme_suggestions_alter(&$suggestions, array &$variables, $hoo
           $suggestions[] = $variables['theme_hook_original'] . '__type_' . $variables['element']['#button_type'];
         }
         if ($variables['theme_hook_original'] === 'input__checkbox') {
-          if (!empty($variables['element']['#parents']) && end($variables['element']['#parents']) !== $variables['element']['#return_value']) {
+          if (!($variables['element']['#belongs_to_checkboxes'] ?? FALSE)) {
             $suggestions[] = $variables['theme_hook_original'] . '_single';
           }
         }
@@ -217,6 +235,109 @@ function neo_base_preprocess_input__submit(&$variables) {
   $variables['disabled'] = !empty($variables['element']['#disabled']);
   if (!is_array($variables['title'])) {
     $variables['attributes']['data-label'] = Html::getClass(trim(strip_tags(strtolower($variables['title']))));
+  }
+  $style = [];
+  if (!empty($variables['neo_size'])) {
+    switch ($variables['neo_size']) {
+      case 'xl':
+        $variables['attributes']['class'][] = 'btn-xl';
+        break;
+      case 'lg':
+        $variables['attributes']['class'][] = 'btn-lg';
+        break;
+      case 'sm':
+        $variables['attributes']['class'][] = 'btn-sm';
+        break;
+      case 'xs':
+        $variables['attributes']['class'][] = 'btn-xs';
+        break;
+    }
+  }
+  if (!empty($variables['neo_style'])) {
+    $neoStyle = $variables['neo_style'];
+    switch ($neoStyle) {
+      case 'reset':
+        $style[] = "
+          --btn-color: transparent;
+          --btn-hover-color: transparent;
+          --btn-content-color: inherit;
+          --btn-content-hover-color: inherit;
+          --btn-border-color: transparent;
+          --btn-border-hover-color: transparent;
+          --btn-border-width: 0;
+          --btn-py: 0;
+          --btn-px: 0;
+        ";
+        break;
+
+      case 'primary':
+      case 'secondary':
+      case 'accent':
+      case 'success':
+      case 'warning':
+      case 'alert':
+        $style[] = "
+          --btn-color: var(--form-btn-{$neoStyle}-color, rgb(var(--color-{$neoStyle}-500)));
+          --btn-hover-color: var(--form-btn-{$neoStyle}-hover-color, rgb(var(--color-{$neoStyle}-700)));
+          --btn-content-color: var(--form-btn-{$neoStyle}-content-color, rgb(var(--color-{$neoStyle}-content-500)));
+          --btn-content-hover-color: var(--form-btn-{$neoStyle}-hover-content-color, rgb(var(--color-{$neoStyle}-content-700)));
+        ";
+        break;
+
+      case 'outline':
+      case 'primary-outline':
+      case 'secondary-outline':
+      case 'accent-outline':
+      case 'success-outline':
+      case 'warning-outline':
+      case 'alert-outline':
+        $neoStyle = str_replace('-outline', '', $neoStyle) ?: 'base';
+        $style[] = "
+          --btn-color: transparent;
+          --btn-hover-color: var(--form-btn-$neoStyle-color, rgb(var(--color-$neoStyle-700)));
+          --btn-content-color: var(--form-btn-$neoStyle-color, rgb(var(--color-$neoStyle-500)));
+          --btn-content-hover-color: var(--form-btn-$neoStyle-content-color, rgb(var(--color-$neoStyle-0)));
+          --btn-border-color: var(--form-btn-$neoStyle-color, rgb(var(--color-$neoStyle-500)));
+          --btn-border-hover-color: var(--form-btn-$neoStyle-color, rgb(var(--color-$neoStyle-700)));
+        ";
+        break;
+
+      case 'text':
+        $style[] = "
+          --btn-color: transparent;
+          --btn-hover-color: transparent;
+          --btn-content-color: inherit;
+          --btn-content-hover-color: inherit;
+          --btn-text-decoration-hover: underline;
+        ";
+        $variables['attributes']['class'][] = 'first:pl-0 last:pr-0';
+        break;
+
+      case 'text-primary':
+      case 'text-secondary':
+      case 'text-accent':
+      case 'text-success':
+      case 'text-warning':
+      case 'text-alert':
+        $neoStyle = str_replace('text-', '', $neoStyle);
+        $style[] = "
+          --btn-color: transparent;
+          --btn-hover-color: transparent;
+          --btn-content-color: var(--form-btn-$neoStyle-color, rgb(var(--color-$neoStyle-500)));
+          --btn-content-hover-color: var(--form-btn-$neoStyle-hover-color, rgb(var(--color-$neoStyle-700)));
+          --btn-border-color: transparent;
+          --btn-border-hover-color: transparent;
+          --btn-text-decoration-hover: underline;
+        ";
+        $variables['attributes']['class'][] = 'first:pl-0 last:pr-0';
+        break;
+    }
+  }
+  if ($style) {
+    if (empty($variables['attributes']['style'])) {
+      $variables['attributes']['style'] = '';
+    }
+    $variables['attributes']['style'] .= str_replace(array("\r", "\n"), '', implode("", $style));
   }
 }
 

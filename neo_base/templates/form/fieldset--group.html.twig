@@ -2,7 +2,7 @@
 
 {%
   set classes = [
-    'bg-default',
+    'bg-form-item-base-50',
     'text-form-item-label',
     'form--item',
     neo_style == 'default' ? 'border border-form-item-base-200',
@@ -15,22 +15,23 @@
 {%
   set legend_span_classes = [
     'text-base',
+    'p-form-item',
     '[&>.form-item]:my-0',
-    neo_size == 'xl' ? 'px-form-item py-4 font-bold text-xl',
-    neo_size == 'lg' ? 'px-form-item py-4 font-bold text-lg',
-    neo_size == 'md' ? 'px-form-item py-4 font-bold',
-    neo_size == 'sm' ? 'px--form-item py-2 font-semibold text-sm',
-    neo_size == 'xs' ? 'px--form-item py-2 font-semibold text-xs',
+    neo_size == 'xl' ? 'font-bold text-xl',
+    neo_size == 'lg' ? 'font-bold text-lg',
+    neo_size == 'md' ? 'font-bold',
+    neo_size == 'sm' ? 'font-semibold text-sm',
+    neo_size == 'xs' ? 'font-semibold text-xs',
   ]
 %}
 {%
   set content_classes = [
     'mx-form-item',
-    neo_size == 'xl' ? 'mb-4',
+    neo_size == 'xl' ? 'mb-form-item',
     title_display == 'invisible' and neo_size == 'xl' ? 'mt-4',
-    neo_size == 'lg' ? 'mb-4',
+    neo_size == 'lg' ? 'mb-form-item',
     title_display == 'invisible' and neo_size == 'lg' ? 'mt-4',
-    neo_size == 'md' ? 'mb-4',
+    neo_size == 'md' ? 'mb-form-item',
     title_display == 'invisible' and neo_size == 'md' ? 'mt-4',
     neo_size == 'sm' ? 'mb-2',
     title_display == 'invisible' and neo_size == 'sm' ? 'mt-2',

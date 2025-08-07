@@ -12,16 +12,16 @@
 {% if breadcrumb %}
   <nav role="navigation" aria-labelledby="system-breadcrumb">
     <h2 id="system-breadcrumb" class="visually-hidden">{{ 'Breadcrumb'|t }}</h2>
-    <ol class="flex items-center whitespace-nowrap" aria-label="Breadcrumb">
+    <ol class="flex items-center flex-wrap">
     {% for item in breadcrumb %}
-      <li class="inline-flex items-center">
+      <li class="inline-flex items-center whitespace-nowrap">
         {% if item.url %}
           <a href="{{ item.url }}" class="flex gap-1 flex-nowrap items-center text-xs text-base-content-50 hover:text-primary-500 focus:outline-none focus:text-primary-500">{{ item.text }}</a>
-          {% if not loop.last %}
-            <svg class="flex-shrink-0 mx-2 overflow-visible size-4 text-base-300" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          {% endif %}
         {% else %}
           {{ item.text }}
+        {% endif %}
+        {% if not loop.last %}
+          <svg class="flex-shrink-0 mx-2 overflow-visible size-4 text-base-300" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
         {% endif %}
       </li>
     {% endfor %}

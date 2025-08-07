@@ -2,6 +2,7 @@
 
 {%
   set classes = [
+    'bg-form-item-base-50',
     'border border-form-item-base-200',
     'form--item',
     'details',
@@ -16,28 +17,33 @@
     'list-none',
     'items-center',
     'transition',
+    'p-form-item',
     'rounded-sm',
     'text-form-item-label',
     'hover:text-form-item-primary',
-    'hover:bg-form-item-base-50',
+    'hover:bg-form-item-base-100',
     'form-item-focus',
     '[&>.summary]:w-full',
     '[&>.summary]:text-xs',
     '[&>.summary]:font-light',
     '[&>.summary]:leading-tight',
     '[&>.summary]:ml-7',
-    neo_size == 'xl' ? 'p-4 font-bold text-xl',
-    neo_size == 'lg' ? 'p-4 font-bold text-lg',
-    neo_size == 'md' ? 'p-4 font-bold',
-    neo_size == 'sm' ? 'px-4 py-2 font-semibold text-sm',
-    neo_size == 'xs' ? 'px-4 py-1 font-semibold text-xs',
+    neo_size == 'xl' ? 'py-4 font-bold text-xl',
+    neo_size == 'lg' ? 'py-4 font-bold text-lg',
+    neo_size == 'md' ? 'py-4 font-bold',
+    neo_size == 'sm' ? 'font-semibold text-sm',
+    neo_size == 'xs' ? 'font-semibold text-xs',
     required ? 'js-form-required',
     required ? 'form-required',
   ]
 %}
 {%
   set content_classes = [
-    'm-form-item',
+    neo_size == 'xl' ? 'mx-form-item my-4',
+    neo_size == 'lg' ? 'mx-form-item my-4',
+    neo_size == 'md' ? 'm-form-item',
+    neo_size == 'sm' ? 'm-form-item',
+    neo_size == 'xs' ? 'm-form-item',
   ]
 %}
 

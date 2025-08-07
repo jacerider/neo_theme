@@ -40,6 +40,7 @@ class NeoBasePreRender implements TrustedCallbackInterface {
         $attributes = new Attribute($element['#item_attributes']);
         $child['#label_attributes'] = $attributes->toArray();
       }
+      $child['#belongs_to_checkboxes'] = TRUE;
       $child['#neo_style'] = $child['#neo_style'] ?? $element['#neo_style'] ?? 'default';
       $child['#neo_size'] = $child['#neo_size'] ?? $element['#neo_size'] ?? 'md';
     }

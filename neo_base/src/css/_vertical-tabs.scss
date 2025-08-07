@@ -11,13 +11,13 @@
 
   &.is-selected {
     .vertical-tabs__menu-link {
-      @apply border-form-item-base-100 text-form-item-primary bg-default z-20 border p-3 shadow;
+      @apply border-form-item-base-100 text-form-item-primary-content bg-form-item-primary z-20 p-3 shadow;
     }
   }
 }
 
 .vertical-tabs__menu-link {
-  @apply hover:bg-form-item-base-200 text-form-item-label form-item-focus relative block rounded border border-transparent p-3 transition;
+  @apply text-form-item-label hover:bg-form-item-base-200 hover:text-form-item-label form-item-focus relative block rounded p-3 transition;
 }
 
 .vertical-tabs__menu-item-title {
@@ -33,7 +33,7 @@
 }
 
 .vertical-tabs__panes {
-  @apply bg-default border-form-item-base-200 w-full border px-4;
+  @apply bg-form-item-base-50 border-form-item-base-200 w-full border px-form-item;
 }
 
 .vertical-tabs__pane {
