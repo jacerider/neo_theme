@@ -11,12 +11,14 @@ libraries:
 neo:
   scope: back
   group: contrib
-  base:
-    :root:
-      --form-spacing: spacing.6
+  # base:
+  #   :root:
+  #     --form-spacing: spacing.6
   components:
     .card:
       '@apply block rounded-sm border border-base-200 bg-default shadow-sm': {}
+    .form--style:
+      --form-spacing: spacing.6
     .form--inner:
       '@apply m-form modal:m-0': {}
 

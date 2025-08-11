@@ -107,7 +107,7 @@
                   {% set column_classes = column_classes|merge(['views-field-' ~ field]) %}
                 {% endfor %}
               {% endif %}
-              <td{{ column.attributes.addClass(column_classes, 'p-4 text-base-content-50') }}>
+              <td{{ column.attributes.addClass(column_classes, 'p-4 text-base-50-content') }}>
                 {%- if column.wrapper_element -%}
                   <{{ column.wrapper_element }}>
                   {% for content in column.content %}

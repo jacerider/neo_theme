@@ -3,7 +3,7 @@
 .messages {
   @apply relative border-t-4 border-success-500 bg-success-100 px-4 py-3 pl-12 text-xs text-success-900 shadow-md;
   @include neo-icon.icon('info-circle', before) {
-    @apply bg-success-500 text-success-content-500;
+    @apply text-success-500-content bg-success-500;
   }
 
   &:last-child {
@@ -22,7 +22,7 @@
   &.messages--warning-500 {
     @apply border-warning-500 bg-warning-100 text-warning-900;
     @include neo-icon.icon('exclamation-circle', before) {
-      @apply bg-warning-500 text-warning-content-950;
+      @apply text-warning-950-content bg-warning-500;
     }
 
     a {
@@ -34,7 +34,7 @@
   &.messages--alert-500 {
     @apply border-alert-500 bg-alert-100 text-alert-900;
     @include neo-icon.icon('stop-circle', before) {
-      @apply bg-alert-500 text-alert-content-500;
+      @apply text-alert-500-content bg-alert-500;
     }
 
     a {

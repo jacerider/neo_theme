@@ -91,18 +91,18 @@ function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterf
         $form['meta']['published']['#access'] = TRUE;
         $form['meta']['published']['#markup'] = neo_icon('Draft');
         $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-base-500';
-        $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-base-content-500';
+        $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-base-500-content';
       }
       elseif ($entity instanceof EntityPublishedInterface) {
         if ($entity instanceof EntityPublishedInterface && $entity->isPublished()) {
           $form['meta']['published']['#markup'] = neo_icon('Published');
           $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-success-500';
-          $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-success-content-500';
+          $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-success-500-content';
         }
         else {
           $form['meta']['published']['#markup'] = neo_icon('Unpublished');
           $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-warning-500';
-          $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-warning-content-500';
+          $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-warning-500-content';
         }
       }
     }

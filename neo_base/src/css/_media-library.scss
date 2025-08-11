@@ -12,7 +12,7 @@
   @apply relative;
 
   .button.form-submit {
-    @apply absolute right-2 top-2 z-10 m-0 h-8 w-8 overflow-hidden rounded-full border-0 bg-alert-500 p-0 text-lg leading-8 text-alert-content-500 shadow-lg hover:bg-alert-content-500 hover:text-alert-500;
+    @apply text-alert-500-content hover:bg-alert-500-content absolute right-2 top-2 z-10 m-0 h-8 w-8 overflow-hidden rounded-full border-0 bg-alert-500 p-0 text-lg leading-8 shadow-lg hover:text-alert-500;
     @include neo-icon.icon('times', before) {
       @apply flex h-8 w-8 items-center justify-center;
     }
@@ -129,7 +129,7 @@
 
 .js-media-library-add-form {
   p {
-    @apply rounded bg-base-0 px-4 py-1 text-sm text-base-content-0;
+    @apply text-base-0-content rounded bg-base-0 px-4 py-1 text-sm;
   }
 }
 

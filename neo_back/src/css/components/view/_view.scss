@@ -30,8 +30,8 @@
 }
 
 .view-empty {
-  @apply card flex items-center border-warning-200 bg-warning-100 p-2 align-middle text-xs text-warning-content-200;
+  @apply card flex items-center border-warning-200 bg-warning-100 p-2 align-middle text-xs text-warning-200-content;
   @include neo-icon.icon('exclamation-square', before) {
-    @apply mr-2 flex h-8 w-8 items-center justify-center rounded bg-warning-500 text-lg text-warning-content-500;
+    @apply mr-2 flex h-8 w-8 items-center justify-center rounded bg-warning-500 text-lg text-warning-500-content;
   }
 }

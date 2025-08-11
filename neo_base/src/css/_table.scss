@@ -191,7 +191,7 @@ table {
   @apply relative flex justify-end;
 
   .tabledrag-toggle-weight {
-    @apply mb-0 rounded-t px-2 py-1 text-xs text-base-content-100/60 transition-opacity hover:text-base-content-100;
+    @apply text-base-100-content/60 hover:text-base-100-content mb-0 rounded-t px-2 py-1 text-xs transition-opacity;
   }
 
   .action-link--icon-show {
