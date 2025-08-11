@@ -156,6 +156,7 @@ neo:
       --btn-py: var(--form-btn-py, 0.5rem)
       --btn-px: var(--form-btn-px, 1rem)
       --btn-font-size: fontSize.base
+      --btn-font-weight: fontWeight.normal
       --btn-text-decoration: none
       --btn-text-decoration-hover: none
       --btn-border-radius: borderRadius.DEFAULT
@@ -166,6 +167,7 @@ neo:
       color: var(--btn-content-color)
       padding: var(--btn-py) var(--btn-px)
       fontSize: var(--btn-font-size)
+      fontWeight: var(--btn-font-weight)
       textDecoration: var(--btn-text-decoration)
       lineHeight: lineHeight.tight
       borderRadius: 'var(--btn-border-radius, 2px)'
