@@ -1,0 +1,52 @@
+form,
+.ui-dialog-buttonset {
+  .button:not([class*='btn']) {
+    @apply btn;
+  }
+
+  .button--primary {
+    @apply btn btn-primary font-bold;
+  }
+
+  .button--danger {
+    @apply btn btn-alert;
+  }
+
+  .ui-dialog-buttonset {
+    > button {
+      @apply mx-4;
+    }
+  }
+}
+
+body .ui-dialog:not(.ui-dialog-off-canvas) .ui-dialog-buttonpane button {
+  @apply mx-1;
+
+  &:first-child {
+    @apply ml-0;
+  }
+
+  &:last-child {
+    @apply mr-0;
+  }
+}
+
+.btn-group {
+  @apply flex flex-col whitespace-nowrap md:flex-row gap-0;
+
+  > .btn {
+    @apply m-0;
+
+    &:first-child:not(:last-child) {
+      @apply md:rounded-r-none;
+    }
+
+    &:last-child:not(:first-child) {
+      @apply md:rounded-l-none md:border-l-0;
+    }
+
+    &:not(:last-child):not(:first-child) {
+      @apply md:rounded-none md:border-l-0;
+    }
+  }
+}

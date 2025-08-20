@@ -66,19 +66,26 @@ function neo_base_preprocess(&$variables) {
   $variables['neo_size'] = $variables['neo_size'] ?? $variables['element']['#neo_size'] ?? 'md';
   if (!empty($variables['neo_size']) && isset($variables['element']) && isset($variables['element']['#parents'])) {
     // We check #parents to see if this is a form element.
+    $style = [];
     switch ($variables['neo_size']) {
       case 'xl':
-        $variables['attributes']['style'] = '--form-item-spacing: 2.5rem;';
+        $style[] = '--form-item-spacing: 1rem;';
         break;
       case 'lg':
-        $variables['attributes']['style'] = '--form-item-spacing: 2rem;';
+        $style[] = '--form-item-spacing: 1rem;';
         break;
       case 'sm':
-        $variables['attributes']['style'] = '--form-item-spacing: 1rem;';
+        $style[] = '--form-item-spacing: 1rem;';
         break;
       case 'xs':
-        $variables['attributes']['style'] = '--form-item-spacing: 0.5rem;';
+        $style[] = '--form-item-spacing: 0.5rem;';
         break;
+    }
+    if ($style) {
+      if (empty($variables['attributes']['style'])) {
+        $variables['attributes']['style'] = '';
+      }
+      $variables['attributes']['style'] .= str_replace(array("\r", "\n"), '', implode("", $style));
     }
   }
 
@@ -340,6 +347,13 @@ function neo_base_preprocess_input__submit(&$variables) {
   if ($style) {
     if (empty($variables['attributes']['style'])) {
       $variables['attributes']['style'] = '';
+    }
+    foreach ($style as &$st) {
+      $st = explode("\n", $st);
+      foreach ($st as &$line) {
+        $line = trim($line);
+      }
+      $st = implode("", $st);
     }
     $variables['attributes']['style'] .= str_replace(array("\r", "\n"), '', implode("", $style));
   }

@@ -47,5 +47,3 @@
   };
 
 })(jQuery, Drupal);
-
-export { };

@@ -1,11 +1,21 @@
 global:
   version: VERSION
-  neo: { group: contrib }
-  css: {}
+  neo: true
+  css:
+    theme:
+      src/css/base.css: { minified: true }
+
+global-utilities:
+  version: VERSION
+  neo:
+    import: true
+  css:
+    theme:
+      src/css/_utilities.css: { minified: true }
 
 sticky:
   version: VERSION
-  neo: { group: contrib }
+  neo: true
   css: {}
   js:
     src/js/sticky.ts: { minified: true }
@@ -15,7 +25,7 @@ sticky:
 
 displace:
   version: VERSION
-  neo: { group: contrib }
+  neo: true
   css: {}
   js:
     src/js/displace.ts: { minified: true }
@@ -25,68 +35,93 @@ displace:
 
 form:
   version: VERSION
-  neo: { group: contrib }
-  css: {}
+  neo: true
+  css:
+    theme:
+      src/css/form.css: { minified: true }
 
 table:
   version: VERSION
-  neo: { group: contrib }
-  css: {}
+  neo: true
   js:
     src/js/table.ts: { minified: true }
+  css:
+    theme:
+      src/css/table.css: { minified: true }
 
 tableheader:
   version: VERSION
-  neo: { group: contrib }
-  css: {}
+  neo: true
   js:
     src/js/tableheader.ts: { minified: true }
 
-vertical-tabs:
+tabledrag:
   version: VERSION
-  neo: { group: contrib }
+  neo: true
   js:
-    src/js/vertical-tabs.ts: {}
-
-horizontal-tabs:
-  version: VERSION
-  neo: { group: contrib }
-  css: {}
+    src/js/tabledrag.js: {}
+  css:
+    theme:
+      src/css/tabledrag.css: { minified: true }
 
 ajax:
   version: VERSION
-  neo: { group: contrib }
+  neo: true
   js:
     src/js/ajax.js: {}
+  css:
+    theme:
+      src/css/ajax.css: { minified: true }
 
 progress:
   version: VERSION
-  neo: { group: contrib }
-  css: {}
-
-tabledrag:
-  version: VERSION
-  neo: { group: contrib }
-  js:
-    src/js/tabledrag.js: {}
+  neo: true
+  css:
+    theme:
+      src/css/progress.css: { minified: true }
 
 dropbutton:
   version: VERSION
-  neo: { group: contrib }
-  css: {}
+  neo: true
+  css:
+    theme:
+      src/css/dropbutton.css: { minified: true }
 
 dialog:
   version: VERSION
-  neo: { group: contrib }
-  css: {}
+  neo: true
+  css:
+    theme:
+      src/css/dialog.css: { minified: true }
 
 password:
   version: VERSION
-  neo: { group: contrib }
-  css: {}
+  neo: true
+  css:
+    theme:
+      src/css/password.css: { minified: true }
 
 media-library:
   version: VERSION
-  neo: { group: contrib }
+  neo: true
   js:
     src/js/media-library.js: {}
+  css:
+    theme:
+      src/css/media-library.css: { minified: true }
+
+vertical-tabs:
+  version: VERSION
+  neo: true
+  js:
+    src/js/vertical-tabs.ts: {}
+  css:
+    theme:
+      src/css/vertical-tabs.css: { minified: true }
+
+horizontal-tabs:
+  version: VERSION
+  neo: true
+  css:
+    theme:
+      src/css/horizontal-tabs.css: { minified: true }

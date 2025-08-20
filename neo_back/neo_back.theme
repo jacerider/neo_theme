@@ -69,7 +69,7 @@ function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterf
   if (!empty($form['meta'])) {
     $form['meta']['#type'] = 'container';
     $form['meta']['#access'] = TRUE;
-    $form['meta']['#attributes']['class'][] = 'p-card text-sm';
+    $form['meta']['#attributes']['class'][] = 'p-card text-sm !m-0';
 
     if (isset($form['meta']['published'])) {
       $form['meta']['#attributes']['class'][] = '!pt-0';

@@ -1,0 +1,23 @@
+body {
+  @apply relative z-0 text-base font-normal;
+}
+
+.page-wrapper {
+  @apply bg-base-50;
+}
+
+.region--content {
+  h2 {
+    @apply my-form-item text-2xl font-bold;
+  }
+
+  h3 {
+    @apply my-form-item text-lg font-bold;
+  }
+}
+
+.container {
+  > h2 {
+    @apply my-form-item text-lg font-bold;
+  }
+}

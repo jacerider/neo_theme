@@ -2,6 +2,6 @@ global:
   neo: true
   css:
     theme:
-      src/css/back.scss: { minified: true }
+      src/css/back.css: { minified: true }
   # js:
   #   src/js/back.ts: {}

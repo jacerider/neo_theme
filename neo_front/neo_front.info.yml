@@ -10,38 +10,13 @@ libraries:
 
 neo:
   scope: front
-  group: contrib
-  components:
+  utilities:
     .page-title-spacing-t:
-      '@apply pt-4 md:pt-6 lg:pt-14': {}
+      'apply': '@apply pt-4 md:pt-6 lg:pt-14'
     .page-title-spacing-b:
-      '@apply mb-4 md:mb-6 lg:mb-14': {}
+      'apply': '@apply mb-4 md:mb-6 lg:mb-14'
 regions:
   header: Header
   status: Status
   content: Content
   footer: Footer
-
-libraries-extend:
-  neo_base/ajax:
-    - neo_front/ajax
-  neo_base/dialog:
-    - neo_front/dialog
-  neo_base/dropbutton:
-    - neo_front/dropbutton
-  neo_base/form:
-    - neo_front/form
-  neo_base/media-library:
-    - neo_front/media-library
-  neo_base/password:
-    - neo_front/password
-  neo_base/progress:
-    - neo_front/progress
-  neo_base/table:
-    - neo_front/table
-  neo_base/tabledrag:
-    - neo_front/tabledrag
-  neo_base/vertical-tabs:
-    - neo_front/vertical-tabs
-  neo_base/horizontal-tabs:
-    - neo_front/horizontal-tabs

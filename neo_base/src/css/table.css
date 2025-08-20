@@ -1,0 +1,290 @@
+table {
+  a {
+    @apply transition-colors;
+  }
+
+  th {
+    &.select-all {
+      @apply text-center;
+    }
+
+    a {
+      &:before {
+        @apply icon-sort-alt mr-1;
+      }
+    }
+
+    &.sticky-right {
+      @apply sticky right-0 z-10 bg-base-200;
+
+      &:before {
+        @apply absolute -left-px bottom-0 top-0 block bg-base-300;
+        width: 1px;
+        content: '';
+      }
+
+      &:after {
+        @apply pointer-events-none absolute bottom-0 top-0 block bg-gradient-to-r from-transparent to-base-900/10;
+        left: -8px;
+        width: 8px;
+        content: '';
+      }
+    }
+
+    &[aria-sort='ascending'] {
+      a {
+        @apply font-bold;
+        &:before {
+          @apply icon-sort-amount-up-alt mr-1;
+        }
+      }
+    }
+
+    &[aria-sort='descending'] {
+      a {
+        @apply font-bold;
+        &:before {
+          @apply icon-sort-amount-down-alt mr-1;
+        }
+      }
+    }
+
+    &.th--center {
+      > div {
+        @apply justify-center;
+      }
+    }
+  }
+
+  td {
+    &.sticky-right {
+      @apply sticky right-0 bg-base-50;
+
+      &:hover {
+        z-index: 5;
+      }
+
+      &:has(.dropbutton.is-active) {
+        z-index: 10;
+      }
+
+      &:before {
+        @apply pointer-events-none absolute bottom-0 left-0 top-0 block bg-base-300;
+        width: 1px;
+        content: '';
+      }
+
+      &:after {
+        @apply pointer-events-none absolute bottom-0 top-0 block bg-gradient-to-r from-transparent to-base-600/10;
+        left: -8px;
+        width: 8px;
+        content: '';
+      }
+    }
+
+    /* Check field UI before changing. */
+    & > .form-wrapper,
+    & > .form-item {
+      @apply m-0 font-normal;
+    }
+
+    & > .form-type--select select {
+      @apply min-w-96;
+    }
+
+    &,
+    li {
+      @apply text-base;
+    }
+  }
+
+  tbody {
+    th {
+      @apply text-left;
+    }
+  }
+
+  .draggable {
+    a.tabledrag-handle {
+      @apply float-start ml-0 flex cursor-move items-center p-2;
+
+      .handle {
+        display: block;
+        width: 16px;
+        height: 16px;
+        padding: 0;
+        margin: 0;
+        background-position: 0 0;
+      }
+    }
+  }
+
+  tr {
+    &.region-populated,
+    &.add-new .tabledrag-changed {
+      @apply hidden;
+    }
+
+    &.tr--focus {
+      @apply bg-warning-50 hover:bg-warning-100;
+    }
+  }
+
+  .marker {
+    @apply h-4 w-4 rounded-full bg-primary-500 px-2 py-px text-xs text-primary-content shadow-sm;
+  }
+
+  .button {
+    @apply m-0;
+  }
+
+  &.field-multiple-table {
+    .field-multiple-drag {
+      width: 1%;
+      white-space: nowrap;
+    }
+  }
+
+  .style--heading {
+    @apply text-base font-bold leading-tight;
+
+    strong {
+      @apply font-bold;
+    }
+
+    small {
+      @apply text-xs font-normal text-base-500;
+    }
+
+    .neo-icon {
+      @apply mr-1 inline-block min-w-6 text-center text-xl leading-none text-base-700;
+    }
+  }
+
+  .style--sm {
+    @apply text-sm text-base-500;
+  }
+
+  .style--xs {
+    @apply text-xs text-base-500;
+  }
+
+  .align--center,
+  .views-align-center {
+    @apply text-center;
+
+    > div {
+      @apply justify-center;
+    }
+  }
+
+  .size--min,
+  .views-align-center {
+    width: 1%;
+    white-space: nowrap;
+  }
+}
+
+.tabledrag-toggle-weight-wrapper {
+  @apply relative flex justify-end;
+
+  .tabledrag-toggle-weight {
+    @apply text-base-100-content/60 hover:text-base-100-content mb-0 rounded-t px-2 py-1 text-xs transition-opacity;
+  }
+
+  .action-link--icon-show {
+    &:before {
+      @apply icon-toggle-on mr-1;
+    }
+  }
+
+  .action-link--icon-hide {
+    &:before {
+      @apply icon-toggle-off mr-1;
+    }
+  }
+}
+
+.js .field--widget-paragraphs td {
+  @apply p-2;
+}
+
+.table--wrapper {
+  /* followed by a hidden element */
+  &:has(+ input[type='hidden']:last-child),
+  /* foloweed by two hidden elements */
+  &:has(+ input[type='hidden'] + input[type='hidden']:last-child),
+  /* followed by three hidden elements */
+  &:has(
+      + input[type='hidden']
+        + input[type='hidden']
+        + input[type='hidden']:last-child
+    ),
+  /* followed by a div with display none */
+  &:has(+ div[style*='display: none;']:last-child) {
+    @apply mb-0;
+  }
+}
+
+.table--overflow {
+  .table--inner {
+    @apply scrollbar-none overflow-x-auto overflow-y-hidden border;
+
+    table tr th {
+      &:first-child {
+        @apply border-l-0;
+      }
+
+      &:last-child {
+        @apply border-r-0;
+      }
+    }
+
+    tbody tr {
+      @apply border-l-0 border-r-0 last:border-b-0;
+    }
+  }
+}
+
+.table--sticky {
+  .table--header {
+    @apply sticky top-neo-t z-20 overflow-hidden border shadow-md;
+
+    th {
+      @apply border-b-0 border-t-0;
+
+      &:first-child {
+        @apply border-l-0;
+      }
+
+      &:last-child {
+        @apply border-r-0;
+      }
+    }
+  }
+
+  .table--inner {
+    @apply overflow-x-auto overflow-y-hidden border border-t-0;
+
+    thead tr {
+      overflow: hidden;
+      height: 0px;
+      padding-top: 0;
+      padding-bottom: 0;
+      visibility: collapse;
+    }
+
+    thead th {
+      @apply border-0;
+    }
+
+    tbody tr {
+      /* @apply border-l-0 border-r-0 first:border-t-0 last:border-b-0; */
+      @apply border-0 border-b last:border-b-0;
+    }
+  }
+
+  /* .sticky-header thead tr {
+    @apply top-0 left-0 right-0;
+  } */
+}

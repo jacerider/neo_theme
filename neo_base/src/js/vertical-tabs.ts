@@ -46,5 +46,3 @@
     return tab;
   };
 })(jQuery, Drupal);
-
-export { };

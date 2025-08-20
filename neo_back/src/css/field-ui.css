@@ -1,0 +1,62 @@
+/** @use 'neo-icon'; **/
+
+.form-wrapper.field-option {
+  @apply m-0 p-0;
+}
+
+.subfield-option {
+  @apply p-3;
+}
+
+.field-option,
+.subfield-option {
+  @apply overflow-hidden rounded border-base-300 p-0 transition hover:border-primary-500 hover:shadow;
+
+  &.focus,
+  &.selected {
+    @apply border-base-300 outline-none ring ring-primary-600 ring-offset-2 transition;
+
+    .field-option__thumb {
+      @apply bg-primary-500 text-primary-500-content;
+
+      .field-option__icon {
+        filter: brightness(0) invert(1);
+      }
+    }
+  }
+
+  &:hover {
+    .field-option__label {
+      @apply text-primary-500;
+    }
+  }
+
+  .option,
+  label {
+    @apply font-bold;
+  }
+
+  .field-option__thumb {
+    @apply m-0;
+  }
+
+  .field-option__item {
+    @apply p-2 pl-0;
+  }
+
+  ul,
+  .field-option__description {
+    @apply mt-1 text-xs;
+  }
+}
+
+.group-field-options-wrapper {
+  @apply max-w-screen-md text-sm;
+}
+
+.field-icon-neo-component-tree {
+  @apply flex items-center justify-center bg-none;
+  &:before {
+    @apply icon-shapes text-default/80 text-3xl;
+  }
+}

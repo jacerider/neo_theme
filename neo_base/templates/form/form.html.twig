@@ -14,25 +14,24 @@
 #}
 {%
   set classes = classes is defined ? classes : [
-    'form--wrapper',
+    'form--wrapper mt-form first:mt-0',
     neo_style == 'card' ? 'card',
-    'first:mt-0',
   ]
 %}
 
 {%
   set inner_classes = inner_classes is defined ? inner_classes : [
-    'form--inner flex-1',
+    'form--inner flex-1 my-form modal:my-0',
     'text-default',
   ]
 %}
 
 {% if neo_size == 'xs' %}
-  {% set attributes = attributes.setAttribute('style', '--form-spacing: 0px; --form-item-spacing: 0.5rem;') %}
+  {% set attributes = attributes.setAttribute('style', '--spacing-form: 0px; --spacing-form-item: 0.5rem;') %}
 {% elseif neo_size == 'sm' %}
-  {% set attributes = attributes.setAttribute('style', '--form-spacing: 0px; --form-item-spacing: 1rem;') %}
+  {% set attributes = attributes.setAttribute('style', '--spacing-form: 0px; --spacing-form-item: 1rem;') %}
 {% elseif neo_style == 'flush' %}
-  {% set attributes = attributes.setAttribute('style', '--form-spacing: 0px;') %}
+  {% set attributes = attributes.setAttribute('style', '--spacing-form: 0px;') %}
 {% endif %}
 
 {{ attach_library('neo_base/form') }}

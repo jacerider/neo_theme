@@ -1,0 +1,33 @@
+.tagify {
+  /* Below line had important tag */
+  @apply flex gap-1.5 p-1.5;
+  --tag-bg: rgb(var(--color-base-200));
+  --tag-hover: rgb(var(--color-primary-200));
+  --tag-pad: 0;
+
+  .tagify__tag {
+    margin: 0;
+  }
+
+  .tagify__input {
+    margin: 0;
+  }
+}
+
+.tagify__dropdown {
+  @apply -ml-displace-l -mt-displace-t rounded border-2 shadow;
+  --tagify-dd-color-primary: rgb(var(--color-primary-500));
+  --tagify-dd-bg-color: rgb(var(--color-base-0));
+  border-color: rgb(var(--color-base-300)) !important;
+
+  .tagify__dropdown__wrapper {
+    border: none !important;
+  }
+
+  &[placement='top'] {
+    /* Below line had important tag */
+    @apply fixed top-neo-t;
+    margin: 0 !important;
+    transform: translateY(2px) !important;
+  }
+}

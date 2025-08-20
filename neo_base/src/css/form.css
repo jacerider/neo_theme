@@ -1,0 +1,10 @@
+@import "./form/base.css";
+@import "./form/inline.css";
+@import "./form/autocomplete.css";
+@import "./form/tagify.css";
+
+.form-file {
+  &::file-selector-button {
+    @apply text-primary-500-content rounded-sm bg-primary-500 px-4 py-3 text-xs transition hover:bg-primary-600;
+  }
+}

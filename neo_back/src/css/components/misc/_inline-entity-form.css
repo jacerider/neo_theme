@@ -1,0 +1,16 @@
+.ief-row-entity-form {
+  .table--cell {
+    &:before {
+      @apply icon-edit mr-1;
+    }
+  }
+}
+
+.ief-form {
+  @apply p-form-item;
+
+  > .form-wrapper {
+    @apply m-form-item;
+    @apply -mt-form-item;
+  }
+}

@@ -1,0 +1,102 @@
+form {
+  .button:not(.has-icon) {
+    &[data-label*='save'],
+    &[data-label*='update'],
+    &[data-label*='apply'],
+    &[data-label*='publish'] {
+      &:before {
+        @apply icon-check-square mr-1;
+      }
+    }
+
+    &[data-label*='delete'],
+    &[data-label*='cancel'],
+    &[data-label*='remove'] {
+      @apply btn-alert;
+      &:before {
+        @apply icon-times-square mr-1;
+      }
+    }
+
+    &[data-label*='edit'] {
+      &:before {
+        @apply icon-edit mr-1;
+      }
+    }
+
+    &[data-label*='remove'] {
+      @apply btn-alert;
+      &:before {
+        @apply icon-trash mr-1;
+      }
+    }
+
+    &[data-label*='add'],
+    &[data-drupal-selector*='add'] {
+      &:before {
+        @apply icon-plus-square mr-1;
+      }
+    }
+
+    &[data-label*='clone'],
+    &[data-label*='copy'],
+    &[data-label*='duplicate'] {
+      &:before {
+        @apply icon-clone mr-1;
+      }
+    }
+
+    &[data-label*='filter'] {
+      &:before {
+        @apply icon-filter mr-1;
+      }
+    }
+
+    &.icon-only {
+      &:before {
+        @apply mr-0;
+      }
+
+      span {
+        display: none;
+      }
+    }
+  }
+
+  a {
+    &[id$='cancel'],
+    &[id$='delete'] {
+      @apply btn btn-alert;
+      &:before {
+        @apply icon-times-square mr-1;
+      }
+    }
+  }
+}
+
+.fake-checkbox {
+  @apply relative z-10 h-6 w-10 rounded-full border-2 checked:border-base-400 checked:bg-base-400;
+}
+
+/* Menu tree module support. */
+/* .menu-tree__tree .toggle-collapse {
+  @apply visible;
+}
+
+.menu-tree__tree .toggle-collapse .action-link {
+  @apply block h-1 w-1 overflow-hidden whitespace-nowrap text-base-700;
+}
+
+.menu-tree__tree .toggle-collapse.expand .action-link--icon-expand {
+  &:before {
+    @apply icon-plus-square text-md mr-0 h-1 w-1 text-right;
+    background-image: none;
+  }
+}
+
+.menu-tree__tree .toggle-collapse.collapse .action-link--icon-expand {
+  &:before {
+    @apply icon-minus-square text-md mr-0 h-1 w-1 text-right;
+    background-image: none;
+  }
+} */

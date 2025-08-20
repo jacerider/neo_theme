@@ -1,0 +1,46 @@
+.messages {
+  @apply relative border-t-4 border-success-500 bg-success-100 px-4 py-3 pl-12 text-xs text-success-900 shadow-md;
+
+  &:before {
+    @apply icon-info-circle text-success-500-content bg-success-500;
+  }
+
+  &:last-child {
+    @apply rounded-b;
+  }
+
+  &:before {
+    /* Below line had important tag */
+    @apply absolute left-1 top-1 mr-2 flex h-8 w-8 items-center justify-center rounded text-lg;
+  }
+
+  a {
+    @apply font-bold text-success-700 hover:text-success-900;
+  }
+
+  &.messages--warning,
+  &.messages--warning-500 {
+    @apply border-warning-500 bg-warning-100 text-warning-900;
+
+    &:before {
+      @apply icon-exclamation-circle text-warning-950-content bg-warning-500;
+    }
+
+    a {
+      @apply font-bold text-warning-900 hover:text-warning-900;
+    }
+  }
+
+  &.messages--error,
+  &.messages--alert-500 {
+    @apply border-alert-500 bg-alert-100 text-alert-900;
+
+    &:before {
+      @apply icon-stop-circle text-alert-500-content bg-alert-500;
+    }
+
+    a {
+      @apply font-bold text-alert-700 hover:text-alert-900;
+    }
+  }
+}

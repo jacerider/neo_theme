@@ -2,7 +2,7 @@ global:
   neo: true
   css:
     theme:
-      src/css/front.scss: { minified: true }
+      src/css/front.css: { minified: true }
   # js:
   #   src/js/front.ts: { minified: true }
   dependencies:

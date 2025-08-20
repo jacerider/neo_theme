@@ -10,17 +10,13 @@ libraries:
 
 neo:
   scope: back
-  group: contrib
-  # base:
-  #   :root:
-  #     --form-spacing: spacing.6
-  components:
+  theme:
+    --form-spacing: calc(var(--spacing) * 6)
+  utilities:
     .card:
-      '@apply block rounded-sm border border-base-200 bg-default shadow-sm': {}
-    .form--style:
-      --form-spacing: spacing.6
+      apply: '@apply block rounded-sm border border-base-200 bg-default shadow-sm'
     .form--inner:
-      '@apply m-form modal:m-0': {}
+      apply: '@apply m-form modal:m-0'
 
 regions:
   status: Status
@@ -36,25 +32,7 @@ libraries-extend:
     - neo_back/field-ui
   views_ui/views_ui.admin:
     - neo_back/views-admin
-  neo_base/ajax:
-    - neo_back/ajax
-  neo_base/dialog:
-    - neo_back/dialog
-  neo_base/tabledrag:
-    - neo_back/tabledrag
-  neo_base/dropbutton:
-    - neo_back/dropbutton
   neo_base/form:
     - neo_back/form
-  neo_base/media-library:
-    - neo_back/media-library
-  neo_base/password:
-    - neo_back/password
-  neo_base/progress:
-    - neo_back/progress
   neo_base/table:
     - neo_back/table
-  neo_base/vertical-tabs:
-    - neo_back/vertical-tabs
-  neo_base/horizontal-tabs:
-    - neo_back/horizontal-tabs

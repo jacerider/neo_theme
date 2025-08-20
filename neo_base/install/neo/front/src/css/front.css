@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/forms" {
+  strategy: "base";
+}
+@plugin "@tailwindcss/typography";
+@import "./tailwind.neo.css";

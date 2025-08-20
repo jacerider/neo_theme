@@ -15,98 +15,80 @@ neo:
   scope:
     - front
     - back
-    - shared
   group: contrib
   theme:
-    extend:
-      spacing:
-        container: 'var(--container-spacing, 1rem)'
-        form: 'var(--form-spacing, 0px)'
-        form-item: 'var(--form-item-spacing, 1.5rem)'
-        card: 'var(--form-item-spacing, 1.5rem)'
-        displace-t: 'var(--drupal-displace-offset-top, 0px)'
-        displace-r: 'var(--drupal-displace-offset-right, 0px)'
-        displace-b: 'var(--drupal-displace-offset-bottom, 0px)'
-        displace-l: 'var(--drupal-displace-offset-left, 0px)'
-        neo-t: 'calc(var(--drupal-displace-offset-top, 0px) + var(--neo-displace-offset-top, 0px))'
-        neo-r: 'calc(var(--drupal-displace-offset-right, 0px) + var(--neo-displace-offset-right, 0px))'
-        neo-b: 'calc(var(--drupal-displace-offset-bottom, 0px) + var(--neo-displace-offset-bottom, 0px))'
-        neo-l: 'calc(var(--drupal-displace-offset-left, 0px) + var(--neo-displace-offset-left, 0px))'
-      colors:
-        form-item-primary: var(--form-item-primary)
-        form-item-primary-active: var(--form-item-primary-active)
-        form-item-primary-content: var(--form-item-primary-content)
-        form-item-base: var(--form-item-base)
-        form-item-base-50: var(--form-item-base-50)
-        form-item-base-100: var(--form-item-base-100)
-        form-item-base-200: var(--form-item-base-200)
-        form-item-accent: var(--form-item-accent)
-        form-item-content: var(--form-item-content)
-        form-item-label: var(--form-item-label-color)
-        form-item-description: var(--form-item-description)
-      textColor:
-        default: rgb(var(--color-base-0-content) / <alpha-value>)
-      backgroundColor:
-        default: rgb(var(--color-base-0) / <alpha-value>)
-      borderColor:
-        DEFAULT: rgb(var(--color-base-300) / <alpha-value>)
+    # Colors
+    --color-site: rgb(var(--color-base-950))
+    --color-form-item-primary: var(--form-item-primary)
+    --color-form-item-primary-active: var(--form-item-primary-active)
+    --color-form-item-primary-content: var(--form-item-primary-content)
+    --color-form-item-base: var(--form-item-base)
+    --color-form-item-base-50: var(--form-item-base-50)
+    --color-form-item-base-100: var(--form-item-base-100)
+    --color-form-item-base-200: var(--form-item-base-200)
+    --color-form-item-accent: var(--form-item-accent)
+    --color-form-item-content: var(--form-item-content)
+    --color-form-item-label: var(--form-item-label)
+    --color-form-item-description: var(--form-item-description)
+    --color-bg-default: rgb(var(--color-base-0))
+    --color-text-default: rgb(var(--color-base-0-content))
+    --background-color-default: rgb(var(--color-base-0))
+    --text-color-default: rgb(var(--color-base-0-content))
+    --border-color-default: rgb(var(--color-base-200))
+    # Spacing
+    --spacing-container: calc(var(--spacing) * 4)
+    --spacing-form: var(--form-spacing, 0px)
+    --spacing-form-item: var(--form-item-spacing, 1.5rem)
+    --spacing-card: var(--form-item-spacing, 1.5rem)
+    --spacing-displace-t: var(--drupal-displace-offset-top, 0px)
+    --spacing-displace-r: var(--drupal-displace-offset-right, 0px)
+    --spacing-displace-b: var(--drupal-displace-offset-bottom, 0px)
+    --spacing-displace-l: var(--drupal-displace-offset-left, 0px)
+    --spacing-neo-t: calc(var(--drupal-displace-offset-top, 0px) + var(--neo-displace-offset-top, 0px))
+    --spacing-neo-r: calc(var(--drupal-displace-offset-right, 0px) + var(--neo-displace-offset-right, 0px))
+    --spacing-neo-b: calc(var(--drupal-displace-offset-bottom, 0px) + var(--neo-displace-offset-bottom, 0px))
+    --spacing-neo-l: calc(var(--drupal-displace-offset-left, 0px) + var(--neo-displace-offset-left, 0px))
+    # Form.
+    --form-spacing: '0'
+    --form-item-spacing: calc(var(--spacing) * 4)
+    --form-item-border-width: 2px
+    --form-item-border: rgba(var(--color-base-300))
+    --form-item-border-hover: rgba(var(--color-base-400))
+    --form-item-border-focus: rgba(var(--color-base-400))
+    --form-item-border-radius: var(--radius-sm)
+    --form-item-primary: rgb(var(--color-primary-500))
+    --form-item-primary-active: rgb(var(--color-primary-600))
+    --form-item-primary-content: rgb(var(--color-primary-500-content))
+    --form-item-base: rgb(var(--color-base-0))
+    --form-item-base-50: rgb(var(--color-base-50))
+    --form-item-base-100: rgb(var(--color-base-100))
+    --form-item-base-200: rgb(var(--color-base-200))
+    --form-item-accent: rgb(var(--color-base-300))
+    --form-item-content: rgb(var(--color-base-900))
+    --form-item-label: rgb(var(--color-base-600))
+    --form-item-placeholder: rgb(var(--color-base-600))
+    --form-item-description: rgb(var(--color-base-400))
+    --form-item-ring: rgb(var(--color-primary-600))
   base:
-    :root:
-      --container-spacing: spacing.4
-      # Forms
-      # --form-spacing: spacing.0
-      # --form-item-spacing: spacing.4
-      # --form-item-border: rgba(var(--color-base-300))
-      # --form-item-border-hover: rgba(var(--color-base-400))
-      # --form-item-border-focus: rgba(var(--color-base-400))
-      # --form-item-border-width: borderWidth.2
-      # --form-item-border-radius: borderRadius.DEFAULT
-      # --form-item-primary: rgb(var(--color-primary-500))
-      # --form-item-primary-active: rgb(var(--color-primary-600))
-      # --form-item-primary-content: rgb(var(--color-primary-500-content))
-      # --form-item-base: rgb(var(--color-base-0))
-      # --form-item-base-50: rgb(var(--color-base-50))
-      # --form-item-base-100: rgb(var(--color-base-100))
-      # --form-item-base-200: rgb(var(--color-base-200))
-      # --form-item-accent: rgb(var(--color-base-300))
-      # --form-item-content: rgb(var(--color-base-900))
-      # --form-item-label: rgb(var(--color-base-600))
-      # --form-item-description: rgb(var(--color-base-400))
-      # --form-item-ring: rgb(var(--color-primary-600))
-      # Buttons
-  components:
-    .scrollbar-none:
-      -ms-overflow-style: none
-      scrollbar-width: none
-    .ui:
-      '@apply font-ui': {}
-    .min-h-displace:
-      minHeight: 'calc(100vh - var(--drupal-displace-offset-top, 0px) - var(--drupal-displace-offset-bottom, 0px))'
-    .max-h-displace:
-      maxHeight: 'calc(100vh - var(--drupal-displace-offset-top, 0px) - var(--drupal-displace-offset-bottom, 0px))'
-    .h-displace:
-      height: 'calc(100vh - var(--drupal-displace-offset-top, 0px) - var(--drupal-displace-offset-bottom, 0px))'
-    .max-height-neo:
-      maxHeight: 'calc(100vh - var(--drupal-displace-offset-top, 0px) - var(--drupal-displace-offset-bottom, 0px) - var(--neo-displace-offset-top, 0px) - var(--neo-displace-offset-bottom, 0px))'
-    .card:
-      '@apply block rounded-sm border': {}
-    .local-action:
-      '@apply btn btn-primary btn-xs md:btn-md': {}
-    .badge:
-      '@apply min-w-4 rounded-2xl px-1 py-px text-center text-[10px] font-semibold': {}
-    # Text reset
-    .text-md:
-      font-size: 1rem
-      line-height: 1.5rem
-    # Form and form items
-    .form--style:
-      --form-spacing: spacing.0
-      --form-item-spacing: spacing.4
+    # Form scheme support.
+    # @todo I do not like that this needs to be repeated from above. But it is
+    # needed until I come up with a better way to scope this.
+    '[class*="scheme-"]':
+      --color-form-item-primary: var(--form-item-primary)
+      --color-form-item-primary-active: var(--form-item-primary-active)
+      --color-form-item-primary-content: var(--form-item-primary-content)
+      --color-form-item-base: var(--form-item-base)
+      --color-form-item-base-50: var(--form-item-base-50)
+      --color-form-item-base-100: var(--form-item-base-100)
+      --color-form-item-base-200: var(--form-item-base-200)
+      --color-form-item-accent: var(--form-item-accent)
+      --color-form-item-content: var(--form-item-content)
+      --color-form-item-label: var(--form-item-label)
+      --color-form-item-description: var(--form-item-description)
       --form-item-border: rgba(var(--color-base-300))
       --form-item-border-hover: rgba(var(--color-base-400))
       --form-item-border-focus: rgba(var(--color-base-400))
-      --form-item-border-width: borderWidth.2
-      --form-item-border-radius: borderRadius.DEFAULT
+      --form-item-border-radius: var(--radius-sm)
       --form-item-primary: rgb(var(--color-primary-500))
       --form-item-primary-active: rgb(var(--color-primary-600))
       --form-item-primary-content: rgb(var(--color-primary-500-content))
@@ -117,27 +99,51 @@ neo:
       --form-item-accent: rgb(var(--color-base-300))
       --form-item-content: rgb(var(--color-base-900))
       --form-item-label: rgb(var(--color-base-600))
+      --form-item-placeholder: rgb(var(--color-base-600))
       --form-item-description: rgb(var(--color-base-400))
       --form-item-ring: rgb(var(--color-primary-600))
-    .form--wrapper:
-      '@apply mt-form': {}
-    .form--inner:
-      '@apply my-form modal:my-0': {}
+    # Default border color
+    '*,::after,::before,::backdrop,::file-selector-button':
+      borderColor: var(--border-color-default)
+  utilities:
+    .poops:
+      background: red
+    .scrollbar-none:
+      -ms-overflow-style: none
+      scrollbar-width: none
+    .ui:
+      apply: '@apply font-ui'
+    .min-h-displace:
+      minHeight: 'calc(100vh - var(--drupal-displace-offset-top, 0px) - var(--drupal-displace-offset-bottom, 0px))'
+    .max-h-displace:
+      maxHeight: 'calc(100vh - var(--drupal-displace-offset-top, 0px) - var(--drupal-displace-offset-bottom, 0px))'
+    .h-displace:
+      height: 'calc(100vh - var(--drupal-displace-offset-top, 0px) - var(--drupal-displace-offset-bottom, 0px))'
+    .max-height-neo:
+      maxHeight: 'calc(100vh - var(--drupal-displace-offset-top, 0px) - var(--drupal-displace-offset-bottom, 0px) - var(--neo-displace-offset-top, 0px) - var(--neo-displace-offset-bottom, 0px))'
+    .card:
+      apply: '@apply block rounded-sm border'
+    .local-action:
+      apply: '@apply btn btn-primary btn-xs md:btn-md'
+    .badge:
+      apply: '@apply min-w-4 rounded-2xl px-1 py-px text-center text-[10px] font-semibold'
+    # Text reset
+    .text-md:
+      font-size: var(--text-md)
+      line-height: 1.5rem
     .form-label:
-      '@apply block mb-1': {}
+      apply: '@apply block mb-1'
       color: 'var(--form-item-label)'
-      fontSize: fontSize.sm
-      fontWeight: fontWeight.bold
+      fontSize: var(--text-sm)
+      fontWeight: 700
     .form-description:
-      '@apply mt-0.5': {}
       color: 'var(--form-item-description)'
-      fontSize: fontSize.xs
-      fontWeight: fontWeight.light
-    .form-item .description:
-      '@apply form-description': {}
+      fontSize: var(--text-xs)
+      fontWeight: 300
+      marginTop: calc(var(--spacing) * 0.5)
     .form-item-bg:
       backgroundColor: 'var(--form-item-base)'
-      color: 'var(--form-item)'
+      color: 'var(--form-item-content)'
       '&::placeholder':
         color: 'var(--form-item-placeholder)'
     .form-item-border-radius:
@@ -166,262 +172,62 @@ neo:
         --tw-ring-offset-shadow: 0 0 0 var(--tw-ring-offset-width) var(--form-item-base)
         --tw-ring-shadow: 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--form-item-ring)
         boxShadow: 'var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)'
-    # Buttons
-    .btn:
-      --color: var(--btn-color, rgb(var(--color-base-500)))
-      --content-color: var(--btn-content-color, rgb(var(--color-base-500-content)))
-      --hover-color: var(--btn-hover-color, rgb(var(--color-base-700)))
-      --hover-content-color: var(--btn-hover-content-color, rgb(var(--color-base-700-content)))
-      --border-color: var(--btn-border-color, transparent)
-      --border-hover-color: var(--btn-border-hover-color, transparent)
-      --border-width: borderWidth.2
-      --py: var(--btn-py, 0.5rem)
-      --px: var(--btn-px, 1rem)
-      --font-size: fontSize.base
-      --text-decoration: none
-      --text-decoration-hover: none
-      --border-radius: borderRadius.DEFAULT
-      '@apply inline-block form-item-focus text-center cursor-pointer transition': {}
-      backgroundColor: var(--color)
-      borderColor: var(--border-color)
-      borderWidth: var(--border-width)
-      color: var(--content-color)
-      padding: var(--py) var(--px)
-      fontSize: var(--font-size)
-      textDecoration: var(--text-decoration)
-      lineHeight: lineHeight.tight
-      borderRadius: 'var(--border-radius, 2px)'
-      '&:hover':
-        backgroundColor: var(--hover-color)
-        borderColor: var(--border-hover-color)
-        color: var(--hover-content-color)
-        textDecoration: var(--text-decoration-hover)
-    .btn-reset:
-      --color: transparent
-      --content-color: inherit
-      --hover-color: transparent
-      --hover-content-color: inherit
-      --border-color: transparent
-      --border-hover-color: transparent
-      --border-width: '0'
-      --py: '0'
-      --px: '0'
-    .btn-outline:
-      --color: transparent
-      --content-color: var(--btn-color, rgb(var(--color-base-500)))
-      --hover-color: var(--btn-color, rgb(var(--color-base-700)))
-      --hover-content-color: var(--btn-content-color, rgb(var(--color-base-700-content)))
-      --border-color: var(--btn-color, rgb(var(--color-base-500)))
-      --border-hover-color: var(--btn-color, rgb(var(--color-base-700)))
-    .btn-primary:
-      --color: var(--btn-primary-color, rgb(var(--color-primary-500)))
-      --content-color: var(--btn-primary-content-color, rgb(var(--color-primary-500-content)))
-      --hover-color: var(--btn-primary-hover-color, rgb(var(--color-primary-700)))
-      --hover-content-color: var(--btn-primary-hover-content-color, rgb(var(--color-primary-700-content)))
-    .btn-primary-outline:
-      --color: transparent
-      --content-color: var(--btn-primary-color, rgb(var(--color-primary-500)))
-      --hover-color: var(--btn-primary-color, rgb(var(--color-primary-700)))
-      --hover-content-color: var(--btn-primary-content-color, rgb(var(--color-primary-700-content)))
-      --border-color: var(--btn-primary-color, rgb(var(--color-primary-500)))
-      --border-hover-color: var(--btn-primary-color, rgb(var(--color-primary-700)))
-    .btn-secondary:
-      --color: var(--btn-secondary-color, rgb(var(--color-secondary-500)))
-      --content-color: var(--btn-secondary-content-color, rgb(var(--color-secondary-500-content)))
-      --hover-color: var(--btn-secondary-hover-color, rgb(var(--color-secondary-700)))
-      --hover-content-color: var(--btn-secondary-hover-content-color, rgb(var(--color-secondary-700-content)))
-    .btn-secondary-outline:
-      --color: transparent
-      --content-color: var(--btn-secondary-color, rgb(var(--color-secondary-500)))
-      --hover-color: var(--btn-secondary-color, rgb(var(--color-secondary-700)))
-      --hover-content-color: var(--btn-secondary-content-color, rgb(var(--color-secondary-700-content)))
-      --border-color: var(--btn-secondary-color, rgb(var(--color-secondary-500)))
-      --border-hover-color: var(--btn-secondary-color, rgb(var(--color-secondary-700)))
-    .btn-accent:
-      --color: var(--btn-accent-color, rgb(var(--color-accent-500)))
-      --content-color: var(--btn-accent-content-color, rgb(var(--color-accent-500-content)))
-      --hover-color: var(--btn-accent-hover-color, rgb(var(--color-accent-700)))
-      --hover-content-color: var(--btn-accent-hover-content-color, rgb(var(--color-accent-700-content)))
-    .btn-accent-outline:
-      --color: transparent
-      --content-color: var(--btn-accent-color, rgb(var(--color-accent-500)))
-      --hover-color: var(--btn-accent-color, rgb(var(--color-accent-700)))
-      --hover-content-color: var(--btn-accent-content-color, rgb(var(--color-accent-700-content)))
-      --border-color: var(--btn-accent-color, rgb(var(--color-accent-500)))
-      --border-hover-color: var(--btn-accent-color, rgb(var(--color-accent-700)))
-    .btn-success:
-      --color: rgb(var(--color-success-500))
-      --content-color: rgb(var(--color-success-500-content))
-      --hover-color: rgb(var(--color-success-700))
-      --hover-content-color: rgb(var(--color-success-700-content))
-    .btn-success-outline:
-      --color: transparent
-      --content-color: rgb(var(--color-success-500))
-      --hover-color: rgb(var(--color-success-700))
-      --hover-content-color: rgb(var(--color-success-0))
-      --border-color: rgb(var(--color-success-500))
-      --border-hover-color: rgb(var(--color-success-700))
-    .btn-warning:
-      --color: rgb(var(--color-warning-500))
-      --content-color: rgb(var(--color-warning-500-content))
-      --hover-color: rgb(var(--color-warning-700))
-      --hover-content-color: rgb(var(--color-warning-700-content))
-    .btn-warning-outline:
-      --color: transparent
-      --content-color: rgb(var(--color-warning-500))
-      --hover-color: rgb(var(--color-warning-700))
-      --hover-content-color: rgb(var(--color-warning-0))
-      --border-color: rgb(var(--color-warning-500))
-      --border-hover-color: rgb(var(--color-warning-700))
-    .btn-alert:
-      --color: rgb(var(--color-alert-500))
-      --content-color: rgb(var(--color-alert-500-content))
-      --hover-color: rgb(var(--color-alert-700))
-      --hover-content-color: rgb(var(--color-alert-700-content))
-    .btn-alert-outline:
-      --color: transparent
-      --content-color: rgb(var(--color-alert-500))
-      --hover-color: rgb(var(--color-alert-700))
-      --hover-content-color: rgb(var(--color-alert-0))
-      --border-color: rgb(var(--color-alert-500))
-      --border-hover-color: rgb(var(--color-alert-700))
-    .btn-text:
-      --color: transparent
-      --content-color: inherit
-      --hover-color: transparent
-      --hover-content-color: inherit
-      --text-decoration-hover: underline
-      '@apply first:pl-0 last:pr-0': {}
-    .btn-text-primary:
-      --color: transparent
-      --content-color: var(--btn-primary-color, rgb(var(--color-primary-500)))
-      --hover-color: transparent
-      --hover-content-color: var(--btn-primary-hover-color, rgb(var(--color-primary-700)))
-      --border-color: transparent
-      --border-hover-color: transparent
-      --text-decoration-hover: underline
-      '@apply first:pl-0 last:pr-0': {}
-    .btn-text-secondary:
-      --color: transparent
-      --content-color: var(--btn-secondary-color, rgb(var(--color-secondary-500)))
-      --hover-color: transparent
-      --hover-content-color: var(--btn-secondary-hover-color, rgb(var(--color-secondary-700)))
-      --border-color: transparent
-      --border-hover-color: transparent
-      --text-decoration-hover: underline
-      '@apply first:pl-0 last:pr-0': {}
-    .btn-text-accent:
-      --color: transparent
-      --content-color: var(--btn-accent-color, rgb(var(--color-accent-500)))
-      --hover-color: transparent
-      --hover-content-color: var(--btn-accent-hover-color, rgb(var(--color-accent-700)))
-      --border-color: transparent
-      --border-hover-color: transparent
-      --text-decoration-hover: underline
-      '@apply first:pl-0 last:pr-0': {}
-    .btn-text-success:
-      --color: transparent
-      --content-color: rgb(var(--color-success-500))
-      --hover-color: transparent
-      --hover-content-color: rgb(var(--color-success-700))
-      --border-color: transparent
-      --border-hover-color: transparent
-      --text-decoration-hover: underline
-      '@apply first:pl-0 last:pr-0': {}
-    .btn-text-warning:
-      --color: transparent
-      --content-color: rgb(var(--color-warning-500))
-      --hover-color: transparent
-      --hover-content-color: rgb(var(--color-warning-700))
-      --border-color: transparent
-      --border-hover-color: transparent
-      --text-decoration-hover: underline
-      '@apply first:pl-0 last:pr-0': {}
-    .btn-text-alert:
-      --color: transparent
-      --content-color: rgb(var(--color-alert-500))
-      --hover-color: transparent
-      --hover-content-color: rgb(var(--color-alert-700))
-      --border-color: transparent
-      --border-hover-color: transparent
-      --text-decoration-hover: underline
-      '@apply first:pl-0 last:pr-0': {}
-    .btn-xs:
-      --py: var(--btn-xs-py, 0.25rem)
-      --px: var(--btn-xs-px, 0.5rem)
-      --font-size: fontSize.xs
-    .btn-sm:
-      --py: var(--btn-sm-py, 0.375rem)
-      --px: var(--btn-sm-px, 0.75rem)
-      --font-size: fontSize.sm
-    .btn-md:
-      --py: var(--btn-py, 0.375rem)
-      --px: var(--btn-px, 1rem)
-      --font-size: fontSize.base
-    .btn-lg:
-      --py: var(--btn-lg-py, 0.625rem)
-      --px: var(--btn-lg-px, 1.25rem)
-      --font-size: fontSize.lg
-    .btn-xl:
-      --py: var(--btn-xl-py, 0.75rem)
-      --px: var(--btn-xl-px, 1.5rem)
-      --font-size: fontSize.xl
     # Page title
     .page-supertitle:
-      '@apply text-xl font-bold mb-2': {}
+      apply: '@apply text-xl font-bold mb-2'
     .page-title:
-      '@apply text-3xl md:text-4xl lg:text-5xl font-bold': {}
+      apply: '@apply text-3xl md:text-4xl lg:text-5xl font-bold'
     .page-subtitle:
-      '@apply text-lg mt-2': {}
+      apply: '@apply text-lg mt-2'
     .page-title-spacing-t:
-      '@apply pt-10': {}
+      apply: '@apply pt-10'
     .page-title-spacing-b:
-      '@apply mb-10': {}
+      apply: '@apply mb-10'
     # Components
     .component-supertitle:
-      '@apply text-xl font-bold mb-2': {}
+      apply: '@apply text-xl font-bold mb-2'
     .component-title:
-      '@apply text-2xl md:text-3xl lg:text-4xl font-bold': {}
+      apply: '@apply text-2xl md:text-3xl lg:text-4xl font-bold'
     .component-subtitle:
-      '@apply text-sm mt-2': {}
+      apply: '@apply text-sm mt-2'
     .m-component-xs:
-      '@apply m-2 md:m-2 lg:m-2': {}
+      apply: '@apply m-2 md:m-2 lg:m-2'
     .m-component-sm:
-      '@apply m-2 md:m-4 lg:m-6': {}
+      apply: '@apply m-2 md:m-4 lg:m-6'
     .m-component:
-      '@apply m-4 md:m-6 lg:m-14': {}
+      apply: '@apply m-4 md:m-6 lg:m-14'
     .m-component-lg:
-      '@apply m-6 md:m-14 lg:m-24': {}
+      apply: '@apply m-6 md:m-14 lg:m-24'
     .m-component-xl:
-      '@apply m-12 md:m-20 lg:m-32': {}
+      apply: '@apply m-12 md:m-20 lg:m-32'
     .m-component-2xl:
-      '@apply m-12 md:m-24 lg:m-44': {}
+      apply: '@apply m-12 md:m-24 lg:m-44'
     .m-component-3xl:
-      '@apply m-12 md:m-24 lg:m-52': {}
+      apply: '@apply m-12 md:m-24 lg:m-52'
     .p-component-xs:
-      '@apply p-2 md:p-2 lg:p-2': {}
+      apply: '@apply p-2 md:p-2 lg:p-2'
     .p-component-sm:
-      '@apply p-2 md:p-4 lg:p-6': {}
+      apply: '@apply p-2 md:p-4 lg:p-6'
     .p-component:
-      '@apply p-4 md:p-6 lg:p-14': {}
+      apply: '@apply p-4 md:p-6 lg:p-14'
     .p-component-lg:
-      '@apply p-6 md:p-14 lg:p-24': {}
+      apply: '@apply p-6 md:p-14 lg:p-24'
     .p-component-xl:
-      '@apply p-12 md:p-20 lg:p-32': {}
+      apply: '@apply p-12 md:p-20 lg:p-32'
     .p-component-2xl:
-      '@apply p-12 md:p-24 lg:p-44': {}
+      apply: '@apply p-12 md:p-24 lg:p-44'
     .p-component-3xl:
-      '@apply p-12 md:p-24 lg:p-52': {}
+      apply: '@apply p-12 md:p-24 lg:p-52'
   variants:
-    'is-active': ['&.is-active', '.is-active &']
+    'is-active': ['&.is-active', '.is-active &', '&.active', '.active &']
     'is-active-trail': ['&.is-active-trail', '.is-active-trail &']
     'is-focus': ['&.is-focus', '.is-focus &']
     'is-stuck': ['&.is-stuck', '.is-stuck &']
     'checked-prev': ['input:checked + &']
     'focus-prev': ['input:focus + &']
 
-# libraries:
-#   - neo_base/global
+libraries:
+  - neo_base/global
 libraries-extend:
   core/drupal.vertical-tabs:
     - neo_base/vertical-tabs

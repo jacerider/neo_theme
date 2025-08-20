@@ -1,0 +1,18 @@
+/* Taxonomy management page. */
+table .permission {
+  .title {
+    @apply whitespace-nowrap font-bold;
+  }
+
+  .description {
+    @apply text-xs italic;
+  }
+}
+
+.region.region--content {
+  > .views-element-container {
+    table {
+      @apply shadow-sm;
+    }
+  }
+}
