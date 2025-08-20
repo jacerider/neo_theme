@@ -268,15 +268,16 @@ function neo_base_preprocess_input__submit(&$variables) {
     switch ($neoStyle) {
       case 'reset':
         $style[] = "
-          --btn-color: transparent;
-          --btn-content-color: inherit;
-          --btn-hover-color: transparent;
-          --btn-hover-content-color: inherit;
+          --btn-bg-color: transparent;
+          --btn-bg-color-hover: transparent;
+          --btn-content-color: currentColor;
+          --btn-content-color-hover: currentColor;
           --btn-border-color: transparent;
-          --btn-border-hover-color: transparent;
+          --btn-border-color-hover: transparent;
           --btn-border-width: 0;
           --btn-py: 0;
           --btn-px: 0;
+          border-style: none;
         ";
         break;
 
@@ -287,38 +288,46 @@ function neo_base_preprocess_input__submit(&$variables) {
       case 'warning':
       case 'alert':
         $style[] = "
-          --btn-color: var(--btn-{$neoStyle}-color, rgb(var(--color-{$neoStyle}-500)));
+          --btn-bg-color: var(--btn-{$neoStyle}-bg-color, rgb(var(--color-{$neoStyle}-500)));
+          --btn-bg-color-hover: var(--btn-{$neoStyle}-bg-color-hover, rgb(var(--color-{$neoStyle}-700)));
           --btn-content-color: var(--btn-{$neoStyle}-content-color, rgb(var(--color-{$neoStyle}-500-content)));
-          --btn-hover-color: var(--btn-{$neoStyle}-hover-color, rgb(var(--color-{$neoStyle}-700)));
-          --btn-hover-content-color: var(--btn-{$neoStyle}-hover-content-color, rgb(var(--color-{$neoStyle}-700-content)));
+          --btn-content-color-hover: var(--btn-{$neoStyle}-content-color-hover, rgb(var(--color-{$neoStyle}-700-content)));
         ";
         break;
 
       case 'outline':
+        $style[] = "
+          --btn-bg-transparent: transparent;
+          --btn-bg-color-hover: var(--btn-bg-color, rgb(var(--color-base-500)));
+          --btn-border-color: var(--btn-bg-color, rgb(var(--color-base-500)));
+          --btn-border-color-hover: var(--btn-bg-color, rgb(var(--color-base-500)));
+          --btn-content-color: var(--btn-bg-color, rgb(var(--color-base-500)));
+        ";
+        break;
+
       case 'primary-outline':
       case 'secondary-outline':
       case 'accent-outline':
       case 'success-outline':
       case 'warning-outline':
       case 'alert-outline':
-        $neoStyle = str_replace('-outline', '', $neoStyle) ?: 'base';
-        $neoStyle = $neoStyle === 'outline' ? 'base' : $neoStyle;
+        $neoStyle = str_replace('-outline', '', $neoStyle) ?: '';
         $style[] = "
-          --btn-color: transparent;
-          --btn-content-color: var(--btn-$neoStyle-color, rgb(var(--color-$neoStyle-500)));
-          --btn-hover-color: var(--btn-$neoStyle-color, rgb(var(--color-$neoStyle-700)));
-          --btn-hover-content-color: var(--btn-$neoStyle-content-color, rgb(var(--color-$neoStyle-0)));
-          --btn-border-color: var(--btn-$neoStyle-color, rgb(var(--color-$neoStyle-500)));
-          --btn-border-hover-color: var(--btn-$neoStyle-color, rgb(var(--color-$neoStyle-700)));
+          --btn-bg-transparent: transparent;
+          --btn-bg-color-hover: var(--btn-{$neoStyle}-bg-color, rgb(var(--color-{$neoStyle}-500)));
+          --btn-content-color: var(--btn-{$neoStyle}-bg-color, rgb(var(--color-{$neoStyle}-500)));
+          --btn-content-color-hover: var(--btn-{$neoStyle}-content-color-hover, rgb(var(--color-{$neoStyle}-500-content)));
+          --btn-border-color: var(--btn-{$neoStyle}-bg-color, rgb(var(--color-{$neoStyle}-500)));
+          --btn-border-color-hover: var(--btn-{$neoStyle}-bg-color, rgb(var(--color-{$neoStyle}-500)));
         ";
         break;
 
       case 'text':
         $style[] = "
-          --btn-color: transparent;
-          --btn-content-color: var(--btn-color, rgb(var(--color-base-500)));
-          --btn-hover-color: transparent;
-          --btn-hover-content-color: var(--btn-hover-color, rgb(var(--color-base-700)));
+          --btn-bg-transparent: transparent;
+          --btn-bg-color-hover: transparent;
+          --btn-content-color: var(--btn-bg-color, rgb(var(--color-base-500)));
+          --btn-content-color-hover: var(--btn-bg-color, rgb(var(--color-base-500)));
           --btn-text-decoration-hover: underline;
         ";
         $variables['attributes']['class'][] = 'first:pl-0 last:pr-0';
@@ -332,12 +341,12 @@ function neo_base_preprocess_input__submit(&$variables) {
       case 'text-alert':
         $neoStyle = str_replace('text-', '', $neoStyle);
         $style[] = "
-          --btn-color: transparent;
-          --btn-content-color: var(--btn-$neoStyle-color, rgb(var(--color-$neoStyle-500)));
-          --btn-hover-color: transparent;
-          --btn-hover-content-color: var(--btn-$neoStyle-hover-color, rgb(var(--color-$neoStyle-700)));
+          --btn-bg-transparent: transparent;
+          --btn-bg-color-hover: transparent;
+          --btn-content-color: var(--btn-$neoStyle-bg-color, rgb(var(--color-$neoStyle-500)));
+          --btn-content-color-hover: var(--btn-$neoStyle-bg-color, rgb(var(--color-$neoStyle-700)));
           --btn-border-color: transparent;
-          --btn-border-hover-color: transparent;
+          --btn-border-color-hover: transparent;
           --btn-text-decoration-hover: underline;
         ";
         $variables['attributes']['class'][] = 'first:pl-0 last:pr-0';
