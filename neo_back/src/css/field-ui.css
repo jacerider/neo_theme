@@ -8,9 +8,8 @@
   @apply p-3;
 }
 
-.field-option,
-.subfield-option {
-  @apply overflow-hidden rounded border-base-300 p-0 transition hover:border-primary-500 hover:shadow;
+.field-option {
+  @apply overflow-hidden rounded border-base-300 p-0 transition hover:border-primary-500 hover:shadow form-item-focus;
 
   &.focus,
   &.selected {
@@ -40,6 +39,10 @@
     @apply m-0;
   }
 
+  .field-option__words {
+    @apply py-2;
+  }
+
   .field-option__item {
     @apply p-2 pl-0;
   }
@@ -47,6 +50,32 @@
   ul,
   .field-option__description {
     @apply mt-1 text-xs;
+  }
+}
+
+.group-field-options {
+  @apply grid grid-cols-2;
+}
+
+.subfield-option {
+  @apply overflow-hidden rounded border-base-300 transition hover:border-primary-500 hover:shadow form-item-focus m-0;
+
+  input {
+    @apply hidden;
+  }
+
+  label {
+    @apply p-0 font-bold;
+  }
+}
+
+.field-suboption__item {
+  ul {
+    @apply mt-2;
+  }
+
+  li {
+    @apply text-base-400 text-xs;
   }
 }
 
@@ -58,5 +87,19 @@
   @apply flex items-center justify-center bg-none;
   &:before {
     @apply icon-shapes text-default/80 text-3xl;
+  }
+}
+
+.field-icon-neo-icon {
+  @apply flex items-center justify-center bg-none;
+  &:before {
+    @apply icon-icons text-default/80 text-3xl;
+  }
+}
+
+.field-icon-neo-scheme {
+  @apply flex items-center justify-center bg-none;
+  &:before {
+    @apply icon-swatchbook text-default/80 text-3xl;
   }
 }

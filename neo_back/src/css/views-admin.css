@@ -10,12 +10,15 @@
 }
 
 .views-admin {
+
   .form-actions {
     @apply border-base-300;
+    margin: 0 !important;
   }
 
   .views-displays {
     @apply m-0 border-base-300 p-0;
+    margin-bottom: 0 !important;
 
     .views-ui-display-tab-bucket__title {
       @apply m-0 p-0 pb-1 text-base font-bold;

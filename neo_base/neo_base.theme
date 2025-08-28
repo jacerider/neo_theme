@@ -20,7 +20,10 @@ function neo_base_element_info_alter(array &$info) {
   $info['table']['#pre_render'][] = [NeoBasePreRender::class, 'table'];
   $info['token_tree_table']['#pre_render'][] = [NeoBasePreRender::class, 'tokenTreeTable'];
 
+  $info['container']['#pre_render'] = array_merge([[NeoBasePreRender::class, 'container']], $info['container']['#pre_render']);
+  $info['details']['#pre_render'] = array_merge([[NeoBasePreRender::class, 'details']], $info['details']['#pre_render']);
   $info['fieldset']['#pre_render'] = array_merge([[NeoBasePreRender::class, 'fieldset']], $info['fieldset']['#pre_render']);
+  $info['fieldset']['#description_display'] = 'before';
   $info['fieldset']['#content_attributes'] = [];
 
   $info['vertical_tabs']['#pre_render'][] = [NeoBasePreRender::class, 'verticalTabs'];
@@ -69,16 +72,16 @@ function neo_base_preprocess(&$variables) {
     $style = [];
     switch ($variables['neo_size']) {
       case 'xl':
-        $style[] = '--form-item-spacing: 1rem;';
+        $style[] = '--spacing-form-item: 1rem;';
         break;
       case 'lg':
-        $style[] = '--form-item-spacing: 1rem;';
+        $style[] = '--spacing-form-item: 1rem;';
         break;
       case 'sm':
-        $style[] = '--form-item-spacing: 1rem;';
+        $style[] = '--spacing-form-item: 1rem;';
         break;
       case 'xs':
-        $style[] = '--form-item-spacing: 0.5rem;';
+        $style[] = '--spacing-form-item: 0.5rem;';
         break;
     }
     if ($style) {

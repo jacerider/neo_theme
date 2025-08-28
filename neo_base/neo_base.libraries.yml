@@ -125,3 +125,10 @@ horizontal-tabs:
   css:
     theme:
       src/css/horizontal-tabs.css: { minified: true }
+
+date-recur:
+  version: VERSION
+  neo: true
+  css:
+    theme:
+      src/css/date-recur.css: { minified: true }

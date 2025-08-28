@@ -1,3 +1,12 @@
+@import "./components/misc/block-layout.css";
+@import "./components/misc/inline-entity-form.css";
+@import "./components/misc/links.css";
+@import "./components/misc/messages.css";
+@import "./components/misc/permissions.css";
+@import "./components/misc/updates.css";
+
+@import "./components/view/view.css";
+
 body {
   @apply relative z-0 text-base font-normal;
 }
@@ -19,5 +28,12 @@ body {
 .container {
   > h2 {
     @apply my-form-item text-lg font-bold;
+  }
+}
+
+@layer base {
+
+  a {
+    @apply text-primary-600 no-underline transition hover:text-primary-800 hover:underline;
   }
 }

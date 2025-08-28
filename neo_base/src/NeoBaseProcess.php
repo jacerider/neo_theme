@@ -37,17 +37,19 @@ class NeoBaseProcess {
       $element['#attributes']['data-label'] = trim(strip_tags(strtolower((string) $element['#value'])));
     }
 
+    // Disabled as this now seems to work.
     $form_object = $form_state->getFormObject();
     switch ($form_object->getFormId()) {
       case 'entity_form_display_edit_form':
       case 'entity_view_display_edit_form':
         // Force submit buttons to be rendered as input elements to allow Drupal
         // to properly bind ajax behaviors.
-        if (!empty($element['#ajax'])) {
+        if (!empty($element['#ajax']) && isset($element['#op']) && $element['#op'] === 'refresh_table') {
           $element['#as_input'] = TRUE;
         }
         break;
     }
+
     return $element;
   }
 

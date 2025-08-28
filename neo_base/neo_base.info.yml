@@ -106,8 +106,10 @@ neo:
     '*,::after,::before,::backdrop,::file-selector-button':
       borderColor: var(--border-color-default)
   utilities:
-    .poops:
-      background: red
+    .container-center:
+      apply: '@apply container mx-auto!'
+    .container-content:
+      apply: '@apply container-center px-container!'
     .scrollbar-none:
       -ms-overflow-style: none
       scrollbar-width: none
@@ -155,17 +157,17 @@ neo:
         borderColor: 'var(--form-item-border-hover)'
       '&:focus':
         borderColor: 'var(--form-item-border-focus)'
-      '&:checked':
+      '&:checked,input:checked + &':
         backgroundColor: var(--form-item-primary)
         borderColor: var(--form-item-primary)
       '&:checked:focus':
         backgroundColor: var(--form-item-primary)
         borderColor: var(--form-item-primary)
-      '&:checked:hover':
+      '&:checked:hover,input:checked:hover + &':
         backgroundColor: var(--form-item-primary-active)
         borderColor: var(--form-item-primary-active)
     .form-item-focus:
-      '&.focus,&:focus,input:focus + &':
+      '&.focus,&:focus,input:focus + &,&.selected':
         outline: 2px solid transparent
         outline-offset: 2px
         --tw-ring-offset-width: 2px
@@ -243,6 +245,12 @@ libraries-extend:
     - neo_base/dialog
   core/drupal.tableheader:
     - neo_base/tableheader
+  date_recur_modular/date_recur_modular_alpha_widget:
+    - neo_base/date-recur
+  date_recur_modular/date_recur_modular_oscar_widget:
+    - neo_base/date-recur
+  date_recur_modular/date_recur_modular_sierra_widget:
+    - neo_base/date-recur
 libraries-override:
   system/base:
     css:
@@ -319,3 +327,7 @@ libraries-override:
     css:
       component:
         css/frontUi.css: false
+  date_recur_modular/date_recur_modular_sierra_widget:
+    css:
+      theme:
+        css/date-recur-modular-sierra-widget.css: false

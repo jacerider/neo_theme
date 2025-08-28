@@ -1,0 +1,19 @@
+.date-recur-modular-sierra-widget {
+
+  .date-recur-modular-sierra-widget-day,
+  .date-recur-modular-sierra-widget-recurrences {
+    @apply flex gap-2 items-center;
+
+    > div {
+      --spacing-form-item: 0;
+    }
+  }
+
+  .date-recur-modular-sierra-widget-recurrences {
+    @apply mt-2;
+  }
+
+  .button {
+    @apply btn-outline btn-xs;
+  }
+}

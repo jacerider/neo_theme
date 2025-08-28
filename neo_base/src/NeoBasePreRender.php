@@ -48,9 +48,28 @@ class NeoBasePreRender implements TrustedCallbackInterface {
   }
 
   /**
-   * Prerender callback for table.
+   * Prerender callback for details.
+   */
+  public static function container($element) {
+    $element['#neo_size'] = $element['#neo_size'] ?? 'md';
+    self::assignNeoSizeToChildren($element);
+    return $element;
+  }
+
+  /**
+   * Prerender callback for details.
+   */
+  public static function details($element) {
+    $element['#neo_size'] = $element['#neo_size'] ?? 'md';
+    self::assignNeoSizeToChildren($element);
+    return $element;
+  }
+
+  /**
+   * Prerender callback for fieldset.
    */
   public static function fieldset($element) {
+    $element['#description_display'] = $element['#description_display'] ?? 'before';
     if (!empty($element['#title'])) {
       foreach (Element::children($element) as $key) {
         if (isset($element[$key]['#neo_fieldset_region']) && ($element[$key]['#type'] ?? '') !== 'fieldset') {
@@ -64,6 +83,7 @@ class NeoBasePreRender implements TrustedCallbackInterface {
       $element['#title_display'] = 'invisible';
     }
     $element['#neo_size'] = $element['#neo_size'] ?? 'md';
+    self::assignNeoSizeToChildren($element);
     return $element;
   }
 
@@ -134,6 +154,10 @@ class NeoBasePreRender implements TrustedCallbackInterface {
 
     foreach ($props as $prop) {
       if (!isset($element["#neo_$prop"])) {
+        continue;
+      }
+      if (!is_array($element["#neo_$prop"])) {
+        // Tables need their neo props to be an array.
         continue;
       }
       foreach ($element["#neo_$prop"] as $i => $size) {
@@ -320,12 +344,27 @@ class NeoBasePreRender implements TrustedCallbackInterface {
   }
 
   /**
+   * Assign neo_size to children.
+   */
+  public static function assignNeoSizeToChildren(array &$element) {
+    foreach (Element::children($element) as $key) {
+      $child = &$element[$key];
+      if (is_array($child) && isset($child['#type'])) {
+        $child['#neo_size'] = $child['#neo_size'] ?? $element['#neo_size'];
+        self::assignNeoSizeToChildren($child);
+      }
+    }
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function trustedCallbacks() {
     return [
       'radios',
       'checkboxes',
+      'container',
+      'details',
       'fieldset',
       'verticalTabs',
       'table',

@@ -74,6 +74,22 @@ form {
   }
 }
 
+.admin-link button.link {
+  @apply btn btn-xs btn-outline;
+}
+
+.machine-name-label {
+  @apply text-base-600;
+}
+
+.machine-name-value {
+  @apply font-bold;
+}
+
+.machine-name-value + .admin-link {
+  @apply ml-2;
+}
+
 .fake-checkbox {
   @apply relative z-10 h-6 w-10 rounded-full border-2 checked:border-base-400 checked:bg-base-400;
 }
