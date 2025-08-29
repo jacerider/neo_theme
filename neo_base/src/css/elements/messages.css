@@ -1,18 +1,14 @@
 .messages {
-  @apply relative border-t-4 border-success-500 bg-success-100 px-4 py-3 pl-12 text-xs text-success-900 shadow-md;
-
-  &:before {
-    --icon-display: flex;
-    @apply icon-info-circle text-success-500-content bg-success-500;
-  }
+  @apply relative border-t-4 border-success-500 bg-success-100 px-4 py-3 pl-12 text-xs text-success-900 shadow-md min-h-8;
 
   &:last-child {
     @apply rounded-b;
   }
 
   &:before {
+    --icon-display: flex;
     /* Below line had important tag */
-    @apply absolute left-1 top-1 mr-2 flex h-8 w-8 items-center justify-center rounded text-lg;
+    @apply absolute left-1 top-1 bottom-1 mr-2 flex min-h-8 w-8 items-center justify-center rounded text-lg icon-info-circle text-success-500-content bg-success-500;
   }
 
   a {
