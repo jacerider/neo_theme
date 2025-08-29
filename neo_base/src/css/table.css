@@ -94,7 +94,7 @@ table {
 
     &,
     li {
-      @apply text-base;
+      @apply text-default;
     }
   }
 
