@@ -30,10 +30,3 @@ body {
     @apply my-form-item text-lg font-bold;
   }
 }
-
-@layer base {
-
-  a {
-    @apply text-primary-600 no-underline transition hover:text-primary-800 hover:underline;
-  }
-}
