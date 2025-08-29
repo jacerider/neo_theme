@@ -192,34 +192,6 @@ neo:
       apply: '@apply text-2xl md:text-3xl lg:text-4xl font-bold'
     .component-subtitle:
       apply: '@apply text-sm mt-2'
-    .m-component-xs:
-      apply: '@apply m-2 md:m-2 lg:m-2'
-    .m-component-sm:
-      apply: '@apply m-2 md:m-4 lg:m-6'
-    .m-component:
-      apply: '@apply m-4 md:m-6 lg:m-14'
-    .m-component-lg:
-      apply: '@apply m-6 md:m-14 lg:m-24'
-    .m-component-xl:
-      apply: '@apply m-12 md:m-20 lg:m-32'
-    .m-component-2xl:
-      apply: '@apply m-12 md:m-24 lg:m-44'
-    .m-component-3xl:
-      apply: '@apply m-12 md:m-24 lg:m-52'
-    .p-component-xs:
-      apply: '@apply p-2 md:p-2 lg:p-2'
-    .p-component-sm:
-      apply: '@apply p-2 md:p-4 lg:p-6'
-    .p-component:
-      apply: '@apply p-4 md:p-6 lg:p-14'
-    .p-component-lg:
-      apply: '@apply p-6 md:p-14 lg:p-24'
-    .p-component-xl:
-      apply: '@apply p-12 md:p-20 lg:p-32'
-    .p-component-2xl:
-      apply: '@apply p-12 md:p-24 lg:p-44'
-    .p-component-3xl:
-      apply: '@apply p-12 md:p-24 lg:p-52'
   variants:
     'is-active': ['&.is-active', '.is-active &', '&.active', '.active &']
     'is-active-trail': ['&.is-active-trail', '.is-active-trail &']
