@@ -1,3 +1,5 @@
+@import "./components/view/view.css";
+
 .region--content .field {
   &.field--label-above,
   &.field--label-inline {
