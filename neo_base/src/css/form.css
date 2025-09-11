@@ -2,6 +2,7 @@
 @import "./form/inline.css";
 @import "./form/autocomplete.css";
 @import "./form/tagify.css";
+@import "./form/number-plus-minus.css";
 
 .form-file {
   &::file-selector-button {
