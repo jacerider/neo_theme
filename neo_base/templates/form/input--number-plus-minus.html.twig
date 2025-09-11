@@ -1,0 +1,66 @@
+{#
+/**
+ * @file
+ * Default theme implementation for an 'input' #type form element.
+ *
+ * Available variables:
+ * - attributes: A list of HTML attributes for the input element.
+ * - children: Optional additional rendered elements.
+ *
+ * @see template_preprocess_input()
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = classes is defined ? classes : [
+    'relative',
+    'form-item-border',
+    'form-item-bg',
+    'form-item-focus',
+    'text-form-item-content',
+    'px-3',
+    'leading-tight',
+    'cursor-auto',
+    'transition',
+    'w-14',
+    'text-center',
+    'z-10',
+    'hover:z-30',
+    'focus:z-30',
+    neo_size == 'xl' ? 'py-4 text-xl',
+    neo_size == 'lg' ? 'py-3 text-lg',
+    neo_size == 'md' ? 'py-2 text-md',
+    neo_size == 'sm' ? 'py-2 text-sm',
+    neo_size == 'xs' ? 'py-1 text-xs',
+  ]
+%}
+{%
+  set btnClasses = btnClasses is defined ? btnClasses : [
+    'relative',
+    'form-item-border',
+    'bg-form-item-base-50',
+    'form-item-border-radius',
+    'text-form-item-content',
+    'px-3',
+    'leading-tight',
+    'cursor-auto',
+    'transition',
+    'min-w-10',
+    'cursor-pointer',
+    'hover:z-20',
+    'focus:z-20',
+    neo_size == 'xl' ? 'py-4 text-xl',
+    neo_size == 'lg' ? 'py-3 text-lg',
+    neo_size == 'md' ? 'py-2 text-md',
+    neo_size == 'sm' ? 'py-2 text-sm',
+    neo_size == 'xs' ? 'py-1 text-xs',
+  ]
+%}
+{% block input %}
+  {% apply spaceless %}
+  <button{{ minus_attributes.addClass(btnClasses, 'rounded-r-none') }}>-</button>
+  <input{{ attributes.addClass(classes) }}  style="margin-left: calc(var(--form-item-border-width) * -1); margin-right: calc(var(--form-item-border-width) * -1)" />{{ children }}
+  <button{{ plus_attributes.addClass(btnClasses, 'rounded-l-none') }}>+</button>
+  {% endapply %}
+{% endblock %}
