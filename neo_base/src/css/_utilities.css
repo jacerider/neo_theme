@@ -251,3 +251,24 @@
     color: var(--btn-accent-bg-color, var(--btn-content-color));
   }
 }
+
+@utility form-item-base-* {
+  &,
+  form {
+    --form-item-base: --value(--color-*, [color]) !important;
+  }
+}
+
+@utility form-item-border-* {
+  &,
+  form {
+    --form-item-border: --value(--color-*, [color]) !important;
+  }
+}
+
+@utility form-item-radius-* {
+  &,
+  form {
+    --form-item-border-radius: --value(--radius-*, [radius], 'none') !important;
+  }
+}
