@@ -16,6 +16,11 @@
   set classes = classes is defined ? classes : [
     neo_style == 'inline' ? 'flex flex-wrap',
     neo_style == 'inline_buttons' ? 'flex flex-wrap',
+    neo_style == 'inline_buttons' and neo_size == 'xl' ? 'gap-4',
+    neo_style == 'inline_buttons' and neo_size == 'lg' ? 'gap-3',
+    neo_style == 'inline_buttons' and neo_size == 'md' ? 'gap-2',
+    neo_style == 'inline_buttons' and neo_size == 'sm' ? 'gap-1.5',
+    neo_style == 'inline_buttons' and neo_size == 'xs' ? 'gap-1',
     neo_style == 'inline_elements' ? 'flex flex-wrap',
     neo_style == 'inline_elements' and neo_size == 'xl' ? 'gap-4',
     neo_style == 'inline_elements' and neo_size == 'lg' ? 'gap-3',
