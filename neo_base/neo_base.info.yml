@@ -134,7 +134,8 @@ neo:
       font-size: var(--text-md)
       line-height: 1.5rem
     .form-label:
-      apply: '@apply block mb-1'
+      display: block
+      marginBottom: calc(var(--spacing))
       color: 'var(--form-item-label)'
       fontSize: var(--text-sm)
       fontWeight: 700
