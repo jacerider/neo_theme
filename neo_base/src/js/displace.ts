@@ -1,5 +1,5 @@
 
-(function ($) {
+(function ($, Drupal, debounce) {
 
   type DisplaceOffset = {
     top: number;
@@ -21,6 +21,7 @@
   const cssVarPrefix = '--neo-displace-offset';
   const documentStyle = document.documentElement.style;
   const offsetKeys = Object.keys(cache) as (keyof DisplaceOffset)[];
+  const hasDrupalDisplace = typeof Drupal.behaviors.drupalDisplace !== 'undefined';
 
   const offsets: DisplaceOffset = Object.seal(
     Object.defineProperties({
@@ -130,14 +131,41 @@
     offsetKeys.forEach(edge => {
       offsets[edge] = newOffsets[edge];
     });
-    $(document).trigger('neoViewportOffsetChange', offsets);
+    if (!hasDrupalDisplace) {
+      $(document).trigger('drupalViewportOffsetChange', offsets);
+    }
     return offsets;
   }
 
-  $(document).on('drupalViewportOffsetChange.neoDisplace', (_event, _offsets) => {
-    displace();
-  });
+  if (hasDrupalDisplace) {
+    $(document).on('drupalViewportOffsetChange.neoDisplace', (_event, _offsets) => {
+      displace();
+      // Remove the event listener since we can rely on drupalViewportOffsetChange
+      // being triggered on resize events.
+      $(window).off('resize.neoDisplace');
+    });
+  }
 
-})(jQuery);
+  /**
+   * Registers a resize handler on the window.
+   *
+   * @type {Drupal~behavior}
+   */
+  Drupal.behaviors.neoDisplace = {
+    displaceProcessed: false,
+
+    attach() {
+      // Mark this behavior as processed on the first pass.
+      if (this.displaceProcessed) {
+        return;
+      }
+      this.displaceProcessed = true;
+      if (!hasDrupalDisplace) {
+        $(window).on({ 'resize.drupalDisplace': debounce(displace, 200) });
+      }
+    },
+  };
+
+})(jQuery, Drupal, Drupal.debounce);
 
 export {};

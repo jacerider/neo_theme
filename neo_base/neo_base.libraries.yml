@@ -32,6 +32,8 @@ displace:
   dependencies:
     # Remove dependency as soon as drupal.display removes jquery.
     - core/jquery
+    - core/drupal
+    - core/drupal.debounce
 
 form:
   version: VERSION
