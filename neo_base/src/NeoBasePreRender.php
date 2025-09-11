@@ -31,6 +31,13 @@ class NeoBasePreRender implements TrustedCallbackInterface {
   }
 
   /**
+   * Prerender callback for commerce product rendered attribute.
+   */
+  public static function commerceProductRenderedAttribute($element) {
+    return self::radios($element);
+  }
+
+  /**
    * Prerender callback for checkboxes.
    */
   public static function checkboxes($element) {
@@ -369,6 +376,7 @@ class NeoBasePreRender implements TrustedCallbackInterface {
       'verticalTabs',
       'table',
       'tokenTreeTable',
+      'commerceProductRenderedAttribute',
     ];
   }
 
