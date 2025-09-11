@@ -6,7 +6,7 @@
   }
 
   .progress__track {
-    @apply bg-base-200 my-1 w-full rounded-full p-0.5;
+    @apply bg-base-200 my-1 w-full rounded-full p-1 h-6 border-none;
   }
 
   .progress__bar {
