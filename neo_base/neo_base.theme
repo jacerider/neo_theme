@@ -31,6 +31,10 @@ function neo_base_element_info_alter(array &$info) {
   $info['form']['#inner_attributes'] = [];
 
   $info['radios']['#pre_render'][] = [NeoBasePreRender::class, 'radios'];
+  if (!empty($info['commerce_product_rendered_attribute'])) {
+    $info['commerce_product_rendered_attribute']['#pre_render'][] = [NeoBasePreRender::class, 'commerceProductRenderedAttribute'];
+  }
+  $info['radios']['#pre_render'][] = [NeoBasePreRender::class, 'radios'];
   $info['checkboxes']['#pre_render'][] = [NeoBasePreRender::class, 'checkboxes'];
 
   $info['submit']['#process'] = array_merge([[NeoBaseProcess::class, 'submit']], $info['submit']['#process']);
