@@ -229,6 +229,13 @@ function neo_base_preprocess_item_list(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_field().
+ */
+function neo_base_preprocess_field(&$variables) {
+  $variables['items_attributes'] = new Attribute($variables['element']['#items_attributes'] ?? []);
+}
+
+/**
  * Implements hook_preprocess_fieldset().
  */
 function neo_base_preprocess_fieldset(&$variables) {
