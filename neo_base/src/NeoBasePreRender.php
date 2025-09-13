@@ -197,8 +197,14 @@ class NeoBasePreRender implements TrustedCallbackInterface {
       $row = &$element['#rows'][$i]['data'];
       $count = 0;
       foreach ($row as $ii => $cellData) {
+        $cellClasses = NULL;
         if (!is_array($element['#rows'][$i]['data'][$ii])) {
           $element['#rows'][$i]['data'][$ii] = ['data' => $element['#rows'][$i]['data'][$ii]];
+        }
+        else {
+          $cellClasses = $element['#rows'][$i]['data'][$ii]['class'] ?? [];
+          $cellClasses = is_array($cellClasses) ? $cellClasses : [$cellClasses];
+          unset($element['#rows'][$i]['data'][$ii]['class']);
         }
         if (!isset($element['#rows'][$i]['data'][$ii]['data'])) {
           $data = array_filter($element['#rows'][$i]['data'][$ii], fn($v) => is_array($v));
@@ -208,6 +214,9 @@ class NeoBasePreRender implements TrustedCallbackInterface {
         $cell = &$element['#rows'][$i]['data'][$ii];
         $classes = $cell['class'] ?? [];
         $classes = is_array($classes) ? $classes : [$classes];
+        if ($cellClasses) {
+          $classes = array_merge($classes, $cellClasses);
+        }
         if (isset($globalClasses[$ii])) {
           $classes = array_merge($classes, $globalClasses[$ii]);
         }
