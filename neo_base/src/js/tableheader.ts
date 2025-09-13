@@ -15,6 +15,7 @@
 
     // Clone the table (deep clone to get all child elements)
     const clonedTable = table.cloneNode(true) as HTMLTableElement;
+    clonedTable.removeAttribute('id');
 
     // Find and clear the tbody in the cloned table
     const clonedTbody = clonedTable.querySelector('tbody');
