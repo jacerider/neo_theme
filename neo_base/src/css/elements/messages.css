@@ -1,5 +1,5 @@
 .messages {
-  @apply relative border-t-4 border-success-500 bg-success-100 px-4 py-3 pl-12 text-xs text-success-900 shadow-md min-h-8;
+  @apply relative border-t-4 border-base-500 bg-base-100 px-4 py-3 pl-12 text-xs text-base-900 shadow-md min-h-8;
 
   &:last-child {
     @apply rounded-b;
@@ -8,15 +8,26 @@
   &:before {
     --icon-display: flex;
     /* Below line had important tag */
-    @apply absolute left-1 top-1 bottom-1 mr-2 flex min-h-8 w-8 items-center justify-center rounded text-lg icon-info-circle text-success-500-content bg-success-500;
+    @apply absolute left-1 top-1 bottom-1 mr-2 flex min-h-8 w-8 items-center justify-center rounded text-lg icon-info-circle text-base-500-content bg-base-500;
   }
 
   a {
-    @apply font-bold text-success-700 hover:text-success-900;
+    @apply font-bold text-base-700 hover:text-base-900;
   }
 
-  &.messages--warning,
-  &.messages--warning-500 {
+  &.messages--status {
+    @apply border-success-500 bg-success-100 text-success-900;
+
+    &:before {
+      @apply icon-info-circle text-success-500-content bg-success-500;
+    }
+
+    a {
+      @apply font-bold text-success-700 hover:text-success-900;
+    }
+  }
+
+  &.messages--warning {
     @apply border-warning-500 bg-warning-100 text-warning-900;
 
     &:before {
@@ -28,8 +39,7 @@
     }
   }
 
-  &.messages--error,
-  &.messages--alert-500 {
+  &.messages--error {
     @apply border-alert-500 bg-alert-100 text-alert-900;
 
     &:before {
