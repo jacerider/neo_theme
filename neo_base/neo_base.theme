@@ -18,6 +18,9 @@ use Drupal\neo_icon\IconElementInterface;
  */
 function neo_base_element_info_alter(array &$info) {
   $info['table']['#pre_render'][] = [NeoBasePreRender::class, 'table'];
+  if (isset($info['tableselect'])) {
+    $info['tableselect']['#pre_render'][] = [NeoBasePreRender::class, 'table'];
+  }
   $info['token_tree_table']['#pre_render'][] = [NeoBasePreRender::class, 'tokenTreeTable'];
 
   $info['container']['#pre_render'] = array_merge([[NeoBasePreRender::class, 'container']], $info['container']['#pre_render']);
@@ -551,6 +554,7 @@ function neo_base_preprocess_page(&$variables) {
  */
 function neo_base_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   $form['#after_build'][] = 'neo_base_form_after_build';
+  $form['#attached']['library'][] = 'neo_base/form';
 
   // Preprocess views bulk operations.
   neo_base_form_alter_views_bulk_operations($form);
