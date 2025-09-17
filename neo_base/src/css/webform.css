@@ -1,0 +1,11 @@
+a.button.button-webform-table-setting {
+  @apply inline-block text-base-100-content/60 hover:text-base-100-content mb-0 rounded-t px-2 py-1 text-xs transition-opacity;
+  /* float: none; */
+  margin: calc(var(--spacing) * 3) 0 0 auto;
+  text-align: right;
+
+  + form {
+    clear: both;
+    margin-top: 0;
+  }
+}
