@@ -1,14 +1,34 @@
+/*
+  This supports styling both as an element and like:
+  <div class="messages messages--status"></div>
+
+  When styling via an element, the message is content-contained.
+*/
+
 .messages {
-  @apply relative border-t-4 border-base-500 bg-base-100 px-4 py-3 pl-12 text-xs text-base-900 shadow-md min-h-8;
+  @apply relative border-t-4 border-base-500 bg-base-100 text-xs text-base-900 shadow-md;
 
   &:last-child {
     @apply rounded-b;
   }
 
-  &:before {
-    --icon-display: flex;
-    /* Below line had important tag */
-    @apply absolute left-1 top-1 bottom-1 mr-2 flex min-h-8 w-8 items-center justify-center rounded text-lg icon-info-circle text-base-500-content bg-base-500;
+  .messages--inner {
+    @apply container-content;
+  }
+
+  .messages--message {
+    @apply relative;
+  }
+
+  &:not(.messages--container),
+  .messages--message {
+    @apply pr-4 py-3 pl-12 min-h-8;
+
+    &:before {
+      --icon-display: flex;
+      /* Below line had important tag */
+      @apply absolute left-1 top-1 bottom-1 mr-2 flex min-h-8 w-8 items-center justify-center rounded text-lg icon-info-circle text-base-500-content bg-base-500;
+    }
   }
 
   a {
@@ -18,8 +38,12 @@
   &.messages--status {
     @apply border-success-500 bg-success-100 text-success-900;
 
-    &:before {
-      @apply icon-info-circle text-success-500-content bg-success-500;
+    &:not(.messages--container),
+    .messages--message {
+
+      &:before {
+        @apply icon-info-circle text-success-500-content bg-success-500;
+      }
     }
 
     a {
@@ -30,8 +54,12 @@
   &.messages--warning {
     @apply border-warning-500 bg-warning-100 text-warning-900;
 
-    &:before {
-      @apply icon-exclamation-circle text-warning-950-content bg-warning-500;
+    &:not(.messages--container),
+    .messages--message {
+
+      &:before {
+        @apply icon-exclamation-circle text-warning-950-content bg-warning-500;
+      }
     }
 
     a {
@@ -42,8 +70,12 @@
   &.messages--error {
     @apply border-alert-500 bg-alert-100 text-alert-900;
 
-    &:before {
-      @apply icon-stop-circle text-alert-500-content bg-alert-500;
+    &:not(.messages--container),
+    .messages--message {
+
+      &:before {
+        @apply icon-stop-circle text-alert-500-content bg-alert-500;
+      }
     }
 
     a {
