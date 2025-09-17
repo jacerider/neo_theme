@@ -214,6 +214,8 @@ libraries-extend:
     - neo_base/dropbutton
   neo_tooltip/dropbutton:
     - neo_base/dropbutton
+  webform/webform.admin:
+    - neo_base/webform
   core/drupal.dialog:
     - neo_base/dialog
   core/drupal.tableheader:
