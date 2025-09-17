@@ -42,6 +42,13 @@ form:
     theme:
       src/css/form.css: { minified: true }
 
+webform:
+  version: VERSION
+  neo: true
+  css:
+    theme:
+      src/css/webform.css: { minified: true }
+
 table:
   version: VERSION
   neo: true
