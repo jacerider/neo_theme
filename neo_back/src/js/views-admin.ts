@@ -53,7 +53,6 @@
     $menu.find('li.add > a').on('click', function (event) {
       event.preventDefault();
       const $trigger = $(this);
-      console.log($trigger);
       Drupal.behaviors.viewsUiRenderAddViewButton.toggleMenu($trigger);
     });
     // Add a mouseleave handler to close the dropdown when the user mouses
