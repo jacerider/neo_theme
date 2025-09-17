@@ -48,6 +48,13 @@ function neo_back_form_alter(&$form, FormStateInterface $form_state, $form_id) {
       $form['permissions']['#sticky'] = TRUE;
       $form['actions']['#neo_style'] = 'sticky';
       break;
+
+    case 'webform_filter_form':
+    case 'webform_bulk_form':
+    case 'webform_submission_filter_form':
+    case 'webform_submission_bulk_form':
+      $form['#attributes']['class'][] = 'form--inline';
+      break;
   }
 }
 
