@@ -34,7 +34,6 @@
   {% set attributes = attributes.setAttribute('style', '--spacing-form: 0px;') %}
 {% endif %}
 
-{{ attach_library('neo_base/form') }}
 <form{{ attributes.addClass('form', classes) }}>
   <div{{ inner_attributes.addClass(inner_classes) }}>
     {% block children %}
