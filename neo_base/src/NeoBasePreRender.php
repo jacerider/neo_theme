@@ -150,6 +150,17 @@ class NeoBasePreRender implements TrustedCallbackInterface {
       'align',
     ];
 
+    // Ensure neo properties are arrays.
+    foreach ($props as $prop) {
+      if (isset($element["#neo_$prop"]) && !is_array($element["#neo_$prop"])) {
+        $element["#neo_$prop"] = [];
+      }
+    }
+
+    if ($element['#type'] === 'tableselect') {
+      $element['#neo_size'][key($element['#header'])] = 'min';
+    }
+
     switch ($element['#theme']) {
       case 'table__menu_overview':
         $element['#neo_size'] = [
@@ -183,7 +194,13 @@ class NeoBasePreRender implements TrustedCallbackInterface {
     $count = 0;
     $headerKeys = [];
     foreach ($element['#header'] as $i => $data) {
-      $key = is_array($data) ? $i : ($data ?: $i);
+      $key = is_array($data) ? $i : ((string) $data ?: $i);
+      if (in_array($i, ['operations', 'operations-links'])) {
+        if (!is_array($element['#header'][$i])) {
+          $element['#header'][$i] = ['data' => $element['#header'][$i]];
+        }
+        $element['#header'][$i]['class'][] = 'sticky-right';
+      }
       if ($key && !is_int($key)) {
         $headerKeys[$count] = Html::getClass($key);
       }
@@ -324,10 +341,13 @@ class NeoBasePreRender implements TrustedCallbackInterface {
       'username' => ['style--heading'],
       'id' => ['size--min', 'style--xs'],
       'type' => ['size--min', 'style--xs'],
-      'operations' => ['size--min'],
-      'operation-links' => ['size--min'],
+      'categories' => ['size--min'],
+      'operations' => ['size--min', 'sticky-right'],
+      'operation-links' => ['size--min', 'sticky-right'],
       'machine-name' => ['size--min', 'style--xs'],
       'author' => ['size--min', 'style--xs'],
+      'owner' => ['size--min', 'style--xs'],
+      'results' => ['size--min', 'style--xs'],
       'created' => ['size--min', 'style--xs'],
       'changed' => ['size--min', 'style--xs'],
       'updated' => ['size--min', 'style--xs'],
