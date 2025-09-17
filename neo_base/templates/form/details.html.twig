@@ -49,7 +49,15 @@
   {%- if title -%}
     <{% if use_alpine %}div{% else %}summary{% endif %}{{ summary_attributes.addClass(base_summary_classes, summary_classes) }}{% if use_alpine %} @click="expanded = ! expanded"{% endif %}>
       {% block summary %}
-        <div{{ summary_title_attributes.addClass(summary_title_classes) }}>{{ title }}</div>
+        <div{{ summary_title_attributes.addClass(summary_title_classes) }}>
+          <span>
+            {{ title }}
+          </span>
+          {% if required %}
+            <abbr class="font-normal form-required text-alert" aria-hidden="true">*</abbr>
+            <span class="visually-hidden">{{ 'required'|t }}</span>
+          {% endif %}
+        </div>
       {% endblock %}
     </{% if use_alpine %}div{% else %}summary{% endif %}>
   {%- endif -%}
