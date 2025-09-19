@@ -1,0 +1,12 @@
+.form-type--radios {
+
+  &[required] {
+    .form-type--radio:first-child {
+
+      /* When a radios field is required, hide the "None" option. */
+      &:has([value="_none"]) {
+        display: none;
+      }
+    }
+  }
+}
