@@ -247,6 +247,12 @@ function neo_base_preprocess_fieldset(&$variables) {
     $attributes->merge(new Attribute($variables['element']['#wrapper_attributes']));
     $variables['attributes'] = $attributes->toArray();
   }
+  if (isset($variables['element']['#type'])) {
+    $elementType = $variables['element']['#type'];
+    if ($elementType === 'radios') {
+      $variables['element_id'] = $variables['element']['#id'] . '--wrapper';
+    }
+  }
   $variables['neo_fieldset_region'] = $variables['element']['#neo_fieldset_region'] ?? [];
   $variables['content_attributes'] = new Attribute($variables['element']['#content_attributes'] ?? []);
 }
