@@ -17,7 +17,7 @@
   ]
 %}
 
-{% if neo_style not in ['inline_buttons', 'grid_buttons'] %}
+{% if neo_style not in ['inline_buttons', 'inline_buttons_outline', 'grid_buttons'] %}
   {%
     set inline = inline is defined ? inline : true
   %}
