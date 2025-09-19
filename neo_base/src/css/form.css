@@ -3,6 +3,7 @@
 @import "./form/autocomplete.css";
 @import "./form/tagify.css";
 @import "./form/number-plus-minus.css";
+@import "./form/radios.css";
 
 .form-file {
   &::file-selector-button {
