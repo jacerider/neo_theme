@@ -198,6 +198,7 @@ neo:
     'is-active-trail': ['&.is-active-trail', '.is-active-trail &']
     'is-focus': ['&.is-focus', '.is-focus &']
     'is-stuck': ['&.is-stuck', '.is-stuck &']
+    'is-required': ['&.form-required', '.form-required &']
     'checked-prev': ['input:checked + &']
     'focus-prev': ['input:focus + &']
 
