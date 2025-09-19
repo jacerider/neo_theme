@@ -43,3 +43,10 @@ table:
   css:
     theme:
       src/css/table.css: { minified: true }
+
+commerce-admin:
+  version: VERSION
+  neo: { scope: back }
+  css:
+    theme:
+      src/css/commerce-admin.css: { minified: true }
