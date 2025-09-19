@@ -17,7 +17,7 @@
 {%
   set classes = classes is defined ? classes : [
     neo_style == 'inline' ? 'flex flex-wrap',
-    neo_style == 'inline_buttons' ? 'flex flex-wrap',
+    neo_style in ['inline_buttons', 'inline_buttons_outline'] ? 'flex flex-wrap',
     neo_style == 'inline_elements' ? 'flex flex-wrap',
     neo_style == 'inline_elements' and neo_size == 'xl' ? 'gap-4',
     neo_style == 'inline_elements' and neo_size == 'lg' ? 'gap-3',
