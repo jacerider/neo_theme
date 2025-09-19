@@ -18,11 +18,18 @@ class NeoBasePreRender implements TrustedCallbackInterface {
    * Prerender callback for radios.
    */
   public static function radios($element) {
+    $requiredStates = NULL;
+    if (!empty($element['#states']['required'])) {
+      $requiredStates = $element['#states']['required'];
+    }
     foreach (Element::children($element) as $key) {
       $child = &$element[$key];
       if ($element['#item_attributes'] ?? FALSE) {
         $attributes = new Attribute($element['#item_attributes']);
         $child['#label_attributes'] = $attributes->toArray();
+      }
+      if ($requiredStates) {
+        $child['#states']['required'] = $requiredStates;
       }
       $child['#neo_style'] = $child['#neo_style'] ?? $element['#neo_style'] ?? 'default';
       $child['#neo_size'] = $child['#neo_size'] ?? $element['#neo_size'] ?? 'md';
