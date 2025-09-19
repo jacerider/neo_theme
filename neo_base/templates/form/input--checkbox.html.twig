@@ -11,7 +11,7 @@
     'rounded',
     'transition',
     disabled ? 'cursor-not-allowed' : 'cursor-pointer',
-    neo_style == 'inline_buttons' ? 'sr-only',
+    neo_style in ['inline_buttons', 'inline_buttons_outline'] ? 'sr-only',
     neo_style == 'inline_elements' ? '',
     neo_style == 'grid_buttons' ? 'sr-only',
     neo_size == 'xs' ? 'p-1.5',
