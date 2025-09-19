@@ -24,7 +24,18 @@
   ]
 %}
 {% if title %}
-  <h4{{ title_attributes.addClass(title_classes) }}>{{ title }}</h4>
+  <label{{ title_attributes.addClass(title_classes) }}>
+    {{ title }}
+    {% if required %}
+      <abbr class="font-normal form-required text-alert" aria-hidden="true">{% if title is empty %}<span class="text-xs">{{ 'Required'|t }}</span>{% endif %} *</abbr>
+      {% if title is not empty %}
+        <span class="visually-hidden">{{ 'required'|t }}</span>
+      {% endif %}
+    {% else %}
+      {# Support states #}
+      <abbr class="hidden font-normal text-alert is-required:inline-block" aria-hidden="true">*</abbr>
+    {% endif %}
+  </label>
 {% endif %}
 <div class="form--inline">
   {{ content }}
