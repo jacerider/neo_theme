@@ -58,6 +58,17 @@ function neo_back_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   }
 }
 
+function neo_back_preprocess_commerce_order__admin(array &$variables) {
+  /** @var \Drupal\commerce_order\Entity\OrderInterface $order */
+  $order = $variables['order_entity'];
+  $variables['meta_color'] = match($order->getState()->getId()) {
+    'draft' => 'bg-base-500 text-base-500-content',
+    'canceled' => 'bg-error-500 text-error-500-content',
+    default => 'bg-success-500 text-success-500-content',
+  };
+  // $variables['attributes']->addClass('p-card');
+}
+
 /**
  * Implements meta alterations.
  */
