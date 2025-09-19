@@ -37,6 +37,9 @@
         {% if title is not empty %}
           <span class="visually-hidden">{{ 'required'|t }}</span>
         {% endif %}
+      {% else %}
+        {# Support states #}
+        <abbr class="hidden font-normal text-alert is-required:inline-block" aria-hidden="true">*</abbr>
       {% endif %}
     </{{ tag|default('label') }}>
   {% endblock %}
