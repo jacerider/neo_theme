@@ -97,9 +97,19 @@
         {% endif %}
         <div{{ legend_span.attributes.addClass(base_legend_span_classes, legend_span_classes) }}>
           <div class="flex align-center gap-1">
-            <span>
-              {{ legend.title }}
-            </span>
+            {% if element_id %}
+              <label for="{{ element_id }}">
+                {{ legend.title }}
+                {% if not required %}
+                  {# Support states #}
+                  <abbr class="hidden font-normal text-alert is-required:inline-block" aria-hidden="true">*</abbr>
+                {% endif %}
+              </label>
+            {% else %}
+              <span>
+                {{ legend.title }}
+              </span>
+            {% endif %}
             {% if required %}
               <abbr class="font-normal form-required text-alert" aria-hidden="true">*</abbr>
               <span class="visually-hidden">{{ 'required'|t }}</span>
