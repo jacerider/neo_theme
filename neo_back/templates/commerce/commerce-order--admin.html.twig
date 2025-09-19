@@ -1,0 +1,123 @@
+{#
+/**
+ * @file
+ * Order template used on the admin order page.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the wrapper.
+ * - order: The rendered order fields.
+ *   Use 'order' to print them all, or print a subset such as
+ *   'order.order_number'. Use the following code to exclude the
+ *   printing of a given field:
+ *   @code
+ *   {{ order|without('order_number') }}
+ *   @endcode
+ * - order_entity: The order entity.
+ *
+ * @ingroup themeable
+ */
+#}
+
+{{ attach_library('commerce/admin-layout') }}
+{% set order_state = order_entity.getState.getLabel %}
+
+{%
+  set summaryClass = 'text-base relative z-10 flex items-center justify-between w-full text-left m-0 rounded focus transition cursor-pointer hover:text-primary-500 p-4 font-bold'
+%}
+
+{%
+  set detailsWrapperClass = 'grid text-sm text-base-600 p-form-item'
+%}
+
+<div class="layout-entity-form">
+  <div class="layout-order-admin layout-commerce-admin lg:flex lg:gap-form">
+    <div class="flex-1">
+      <div class="layout-region__content">
+        {{ order.order_items }}
+        <div class="mt-2 text-sm">
+          {{ order.total_price }}
+        </div>
+
+        {% if order.activity %}
+          <h2>{% trans %}Order activity{% endtrans %}</h2>
+          {{ order.activity }}
+        {% endif %}
+      </div>
+    </div>
+    <div class="mt-form-item lg:mt-0 lg:w-96">
+      <div class="entity-meta mt-form-item lg:mt-0 lg:w-96 accordion card w-full divide-y divide-base-200">
+        <div class="entity-meta__header p-card text-sm !m-0 !pt-0 accordion-item js-form-wrapper form-wrapper form--item">
+          <div class="entity-meta__title mt-0 mb-4 -ml-form-item -mr-form-item px-form-item py-4 font-bold text-xl rounded-t-sm {{ meta_color }} form-no-label form--item">
+            {{ order_state }}
+          </div>
+          {% for key in ['completed', 'placed', 'changed'] %}
+            {% if order[key] %}
+              <div class="">
+                {{ order[key] }}
+              </div>
+            {% endif %}
+          {% endfor %}
+          {% if stores_count > 1 and order.store_id %}
+            <div class="">
+              {{ order.store_id }}
+            </div>
+          {% endif %}
+          {% if order.balance %}
+            <div class="">
+              {{ order.balance }}
+            </div>
+          {% endif %}
+          {# If the order has possible transitions, render the field for transition buttons. #}
+          {% if order_entity.getState.getTransitions is not empty %}
+            {{ order.state }}
+          {% endif %}
+        </div>
+        <details open class="divide-y divide-base-100">
+          <summary role="button" class="{{ summaryClass }}">
+            {{ 'Customer Information'|t }}
+          </summary>
+          <div class="{{ detailsWrapperClass }}">
+            {% for key in ['uid', 'mail', 'ip_address'] %}
+              {% if order[key] %}
+                <div class="">
+                  {{ order[key] }}
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </details>
+        {% if order.billing_information %}
+          <details open class="divide-y divide-base-100">
+            <summary role="button" class="{{ summaryClass }}">
+              {{ 'Billing information'|t }}
+            </summary>
+            <div class="{{ detailsWrapperClass }}">
+              {{ order.billing_information }}
+            </div>
+          </details>
+        {% endif %}
+        {% if order.shipping_information %}
+          <details open class="divide-y divide-base-100">
+            <summary role="button" class="{{ summaryClass }}">
+              {{ 'Shipping information'|t }}
+            </summary>
+            <div class="{{ detailsWrapperClass }}">
+              {{ order.shipping_information }}
+            </div>
+          </details>
+        {% endif %}
+        {% if additional_order_fields %}
+          <details open class="divide-y divide-base-100">
+            <summary role="button" class="{{ summaryClass }}">
+              {{ 'Other'|t }}
+            </summary>
+            {# Show fields that are not shown elsewhere. #}
+            <div class="{{ detailsWrapperClass }}">
+              {{ additional_order_fields }}
+            </div>
+          </details>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
