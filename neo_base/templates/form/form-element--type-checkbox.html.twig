@@ -4,12 +4,12 @@
   set classes = [
     neo_style == 'default' ? 'my-1 first:mt-0 last:mb-0',
     neo_style == 'inline' ? 'mr-form-item last:mr-0',
-    neo_style == 'inline_buttons' ? 'last:mr-0',
-    neo_style == 'inline_buttons' and neo_size == 'xl' ? 'mr-5',
-    neo_style == 'inline_buttons' and neo_size == 'lg' ? 'mr-4',
-    neo_style == 'inline_buttons' and neo_size == 'md' ? 'mr-3',
-    neo_style == 'inline_buttons' and neo_size == 'sm' ? 'mr-2',
-    neo_style == 'inline_buttons' and neo_size == 'xs' ? 'mr-1',
+    neo_style in ['inline_buttons', 'inline_buttons_outline'] ? 'last:mr-0',
+    neo_style in ['inline_buttons', 'inline_buttons_outline'] and neo_size == 'xl' ? 'mr-5',
+    neo_style in ['inline_buttons', 'inline_buttons_outline'] and neo_size == 'lg' ? 'mr-4',
+    neo_style in ['inline_buttons', 'inline_buttons_outline'] and neo_size == 'md' ? 'mr-3',
+    neo_style in ['inline_buttons', 'inline_buttons_outline'] and neo_size == 'sm' ? 'mr-2',
+    neo_style in ['inline_buttons', 'inline_buttons_outline'] and neo_size == 'xs' ? 'mr-1',
     neo_style == 'inline_elements' ? 'mt-0 mb-0 form-item-border rounded p-1 px-2',
     neo_style == 'grid_buttons' ? 'flex items-stretch',
     disabled ? 'opacity-50',
@@ -22,7 +22,7 @@
   ]
 %}
 
-{% if neo_style not in ['inline_buttons', 'grid_buttons'] %}
+{% if neo_style not in ['inline_buttons', 'inline_buttons_outline', 'grid_buttons'] %}
   {%
     set inline = inline is defined ? inline : true
   %}
