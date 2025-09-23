@@ -58,9 +58,11 @@
   {% endif %}
   {{ title_suffix }}
   {% if header %}
-    <div class="view-header">
-      {{ header }}
-    </div>
+    {% block header %}
+      <div{{ header_attributes.addClass('view-header') }}>
+        {{ header }}
+      </div>
+    {% endblock %}
   {% endif %}
   {% if exposed %}
     <div class="view-filters">
@@ -87,7 +89,7 @@
       </div>
     {% endif %}
   {% elseif empty %}
-    <div class="view-empty">
+    <div{{ empty_attributes.addClass('view-empty') }}>
       {{ empty }}
     </div>
   {% endif %}
@@ -104,7 +106,7 @@
     {{ more }}
   {% endif %}
   {% if footer %}
-    <div class="view-footer">
+    <div{{ footer_attributes.addClass('view-footer') }}>
       {{ footer }}
     </div>
   {% endif %}
