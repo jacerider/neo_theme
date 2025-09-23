@@ -39,7 +39,7 @@
       @apply md:flex-[1_1_160px];
 
       &.form-actions {
-        @apply md:grow-0;
+        @apply md:flex-none;
       }
     }
   }
