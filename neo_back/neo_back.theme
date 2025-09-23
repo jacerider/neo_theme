@@ -139,3 +139,30 @@ function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterf
 function neo_back_preprocess_form(&$variables) {
   $variables['inner_attributes']->addClass('bg-default');
 }
+
+/**
+ * Implements template_preprocess_views_view().
+ */
+function back_preprocess_views_view(&$variables) {
+  foreach ([
+    'header',
+    'footer',
+    'empty',
+  ] as $region) {
+    if (!empty($variables[$region]) && is_array($variables[$region])) {
+      $count = 0;
+      foreach ($variables[$region] as $key => &$item) {
+        if (is_array($item) && isset($item['#type'])) {
+          switch ($item['#type']) {
+            case 'link':
+              $count++;
+              break;
+          }
+        }
+      }
+      if (count($variables[$region]) === $count) {
+        $variables[$region . '_attributes']['class'][] = 'flex gap-2 flex-wrap';
+      }
+    }
+  }
+}
