@@ -102,6 +102,19 @@ function neo_base_preprocess(&$variables) {
 }
 
 /**
+ * Implements template_preprocess_views_view().
+ */
+function neo_base_preprocess_views_view(&$variables) {
+  foreach ([
+    'header',
+    'footer',
+    'empty',
+  ] as $region) {
+    $variables[$region . '_attributes'] = new Attribute($variables[$region . '_attributes'] ?? []);
+  }
+}
+
+/**
  * Implements hook_preprocess_views_view_table().
  */
 function neo_base_preprocess_views_view_table(&$variables) {
