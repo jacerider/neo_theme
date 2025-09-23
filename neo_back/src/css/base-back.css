@@ -30,3 +30,7 @@ body {
     @apply my-form-item text-lg font-bold;
   }
 }
+
+.block--back-page-title h1 {
+  @apply flex gap-2;
+}
