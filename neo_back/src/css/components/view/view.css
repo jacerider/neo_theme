@@ -8,9 +8,9 @@
 
 .view-header,
 .view-footer {
-  &:not(:has(div)),
+  &:not(:has(div)):not(:has(a)),
   .view-result {
-    @apply card bg-base-100 p-2 text-xs text-base-700;
+    @apply card bg-base-0 p-2 text-xs text-base-700;
   }
 
   &:not(:has(*)) {
@@ -19,6 +19,10 @@
 
   p {
     @apply mb-2 text-sm;
+  }
+
+  > a {
+    @apply btn btn-xs;
   }
 }
 
