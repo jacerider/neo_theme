@@ -161,8 +161,9 @@
       }
       this.displaceProcessed = true;
       if (!hasDrupalDisplace) {
-        $(window).on({ 'resize.drupalDisplace': debounce(displace, 200) });
+        $(window).on({'resize.neoDisplace': debounce(displace, 200)});
       }
+      displace();
     },
   };
 
