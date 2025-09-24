@@ -27,12 +27,13 @@
     'leading-tight',
     'w-full',
     'text-xs',
+    'hover:border-inherit',
     '[&>.file]:text-sm',
   ]
 %}
 {% endif %}
-<div{{ attributes.addClass(classes) }}>
+<div{{ attributes.addClass(classes) }} style="border-color: var(--form-item-border)">
   {{ data.preview }}
   {# Render widget data without the image preview that was output already. #}
-  {{ data|without('preview') }}
+  <div class="lg:whitespace-nowrap lg:flex gap-form-item items-center">{{ data|without('preview') }}</div>
 </div>
