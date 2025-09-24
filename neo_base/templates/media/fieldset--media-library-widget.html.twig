@@ -17,11 +17,13 @@
 
 {% block children %}
   {{ attach_library('neo_base/media-library') }}
-  {{ children }}
+  <div>
+    {{ children }}
+  </div>
 {% endblock %}
 
 {% block suffix %}
-  <span class="block mt-2 text-sm media-library-widget--suffix">{{ suffix }}</span>
+  <span class="block text-sm media-library-widget--suffix">{{ suffix }}</span>
 {% endblock %}
 
 {% block description %}
