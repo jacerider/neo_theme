@@ -1,7 +1,6 @@
 @theme {
   --text-md: 1rem;
   /* Colors */
-  --color-site: rgb(var(--color-base-900));
   --color-site: rgb(var(--color-base-950));
   --color-form-item-primary: var(--form-item-primary);
   --color-form-item-primary-active: var(--form-item-primary-active);
@@ -16,9 +15,10 @@
   --color-form-item-description: var(--form-item-description);
   --color-bg-default: rgb(var(--color-base-0));
   --color-text-default: rgb(var(--color-base-0-content));
+  --color-border-default: rgb(var(--color-base-200));
   --background-color-default: rgb(var(--color-base-0));
   --text-color-default: rgb(var(--color-base-0-content));
-  --border-color-default: rgb(var(--color-base-200));
+
   /* Spacing */
   --spacing-container: calc(var(--spacing) * 4);
   --spacing-form: var(--form-spacing, 0px);
