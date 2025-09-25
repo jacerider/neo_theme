@@ -2,7 +2,7 @@
 @import "./elements/messages.css";
 @import "./elements/pager.css";
 
-@layer component {
+@layer base {
   html,
   body {
     @apply bg-site;
@@ -83,6 +83,7 @@
   }
 
   *,::after,::before,::backdrop,::file-selector-button {
-    border-color: var(--border-color-default);
+    @apply border-border-default;
+    /* border-color: var(--color-border-default, red); */
   }
 }
