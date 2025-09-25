@@ -1,0 +1,3 @@
+@theme {
+  --form-spacing: calc(var(--spacing) * 6);
+}
