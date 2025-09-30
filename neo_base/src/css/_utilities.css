@@ -53,7 +53,8 @@
   --form-item-placeholder: rgb(var(--color-base-600));
   --form-item-description: rgb(var(--color-base-400));
   --form-item-ring: rgb(var(--color-primary-600));
-
+  --form-item-inner-spacing: 1;
+  /* Button */
   --btn-font-size: var(--text-md);
   --btn-border-width: 2px;
   --btn-border-radius: var(--radius-md);
@@ -70,20 +71,20 @@
   --btn-px: var(--btn-px-md);
 
   /* Button: XS */
-  --btn-py-xs: calc(var(--spacing) * 1);
-  --btn-px-xs: calc(var(--spacing) * 2);
+  --btn-py-xs: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * 1);
+  --btn-px-xs: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * 2);
   /* Button: SM */
-  --btn-py-sm: calc(var(--spacing) * 1.5);
-  --btn-px-sm: calc(var(--spacing) * 3);
+  --btn-py-sm: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * 2);
+  --btn-px-sm: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * 3);
   /* Button: DEFAULT */
-  --btn-py-md: calc(var(--spacing) * 2);
-  --btn-px-md: calc(var(--spacing) * 3);
+  --btn-py-md: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * 3);
+  --btn-px-md: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * 4);
   /* Button: LG */
-  --btn-py-lg: calc(var(--spacing) * 3);
-  --btn-px-lg: calc(var(--spacing) * 4);
+  --btn-py-lg: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * 4);
+  --btn-px-lg: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * 5);
   /* Button: XL */
-  --btn-py-xl: calc(var(--spacing) * 4);
-  --btn-px-xl: calc(var(--spacing) * 5);
+  --btn-py-xl: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * 5);
+  --btn-px-xl: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * 6);
 }
 
 .form-item .description {
@@ -108,8 +109,8 @@
   padding: var(--btn-py) var(--btn-px);
   text-decoration: var(--btn-text-decoration);
   text-transform: var(--btn-text-transform);
+  line-height: var(--leading-tight);
   text-align: center;
-  line-height: 1.2;
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease;
   box-sizing: border-box;
@@ -324,4 +325,16 @@
   form {
     --form-item-border-radius: --value(--radius-*, [radius], 'none') !important;
   }
+}
+
+@utility p-form-item-inner-* {
+  padding: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * --value(integer));
+}
+
+@utility py-form-item-inner-* {
+  padding-block: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * --value(integer));
+}
+
+@utility px-form-item-inner-* {
+  padding-inline: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * --value(integer));
 }
