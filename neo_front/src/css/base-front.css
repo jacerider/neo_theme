@@ -1,21 +1,24 @@
 @import "./components/view/view.css";
 
 @layer base {
-  .region--content .field {
+  .region--content .field,
+  .neo-modal .field {
     &.field--label-above,
     &.field--label-inline {
       @apply m-0 border-b py-1 last:border-b-0;
     }
 
     .field--label {
-      @apply inline-block rounded bg-base-200 px-2 py-0.5 text-xs text-base-700;
+      @apply inline-block rounded px-2 py-0.5 text-xs;
+      background-color: var(--form-item-base, rgb(var(--color-base-200)));
+      color: var(--form-item-content, rgb(var(--color-base-700)));
     }
 
     &.field--label-inline {
       @apply flex items-center;
 
       .field--label {
-        @apply mr-2 rounded bg-base-200 px-2 py-0.5 text-xs text-base-700;
+        @apply mr-2 rounded px-2 py-0.5 text-xs;
       }
     }
   }
