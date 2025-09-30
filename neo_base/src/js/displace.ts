@@ -44,6 +44,23 @@
   );
 
   /**
+   * Debounced function to handle resize observer entries.
+   */
+  const handleResizeEntries = debounce((entries: ResizeObserverEntry[]) => {
+    entries.forEach((_entry) => {
+      // Trigger displacement recalculation after resize
+      displace();
+    });
+  }, 100);
+
+  /**
+   * Observes size changes of displacing elements.
+   */
+  const resizeObserver = new ResizeObserver((entries) => {
+    handleResizeEntries(entries);
+  });
+
+  /**
    * Gets a specific edge's offset.
    *
    * Any element with the attribute data-offset-{edge} e.g. data-offset-top will
@@ -72,6 +89,13 @@
       if (el.style.display === 'none') {
         continue;
       }
+
+      // Watch for changes in the element's size.
+      if (el.dataset.neoOffsetProcessed !== 'true') {
+        el.dataset.neoOffsetProcessed = 'true';
+        resizeObserver.observe(el);
+      }
+
       // If the offset data attribute contains a displacing value, use it.
       let displacement = parseInt(el.getAttribute(`data-neo-offset-${edge}`) as string, 10);
       // If the element's offset data attribute exits
