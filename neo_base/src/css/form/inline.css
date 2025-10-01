@@ -27,6 +27,36 @@
   > .button {
     @apply grow-0 text-nowrap;
   }
+
+  /* This works really great for fieldsets within inline forms */
+  @variant md {
+    > .form-wrapper {
+      @apply border-none bg-inherit;
+
+      > fieldset {
+
+        > legend > .fieldset--legend {
+          @apply form-label p-0;
+        }
+
+        > .fieldset--content {
+          @apply flex gap-1 m-0;
+
+          .form-item {
+            @apply flex items-center gap-1 grow;
+
+            label {
+              @apply font-normal text-xs;
+            }
+
+            > div {
+              @apply grow;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 .form--inline {
