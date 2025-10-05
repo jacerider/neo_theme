@@ -327,6 +327,34 @@
   }
 }
 
+@utility m-children-* {
+  .form--item {
+    margin: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * --value(integer));
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+@utility my-children-* {
+  .form--item {
+    margin-block: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * --value(integer));
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
 @utility p-form-item-inner-* {
   padding: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * --value(integer));
 }
