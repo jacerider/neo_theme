@@ -18,6 +18,7 @@ use Drupal\neo_icon\IconElementInterface;
  */
 function neo_base_element_info_alter(array &$info) {
   $info['table']['#pre_render'][] = [NeoBasePreRender::class, 'table'];
+  $info['field_ui_table']['#pre_render'][] = [NeoBasePreRender::class, 'table'];
   if (isset($info['tableselect'])) {
     $info['tableselect']['#pre_render'][] = [NeoBasePreRender::class, 'table'];
   }
