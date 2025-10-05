@@ -34,3 +34,26 @@ body {
 .block--back-page-title h1 {
   @apply flex gap-2;
 }
+
+@layer utilities {
+  .region--content .field,
+  .neo-modal .field {
+    @apply m-0 py-1;
+
+    .field--label {
+      @apply inline-block rounded px-2 py-0.5 text-xs bg-base-200 text-base-700;
+    }
+
+    > .form-label {
+      @apply inline-block rounded px-2 py-0.5 font-normal text-xs bg-base-200 text-base-700;
+    }
+
+    &.field--label-inline {
+      @apply flex items-center;
+
+      .field--label {
+        @apply mr-2 rounded px-2 py-0.5 text-xs;
+      }
+    }
+  }
+}
