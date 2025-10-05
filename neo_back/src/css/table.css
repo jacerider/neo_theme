@@ -16,3 +16,7 @@ table .permission {
     }
   }
 }
+
+.field-ui-overview .field-plugin-summary {
+  @apply text-xs text-base-600 lg:min-w-40;
+}
