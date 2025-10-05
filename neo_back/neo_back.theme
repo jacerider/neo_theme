@@ -55,6 +55,18 @@ function neo_back_form_alter(&$form, FormStateInterface $form_state, $form_id) {
     case 'webform_submission_bulk_form':
       $form['#attributes']['class'][] = 'form--inline';
       break;
+
+    case 'entity_form_display_edit_form':
+    case 'entity_view_display_edit_form':
+      $form['fields']['#neo_style'] = [
+        0 => 'heading',
+        1 => 'xs',
+      ];
+      $form['fields']['#neo_size'] = [
+        0 => 'min',
+        1 => 'min',
+      ];
+      break;
   }
 }
 
@@ -73,7 +85,7 @@ function neo_back_preprocess_commerce_order__admin(array &$variables) {
  * Implements meta alterations.
  */
 function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterface $entity) {
-  if (!empty($form['status'])) {
+  if (!empty($form['status']) && empty($form['status']['#group'])) {
     $form['status']['#group'] = 'footer';
   }
   if (!empty($form['actions'])) {
