@@ -138,6 +138,10 @@ libraries-extend:
     - neo_base/date-recur
   date_recur_modular/date_recur_modular_sierra_widget:
     - neo_base/date-recur
+  media_library/widget:
+    - neo_base/media-library
+  media_library/ui:
+    - neo_base/media-library
 libraries-override:
   system/base:
     css:
