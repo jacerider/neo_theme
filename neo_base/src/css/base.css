@@ -40,6 +40,11 @@
   }
 }
 
+/* Native toolbar support */
+body.toolbar-fixed {
+  padding-top: 0 !important;
+}
+
 @layer base {
 
   a {
