@@ -4,5 +4,3 @@
 //     console.log('Frontend', context, once);
 //   };
 // })(Drupal, once);
-
-export {};
