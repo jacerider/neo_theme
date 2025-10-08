@@ -198,6 +198,10 @@ table {
 .tabledrag-toggle-weight-wrapper {
   @apply relative flex justify-end;
 
+  .table--header + .table--inner & {
+    @apply bg-base-0 border-b;
+  }
+
   .tabledrag-toggle-weight {
     @apply text-base-100-content/60 hover:text-base-100-content mb-0 rounded-t px-2 py-1 text-xs transition-opacity;
   }
