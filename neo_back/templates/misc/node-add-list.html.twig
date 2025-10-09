@@ -18,7 +18,7 @@
 {% if types is not empty %}
   <dl{{ attributes.addClass(classes, 'card mt-6 first:mt-0') }}>
     {% for type in types %}
-      <div class="px-6 py-4 border-b border-base-300 list-group--item last:border-b-0">
+      <div class="px-6 py-4 border-b list-group--item last:border-b-0">
         <dt class="list-group--link font-bold text-lg [&_a]:text-primary-500 [&_a:hover]:text-primary-700">{{ type.add_link }}</dt>
         {% if type.description %}
           <dd class="text-xs list-group--description">{{ type.description }}</dd>
