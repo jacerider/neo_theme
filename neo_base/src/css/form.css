@@ -7,6 +7,6 @@
 
 .form-file {
   &::file-selector-button {
-    @apply leading-tight px-3 py-form-item-inner-2 mr-3 btn btn-primary btn-sm;
+    @apply leading-tight px-3 py-form-item-inner-2 mr-3 btn btn-primary btn-sm rounded-xs;
   }
 }
