@@ -1,0 +1,34 @@
+{#
+/**
+ * @file
+ * Default theme implementation to present a list of available bundles.
+ *
+ * Available variables:
+ *   - bundles: A list of bundles, each with the following properties:
+ *     - label: Bundle label.
+ *     - description: Bundle description.
+ *     - add_link: Link to create an entity of this bundle.
+ *   - add_bundle_message: The message shown when there are no bundles. Only
+ *                         available if the entity type uses bundle entities.
+ *
+ * @see template_preprocess_entity_add_list()
+ *
+ * @ingroup themeable
+ */
+#}
+{% if bundles is not empty %}
+  <dl{{ attributes.addClass(classes, 'card mt-6 first:mt-0') }}>
+    {% for bundle in bundles %}
+      <div class="px-6 py-4 border-b list-group--item last:border-b-0">
+        <dt class="list-group--link font-bold text-lg [&_a]:text-primary-500 [&_a:hover]:text-primary-700">{{ bundle.add_link }}</dt>
+        {% if bundle.description %}
+          <dd class="text-xs list-group--description">{{ bundle.description }}</dd>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </dl>
+{% else %}
+  <p>
+    {{ add_bundle_message }}
+  </p>
+{% endif %}
