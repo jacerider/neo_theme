@@ -24,9 +24,20 @@ function neo_base_element_info_alter(array &$info) {
   }
   $info['token_tree_table']['#pre_render'][] = [NeoBasePreRender::class, 'tokenTreeTable'];
 
-  $info['container']['#pre_render'] = array_merge([[NeoBasePreRender::class, 'container']], $info['container']['#pre_render']);
-  $info['details']['#pre_render'] = array_merge([[NeoBasePreRender::class, 'details']], $info['details']['#pre_render']);
-  $info['fieldset']['#pre_render'] = array_merge([[NeoBasePreRender::class, 'fieldset']], $info['fieldset']['#pre_render']);
+  $info['accordion']['#pre_render'] = array_merge([
+    [NeoBasePreRender::class, 'neoSize']
+  ], $info['accordion']['#pre_render']);
+  $info['container']['#pre_render'] = array_merge([
+    [NeoBasePreRender::class, 'neoSize']
+  ], $info['container']['#pre_render']);
+  $info['details']['#pre_render'] = array_merge([
+    [NeoBasePreRender::class, 'neoSize'],
+    [NeoBasePreRender::class, 'neoRegion'],
+  ], $info['details']['#pre_render']);
+  $info['fieldset']['#pre_render'] = array_merge([
+    [NeoBasePreRender::class, 'neoSize'],
+    [NeoBasePreRender::class, 'neoRegion'],
+  ], $info['fieldset']['#pre_render']);
   $info['fieldset']['#description_display'] = 'before';
   $info['fieldset']['#content_attributes'] = [];
 
@@ -267,8 +278,19 @@ function neo_base_preprocess_fieldset(&$variables) {
       $variables['element_id'] = $variables['element']['#id'] . '--wrapper';
     }
   }
-  $variables['neo_fieldset_region'] = $variables['element']['#neo_fieldset_region'] ?? [];
   $variables['content_attributes'] = new Attribute($variables['element']['#content_attributes'] ?? []);
+  $variables['neo_region'] = $variables['element']['#neo_region'] ?? [];
+}
+
+/**
+ * Implements hook_preprocess_details().
+ */
+function neo_base_preprocess_details(&$variables) {
+  $variables['open'] = $variables['element']['#open'] ?? FALSE;
+  $variables['summary_title_attributes'] = new Attribute($variables['summary_title_attributes'] ?? []);
+  $variables['content_attributes'] = new Attribute($variables['content_attributes'] ?? []);
+  $variables['description_attributes'] = new Attribute($variables['description_attributes'] ?? []);
+  $variables['neo_region'] = $variables['element']['#neo_region'] ?? [];
 }
 
 /**
@@ -509,16 +531,6 @@ function neo_base_preprocess_textarea(&$variables) {
   if (isset($variables['element']['#attributes']['data-media-embed-host-entity-langcode'])) {
     $variables['wrapper_attributes']->addClass('prose max-w-none font-primary');
   }
-}
-
-/**
- * Implements hook_preprocess_details().
- */
-function neo_base_preprocess_details(&$variables) {
-  $variables['open'] = $variables['element']['#open'] ?? FALSE;
-  $variables['summary_title_attributes'] = new Attribute($variables['summary_title_attributes'] ?? []);
-  $variables['content_attributes'] = new Attribute($variables['content_attributes'] ?? []);
-  $variables['description_attributes'] = new Attribute($variables['description_attributes'] ?? []);
 }
 
 /**
