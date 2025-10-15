@@ -32,12 +32,6 @@ views-admin:
     theme:
       src/css/views-admin.css: { minified: true }
 
-# dialog-ajax:
-#   version: VERSION
-#   neo: { scope: back }
-#   js:
-#     src/js/dialog-ajax.ts: {}
-
 form:
   version: VERSION
   neo: { scope: back }
