@@ -62,46 +62,6 @@ class NeoBasePreRender implements TrustedCallbackInterface {
   }
 
   /**
-   * Prerender callback for details.
-   */
-  public static function container($element) {
-    $element['#neo_size'] = $element['#neo_size'] ?? 'md';
-    self::assignNeoSizeToChildren($element);
-    return $element;
-  }
-
-  /**
-   * Prerender callback for details.
-   */
-  public static function details($element) {
-    $element['#neo_size'] = $element['#neo_size'] ?? 'md';
-    self::assignNeoSizeToChildren($element);
-    return $element;
-  }
-
-  /**
-   * Prerender callback for fieldset.
-   */
-  public static function fieldset($element) {
-    $element['#description_display'] = $element['#description_display'] ?? 'before';
-    if (!empty($element['#title'])) {
-      foreach (Element::children($element) as $key) {
-        if (isset($element[$key]['#neo_fieldset_region']) && ($element[$key]['#type'] ?? '') !== 'fieldset') {
-          // Currently supports placing 'legend_start' and 'legend_end'.
-          $element['#neo_fieldset_region'][$element[$key]['#neo_fieldset_region']][$key] = $element[$key];
-          unset($element[$key]);
-        }
-      }
-    }
-    else {
-      $element['#title_display'] = 'invisible';
-    }
-    $element['#neo_size'] = $element['#neo_size'] ?? 'md';
-    self::assignNeoSizeToChildren($element);
-    return $element;
-  }
-
-  /**
    * Prerender callback for vertical tabs.
    */
   public static function verticalTabs($element) {
@@ -387,16 +347,37 @@ class NeoBasePreRender implements TrustedCallbackInterface {
   }
 
   /**
+   * Handle neo regions.
+   */
+  public static function neoRegion($element) {
+    if (!empty($element['#title'])) {
+      foreach (Element::children($element) as $key) {
+        if (isset($element[$key]['#neo_region']) && !in_array($element[$key]['#type'] ?? '', ['fieldset', 'details', 'accordion'])) {
+          // Currently supports placing 'legend_start' and 'legend_end'.
+          $element['#neo_region'][$element[$key]['#neo_region']][$key] = $element[$key];
+          unset($element[$key]);
+        }
+      }
+    }
+    else {
+      $element['#title_display'] = 'invisible';
+    }
+    return $element;
+  }
+
+  /**
    * Assign neo_size to children.
    */
-  public static function assignNeoSizeToChildren(array &$element) {
+  public static function neoSize(array $element) {
+    $element['#neo_size'] = $element['#neo_size'] ?? 'md';
     foreach (Element::children($element) as $key) {
       $child = &$element[$key];
       if (is_array($child) && isset($child['#type'])) {
         $child['#neo_size'] = $child['#neo_size'] ?? $element['#neo_size'];
-        self::assignNeoSizeToChildren($child);
+        self::neoSize($child);
       }
     }
+    return $element;
   }
 
   /**
@@ -406,13 +387,12 @@ class NeoBasePreRender implements TrustedCallbackInterface {
     return [
       'radios',
       'checkboxes',
-      'container',
-      'details',
-      'fieldset',
       'verticalTabs',
       'table',
       'tokenTreeTable',
       'commerceProductRenderedAttribute',
+      'neoRegion',
+      'neoSize',
     ];
   }
 
