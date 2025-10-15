@@ -24,8 +24,6 @@ regions:
   footer: Footer
 
 libraries-extend:
-  # core/drupal.dialog.ajax:
-  #   - neo_back/dialog-ajax
   field_ui/drupal.field_ui.manage_fields:
     - neo_back/field-ui
   views_ui/views_ui.admin:
