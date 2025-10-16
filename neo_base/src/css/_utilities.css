@@ -159,39 +159,39 @@
 }
 
 @utility title-xs {
-  --title-size: var(--title-xs, var(--text-xl));
-  --supertitle-size: var(--supertitle-xs, var(--text-md));
-  --subtitle-size: var(--subtitle-xs, var(--text-sm));
+  --title-size: var(--title-size-xs, var(--text-xl));
+  --supertitle-size: var(--supertitle-size-xs, var(--text-md));
+  --subtitle-size: var(--subtitle-size-xs, var(--text-sm));
 }
 
 @utility title-sm {
-  --title-size: var(--title-sm, var(--text-2xl));
-  --supertitle-size: var(--supertitle-sm, var(--text-lg));
-  --subtitle-size: var(--subtitle-sm, var(--text-md));
+  --title-size: var(--title-size-sm, var(--text-2xl));
+  --supertitle-size: var(--supertitle-size-sm, var(--text-lg));
+  --subtitle-size: var(--subtitle-size-sm, var(--text-md));
 }
 
 @utility title-lg {
-  --title-size: var(--title-lg, var(--text-4xl));
-  --supertitle-size: var(--supertitle-lg, var(--text-xl));
-  --subtitle-size: var(--subtitle-lg, var(--text-lg));
+  --title-size: var(--title-size-lg, var(--text-4xl));
+  --supertitle-size: var(--supertitle-size-lg, var(--text-xl));
+  --subtitle-size: var(--subtitle-size-lg, var(--text-lg));
 }
 
 @utility title-xl {
-  --title-size: var(--title-xl, var(--text-5xl));
-  --supertitle-size: var(--supertitle-xl, var(--text-xl));
-  --subtitle-size: var(--subtitle-xl, var(--text-lg));
+  --title-size: var(--title-size-xl, var(--text-5xl));
+  --supertitle-size: var(--supertitle-size-xl, var(--text-xl));
+  --subtitle-size: var(--subtitle-size-xl, var(--text-lg));
 }
 
 @utility title-2xl {
-  --title-size: var(--title-2xl, var(--text-6xl));
-  --supertitle-size: var(--supertitle-2xl, var(--text-xl));
-  --subtitle-size: var(--subtitle-2xl, var(--text-lg));
+  --title-size: var(--title-size-2xl, var(--text-6xl));
+  --supertitle-size: var(--supertitle-size-2xl, var(--text-xl));
+  --subtitle-size: var(--subtitle-size-2xl, var(--text-lg));
 }
 
 @utility title-3xl {
-  --title-size: var(--title-3xl, var(--text-7xl));
-  --supertitle-size: var(--supertitle-3xl, var(--text-xl));
-  --subtitle-size: var(--subtitle-3xl, var(--text-lg));
+  --title-size: var(--title-size-3xl, var(--text-7xl));
+  --supertitle-size: var(--supertitle-size-3xl, var(--text-xl));
+  --subtitle-size: var(--subtitle-size-3xl, var(--text-lg));
 }
 
 @utility btn {
