@@ -138,6 +138,13 @@ function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterf
     }
   }
 
+  if ($statusKey = $entity->getEntityType()->getKey('status')) {
+    if (!empty($form[$statusKey])) {
+      $form[$statusKey]['#group'] = 'meta';
+      $form[$statusKey]['widget']['value']['#neo_size'] = 'sm';
+    }
+  }
+
   if (!empty($form['revision_information'])) {
     $form['revision_information']['#type'] = 'container';
     $form['revision_information']['#group'] = 'meta';
