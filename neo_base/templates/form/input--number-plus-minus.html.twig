@@ -60,7 +60,9 @@
 {% block input %}
   {% apply spaceless %}
   <button{{ minus_attributes.addClass(btnClasses, 'rounded-r-none') }}>-</button>
-  <input{{ attributes.addClass(classes) }}  style="margin-left: calc(var(--form-item-border-width) * -1); margin-right: calc(var(--form-item-border-width) * -1)" />{{ children }}
+  <div class="inline" style="margin-left: calc(var(--form-item-border-width) * -1); margin-right: calc(var(--form-item-border-width) * -1)">
+    <input{{ attributes.addClass(classes) }} />{{ children }}
+  </div>
   <button{{ plus_attributes.addClass(btnClasses, 'rounded-l-none') }}>+</button>
   {% endapply %}
 {% endblock %}
