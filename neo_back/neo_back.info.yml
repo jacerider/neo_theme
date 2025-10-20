@@ -28,6 +28,8 @@ libraries-extend:
     - neo_back/field-ui
   views_ui/views_ui.admin:
     - neo_back/views-admin
+  views_ui/views_ui.listing:
+    - neo_base/table
   neo_base/form:
     - neo_back/form
   neo_base/table:
