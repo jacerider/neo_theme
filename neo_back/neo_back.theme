@@ -162,7 +162,7 @@ function neo_back_preprocess_form(&$variables) {
 /**
  * Implements template_preprocess_views_view().
  */
-function back_preprocess_views_view(&$variables) {
+function neo_back_preprocess_views_view(&$variables) {
   foreach ([
     'header',
     'footer',
