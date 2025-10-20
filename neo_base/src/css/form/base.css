@@ -4,27 +4,6 @@
     .tableresponsive-toggle-columns + table {
       @apply mt-0;
     }
-
-    .field {
-      &.field--label-above,
-      &.field--label-inline {
-        @apply m-0;
-      }
-
-      .field--label {
-        @apply inline-block rounded px-2 py-0.5 text-xs leading-tight;
-        background-color: var(--form-item-base-200, rgb(var(--color-base-200)));
-        color: var(--form-item-content, rgb(var(--color-base-700)));
-      }
-
-      &.field--label-inline {
-        @apply flex items-center;
-
-        .field--label {
-          @apply mr-2 rounded px-2 py-0.5 text-xs;
-        }
-      }
-    }
   }
 
   .form--inner {
