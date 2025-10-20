@@ -29,19 +29,19 @@
     <tbody class="bg-base-0">
       {% for row in rows %}
         <tr{{ row.attributes.addClass('border border-base-100 hover:bg-base-50 transition') }}>
-          <td class="p-4 views-ui-view-name td--name">
-            <strong data-drupal-selector="views-table-filter-text-source">{{ row.data.view_name.data }}</strong>
+          <td class="p-4 views-ui-view-name td--name style--heading" data-drupal-selector="views-table-filter-text-source">
+            {{ icon(null, row.data.view_name.data['#plain_text'])|icon_prefix(['entity', 'admin']) }}
           </td>
-          <td class="p-4 views-ui-view-machine-name size--min" data-drupal-selector="views-table-filter-text-source">
+          <td class="p-4 views-ui-view-machine-name style--xs size--min" data-drupal-selector="views-table-filter-text-source">
             {{ row.data.machine_name.data }}
           </td>
-          <td class="p-4 views-ui-view-description" data-drupal-selector="views-table-filter-text-source">
+          <td class="p-4 views-ui-view-description style--xs " data-drupal-selector="views-table-filter-text-source">
             {{ row.data.description.data }}
           </td>
-          <td class="p-4 views-ui-view-displays size--min">
+          <td class="p-4 views-ui-view-displays style--xs size--min">
             {{ row.data.displays.data }}
           </td>
-          <td class="p-4 views-ui-view-operations td--operations">
+          <td class="p-4 views-ui-view-operations td--operations size--min">
             {{ row.data.operations.data }}
           </td>
         </tr>
