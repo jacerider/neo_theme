@@ -11,21 +11,12 @@
 
 .views-admin {
 
-  .form-actions {
-    @apply border-base-300;
-    margin: 0 !important;
-  }
-
   .views-displays {
     @apply m-0 border-base-300 p-0;
     margin-bottom: 0 !important;
 
     .views-ui-display-tab-bucket__title {
       @apply m-0 p-0 pb-1 text-base font-bold;
-    }
-
-    .dropbutton-wrapper {
-      @apply right-0;
     }
   }
 
@@ -39,6 +30,14 @@
 
   .form-item-live-preview {
     @apply m-0;
+  }
+}
+
+.preview-submit-wrapper {
+  @apply pt-5 m-0;
+
+  .btn {
+    @apply btn-outline;
   }
 }
 
@@ -117,6 +116,10 @@ details.views-display-column {
   .views-display-setting {
     @apply p-0 py-1;
   }
+
+  .dropbutton-wrapper {
+    @apply right-0;
+  }
 }
 
 .edit-display-settings-top.views-ui-display-tab-bucket {
@@ -146,6 +149,14 @@ details.views-display-column {
 
 .views-preview-wrapper {
   @apply border-0;
+
+  .messages--wrapper {
+    @apply m-0;
+  }
+
+  .view-preview-form {
+    @apply m-0;
+  }
 }
 
 .view-preview-form {
@@ -166,12 +177,8 @@ details.views-display-column {
   }
 
   .views-live-preview {
-    @apply p-0 pb-6;
+    @apply p-0;
   }
-
-  /* .form-actions {
-    @apply m-0 mt-form-item;
-  } */
 
   .form-item-live-preview {
     @apply right-8 top-8;
