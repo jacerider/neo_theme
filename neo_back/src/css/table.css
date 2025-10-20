@@ -20,3 +20,13 @@ table .permission {
 .field-ui-overview .field-plugin-summary {
   @apply text-xs text-base-600 lg:min-w-40;
 }
+
+.views-ui-view-displays {
+  ul {
+    @apply list-disc pl-4;
+
+    li {
+      @apply text-base-700;
+    }
+  }
+}
