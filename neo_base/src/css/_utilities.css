@@ -425,7 +425,7 @@
   }
 }
 
-@utility m-children-* {
+@utility m-form-items-* {
   .form--item {
     margin: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * --value(integer));
 
@@ -439,8 +439,36 @@
   }
 }
 
-@utility my-children-* {
+@utility my-form-items-* {
   .form--item {
+    margin-block: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * --value(integer));
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+@utility m-fields-* {
+  .field {
+    margin: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * --value(integer));
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+@utility my-fields-* {
+  .field {
     margin-block: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * --value(integer));
 
     &:first-child {
@@ -463,4 +491,32 @@
 
 @utility px-form-item-inner-* {
   padding-inline: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * --value(integer));
+}
+
+@custom-variant neo-size-xs {
+  &[data-neo-size="xs"],
+  [data-neo-size="xs"] & {
+    @slot;
+  }
+}
+
+@custom-variant neo-size-sm {
+  &[data-neo-size="sm"],
+  [data-neo-size="sm"] & {
+    @slot;
+  }
+}
+
+@custom-variant neo-size-lg {
+  &[data-neo-size="lg"],
+  [data-neo-size="lg"] & {
+    @slot;
+  }
+}
+
+@custom-variant neo-size-xl {
+  &[data-neo-size="xl"],
+  [data-neo-size="xl"] & {
+    @slot;
+  }
 }
