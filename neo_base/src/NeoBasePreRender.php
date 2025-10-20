@@ -370,6 +370,7 @@ class NeoBasePreRender implements TrustedCallbackInterface {
    */
   public static function neoSize(array $element) {
     $element['#neo_size'] = $element['#neo_size'] ?? 'md';
+    $element['#attributes']['data-neo-size'] = $element['#neo_size'];
     foreach (Element::children($element) as $key) {
       $child = &$element[$key];
       if (is_array($child) && isset($child['#type'])) {
