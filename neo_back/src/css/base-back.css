@@ -35,10 +35,9 @@ body {
   @apply flex gap-2;
 }
 
-@layer utilities {
-  .region--content .field,
-  .neo-modal .field {
-    @apply m-0 py-1;
+@layer base {
+  .field {
+    @apply p-0 my-1 neo-size-xs:my-0.5;
 
     .field--label {
       @apply inline-block rounded px-2 py-0.5 text-xs bg-base-200 text-base-700;
