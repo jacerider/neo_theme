@@ -10,8 +10,13 @@
 
     .field--label {
       @apply inline-block rounded px-2 py-0.5 text-xs;
-      background-color: var(--form-item-base, rgb(var(--color-base-200)));
-      color: var(--form-item-content, rgb(var(--color-base-700)));
+      background-color: rgb(var(--color-base-200));
+      color: rgb(var(--color-base-700));
+
+      form & {
+        background-color: var(--form-item-base, rgb(var(--color-base-200)));
+        color: var(--form-item-content, rgb(var(--color-base-700)));
+      }
     }
 
     &.field--label-inline {
