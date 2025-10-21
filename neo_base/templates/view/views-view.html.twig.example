@@ -1,0 +1,12 @@
+{% extends 'views-view.html.twig' %}
+
+{#
+  Specify the classes for the view.
+#}
+{% set classes = ['example'] %}
+
+
+{#
+  Specify the classes for the rows.
+#}
+{% set content_classes = ['example-content'] %}
