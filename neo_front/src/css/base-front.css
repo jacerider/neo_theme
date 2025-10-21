@@ -1,5 +1,3 @@
-@import "./components/view/view.css";
-
 @layer base {
   .region--content .field,
   .neo-modal .field {
