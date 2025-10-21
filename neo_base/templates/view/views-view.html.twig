@@ -31,6 +31,9 @@
  */
 #}
 {%
+  set header_position = header_position is defined ? header_position : 'before'
+%}
+{%
   set base_classes = base_classes is defined ? base_classes : [
     'view',
     'view-' ~ id|clean_class,
@@ -51,25 +54,65 @@
 {%
   set content_classes = content_classes is defined ? content_classes : []
 %}
+{%
+  set base_header_classes = base_header_classes is defined ? base_header_classes : [
+    'view-header',
+  ]
+%}
+{%
+  set header_classes = header_classes is defined ? header_classes : []
+%}
+{% set filter_attributes = create_attribute() %}
+{%
+  set base_filter_classes = base_filter_classes is defined ? base_filter_classes : [
+    'view-filters',
+  ]
+%}
+{%
+  set filter_classes = filter_classes is defined ? filter_classes : []
+%}
+{%
+  set base_footer_classes = base_footer_classes is defined ? base_footer_classes : [
+    'view-footer',
+  ]
+%}
+{%
+  set footer_classes = footer_classes is defined ? footer_classes : []
+%}
+{%
+  set base_empty_classes = base_empty_classes is defined ? base_empty_classes : [
+    'view-empty',
+  ]
+%}
+{%
+  set empty_classes = empty_classes is defined ? empty_classes : []
+%}
 <div{{ attributes.addClass(base_classes, classes) }}>
   {{ title_prefix }}
   {% if title %}
     {{ title }}
   {% endif %}
   {{ title_suffix }}
-  {% if header %}
+  {% if header and header_position == 'before' %}
     {% block header %}
-      <div{{ header_attributes.addClass('view-header') }}>
+      <div{{ header_attributes.addClass(base_header_classes, header_classes) }}>
         {{ header }}
       </div>
     {% endblock %}
   {% endif %}
   {% if exposed %}
-    <div class="view-filters">
+    <div{{ filter_attributes.addClass(base_filter_classes, filter_classes) }}>
       {% block exposed %}
         {{ exposed }}
       {% endblock %}
     </div>
+  {% endif %}
+  {% if header and header_position == 'after' %}
+    {% block header_after %}
+      <div{{ header_attributes.addClass(base_header_classes, header_classes) }}>
+        {{ header }}
+      </div>
+    {% endblock %}
   {% endif %}
   {% if attachment_before %}
     <div class="attachment attachment-before">
@@ -89,7 +132,7 @@
       </div>
     {% endif %}
   {% elseif empty %}
-    <div{{ empty_attributes.addClass('view-empty') }}>
+    <div{{ empty_attributes.addClass(base_empty_classes, empty_classes) }}>
       {{ empty }}
     </div>
   {% endif %}
@@ -106,7 +149,7 @@
     {{ more }}
   {% endif %}
   {% if footer %}
-    <div{{ footer_attributes.addClass('view-footer') }}>
+    <div{{ footer_attributes.addClass(base_footer_classes, footer_classes) }}>
       {{ footer }}
     </div>
   {% endif %}
