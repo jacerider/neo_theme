@@ -1,6 +1,11 @@
 {% extends 'views-view.html.twig' %}
 
 {#
+  The header position in relation to the filters. Either before or after.
+#}
+{% set header_position = 'before' %}
+
+{#
   Specify the classes for the view.
 #}
 {% set classes = ['example'] %}
@@ -10,3 +15,23 @@
   Specify the classes for the rows.
 #}
 {% set content_classes = ['example-content'] %}
+
+{#
+  Specify the classes for the header wrapper.
+#}
+{% set header_classes = ['example-header'] %}
+
+{#
+  Specify the classes for the filter wrapper.
+#}
+{% set filter_classes = ['example-filter'] %}
+
+{#
+  Specify the classes for the footer wrapper.
+#}
+{% set footer_classes = ['example-footer'] %}
+
+{#
+  Specify the classes for the empty wrapper.
+#}
+{% set empty_classes = ['example-empty'] %}
