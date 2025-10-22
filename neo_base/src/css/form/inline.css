@@ -1,9 +1,14 @@
 .form--inline,
-.form--inline > fieldset > .fieldset--content {
+.form--inline > fieldset > .fieldset--content,
+.form--inline details.form--inline-none > div {
   @apply flex flex-col gap-form-item m-form-items-0 md:flex-row md:flex-wrap;
 
   &::after {
     display: none;
+  }
+
+  > * {
+    @apply grow;
   }
 
   .form-actions {
@@ -17,7 +22,6 @@
   }
 
   .form-item {
-    /* @apply m-0; */
 
     input:not([type='checkbox']):not([type='radio']) {
       @apply w-full;
@@ -28,9 +32,13 @@
     @apply grow-0 text-nowrap;
   }
 
+  .form--inline-none {
+    flex-basis: 100% !important;
+  }
+
   /* This works really great for fieldsets within inline forms */
   @variant md {
-    > .form-wrapper {
+    > .fieldset-wrapper:not(.form--inline-none) {
       @apply border-none bg-inherit;
 
       > fieldset {
