@@ -352,7 +352,11 @@ class NeoBasePreRender implements TrustedCallbackInterface {
   public static function neoRegion($element) {
     if (!empty($element['#title'])) {
       foreach (Element::children($element) as $key) {
-        if (isset($element[$key]['#neo_region']) && !in_array($element[$key]['#type'] ?? '', ['fieldset', 'details', 'accordion'])) {
+        if (isset($element[$key]['#neo_region']) && !in_array($element[$key]['#type'] ?? '', [
+          'fieldset',
+          'details',
+          'accordion',
+        ])) {
           // Currently supports placing 'legend_start' and 'legend_end'.
           $element['#neo_region'][$element[$key]['#neo_region']][$key] = $element[$key];
           unset($element[$key]);
@@ -371,11 +375,13 @@ class NeoBasePreRender implements TrustedCallbackInterface {
   public static function neoSize(array $element) {
     $element['#neo_size'] = $element['#neo_size'] ?? 'md';
     $element['#attributes']['data-neo-size'] = $element['#neo_size'];
-    foreach (Element::children($element) as $key) {
-      $child = &$element[$key];
-      if (is_array($child) && isset($child['#type'])) {
-        $child['#neo_size'] = $child['#neo_size'] ?? $element['#neo_size'];
-        self::neoSize($child);
+    if (($element['#neo_size_inherit'] ?? TRUE) !== FALSE) {
+      foreach (Element::children($element) as $key) {
+        $child = &$element[$key];
+        if (is_array($child) && isset($child['#type'])) {
+          $child['#neo_size'] = $child['#neo_size'] ?? $element['#neo_size'];
+          self::neoSize($child);
+        }
       }
     }
     return $element;
