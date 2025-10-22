@@ -185,3 +185,16 @@ function neo_back_preprocess_views_view(&$variables) {
     }
   }
 }
+
+/**
+ * Implements hook_form_alter().
+ */
+function neo_back_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (isset($form['secondary'])) {
+    // Views exposed filter support.
+    $form['secondary']['#attributes']['class'][] = 'form--inline-none';
+    $form['secondary']['#weight'] = 1000;
+    $form['secondary']['#neo_size'] = 'xs';
+    $form['secondary']['#neo_size_inherit'] = FALSE;
+  }
+}
