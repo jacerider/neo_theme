@@ -75,7 +75,7 @@ details.views-display-column {
   }
 
   .views-override:not(:empty) {
-    @apply card m-0 mb-4 mt-form-item bg-transparent p-form-item;
+    @apply flex card m-0 mb-4 mt-form-item bg-transparent p-form-item;
   }
 
   .views-filterable-options {
