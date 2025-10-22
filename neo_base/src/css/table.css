@@ -9,8 +9,8 @@ table {
     }
 
     a {
-      &:before {
-        @apply icon-sort-alt mr-1;
+      &:after {
+        @apply icon-sort-alt ml-1;
       }
     }
 
