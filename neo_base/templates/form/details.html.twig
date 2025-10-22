@@ -19,6 +19,11 @@
  */
 #}
 {%
+  set base_classes = base_classes is defined ? base_classes : [
+    'details-wrapper',
+  ]
+%}
+{%
   set classes = classes is defined ? classes : ['py-form-item']
 %}
 {%
@@ -45,7 +50,7 @@
 {% if use_alpine %}
   {{ attach_library('neo/library.alpine.collapse') }}
 {% endif %}
-<{% if use_alpine %}div{% else %}details{% endif %}{{ attributes.addClass(classes) }}{% if use_alpine %} x-data="{ expanded: {% if open %}true{% else %}false{% endif %} }"{% endif %}>
+<{% if use_alpine %}div{% else %}details{% endif %}{{ attributes.addClass(base_classes, classes) }}{% if use_alpine %} x-data="{ expanded: {% if open %}true{% else %}false{% endif %} }"{% endif %}>
   {%- if title -%}
     <{% if use_alpine %}div{% else %}summary{% endif %}{{ summary_attributes.addClass(base_summary_classes, summary_classes) }}{% if use_alpine %} @click="expanded = ! expanded"{% endif %}>
       {% if neo_region.legend_start %}
