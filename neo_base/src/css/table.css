@@ -39,8 +39,8 @@ table {
     &[aria-sort='ascending'] {
       a {
         @apply font-bold;
-        &:before {
-          @apply icon-sort-amount-up-alt mr-1;
+        &:after {
+          @apply icon-sort-amount-up-alt ml-1;
         }
       }
     }
@@ -48,8 +48,8 @@ table {
     &[aria-sort='descending'] {
       a {
         @apply font-bold;
-        &:before {
-          @apply icon-sort-amount-down-alt mr-1;
+        &:after {
+          @apply icon-sort-amount-down-alt ml-1;
         }
       }
     }
@@ -152,7 +152,7 @@ table {
 
   .tablesort--asc,
   .tablesort--desc {
-    background: none;
+    display: none;
   }
 
   .style--heading {
