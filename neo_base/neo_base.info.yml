@@ -86,14 +86,6 @@ neo:
         --tw-ring-offset-shadow: 0 0 0 var(--tw-ring-offset-width) var(--form-item-base)
         --tw-ring-shadow: 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--form-item-ring)
         boxShadow: 'var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)'
-  variants:
-    'is-active': ['&.is-active', '.is-active &', '&.active', '.active &']
-    'is-active-trail': ['&.is-active-trail', '.is-active-trail &']
-    'is-focus': ['&.is-focus', '.is-focus &']
-    'is-stuck': ['&.is-stuck', '.is-stuck &']
-    'is-required': ['&.form-required', '.form-required &']
-    'checked-prev': ['input:checked + &']
-    'focus-prev': ['input:focus + &']
 
 libraries:
   - neo_base/global
