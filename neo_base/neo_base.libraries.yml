@@ -13,6 +13,14 @@ global-utilities:
     theme:
       src/css/_utilities.css: { minified: true }
 
+global-variants:
+  version: VERSION
+  neo:
+    import: true
+  css:
+    theme:
+      src/css/_variants.css: { minified: true }
+
 sticky:
   version: VERSION
   neo: true
