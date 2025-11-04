@@ -1,0 +1,93 @@
+@custom-variant is-active {
+  &.is-active, .is-active &, &.active, .active & {
+    @slot;
+  }
+}
+
+@custom-variant is-active-self {
+  &.is-active, &.active {
+    @slot;
+  }
+}
+
+@custom-variant is-active-parent {
+  .is-active > &, .active > & {
+    @slot;
+  }
+}
+
+@custom-variant is-active-trail {
+  &.is-active-trail, .is-active-trail & {
+    @slot;
+  }
+}
+
+@custom-variant is-hidden {
+  &.is-hidden, .is-hidden &, &.hidden, .hidden & {
+    @slot;
+  }
+}
+
+@custom-variant is-focus {
+  &.is-focus, .is-focus & {
+    @slot;
+  }
+}
+
+@custom-variant is-focus-parent {
+  .is-focus > & {
+    @slot;
+  }
+}
+
+@custom-variant is-stuck {
+  &.is-stuck, .is-stuck & {
+    @slot;
+  }
+}
+
+@custom-variant is-required {
+  &.form-required, .form-required & {
+    @slot;
+  }
+}
+
+@custom-variant checked-prev {
+  input:checked + & {
+    @slot;
+  }
+}
+
+@custom-variant focus-prev {
+  input:focus + & {
+    @slot;
+  }
+}
+
+@custom-variant neo-size-xs {
+  &[data-neo-size="xs"],
+  [data-neo-size="xs"] & {
+    @slot;
+  }
+}
+
+@custom-variant neo-size-sm {
+  &[data-neo-size="sm"],
+  [data-neo-size="sm"] & {
+    @slot;
+  }
+}
+
+@custom-variant neo-size-lg {
+  &[data-neo-size="lg"],
+  [data-neo-size="lg"] & {
+    @slot;
+  }
+}
+
+@custom-variant neo-size-xl {
+  &[data-neo-size="xl"],
+  [data-neo-size="xl"] & {
+    @slot;
+  }
+}
