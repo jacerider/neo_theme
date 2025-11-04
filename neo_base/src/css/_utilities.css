@@ -492,31 +492,3 @@
 @utility px-form-item-inner-* {
   padding-inline: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * --value(integer));
 }
-
-@custom-variant neo-size-xs {
-  &[data-neo-size="xs"],
-  [data-neo-size="xs"] & {
-    @slot;
-  }
-}
-
-@custom-variant neo-size-sm {
-  &[data-neo-size="sm"],
-  [data-neo-size="sm"] & {
-    @slot;
-  }
-}
-
-@custom-variant neo-size-lg {
-  &[data-neo-size="lg"],
-  [data-neo-size="lg"] & {
-    @slot;
-  }
-}
-
-@custom-variant neo-size-xl {
-  &[data-neo-size="xl"],
-  [data-neo-size="xl"] & {
-    @slot;
-  }
-}
