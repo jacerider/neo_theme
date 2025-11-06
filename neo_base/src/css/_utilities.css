@@ -108,7 +108,7 @@
   @apply sr-only!;
 }
 
-@utility title-base {
+@utility title-scale {
   --title-breakpoint-scale: 0.75;
 
   @media (min-width: theme(--breakpoint-md)) {
@@ -120,26 +120,13 @@
   }
 }
 
-@utility page-title {
-  @apply title-base;
+@utility title-base {
   font-family: var(--title-family, var(--font-heading-family));
-  font-size: max(var(--title-min), calc(var(--title-size) * var(--title-breakpoint-scale)));
   line-height: var(--title-line-height, 1.2);
   font-weight: var(--title-weight, 700);
-  color: var(--title-color, rgb(var(--color-text-default)));
 }
 
-@utility component-title {
-  @apply title-base;
-  font-family: var(--title-family, var(--font-heading-family));
-  font-size: max(var(--title-min), calc(var(--title-size) * var(--title-breakpoint-scale)));
-  line-height: var(--title-line-height, 1.2);
-  font-weight: var(--title-weight, 700);
-  color: var(--title-color, rgb(var(--color-text-default)));
-}
-
-@utility component-supertitle {
-  @apply title-base;
+@utility supertitle-base {
   font-family: var(--supertitle-family, var(--font-heading-family));
   font-size: max(var(--supertitle-min), calc(var(--supertitle-size) * var(--title-breakpoint-scale)));
   line-height: var(--supertitle-line-height, 1.2);
@@ -148,14 +135,46 @@
   color: var(--supertitle-color, rgb(var(--color-base-700)));
 }
 
-@utility component-subtitle {
-  @apply title-base;
+@utility subtitle-base {
   font-family: var(--subtitle-family, var(--font-heading-family));
   font-size: max(var(--subtitle-min), calc(var(--subtitle-size) * var(--title-breakpoint-scale)));
   line-height: var(--subtitle-line-height, 1.2);
   font-weight: var(--subtitle-weight, 400);
   margin-top: var(--subtitle-margin-top, 0);
   color: var(--supertitle-color, rgb(var(--color-base-700)));
+}
+
+@utility page-title {
+  @apply title-base title-scale;
+  font-size: max(var(--title-min), calc(var(--title-size) * var(--title-breakpoint-scale)));
+}
+
+@utility component-title {
+  @apply title-base title-scale;
+  font-size: max(var(--title-min), calc(var(--title-size) * var(--title-breakpoint-scale)));
+}
+
+@utility component-title-* {
+  @apply title-base;
+  font-size: --value(--text-*, [size]);
+}
+
+@utility component-supertitle {
+  @apply supertitle-base title-scale;
+}
+
+@utility component-supertitle-* {
+  @apply supertitle-base;
+  font-size: --value(--text-*, [size]);
+}
+
+@utility component-subtitle {
+  @apply subtitle-base title-scale;
+}
+
+@utility component-subtitle-* {
+  @apply subtitle-base;
+  font-size: --value(--text-*, [size]);
 }
 
 @utility title-xs {
