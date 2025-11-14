@@ -11,6 +11,6 @@
   {% if as_input %}
     <input{{ attributes.addClass(classes) }} />{{ children }}
   {% else %}
-    <button{{ attributes|without('type').addClass(classes) }} ><span>{% if title %}{{ title }}{% else %}{{ attributes.value }}{% endif %}</span></button>{{ children }}
+    <button{{ attributes.addClass(classes) }} ><span>{% if title %}{{ title }}{% else %}{{ attributes.value }}{% endif %}</span></button>{{ children }}
   {% endif %}
 {% endblock %}
