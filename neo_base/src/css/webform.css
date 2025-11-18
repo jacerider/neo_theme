@@ -1,11 +1,62 @@
 a.button.button-webform-table-setting {
   @apply inline-block text-base-100-content/60 hover:text-base-100-content mb-0 rounded-t px-2 py-1 text-xs transition-opacity;
   /* float: none; */
-  margin: calc(var(--spacing) * 3) 0 0 auto;
+  margin: calc(var(--spacing) * 4.5) 0 0 auto;
   text-align: right;
 
   + form {
     clear: both;
     margin-top: 0;
+  }
+}
+
+.webform-results {
+
+  > div:not(.table--wrapper) {
+    @apply bg-base-0 border my-form-item text-xs p-2 rounded;
+
+    & + form {
+      margin-top: 0;
+    }
+  }
+}
+
+.webform-filter-form + div {
+  @apply bg-base-0 border my-form-item text-xs p-2 rounded;
+
+  & + form {
+    margin-top: 0;
+  }
+}
+
+.webform-filter-form {
+
+  .m-form-item {
+    @apply flex gap-2;
+  }
+
+  .form-item {
+    @apply my-0;
+  }
+  /* display: none; */
+}
+
+.webform-bulk-form,
+.webform-submission-bulk-form {
+
+  .container-inline {
+    @apply flex flex-wrap gap-2;
+
+    .form-item {
+      @apply my-0;
+    }
+  }
+}
+
+.webform-submission-bulk-form {
+  table {
+    td {
+      @apply text-xs;
+    }
   }
 }
