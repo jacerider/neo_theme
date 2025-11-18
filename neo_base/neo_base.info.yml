@@ -102,6 +102,8 @@ libraries-extend:
     - neo_base/dropbutton
   webform/webform.admin:
     - neo_base/webform
+  webform/webform.admin.dialog:
+    - neo_base/webform
   core/drupal.dialog:
     - neo_base/dialog
   core/drupal.tableheader:
