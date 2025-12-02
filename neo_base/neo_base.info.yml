@@ -39,7 +39,7 @@ neo:
     .local-action:
       apply: '@apply btn btn-primary btn-xs md:btn-md'
     .badge:
-      apply: '@apply min-w-4 rounded-2xl px-1 py-px text-center text-[10px] font-semibold'
+      apply: '@apply min-w-4 min-h-4 rounded-2xl leading-normal px-1 py-px text-center text-[10px] font-semibold'
     # Text reset
     .text-md:
       font-size: var(--text-md)
