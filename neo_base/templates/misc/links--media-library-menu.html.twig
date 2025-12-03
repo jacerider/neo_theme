@@ -1,0 +1,31 @@
+{# {% if links -%}
+  <div{{ attributes.addClass('flex flex-col whitespace-nowrap md:flex-row gap-px border-b mb-form-item bg-base-100 p-4 pb-0 rounded-t') }}>
+    {%- for item in links -%}
+      {%- if item.link -%}
+        {{ item.link|neo_class('btn is-active:btn-primary rounded-b-none') }}
+      {%- elseif item.text_attributes -%}
+        <span{{ item.text_attributes }}>{{ item.text }}</span>
+      {%- else -%}
+        {{ item.text }}
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+{%- endif %} #}
+{{ attach_library('neo_base/horizontal-tabs')}}
+{% if links -%}
+<div class="horizontal-tabs mb-form-item font-bold">
+  <ul{{ attributes.addClass('horizontal-tabs-list') }}>
+    {%- for item in links -%}
+      <li>
+        {%- if item.link -%}
+          {{ item.link|neo_class('horizontal-tab-button') }}
+        {%- elseif item.text_attributes -%}
+          <span{{ item.text_attributes }}>{{ item.text }}</span>
+        {%- else -%}
+          {{ item.text }}
+        {%- endif -%}
+      {%- endfor -%}
+    </li>
+  </ul>
+</div>
+{%- endif %}
