@@ -4,12 +4,16 @@
 
     li {
       a {
-        @apply -mb-px block rounded-t p-3 text-base;
+        @apply -mb-px block rounded-t p-3 text-base hover:text-primary;
+
+        &.active {
+          @apply z-20 block border border-b-0 bg-base-0 p-3 text-base;
+        }
       }
 
       &.selected {
         a {
-          @apply z-20 block border border-b-0 bg-base-0 p-3;
+          @apply z-20 block border border-b-0 bg-base-0 p-3 text-base;
         }
       }
     }
