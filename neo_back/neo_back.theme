@@ -71,7 +71,6 @@ function neo_back_preprocess_commerce_order__admin(array &$variables) {
     'canceled' => 'bg-error-500 text-error-500-content',
     default => 'bg-success-500 text-success-500-content',
   };
-  // $variables['attributes']->addClass('p-card');
 }
 
 /**
@@ -83,6 +82,32 @@ function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterf
   }
   if (!empty($form['actions'])) {
     $form['actions']['#weight'] = 1000;
+  }
+  if (!empty($form['moderation_state'])) {
+    $form['moderation_state']['#group'] = 'meta';
+    if (isset($form['meta']['published'])) {
+      $form['moderation_state']['widget'][0]['current']['#access'] = FALSE;
+    }
+  }
+  if (!empty($form['publish_state']['widget'][0]['#options']) && count($form['publish_state']['widget'][0]['#options']) === 1) {
+    $form['publish_state']['#access'] = FALSE;
+  }
+  if (!empty($form['unpublish_state']['widget'][0]['#options']) && count($form['unpublish_state']['widget'][0]['#options']) === 1) {
+    $form['unpublish_state']['#access'] = FALSE;
+  }
+  if (!empty($form['field_metatags']['widget'][0])) {
+    $form['field_metatags']['widget'][0]['#icon'] = 'tags';
+  }
+  if (!empty($form['simple_sitemap'])) {
+    $form['simple_sitemap']['#icon'] = 'sitemap';
+  }
+  if (!empty($form['scheduler_settings'])) {
+    $form['scheduler_settings']['#icon'] = 'clock';
+  }
+  if (!empty($form['path']['widget'][0])) {
+    // Collapse the path alias fieldset by default.
+    $form['path']['widget'][0]['#open'] = FALSE;
+    $form['path']['widget'][0]['#icon'] = 'brackets-curly';
   }
   if (!empty($form['advanced'])) {
     $form['advanced']['#type'] = 'accordion';
