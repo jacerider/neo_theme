@@ -1,5 +1,5 @@
 .media-library-item--preview {
-  @apply relative overflow-hidden rounded-xl border-2;
+  @apply relative overflow-hidden rounded border-2 bg-base-0;
 
   img {
     @apply h-20 w-20 object-cover lg:h-32 lg:w-32;
