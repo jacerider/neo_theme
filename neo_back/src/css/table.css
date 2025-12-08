@@ -17,8 +17,37 @@ table .permission {
   }
 }
 
-.field-ui-overview .field-plugin-summary {
-  @apply text-xs text-base-600 lg:min-w-40;
+.field-ui-overview{
+  .field-plugin-summary {
+    @apply text-xs text-base-600 lg:min-w-40;
+  }
+
+  .field-plugin-settings-edit-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    float: none;
+  }
+
+  .field-plugin-settings-edit {
+    float: none;
+    display: block;
+  }
+
+  td:not(.style--heading) {
+
+    &:last-child {
+      text-align: right;
+
+      > div + a {
+        margin-top: 4px;
+      }
+
+      > a {
+        @apply btn btn-xs;
+        display: block;
+      }
+    }
+  }
 }
 
 .views-ui-view-displays {
