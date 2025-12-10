@@ -68,8 +68,11 @@
 }
 
 .form--inline {
-  .form--inline-min {
-    @apply flex-none;
+  &.form--inline-min {
+
+    > * {
+      @apply flex-grow-0!;
+    }
   }
 
   &:not(.form--inline-min) {
