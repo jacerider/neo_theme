@@ -17,11 +17,11 @@
 #}
 <div class="layout-entity-form">
   <div class="lg:flex lg:gap-form">
-    <div class="flex-1">
+    <div class="layout-entity-form--main flex-1">
       {{ form|without('advanced', 'footer', 'actions') }}
     </div>
     {% if form.advanced %}
-      {{ form.advanced|neo_class('mt-form-item lg:mt-0 lg:w-96') }}
+      {{ form.advanced|neo_class('layout-entity-form--advanced mt-form-item lg:mt-0 lg:w-96') }}
     {% endif %}
   </div>
   {{ form.footer }}
