@@ -33,19 +33,16 @@ table .permission {
     display: block;
   }
 
-  td:not(.style--heading) {
+  .td--7 {
+    text-align: right;
 
-    &:last-child {
-      text-align: right;
+    > div + a {
+      margin-top: 4px;
+    }
 
-      > div + a {
-        margin-top: 4px;
-      }
-
-      > a {
-        @apply btn btn-xs;
-        display: block;
-      }
+    > a {
+      @apply btn btn-xs;
+      display: block;
     }
   }
 }
