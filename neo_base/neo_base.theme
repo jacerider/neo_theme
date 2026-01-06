@@ -193,8 +193,10 @@ function neo_base_theme_suggestions_alter(&$suggestions, array &$variables, $hoo
       break;
 
     case 'views_view':
-      $suggestions[] = $variables['theme_hook_original'] . '__' . $variables['view']->id();
-      $suggestions[] = $variables['theme_hook_original'] . '__' . $variables['view']->id() . '__' . $variables['view']->current_display;
+      // Replaced $variables['theme_hook_original'] with $hook because it caused
+      // issues on some environments. May have unexpected side effects.
+      $suggestions[] = $hook . '__' . $variables['view']->id();
+      $suggestions[] = $hook . '__' . $variables['view']->id() . '__' . $variables['view']->current_display;
       break;
   }
 
