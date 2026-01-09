@@ -1,0 +1,7 @@
+<div class="entity-moderation-form">
+  {{ form.current }}
+  {{ form.new_state }}
+  {{ form.revision_log }}
+  {{ form.submit|neo_class('w-full') }}
+</div>
+{{ form|without('current', 'new_state', 'revision_log', 'submit') }}
