@@ -19,3 +19,10 @@ regions:
   status: Status
   content: Content
   footer: Footer
+libraries-override:
+  content_moderation/content_moderation:
+    css:
+      component:
+        css/content_moderation.module.css: false
+      theme:
+        css/content_moderation.theme.css: false
