@@ -109,6 +109,9 @@ function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterf
     $form['path']['widget'][0]['#open'] = FALSE;
     $form['path']['widget'][0]['#icon'] = 'brackets-curly';
   }
+  if (!empty($form['url_redirects'])) {
+    $form['url_redirects']['#icon'] = 'directions';
+  }
   if (!empty($form['advanced'])) {
     $form['advanced']['#type'] = 'accordion';
     $form['advanced']['#wrapper_attributes']['class'][] = '!m-0';
