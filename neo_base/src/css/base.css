@@ -38,17 +38,28 @@
     height: 1px;
     pointer-events: none;
   }
-}
-
-/* Native toolbar support */
-body.toolbar-fixed {
-  padding-top: 0 !important;
-}
-
-@layer base {
 
   a {
     @apply text-primary-600 transition hover:text-primary-800;
+  }
+
+  .prose {
+
+    .text-align-left {
+      text-align: left;
+    }
+
+    .text-align-center {
+      text-align: center;
+    }
+
+    .text-align-right {
+      text-align: right;
+    }
+
+    .text-align-justify {
+      text-align: justify;
+    }
   }
 
   /*
@@ -91,4 +102,9 @@ body.toolbar-fixed {
     @apply border-border-default;
     /* border-color: var(--color-border-default, red); */
   }
+}
+
+/* Native toolbar support */
+body.toolbar-fixed {
+  padding-top: 0 !important;
 }
