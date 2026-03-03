@@ -102,6 +102,12 @@
     @apply border-border-default;
     /* border-color: var(--color-border-default, red); */
   }
+
+  /* Ajax views scroll margin */
+  .view {
+    @apply scroll-mt-[calc(var(--spacing-neo-t)+10px)];
+  }
+
 }
 
 /* Native toolbar support */
