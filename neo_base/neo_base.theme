@@ -656,6 +656,15 @@ function neo_base_preprocess_buttons(&$element) {
 }
 
 /**
+ * Implements hook_preprocess_file_managed_file().
+ */
+function neo_base_preprocess_file_managed_file(&$variables) {
+  if (!empty($variables['element']['remove_button'])) {
+    $variables['element']['remove_button']['#neo_size'] = 'xs';
+  }
+}
+
+/**
  * Implements hook_preprocess_node().
  */
 function neo_base_preprocess_node(array &$variables) {
