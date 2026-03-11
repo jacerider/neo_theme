@@ -16,12 +16,12 @@
   set classes = [
     'js-form-managed-file',
     'form-managed-file',
-    'flex',
-    'items-center',
-    'gap-form-item',
-    'w-full',
   ]
 %}
 <div{{ attributes.addClass(classes) }}>
-  {{ element }}
+  <div class="flex items-center gap-form-item w-full">
+    {{ element.upload }}
+    {{ element.upload_button }}
+  </div>
+  {{ element|without('upload', 'upload_button') }}
 </div>
