@@ -47,6 +47,14 @@ table .permission {
   }
 }
 
+.field-ui-secondary-text {
+  @apply text-xs text-base-400;
+}
+
+.field-ui-pill {
+  @apply badge bg-base-500 text-base-500-content;
+}
+
 .views-ui-view-displays {
   ul {
     @apply list-disc pl-4;
