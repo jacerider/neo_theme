@@ -83,7 +83,9 @@ function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterf
   if (!empty($form['actions'])) {
     $form['actions']['#weight'] = 1000;
   }
+  $moderationStateLabel = NULL;
   if (!empty($form['moderation_state'])) {
+    $moderationStateLabel = $form['moderation_state']['widget'][0]['current']['#markup'] ?? NULL;
     $form['moderation_state']['#group'] = 'meta';
     if (isset($form['meta']['published'])) {
       $form['moderation_state']['widget'][0]['current']['#access'] = FALSE;
@@ -149,11 +151,17 @@ function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterf
           $form['meta']['published']['#markup'] = neo_icon('Published');
           $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-success-500';
           $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-success-500-content';
+          if ($moderationStateLabel && $moderationStateLabel !== 'Published') {
+            $form['meta']['published']['#markup'] .= ' <span class="font-light">(' . $moderationStateLabel . ')</span>';
+          }
         }
         else {
           $form['meta']['published']['#markup'] = neo_icon('Unpublished');
           $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-warning-500';
           $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-warning-500-content';
+          if ($moderationStateLabel) {
+            $form['meta']['published']['#markup'] .= ' <span class="font-light">(' . $moderationStateLabel . ')</span>';
+          }
         }
       }
     }
