@@ -1,0 +1,11 @@
+/* This is a fix for canvas as it resets all button styling. */
+/* web/modules/contrib/canvas/ui/src/styles/base.css */
+@scope (.media-library-widget-modal) {
+  button.btn {
+    @apply btn;
+  }
+
+  *,::after,::before,::backdrop,::file-selector-button {
+    @apply border-border-default;
+  }
+}

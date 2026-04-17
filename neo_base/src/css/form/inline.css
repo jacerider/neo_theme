@@ -1,7 +1,7 @@
 .form--inline,
 .form--inline > fieldset > .fieldset--content,
 .form--inline details.form--inline-none > div {
-  @apply flex flex-col gap-form-item m-form-items-0 md:flex-row md:flex-wrap;
+  @apply flex flex-col gap-form-item m-form-items-0 md:flex-row! md:flex-wrap;
 
   &::after {
     display: none;

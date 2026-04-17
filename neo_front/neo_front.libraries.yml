@@ -5,3 +5,5 @@ global:
   css:
     theme:
       src/css/base-front.css: { minified: true }
+  dependencies:
+    - neo_build/front

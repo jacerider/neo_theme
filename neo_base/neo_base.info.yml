@@ -118,6 +118,8 @@ libraries-extend:
     - neo_base/media-library
   media_library/ui:
     - neo_base/media-library
+  canvas/canvas-ui:
+    - neo_base/canvas-ui
 libraries-override:
   system/base:
     css:

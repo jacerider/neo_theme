@@ -1,19 +1,21 @@
 .horizontal-tabs {
   .horizontal-tabs-list {
-    @apply card relative z-10 flex items-center rounded-b-none bg-base-100 p-3 pb-0 shadow-none;
+    @apply card relative z-10 flex items-stretch rounded-b-none bg-base-100 p-3 pb-0 shadow-none;
 
     li {
+      @apply flex;
+
       a {
-        @apply -mb-px block rounded-t p-3 text-base hover:text-primary;
+        @apply -mb-px flex items-center text-center rounded-t p-3 text-base hover:text-primary leading-none;
 
         &.active {
-          @apply z-20 block border border-b-0 bg-base-0 p-3 text-base;
+          @apply z-20 border border-b-0 bg-base-0 p-3 text-base;
         }
       }
 
       &.selected {
         a {
-          @apply z-20 block border border-b-0 bg-base-0 p-3 text-base;
+          @apply z-20 border border-b-0 bg-base-0 p-3 text-base;
         }
       }
     }

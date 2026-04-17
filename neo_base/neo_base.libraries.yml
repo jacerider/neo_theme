@@ -57,6 +57,13 @@ webform:
     theme:
       src/css/webform.css: { minified: true }
 
+canvas-ui:
+  version: VERSION
+  neo: true
+  css:
+    theme:
+      src/css/canvas-ui.css: { minified: true }
+
 table:
   version: VERSION
   neo: true

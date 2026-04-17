@@ -120,7 +120,7 @@
     } */
   }
 
-  .views-display-link-widget {
+  /* .views-display-link-widget {
     &:before {
       @apply icon-list-alt bg-transparent;
     }
@@ -142,7 +142,7 @@
         @apply bg-transparent;
       }
     }
-  }
+  } */
 
   .views-row {
     @apply cursor-pointer;

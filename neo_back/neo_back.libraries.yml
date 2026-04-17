@@ -5,6 +5,7 @@ global:
     theme:
       src/css/base-back.css: { minified: true }
   dependencies:
+    - neo_build/back
     - neo_base/displace
     - neo_base/sticky
 
