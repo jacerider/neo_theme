@@ -1,6 +1,6 @@
 .horizontal-tabs {
   .horizontal-tabs-list {
-    @apply card relative z-10 flex items-stretch rounded-b-none bg-base-100 p-3 pb-0 shadow-none;
+    @apply card relative z-10 flex items-stretch flex-wrap rounded-b-none bg-base-100 p-3 pb-0 shadow-none;
 
     li {
       @apply flex;
