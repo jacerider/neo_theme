@@ -82,7 +82,7 @@ function neo_base_theme_registry_alter(&$theme_registry) {
 /**
  * Implements hook_preprocess().
  */
-function neo_base_preprocess(&$variables) {
+function neo_base_preprocess(array &$variables) {
   $variables['neo_style'] = $variables['neo_style'] ?? $variables['element']['#neo_style'] ?? 'default';
   $variables['neo_align'] = $variables['neo_align'] ?? $variables['element']['#neo_align'] ?? 'default';
   $variables['neo_size'] = $variables['neo_size'] ?? $variables['element']['#neo_size'] ?? 'md';
@@ -116,7 +116,7 @@ function neo_base_preprocess(&$variables) {
 /**
  * Implements template_preprocess_views_view().
  */
-function neo_base_preprocess_views_view(&$variables) {
+function neo_base_preprocess_views_view(array &$variables) {
   foreach ([
     'header',
     'footer',
@@ -129,7 +129,7 @@ function neo_base_preprocess_views_view(&$variables) {
 /**
  * Implements hook_preprocess_views_view_table().
  */
-function neo_base_preprocess_views_view_table(&$variables) {
+function neo_base_preprocess_views_view_table(array &$variables) {
   NeoBasePreRender::viewsTable($variables['header'], $variables['rows']);
 }
 
@@ -245,7 +245,7 @@ function neo_base_theme_suggestions_alter(&$suggestions, array &$variables, $hoo
  *   An associative array containing:
  *   - page: A render element representing the page.
  */
-function neo_base_preprocess_html(&$variables) {
+function neo_base_preprocess_html(array &$variables) {
   $variables['attributes']['class'][] = Html::getClass('theme--' . \Drupal::service('theme.manager')->getActiveTheme()->getName());
   $variables['attributes']['class'][] = 'form--style';
 }
@@ -253,7 +253,7 @@ function neo_base_preprocess_html(&$variables) {
 /**
  * Implements hook_preprocess_item_list().
  */
-function neo_base_preprocess_item_list(&$variables) {
+function neo_base_preprocess_item_list(array &$variables) {
   // Do not show a wrapper if there are no attributes.
   $variables['wrapper'] = !empty($variables['wrapper_attributes']->toArray());
 }
@@ -261,14 +261,14 @@ function neo_base_preprocess_item_list(&$variables) {
 /**
  * Implements hook_preprocess_field().
  */
-function neo_base_preprocess_field(&$variables) {
+function neo_base_preprocess_field(array &$variables) {
   $variables['items_attributes'] = new Attribute($variables['element']['#items_attributes'] ?? []);
 }
 
 /**
  * Implements hook_preprocess_fieldset().
  */
-function neo_base_preprocess_fieldset(&$variables) {
+function neo_base_preprocess_fieldset(array &$variables) {
   if (!empty($variables['element']['#wrapper_attributes'])) {
     $attributes = new Attribute($variables['attributes'] ?? []);
     $attributes->merge(new Attribute($variables['element']['#wrapper_attributes']));
@@ -280,25 +280,25 @@ function neo_base_preprocess_fieldset(&$variables) {
       $variables['element_id'] = $variables['element']['#id'] . '--wrapper';
     }
   }
-  $variables['content_attributes'] = new Attribute($variables['element']['#content_attributes'] ?? []);
+  $variables['content_attributes'] = new Attribute($variables['element']['#content_attributes'] ?? $variables['content_attributes'] ?? []);
   $variables['neo_region'] = $variables['element']['#neo_region'] ?? [];
 }
 
 /**
  * Implements hook_preprocess_details().
  */
-function neo_base_preprocess_details(&$variables) {
+function neo_base_preprocess_details(array &$variables) {
   $variables['open'] = $variables['element']['#open'] ?? FALSE;
-  $variables['summary_title_attributes'] = new Attribute($variables['summary_title_attributes'] ?? []);
-  $variables['content_attributes'] = new Attribute($variables['content_attributes'] ?? []);
-  $variables['description_attributes'] = new Attribute($variables['description_attributes'] ?? []);
+  $variables['summary_title_attributes'] = new Attribute($variables['element']['#summary_title_attributes'] ?? $variables['summary_title_attributes'] ?? []);
+  $variables['content_attributes'] = new Attribute($variables['element']['#content_attributes'] ?? $variables['content_attributes'] ?? []);
+  $variables['description_attributes'] = new Attribute($variables['element']['#description_attributes'] ?? $variables['description_attributes'] ?? []);
   $variables['neo_region'] = $variables['element']['#neo_region'] ?? [];
 }
 
 /**
  * Implements hook_preprocess_input__submit().
  */
-function neo_base_preprocess_input__submit(&$variables) {
+function neo_base_preprocess_input__submit(array &$variables) {
   $variables['title'] = $variables['element']['#title'] ?? $variables['element']['#value'];
   $variables['as_input'] = !empty($variables['element']['#as_input']);
   $variables['disabled'] = !empty($variables['element']['#disabled']);
@@ -432,7 +432,7 @@ function neo_base_preprocess_input__submit(&$variables) {
 /**
  * Implements hook_preprocess_input__submit().
  */
-function neo_base_preprocess_input__checkbox_single(&$variables) {
+function neo_base_preprocess_input__checkbox_single(array &$variables) {
   $variables['container_attributes'] = new Attribute($variables['element']['#container_attributes'] ?? []);
   $variables['inner_attributes'] = new Attribute($variables['element']['#inner_attributes'] ?? []);
   if (
@@ -447,14 +447,14 @@ function neo_base_preprocess_input__checkbox_single(&$variables) {
 /**
  * Implements hook_preprocess_input().
  */
-function neo_base_preprocess_input(&$variables) {
+function neo_base_preprocess_input(array &$variables) {
   $variables['disabled'] = $variables['element']['#disabled'] ?? FAlSE;
 }
 
 /**
  * Implements hook_preprocess_form_element_label().
  */
-function neo_base_preprocess_form_element_label(&$variables) {
+function neo_base_preprocess_form_element_label(array &$variables) {
   $variables['disabled'] = $variables['element']['#disabled'] ?? FAlSE;
   if (isset($variables['title']['#markup']) && is_array($variables['title']['#markup'])) {
     // Allow labels to use render arrays.
@@ -465,7 +465,7 @@ function neo_base_preprocess_form_element_label(&$variables) {
 /**
  * Implements hook_preprocess_form().
  */
-function neo_base_preprocess_form(&$variables) {
+function neo_base_preprocess_form(array &$variables) {
   $variables['inner_attributes'] = new Attribute($variables['element']['#inner_attributes'] ?? []);
   // We re-apply .form--style so that .scheme-* can target it.
   $variables['attributes']['class'][] = 'form--style';
@@ -474,7 +474,7 @@ function neo_base_preprocess_form(&$variables) {
 /**
  * Implements hook_preprocess_block().
  */
-function neo_base_preprocess_block(&$variables) {
+function neo_base_preprocess_block(array &$variables) {
   // Add id to template.
   $variables['id'] = '';
   if (isset($variables['elements']['#id'])) {
@@ -485,7 +485,7 @@ function neo_base_preprocess_block(&$variables) {
 /**
  * Implements hook_preprocess_form_element().
  */
-function neo_base_preprocess_form_element(&$variables) {
+function neo_base_preprocess_form_element(array &$variables) {
   $variables['label']['#element_parent_type'] = $variables['element']['#type'] ?? '';
   $variables['label']['#neo_style'] = $variables['element']['#neo_style'] ?? 'default';
   $variables['label']['#neo_align'] = $variables['element']['#neo_align'] ?? 'default';
@@ -502,7 +502,7 @@ function neo_base_preprocess_form_element(&$variables) {
 /**
  * Implements hook_preprocess_form_element().
  */
-function neo_base_preprocess_radios(&$variables) {
+function neo_base_preprocess_radios(array &$variables) {
   if (!empty($variables['element']['#wrapper_attributes'])) {
     $attributes = new Attribute($variables['attributes']);
     $attributes->merge(new Attribute($variables['element']['#wrapper_attributes']));
@@ -513,7 +513,7 @@ function neo_base_preprocess_radios(&$variables) {
 /**
  * Implements hook_preprocess_form_element().
  */
-function neo_base_preprocess_checkboxes(&$variables) {
+function neo_base_preprocess_checkboxes(array &$variables) {
   if (!empty($variables['element']['#wrapper_attributes'])) {
     $attributes = new Attribute($variables['attributes']);
     $attributes->merge(new Attribute($variables['element']['#wrapper_attributes']));
@@ -524,7 +524,7 @@ function neo_base_preprocess_checkboxes(&$variables) {
 /**
  * Implements hook_preprocess_form_element().
  */
-function neo_base_preprocess_textarea(&$variables) {
+function neo_base_preprocess_textarea(array &$variables) {
   if (($variables['element']['#rows'] ?? 5) <= 1) {
     return;
   }
@@ -538,7 +538,7 @@ function neo_base_preprocess_textarea(&$variables) {
 /**
  * Implements hook_preprocess_field_multiple_value_form().
  */
-function neo_base_preprocess_field_multiple_value_form(&$variables) {
+function neo_base_preprocess_field_multiple_value_form(array &$variables) {
   if (!empty($variables['button'])) {
     $variables['button']['#attributes']['class'][] = 'btn btn-xs';
   }
@@ -561,7 +561,7 @@ function neo_base_preprocess_field_multiple_value_form(&$variables) {
 /**
  * Implements hook_preprocess_page().
  */
-function neo_base_preprocess_page(&$variables) {
+function neo_base_preprocess_page(array &$variables) {
   $route_name = \Drupal::routeMatch()->getRouteName();
   switch ($route_name) {
     case 'user.login':
@@ -658,7 +658,7 @@ function neo_base_preprocess_buttons(&$element) {
 /**
  * Implements hook_preprocess_file_managed_file().
  */
-function neo_base_preprocess_file_managed_file(&$variables) {
+function neo_base_preprocess_file_managed_file(array &$variables) {
   if (!empty($variables['element']['remove_button'])) {
     $variables['element']['remove_button']['#neo_size'] = 'xs';
   }

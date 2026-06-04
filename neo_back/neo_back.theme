@@ -49,6 +49,10 @@ function neo_back_form_alter(&$form, FormStateInterface $form_state, $form_id) {
       $form['actions']['#neo_style'] = 'sticky';
       break;
 
+    case 'dblog_filter_form':
+      $form['filters']['#content_attributes']['class'][] = 'form--inline';
+      break;
+
     case 'entity_form_display_edit_form':
     case 'entity_view_display_edit_form':
       $form['fields']['#neo_style'] = [
