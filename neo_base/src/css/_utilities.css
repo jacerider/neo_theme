@@ -124,6 +124,7 @@
   font-family: var(--title-family, var(--font-heading-family));
   line-height: var(--title-line-height, 1.2);
   font-weight: var(--title-weight, 700);
+  color: var(--title-color, rgb(var(--color-base-950)));
 }
 
 @utility supertitle-base {
