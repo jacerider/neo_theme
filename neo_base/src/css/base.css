@@ -40,7 +40,19 @@
   }
 
   a {
-    @apply text-primary-600 transition hover:text-primary-800;
+    /*
+      Links resolve through the scheme-aware link tokens. Inside a scheme,
+      neo_color emits contrast-picked --link-color / --link-color-hover (the
+      bare primary-600/800 shades can sit on — or be — the surface color on
+      colorized schemes); outside a scheme the fallbacks reproduce the
+      classic primary-600 / primary-800 pairing.
+    */
+    @apply transition;
+    color: var(--link-color, rgb(var(--color-primary-600)));
+
+    &:hover {
+      color: var(--link-color-hover, rgb(var(--color-primary-800)));
+    }
   }
 
   .prose {
@@ -68,6 +80,16 @@
     needed until I come up with a better way to scope this.
   */
   [class*="scheme-"] {
+    /*
+      Default text color for a scheme region. Unstyled text inside a scheme
+      uses the scheme's readable foreground (--text-color-default =
+      base-0-content), mirroring the default border below. It is inherited and
+      in @layer base, so any text-* utility (or explicit color) on a descendant
+      overrides it cleanly — directly-set always beats inherited. bg-default
+      stays an explicit opt-in, so this only sets text color, never a surface
+      fill: give a scheme region a background where you want one.
+    */
+    color: var(--text-color-default);
     --color-form-item-primary: var(--form-item-primary);
     --color-form-item-primary-active: var(--form-item-primary-active);
     --color-form-item-primary-content: var(--form-item-primary-content);
@@ -96,6 +118,17 @@
     --form-item-placeholder: rgb(var(--color-base-600));
     --form-item-description: rgb(var(--color-base-400));
     --form-item-ring: rgb(var(--color-primary-600));
+    /*
+      Button base defaults reference base-* shades. Their :root values resolve
+      var(--color-base-*) at the document root, so the resolved color inherits
+      and ignores a scheme's re-scoped base palette (e.g. the base `.btn` /
+      `.btn-outline` show the global base color on a colorized scheme). Re-declare
+      them here so they re-resolve against the scheme's base shades.
+    */
+    --btn-bg-color: rgb(var(--color-base-500));
+    --btn-bg-color-hover: rgb(var(--color-base-700));
+    --btn-content-color: rgb(var(--color-base-500-content));
+    --btn-content-color-hover: rgb(var(--color-base-700-content));
   }
 
   *,::after,::before,::backdrop,::file-selector-button {

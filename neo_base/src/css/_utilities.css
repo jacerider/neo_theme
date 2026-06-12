@@ -325,9 +325,12 @@
 
 @utility btn-outline {
   --btn-bg-transparent: transparent;
-  --btn-border-color: var(--btn-bg-color, rgb(var(--color-base-500)));
+  /* --btn-line-color is the text-grade pick: on colorized schemes the base
+     button background can sit close to the surface (fine behind a label, not
+     as a label), so outline/text variants prefer it when a scheme defines it. */
+  --btn-border-color: var(--btn-line-color, var(--btn-bg-color, rgb(var(--color-base-500))));
   --btn-border-color-hover: var(--btn-bg-color-hover, rgb(var(--color-base-500)));
-  --btn-content-color: var(--btn-bg-color, rgb(var(--color-base-500)));
+  --btn-content-color: var(--btn-line-color, var(--btn-bg-color, rgb(var(--color-base-500))));
   /* --btn-content-color-hover: var(--btn-content-color-hover, rgb(var(--color-base-500))); */
 }
 
@@ -390,8 +393,8 @@
 
 @utility btn-text {
   @apply btn-base-text;
-  --btn-content-color: var(--btn-bg-color);
-  --btn-content-color-hover: var(--btn-bg-color-hover);
+  --btn-content-color: var(--btn-line-color, var(--btn-bg-color));
+  --btn-content-color-hover: var(--btn-line-color, var(--btn-bg-color-hover));
 }
 
 @utility btn-text-* {
