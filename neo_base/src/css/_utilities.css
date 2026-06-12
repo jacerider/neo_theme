@@ -124,7 +124,6 @@
   font-family: var(--title-family, var(--font-heading-family));
   line-height: var(--title-line-height, 1.2);
   font-weight: var(--title-weight, 700);
-  color: var(--title-color, rgb(var(--color-base-950)));
 }
 
 @utility supertitle-base {
@@ -133,7 +132,6 @@
   line-height: var(--supertitle-line-height, 1.2);
   font-weight: var(--supertitle-weight, 600);
   margin-bottom: var(--supertitle-margin-bottom, 0);
-  color: var(--supertitle-color, rgb(var(--color-base-700)));
 }
 
 @utility subtitle-base {
@@ -142,7 +140,6 @@
   line-height: var(--subtitle-line-height, 1.2);
   font-weight: var(--subtitle-weight, 400);
   margin-top: var(--subtitle-margin-top, 0);
-  color: var(--supertitle-color, rgb(var(--color-base-700)));
 }
 
 @utility page-title {
