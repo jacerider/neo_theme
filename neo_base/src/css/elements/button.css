@@ -32,7 +32,11 @@ body .ui-dialog:not(.ui-dialog-off-canvas) .ui-dialog-buttonpane button {
 }
 
 .btn-group {
-  @apply flex flex-col whitespace-nowrap md:flex-row gap-px;
+  @apply flex flex-col whitespace-nowrap md:flex-row;
+
+  &:not(.flush) {
+    @apply gap-px;
+  }
 
   > .btn {
     @apply m-0;
