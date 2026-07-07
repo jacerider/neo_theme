@@ -8,3 +8,11 @@ global:
   dependencies:
     - neo_base/displace
     - neo_base/sticky
+
+global-utilities:
+  version: VERSION
+  neo:
+    import: true
+  css:
+    theme:
+      src/css/_utilities.css: { minified: true }
