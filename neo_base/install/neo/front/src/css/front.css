@@ -4,3 +4,5 @@
 }
 @plugin "@tailwindcss/typography";
 @import "./tailwind.neo.css";
+
+@import "./components/global/_global.css";
