@@ -5,7 +5,7 @@ form,
   }
 
   .button--primary {
-    @apply btn btn-primary font-bold;
+    @apply btn btn-primary;
   }
 
   .button--danger {
