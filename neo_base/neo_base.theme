@@ -153,6 +153,7 @@ function neo_base_theme_suggestions_alter(&$suggestions, array &$variables, $hoo
         case 'user.pass':
         case 'user.reset.form':
           $suggestions[] = $variables['theme_hook_original'] . '__auth';
+          $suggestions[] = $variables['theme_hook_original'] . '__auth__' . str_replace('.', '_', $route_name);
           break;
       }
       break;
@@ -685,7 +686,7 @@ function neo_base_preprocess_taxonomy_term(array &$variables) {
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function neo_base_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+function neo_base_form_user_login_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
   $form['actions']['submit']['#button_type'] = 'primary';
   $form['actions']['submit']['#attributes']['class'][] = 'w-full';
 }
@@ -693,7 +694,15 @@ function neo_base_form_user_login_form_alter(&$form, FormStateInterface $form_st
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function neo_base_form_user_pass_alter(&$form, FormStateInterface $form_state, $form_id) {
+function neo_base_form_user_pass_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  $form['actions']['submit']['#button_type'] = 'primary';
+  $form['actions']['submit']['#attributes']['class'][] = 'w-full';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function neo_base_form_user_register_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
   $form['actions']['submit']['#button_type'] = 'primary';
   $form['actions']['submit']['#attributes']['class'][] = 'w-full';
 }
