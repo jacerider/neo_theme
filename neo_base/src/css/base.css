@@ -104,7 +104,6 @@
     --form-item-border: rgba(var(--color-base-300));
     --form-item-border-hover: rgba(var(--color-base-400));
     --form-item-border-focus: rgba(var(--color-base-400));
-    --form-item-border-radius: var(--radius-sm);
     --form-item-primary: rgb(var(--color-primary-500));
     --form-item-primary-active: rgb(var(--color-primary-600));
     --form-item-primary-content: rgb(var(--color-primary-500-content));

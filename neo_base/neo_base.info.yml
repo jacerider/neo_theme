@@ -48,8 +48,11 @@ neo:
       display: block
       marginBottom: calc(var(--spacing))
       color: 'var(--form-item-label)'
-      fontSize: var(--text-sm)
-      fontWeight: 700
+      fontSize: var(--form-item-label-font-size, var(--text-sm))
+      fontWeight: var(--form-item-label-font-weight, 700)
+      textTransform: var(--form-item-label-text-transform)
+      letterSpacing: var(--form-item-label-letter-spacing)
+      fontFamily: var(--form-item-label-font-family)
     .form-description:
       color: 'var(--form-item-description)'
       fontSize: var(--text-xs)
