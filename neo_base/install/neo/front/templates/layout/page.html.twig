@@ -12,6 +12,9 @@
     'section',
     'page',
     'font-primary',
+    'flex',
+    'flex-col',
+    'min-h-displace',
   ]
 %}
 <div{{ attributes.addClass(page_classes) }}>
@@ -27,7 +30,7 @@
       </div>
     </main>
   </div>
-  <footer>
+  <footer class="mt-auto">
     {{ page.footer }}
   </footer>
 
