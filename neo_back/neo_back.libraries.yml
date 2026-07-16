@@ -32,6 +32,13 @@ views-admin:
   css:
     theme:
       src/css/views-admin.css: { minified: true }
+  dependencies:
+    # Reached via libraries-extend on views_ui/views_ui.admin, which happens to
+    # load these first. State them anyway: the chunk is invoked with
+    # (jQuery, Drupal) and calls once().
+    - core/jquery
+    - core/drupal
+    - core/once
 
 form:
   version: VERSION

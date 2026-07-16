@@ -72,12 +72,22 @@ table:
   css:
     theme:
       src/css/table.css: { minified: true }
+  dependencies:
+    - core/drupal
+    - core/once
 
 tableheader:
   version: VERSION
   neo: true
   js:
     src/js/tableheader.ts: { minified: true }
+  dependencies:
+    # Load-bearing beyond this library. libraries-extend merges this definition
+    # into core/drupal.tableheader, which is CSS-only in Drupal 11 and so has no
+    # dependencies of its own to inherit — whatever is declared here is all the
+    # merged library gets.
+    - core/drupal
+    - core/once
 
 tabledrag:
   version: VERSION
@@ -87,6 +97,14 @@ tabledrag:
   css:
     theme:
       src/css/tabledrag.css: { minified: true }
+  dependencies:
+    # Reached via libraries-extend on core/drupal.tabledrag, which happens to
+    # load these first. State them anyway: the chunk is invoked with
+    # (jQuery, Drupal) and calls once(), so it needs them however it is
+    # attached.
+    - core/jquery
+    - core/drupal
+    - core/once
 
 ajax:
   version: VERSION
@@ -96,6 +114,8 @@ ajax:
   css:
     theme:
       src/css/ajax.css: { minified: true }
+  dependencies:
+    - core/drupal
 
 progress:
   version: VERSION
@@ -133,6 +153,9 @@ media-library:
   css:
     theme:
       src/css/media-library.css: { minified: true }
+  dependencies:
+    - core/drupal
+    - core/once
 
 vertical-tabs:
   version: VERSION
@@ -142,6 +165,12 @@ vertical-tabs:
   css:
     theme:
       src/css/vertical-tabs.css: { minified: true }
+  dependencies:
+    # Reached via libraries-extend on core/drupal.vertical-tabs, which happens
+    # to load these first. State them anyway: the chunk is invoked with
+    # (jQuery, Drupal).
+    - core/jquery
+    - core/drupal
 
 horizontal-tabs:
   version: VERSION
