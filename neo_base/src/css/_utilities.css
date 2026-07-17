@@ -187,6 +187,12 @@
   --subtitle-size: var(--subtitle-size-sm, var(--text-md));
 }
 
+@utility title-md {
+  --title-size: var(--title-size-md, var(--text-3xl));
+  --supertitle-size: var(--supertitle-size-md, var(--text-lg));
+  --subtitle-size: var(--subtitle-size-md, var(--text-md));
+}
+
 @utility title-lg {
   --title-size: var(--title-size-lg, var(--text-4xl));
   --supertitle-size: var(--supertitle-size-lg, var(--text-xl));
