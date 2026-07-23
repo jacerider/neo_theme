@@ -209,27 +209,40 @@ class NeoBasePreRender implements TrustedCallbackInterface {
         if (isset($cell['data']) && is_array($cell['data']) && isset($cell['data']['#type']) && $cell['data']['#type'] === 'hidden') {
           $classes[] = 'hidden';
         }
-        $overridden = FALSE;
+        // Track which prop types (style/size/align) have been explicitly set
+        // for this cell, so the label-based default for the same type can be
+        // skipped and the two don't fight. An explicit override may come from
+        // a cell-level #neo_* prop or a table-level #neo_* array (the latter
+        // already merged into $globalClasses above). Tracking the type — not a
+        // single "overridden" flag — means an explicit #neo_style suppresses
+        // only the style--* default, leaving size--*/align--* defaults intact.
+        $overriddenProps = [];
         foreach ($props as $prop) {
           if (isset($cell["#neo_$prop"])) {
-            $overridden = TRUE;
+            $overriddenProps[$prop] = TRUE;
             if (!empty($cell["#neo_$prop"])) {
               $classes[] = $prop . '--' . $cell["#neo_$prop"];
             }
           }
           if (is_array($cell['data']) && isset($cell['data']["#neo_$prop"])) {
-            $overridden = TRUE;
+            $overriddenProps[$prop] = TRUE;
             if (!empty($cell['data']["#neo_$prop"])) {
               $classes[] = $prop . '--' . $cell['data']["#neo_$prop"];
             }
           }
         }
+        if (isset($globalClasses[$ii])) {
+          foreach ($globalClasses[$ii] as $globalClass) {
+            $overriddenProps[explode('--', $globalClass)[0]] = TRUE;
+          }
+        }
         if (isset($headerKeys[$count])) {
           $classes[] = 'td--' . $headerKeys[$count];
-          if (!$overridden) {
-            foreach (self::getTableClassesByKey($headerKeys[$count], $ii) as $class) {
-              $classes[] = $class;
+          foreach (self::getTableClassesByKey($headerKeys[$count], $ii) as $class) {
+            if (isset($overriddenProps[explode('--', $class)[0]])) {
+              continue;
             }
+            $classes[] = $class;
           }
         }
         $cell['class'] = $classes;
