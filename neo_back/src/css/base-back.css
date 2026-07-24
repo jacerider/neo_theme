@@ -31,9 +31,9 @@ body {
   }
 }
 
-.block--back-page-title h1 {
+/* .block--back-page-title h1 {
   @apply flex gap-2;
-}
+} */
 
 @layer base {
   .field {
