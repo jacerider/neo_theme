@@ -1,6 +1,7 @@
 @theme {
   /* Text sizes (md not provided by core) */
   --text-md: 1rem;
+  --text-2xs: 0.6875rem;
 
   /* Titles */
   --title-size: var(--text-3xl);
