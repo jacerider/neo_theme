@@ -109,6 +109,10 @@
   @apply sr-only!;
 }
 
+@utility scroll-mt-neo {
+  scroll-margin-top: calc(var(--spacing-neo-t) + 20px);
+}
+
 @utility title-scale {
   --title-breakpoint-scale: 0.75;
 

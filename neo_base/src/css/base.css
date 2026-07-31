@@ -136,7 +136,7 @@
 
   /* Ajax views scroll margin */
   .view {
-    @apply scroll-mt-[calc(var(--spacing-neo-t)+10px)];
+    @apply scroll-mt-neo;
   }
 }
 
