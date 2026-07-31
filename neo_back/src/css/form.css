@@ -77,6 +77,14 @@ form {
       }
     }
   }
+
+  .counter {
+    @apply text-2xs;
+  }
+
+  .ck + .counter {
+    @apply pt-1;
+  }
 }
 
 .admin-link button.link {
