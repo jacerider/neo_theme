@@ -31,9 +31,13 @@ body {
   }
 }
 
-/* .block--back-page-title h1 {
-  @apply flex gap-2;
-} */
+.block--back-page-title h1 {
+
+  .neo-icon,
+  .neo-icon-label {
+    display: inline-block;
+  }
+}
 
 @layer base {
   .field {
