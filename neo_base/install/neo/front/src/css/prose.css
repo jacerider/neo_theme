@@ -1,0 +1,49 @@
+.prose,
+.prose .ck-content {
+
+  h2, h3, h4, h5, h6 {
+    @apply mb-4;
+  }
+
+  h2 {
+    @apply text-4xl;
+  }
+
+  h3 {
+    @apply text-3xl;
+  }
+
+  h4 {
+    @apply text-2xl;
+  }
+
+  h5 {
+    @apply text-xl;
+  }
+
+  h6 {
+    @apply text-lg;
+  }
+
+  blockquote {
+    /* box-sizing: border-box; */
+  }
+
+  blockquote p {
+    @apply text-lg font-bold;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.prose .ck-content {
+  --ck-content-line-height: 1.75;
+  --ck-content-font-size: 1rem;
+  --ck-content-font-family: var(--font-primary-family);
+}

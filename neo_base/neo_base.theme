@@ -533,6 +533,9 @@ function neo_base_preprocess_textarea(array &$variables) {
   // works for now.
   if (isset($variables['element']['#attributes']['data-media-embed-host-entity-langcode'])) {
     $variables['wrapper_attributes']->addClass('prose max-w-none font-primary');
+    // Add the prose library to the page. If it does not exist, it will be
+    // ignored.
+    $variables['#attached']['library'][] = 'front/prose';
   }
 }
 

@@ -8,6 +8,7 @@ global:
   dependencies:
     - neo_base/displace
     - neo_base/sticky
+    - front/prose
 
 global-utilities:
   version: VERSION
@@ -16,3 +17,9 @@ global-utilities:
   css:
     theme:
       src/css/_utilities.css: { minified: true }
+
+prose:
+  neo: true
+  css:
+    theme:
+      src/css/prose.css: { minified: true }
