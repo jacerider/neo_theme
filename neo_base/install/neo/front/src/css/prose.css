@@ -2,7 +2,7 @@
 .prose .ck-content {
 
   h2, h3, h4, h5, h6 {
-    @apply mb-4;
+    @apply mb-6;
   }
 
   h2 {
