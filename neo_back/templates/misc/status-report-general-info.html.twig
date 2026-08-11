@@ -30,52 +30,53 @@
  */
 #}
 
-<h2 class="mt-6 mb-3 text-xl font-semibold text-base">{{ 'General System Information'|t }}</h2>
+<h2 class="mt-6 mb-3 text-xl font-semibold">{{ 'General System Information'|t }}</h2>
 <div class="grid gap-6 grid-cols-1 md:grid-cols-3 [&_a]:text-primary-500 [&_a:hover]:text-primary-700 [&_span]:block [&_span]:mt-2">
   <div class="p-6 text-sm card">
-    <h3 class="text-lg font-bold text-base">{{ 'Drupal Version'|t }}</h3>
-    {{ drupal.value }}
+    <h3 class="text-lg font-bold mt-0 mb-2">{{ 'Drupal Version'|t }}</h3>
+    <div class="text-3xl font-black">{{ drupal.value }}</div>
     {% if drupal.description %}
       {{ drupal.description }}
     {% endif %}
   </div>
   <div class="p-6 text-sm card">
-    <h3 class="text-lg font-bold text-base">{{ 'Last Cron Run'|t }}</h3>
+    <h3 class="text-lg font-bold mt-0 mb-2">{{ 'Last Cron Run'|t }}</h3>
     {{ cron.value }}
     {% if cron.run_cron %}
       {{ cron.run_cron }}
     {% endif %}
     {% if cron.description %}
-      <div>{{ cron.description }}</div>
+      <div class="text-xs">{{ cron.description }}</div>
     {% endif %}
   </div>
   <div class="p-6 text-sm card">
-    <h3 class="text-lg font-bold text-base">{{ 'Web Server'|t }}</h3>
+    <h3 class="text-lg font-bold mt-0 mb-2">{{ 'Web Server'|t }}</h3>
     {{ webserver.value }}
     {% if webserver.description %}
       {{ webserver.description }}
     {% endif %}
   </div>
   <div class="p-6 text-sm card">
-    <h3 class="text-lg font-bold text-base">{{ 'PHP'|t }}</h3>
-    <h4>{{ 'Version'|t }}</h4> {{ php.value }}
+    <h3 class="text-lg font-bold mt-0 mb-2">{{ 'PHP'|t }}</h3>
+    <h4 class="text-md font-bold mt-2">{{ 'Version'|t }}</h4>
+    {{ php.value }}
     {% if php.description %}
-      {{ php.description }}
+      <div class="text-xs">{{ php.description }}</div>
     {% endif %}
 
-    <h4>{{ 'Memory limit'|t }}</h4>{{ php_memory_limit.value }}
+    <h4 class="text-md font-bold mt-2">{{ 'Memory limit'|t }}</h4>{{ php_memory_limit.value }}
     {% if php_memory_limit.description %}
       {{ php_memory_limit.description }}
     {% endif %}
   </div>
   <div class="p-6 text-sm card">
-    <h3 class="text-lg font-bold text-base">{{ 'Database'|t }}</h3>
-    <h4>{{ 'Version'|t }}</h4>{{ database_system_version.value }}
+    <h3 class="text-lg font-bold mt-0 mb-2">{{ 'Database'|t }}</h3>
+    <h4 class="text-md font-bold mt-2">{{ 'Version'|t }}</h4>{{ database_system_version.value }}
     {% if database_system_version.description %}
       {{ database_system_version.description }}
     {% endif %}
 
-    <h4>{{ 'System'|t }}</h4>{{ database_system.value }}
+    <h4 class="text-md font-bold mt-2">{{ 'System'|t }}</h4>{{ database_system.value }}
     {% if database_system.description %}
       {{ database_system.description }}
     {% endif %}

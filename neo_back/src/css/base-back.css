@@ -15,16 +15,6 @@ body {
   @apply bg-base-50;
 }
 
-.region--content {
-  h2 {
-    @apply my-form-item text-2xl font-bold;
-  }
-
-  h3 {
-    @apply my-form-item text-lg font-bold;
-  }
-}
-
 .container {
   > h2 {
     @apply my-form-item text-lg font-bold;
@@ -40,6 +30,25 @@ body {
 }
 
 @layer base {
+
+  .region--content {
+    h2 {
+      @apply my-form-item text-2xl font-bold;
+    }
+
+    h3 {
+      @apply my-form-item text-lg font-bold;
+    }
+
+    p {
+      @apply mb-4;
+
+      &:last-of-type {
+        @apply mb-0;
+      }
+    }
+  }
+
   .field {
     @apply p-0 my-1 neo-size-xs:my-0.5;
 

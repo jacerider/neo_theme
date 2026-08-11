@@ -1,8 +1,8 @@
 form {
 
-  p:not(.ck p):not([class*='text-']):not([class*='font-']) {
+  /* & > p:not(.ck p):not([class*='text-']):not([class*='font-']) {
     @apply text-xs font-normal;
-  }
+  } */
 
   .button:not(.has-icon) {
     &[data-label*='save'],
