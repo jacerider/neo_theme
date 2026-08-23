@@ -10,11 +10,6 @@ libraries:
 
 neo:
   scope: back
-  utilities:
-    .card:
-      apply: '@apply block rounded-sm border border-base-200 bg-default shadow-sm'
-    .form--inner:
-      apply: '@apply m-form modal:m-0'
 
 regions:
   status: Status

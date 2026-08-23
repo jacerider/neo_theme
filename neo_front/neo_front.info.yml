@@ -9,11 +9,6 @@ libraries:
   - neo_front/global
 neo:
   scope: front
-  utilities:
-    .page-title-spacing-t:
-      'apply': '@apply pt-4 md:pt-6 lg:pt-14'
-    .page-title-spacing-b:
-      'apply': '@apply mb-4 md:mb-6 lg:mb-14'
 regions:
   header: Header
   status: Status

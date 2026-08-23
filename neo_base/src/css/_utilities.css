@@ -524,3 +524,129 @@
 @utility px-form-item-inner-* {
   padding-inline: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * --value(integer));
 }
+
+@utility container-center {
+  @apply container mx-auto!;
+}
+
+@utility container-content {
+  @apply container-center px-container!;
+}
+
+@utility scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@utility ui {
+  @apply font-ui;
+}
+
+@utility min-h-displace {
+  min-height: calc(100vh - var(--drupal-displace-offset-top, 0px) - var(--drupal-displace-offset-bottom, 0px));
+}
+
+@utility max-h-displace {
+  max-height: calc(100vh - var(--drupal-displace-offset-top, 0px) - var(--drupal-displace-offset-bottom, 0px));
+}
+
+@utility h-displace {
+  height: calc(100vh - var(--drupal-displace-offset-top, 0px) - var(--drupal-displace-offset-bottom, 0px));
+}
+
+@utility max-height-neo {
+  max-height: calc(100vh - var(--drupal-displace-offset-top, 0px) - var(--drupal-displace-offset-bottom, 0px) - var(--neo-displace-offset-top, 0px) - var(--neo-displace-offset-bottom, 0px));
+}
+
+@utility card {
+  @apply block rounded-sm border;
+}
+
+@utility local-action {
+  @apply btn btn-primary btn-xs md:btn-md;
+}
+
+@utility badge {
+  @apply min-w-4 min-h-4 rounded-2xl leading-normal px-1 py-px text-center text-[10px] font-semibold;
+}
+
+/* Text reset */
+@utility text-md {
+  font-size: var(--text-md);
+  line-height: 1.5rem;
+}
+
+@utility form-label {
+  display: block;
+  margin-bottom: calc(var(--spacing));
+  color: var(--form-item-label);
+  font-size: var(--form-item-label-font-size, var(--text-sm));
+  font-weight: var(--form-item-label-font-weight, 700);
+  text-transform: var(--form-item-label-text-transform);
+  letter-spacing: var(--form-item-label-letter-spacing);
+  font-family: var(--form-item-label-font-family);
+}
+
+@utility form-description {
+  color: var(--form-item-description);
+  font-size: var(--text-xs);
+  font-weight: 300;
+  margin-top: calc(var(--spacing) * 0.5);
+}
+
+@utility form-item-bg {
+  background-color: var(--form-item-base);
+  color: var(--form-item-content);
+
+  &::placeholder {
+    color: var(--form-item-placeholder);
+  }
+}
+
+@utility form-item-border-radius {
+  border-radius: var(--form-item-border-radius, 2px);
+}
+
+@utility form-item-border {
+  border-color: var(--form-item-border);
+  border-width: var(--form-item-border-width);
+
+  &:hover {
+    border-color: var(--form-item-border-hover);
+  }
+
+  &:focus {
+    border-color: var(--form-item-border-focus);
+  }
+
+  &:checked,
+  input:checked + & {
+    background-color: var(--form-item-primary);
+    border-color: var(--form-item-primary);
+  }
+
+  &:checked:focus {
+    background-color: var(--form-item-primary);
+    border-color: var(--form-item-primary);
+  }
+
+  &:checked:hover,
+  input:checked:hover + & {
+    background-color: var(--form-item-primary-active);
+    border-color: var(--form-item-primary-active);
+  }
+}
+
+@utility form-item-focus {
+  &.focus,
+  &:focus,
+  input:focus + &,
+  &.selected {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    --tw-ring-offset-width: 2px;
+    --tw-ring-offset-shadow: 0 0 0 var(--tw-ring-offset-width) var(--form-item-base);
+    --tw-ring-shadow: 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--form-item-ring);
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+}

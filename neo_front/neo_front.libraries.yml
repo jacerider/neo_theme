@@ -7,3 +7,11 @@ global:
       src/css/base-front.css: { minified: true }
   dependencies:
     - neo_build/front
+
+global-utilities:
+  version: VERSION
+  neo:
+    import: true
+  css:
+    theme:
+      src/css/_utilities.css: { minified: true }

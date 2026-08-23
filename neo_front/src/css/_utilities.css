@@ -1,0 +1,7 @@
+@utility page-title-spacing-t {
+  @apply pt-4 md:pt-6 lg:pt-14;
+}
+
+@utility page-title-spacing-b {
+  @apply mb-4 md:mb-6 lg:mb-14;
+}

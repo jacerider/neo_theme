@@ -1,3 +1,11 @@
 @theme {
   --form-spacing: calc(var(--spacing) * 6);
 }
+
+@utility card {
+  @apply block rounded-sm border border-base-200 bg-default shadow-sm;
+}
+
+@utility form--inner {
+  @apply m-form modal:m-0;
+}
