@@ -130,7 +130,13 @@ function neo_base_preprocess_views_view(array &$variables) {
  * Implements hook_preprocess_views_view_table().
  */
 function neo_base_preprocess_views_view_table(array &$variables) {
-  NeoBasePreRender::viewsTable($variables['header'], $variables['rows']);
+  // $variables['header'] and the style plugin's per-column options share a key,
+  // so the neo_sticky an editor picked can be looked up by header key.
+  NeoBasePreRender::viewsTable(
+    $variables['header'],
+    $variables['rows'],
+    $variables['view']->style_plugin->options['info'] ?? []
+  );
 }
 
 /**

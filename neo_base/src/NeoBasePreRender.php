@@ -15,6 +15,32 @@ use Drupal\Core\Template\Attribute;
 class NeoBasePreRender implements TrustedCallbackInterface {
 
   /**
+   * How many columns may be pinned to the left edge.
+   *
+   * Must not exceed the number of --sticky-left-N custom properties declared in
+   * src/css/table.css: a column beyond that has no offset to read and would pin
+   * on top of its neighbour.
+   */
+  const STICKY_MAX_LEFT = 3;
+
+  /**
+   * How many columns may be pinned to the right edge.
+   *
+   * Bounded by the --sticky-right-N custom properties. See STICKY_MAX_LEFT.
+   */
+  const STICKY_MAX_RIGHT = 2;
+
+  /**
+   * Highest column index that may pin left from a label-derived default.
+   *
+   * Column keys come from the rendered header label, so a wide report view with
+   * a late column labelled "Name" or "Title" would otherwise pin everything to
+   * its left and leave nothing to scroll. Explicit configuration is exempt --
+   * an editor asking for it knows what they want.
+   */
+  const STICKY_AUTO_LEFT_MAX_INDEX = 1;
+
+  /**
    * Prerender callback for radios.
    */
   public static function radios($element) {
@@ -111,14 +137,15 @@ class NeoBasePreRender implements TrustedCallbackInterface {
   public static function table($element) {
     $globalClasses = [];
     $count = 0;
-    $props = [
-      'style',
-      'size',
-      'align',
-    ];
+    // Props flagged 'apply' => FALSE (currently neo_sticky) are not independent
+    // per-cell classes and are resolved separately below.
+    $props = array_map(
+      fn ($key) => str_replace('neo_', '', $key),
+      array_keys(array_filter(neo_table_props(), fn ($prop) => ($prop['apply'] ?? TRUE) !== FALSE))
+    );
 
     // Ensure neo properties are arrays.
-    foreach ($props as $prop) {
+    foreach (array_merge($props, ['sticky']) as $prop) {
       if (isset($element["#neo_$prop"]) && !is_array($element["#neo_$prop"])) {
         $element["#neo_$prop"] = [];
       }
@@ -160,16 +187,41 @@ class NeoBasePreRender implements TrustedCallbackInterface {
 
     $count = 0;
     $headerKeys = [];
+    $intent = [];
+    $headerSpans = FALSE;
     foreach ($element['#header'] as $i => $data) {
       $key = is_array($data) ? $i : ((string) $data ?: $i);
-      if (in_array($i, ['operations', 'operations-links'])) {
+      if ($key && !is_int($key)) {
+        $headerKeys[$count] = Html::getClass($key);
+      }
+      if (is_array($data) && ($data['colspan'] ?? 1) > 1) {
+        $headerSpans = TRUE;
+      }
+      // Headers here can be keyed by label or by machine name, so fall back to
+      // the array key when the label yields nothing usable.
+      $autoKey = $headerKeys[$count] ?? (is_int($i) ? '' : Html::getClass((string) $i));
+      $intent[$count] = self::getStickyIntent(
+        $element['#neo_sticky'][$i] ?? NULL,
+        $autoKey,
+        $count
+      );
+      $count++;
+    }
+
+    $columnCount = $count;
+    // A header cell spanning several columns (the menu overview's operations
+    // group, for one) means a header index no longer equals a column position,
+    // so nothing downstream can be pinned to the right place. Skip the table.
+    $sticky = $headerSpans ? [] : self::resolveStickyColumns($intent, $columnCount);
+    $count = 0;
+    foreach ($element['#header'] as $i => $data) {
+      if (!empty($sticky[$count])) {
         if (!is_array($element['#header'][$i])) {
           $element['#header'][$i] = ['data' => $element['#header'][$i]];
         }
-        $element['#header'][$i]['class'][] = 'sticky-right';
-      }
-      if ($key && !is_int($key)) {
-        $headerKeys[$count] = Html::getClass($key);
+        foreach ($sticky[$count] as $class) {
+          $element['#header'][$i]['class'][] = $class;
+        }
       }
       $count++;
     }
@@ -179,6 +231,12 @@ class NeoBasePreRender implements TrustedCallbackInterface {
         $element['#rows'][$i] = ['data' => $data];
       }
       $row = &$element['#rows'][$i]['data'];
+      // A row that does not line up with the header one cell per column -- a
+      // tabledrag region title, a Field UI section heading, an empty-table
+      // message -- cannot be matched to a column by position, so it gets no
+      // sticky classes. Presentational classes keep their existing (equally
+      // positional, but harmless when wrong) behaviour.
+      $rowIsAligned = count($row) === $columnCount;
       $count = 0;
       foreach ($row as $ii => $cellData) {
         $cellClasses = NULL;
@@ -203,6 +261,10 @@ class NeoBasePreRender implements TrustedCallbackInterface {
         }
         if (isset($globalClasses[$ii])) {
           $classes = array_merge($classes, $globalClasses[$ii]);
+        }
+        // A cell spanning several columns has no single column to pin to.
+        if ($rowIsAligned && empty($cell['colspan']) && !empty($sticky[$count])) {
+          $classes = array_merge($classes, $sticky[$count]);
         }
         // Hide columns that are only a hidden input.
         // Use in menu management.
@@ -255,32 +317,54 @@ class NeoBasePreRender implements TrustedCallbackInterface {
 
   /**
    * Preprocess callback for views table.
+   *
+   * @param array $headers
+   *   The header rows, keyed by views column id.
+   * @param array $rows
+   *   The result rows.
+   * @param array $info
+   *   The table style plugin's per-column options, keyed by the same column ids
+   *   as $headers. Supplies the neo_sticky value an editor chose in the Views
+   *   UI. Optional so existing callers keep working.
    */
-  public static function viewsTable(&$headers = [], &$rows = []) {
+  public static function viewsTable(&$headers = [], &$rows = [], array $info = []) {
     $headerKeys = [];
+    $intent = [];
     $count = 0;
     foreach ($headers as $i => $data) {
       $key = is_array($data['content']) ? $i : ($data['content'] ?: $i);
       if ($name = Html::getClass((string) $key)) {
         $headerKeys[$count] = $name;
         $headers[$i]['attributes']->addClass('th--' . $name);
-        if (in_array($name, ['operations', 'operations-links'])) {
-          $headers[$i]['attributes']->addClass('sticky-right');
-        }
+      }
+      $intent[$count] = self::getStickyIntent(
+        $info[$i]['neo_sticky'] ?? NULL,
+        $headerKeys[$count] ?? '',
+        $count
+      );
+      $count++;
+    }
+
+    $sticky = self::resolveStickyColumns($intent, $count);
+    $count = 0;
+    foreach ($headers as $i => $data) {
+      foreach ($sticky[$count] ?? [] as $class) {
+        $headers[$i]['attributes']->addClass($class);
       }
       $count++;
     }
+
     $props = neo_table_props();
     foreach ($rows as $i => $row) {
       $count = 0;
       foreach ($row['columns'] as $ii => $column) {
+        /** @var \Drupal\Core\Template\Attribute $attributes */
+        $attributes = $rows[$i]['columns'][$ii]['attributes'];
+        foreach ($sticky[$count] ?? [] as $class) {
+          $attributes->addClass($class);
+        }
         if (isset($headerKeys[$count])) {
-          /** @var \Drupal\Core\Template\Attribute $attributes */
-          $attributes = $rows[$i]['columns'][$ii]['attributes'];
           $attributes->addClass('td--' . $headerKeys[$count]);
-          if (in_array($headerKeys[$count], ['operations', 'operations-links'])) {
-            $attributes->addClass('sticky-right');
-          }
           if ($keyClasses = self::getTableClassesByKey($headerKeys[$count], $ii)) {
             foreach ($keyClasses as $keyClass) {
               [$type, $value] = explode('--', $keyClass . '--');
@@ -322,8 +406,8 @@ class NeoBasePreRender implements TrustedCallbackInterface {
       'id' => ['size--min', 'style--xs'],
       'type' => ['size--min', 'style--xs'],
       'categories' => ['size--min'],
-      'operations' => ['size--min', 'sticky-right'],
-      'operation-links' => ['size--min', 'sticky-right'],
+      'operations' => ['size--min'],
+      'operations-links' => ['size--min'],
       'machine-name' => ['size--min', 'style--xs'],
       'author' => ['size--min', 'style--xs'],
       'owner' => ['size--min', 'style--xs'],
@@ -344,6 +428,130 @@ class NeoBasePreRender implements TrustedCallbackInterface {
         default => [],
       },
     };
+  }
+
+  /**
+   * Get the default sticky edge for a table column key.
+   *
+   * Kept apart from ::getTableClassesByKey() on purpose. Those classes are
+   * per-cell presentation and can be applied where they are found; sticky has
+   * to survive ::resolveStickyColumns() first, which needs to see every column
+   * before it can say which ones actually pin.
+   *
+   * @param string $key
+   *   The normalized column key.
+   *
+   * @return string|null
+   *   'left', 'right', or NULL when the column has no default.
+   */
+  public static function getTableStickyByKey(string $key): ?string {
+    return match($key) {
+      'title', 'label', 'name', 'vocabulary-name', 'media-name', 'username' => 'left',
+      'operations', 'operations-links' => 'right',
+      default => NULL,
+    };
+  }
+
+  /**
+   * Resolve one column's sticky intent from configuration and defaults.
+   *
+   * @param string|null $configured
+   *   The saved neo_sticky value: 'left', 'right', 'none', or empty for auto.
+   * @param string $key
+   *   The normalized column key, used for the auto default.
+   * @param int $index
+   *   The column's position, used to bound the auto default.
+   *
+   * @return string|null
+   *   'left', 'right', 'none', or NULL.
+   */
+  protected static function getStickyIntent(?string $configured, string $key, int $index): ?string {
+    if (!empty($configured)) {
+      // An explicit choice is honoured wherever the column sits.
+      return $configured;
+    }
+    $auto = $key ? self::getTableStickyByKey($key) : NULL;
+    if ($auto === 'left' && $index > self::STICKY_AUTO_LEFT_MAX_INDEX) {
+      return NULL;
+    }
+    return $auto;
+  }
+
+  /**
+   * Work out which columns pin, and to which edge.
+   *
+   * Pinning a column implies pinning everything between it and the edge --
+   * otherwise the columns in between scroll away and leave a gap the pinned
+   * column floats over. So the intent of a single column expands into a
+   * contiguous group.
+   *
+   * @param array $intent
+   *   Column index => 'left', 'right', 'none' or NULL. Indexes are positions in
+   *   the header row, not column ids.
+   * @param int $columnCount
+   *   Total number of columns.
+   *
+   * @return array
+   *   Column index => list of classes to add. Only ever adds; a caller never
+   *   has to remove anything it applied earlier.
+   */
+  public static function resolveStickyColumns(array $intent, int $columnCount): array {
+    if ($columnCount < 2) {
+      // A single column has nothing to scroll past.
+      return [];
+    }
+
+    $lastLeft = NULL;
+    $firstRight = NULL;
+    foreach ($intent as $index => $side) {
+      if ($index < 0 || $index >= $columnCount) {
+        continue;
+      }
+      if ($side === 'left') {
+        $lastLeft = $lastLeft === NULL ? $index : max($lastLeft, $index);
+      }
+      elseif ($side === 'right') {
+        $firstRight = $firstRight === NULL ? $index : min($firstRight, $index);
+      }
+    }
+
+    // The two groups must not meet. When they would, the right group wins: its
+    // columns hold the actions, which are worth more than a readable label.
+    if ($lastLeft !== NULL && $firstRight !== NULL && $lastLeft >= $firstRight) {
+      $lastLeft = $firstRight - 1;
+      if ($lastLeft < 0) {
+        $lastLeft = NULL;
+      }
+    }
+
+    // A group with more columns than CSS has offsets for would pin its overflow
+    // on top of its neighbours. Dropping the whole group fails obviously rather
+    // than subtly.
+    if ($lastLeft !== NULL && ($lastLeft + 1) > self::STICKY_MAX_LEFT) {
+      $lastLeft = NULL;
+    }
+    if ($firstRight !== NULL && ($columnCount - $firstRight) > self::STICKY_MAX_RIGHT) {
+      $firstRight = NULL;
+    }
+
+    $classes = [];
+    if ($lastLeft !== NULL) {
+      for ($i = 0; $i <= $lastLeft; $i++) {
+        $classes[$i][] = 'sticky--left';
+        $classes[$i][] = 'sticky-left--' . $i;
+      }
+      $classes[$lastLeft][] = 'sticky--left-edge';
+    }
+    if ($firstRight !== NULL) {
+      for ($i = $firstRight; $i < $columnCount; $i++) {
+        // Ordinals count inwards from the edge, so the rightmost column is 0.
+        $classes[$i][] = 'sticky--right';
+        $classes[$i][] = 'sticky-right--' . ($columnCount - 1 - $i);
+      }
+      $classes[$firstRight][] = 'sticky--right-edge';
+    }
+
+    return $classes;
   }
 
   /**

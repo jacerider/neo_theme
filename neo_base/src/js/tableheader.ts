@@ -13,7 +13,14 @@
 
     wrapper.classList.add('table--sticky');
 
-    // Clone the table (deep clone to get all child elements)
+    // Clone the table (deep clone to get all child elements).
+    //
+    // Sticky columns ride along for free, and depend on that: the .sticky--*
+    // classes are server-rendered so the clone can never disagree with the
+    // body, and their offsets are custom properties on .table--wrapper, which
+    // this clone sits inside and so inherits live. Do not "optimize" those
+    // offsets into inline styles on the cells -- this clone is taken once, so
+    // inline values would freeze here and go stale on the next resize.
     const clonedTable = table.cloneNode(true) as HTMLTableElement;
     clonedTable.removeAttribute('id');
 
