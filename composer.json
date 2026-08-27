@@ -18,7 +18,7 @@
   "minimum-stability": "dev",
   "require": {
     "drupal/core": "^10.3 || ^11",
-    "jacerider/neo": "^1",
+    "jacerider/neo": "^1.0.139",
     "jacerider/neo_twig": "^1",
     "jacerider/neo_icon": "^1",
     "jacerider/neo_font": "^1"

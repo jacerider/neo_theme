@@ -6,6 +6,7 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Security\TrustedCallbackInterface;
 use Drupal\Core\Template\Attribute;
+use Drupal\neo\Helpers\TableProps;
 
 /**
  * Implements trusted prerender callbacks for the Claro theme.
@@ -141,7 +142,7 @@ class NeoBasePreRender implements TrustedCallbackInterface {
     // per-cell classes and are resolved separately below.
     $props = array_map(
       fn ($key) => str_replace('neo_', '', $key),
-      array_keys(array_filter(neo_table_props(), fn ($prop) => ($prop['apply'] ?? TRUE) !== FALSE))
+      array_keys(array_filter(TableProps::get(), fn ($prop) => ($prop['apply'] ?? TRUE) !== FALSE))
     );
 
     // Ensure neo properties are arrays.
@@ -354,7 +355,7 @@ class NeoBasePreRender implements TrustedCallbackInterface {
       $count++;
     }
 
-    $props = neo_table_props();
+    $props = TableProps::get();
     foreach ($rows as $i => $row) {
       $count = 0;
       foreach ($row['columns'] as $ii => $column) {
