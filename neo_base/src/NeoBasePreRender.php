@@ -406,6 +406,7 @@ class NeoBasePreRender implements TrustedCallbackInterface {
       'username' => ['style--heading'],
       'id' => ['size--min', 'style--xs'],
       'type' => ['size--min', 'style--xs'],
+      'content-type' => ['size--min', 'style--xs'],
       'categories' => ['size--min'],
       'operations' => ['size--min'],
       'operations-links' => ['size--min'],
