@@ -69,13 +69,21 @@ libraries-override:
         css/components/progress.module.css: false
         css/components/reset-appearance.module.css: false
         css/components/resize.module.css: false
-        css/components/sticky-header.module.css: false
         css/components/system-status-counter.css: false
         css/components/system-status-report-counters.css: false
         css/components/system-status-report-general-info.css: false
         css/components/tabledrag.module.css: false
         css/components/tablesort.module.css: false
         css/components/tree-child.module.css: false
+  # Core sticks the real <thead> to the viewport. Neo cannot: .table--inner is a
+  # horizontal scroll container, which is exactly the thing that stops a sticky
+  # descendant from seeing the viewport at all, so tableheader.ts clones the
+  # header out of the scroller instead. Left in, the rule only puts a z-index
+  # 500 stacking context around a header that is collapsed to nothing.
+  core/drupal.tableheader:
+    css:
+      component:
+        misc/components/sticky-header.module.css: false
   system/admin:
     css:
       theme:

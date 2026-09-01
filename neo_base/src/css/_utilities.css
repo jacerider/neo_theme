@@ -538,6 +538,40 @@
   scrollbar-width: none;
 }
 
+/* A slim scrollbar that stays drawn, for a control whose whole job is to be
+   seen and dragged.
+
+   The webkit pseudo-elements are the primary route and the standard properties
+   are deliberately kept out of their way: Chrome ignores ::-webkit-scrollbar
+   outright as soon as scrollbar-width or scrollbar-color is set anywhere on the
+   element, falling back to the platform's overlay scrollbar -- which on macOS
+   fades out a moment after scrolling and leaves nothing to find. Firefox has no
+   pseudo-elements and takes the @supports branch instead. */
+@utility scrollbar-visible {
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: rgb(var(--color-base-400) / 0.8);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(var(--color-base-500));
+  }
+
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--color-base-400)) transparent;
+  }
+}
+
 @utility ui {
   @apply font-ui;
 }

@@ -23,6 +23,76 @@
   }
 
   /**
+   * Keep two scroll containers on the same horizontal offset.
+   *
+   * The equality guard is what lets several of these run at once -- the body,
+   * this scrollbar and the header tableheader.ts clones all listen to each
+   * other -- without a write bouncing back as another scroll event.
+   */
+  function syncScroll(from: HTMLElement, to: HTMLElement): void {
+    if (to.scrollLeft !== from.scrollLeft) {
+      to.scrollLeft = from.scrollLeft;
+    }
+  }
+
+  /**
+   * The scrollbar that stands in for the one on .table--inner.
+   *
+   * The real one is unreachable: it sits at the foot of a table that can run
+   * thousands of pixels past the bottom of the screen, and .table--inner hides
+   * it besides. This is an empty strip that scrolls the body from wherever the
+   * page happens to be -- sticky against the bottom of the viewport, clear of
+   * anything displacing that edge (a sticky form-actions bar, say) by way of
+   * --spacing-neo-b.
+   *
+   * Built on the first tick that finds an overflow rather than up front, so the
+   * many tables in a form that fit their wrapper never gain the node.
+   */
+  function ensureScrollbar(wrapper: HTMLElement, inner: HTMLElement): HTMLElement {
+    const existing = wrapper.querySelector<HTMLElement>(':scope > .table--scroll');
+    if (existing) {
+      return existing;
+    }
+
+    const bar = document.createElement('div');
+    bar.className = 'table--scroll';
+    // It carries no content of its own, and the body it scrolls is already in
+    // the accessibility tree.
+    bar.setAttribute('aria-hidden', 'true');
+    const track = document.createElement('div');
+    track.className = 'table--scroll-track';
+    bar.appendChild(track);
+    wrapper.appendChild(bar);
+
+    bar.addEventListener('scroll', () => syncScroll(bar, inner));
+    inner.addEventListener('scroll', () => syncScroll(inner, bar));
+
+    return bar;
+  }
+
+  /**
+   * Give the scrollbar the same travel as the body it drives.
+   *
+   * Not simply the table's width: .table--inner picks up a border once it
+   * overflows, so its scrollport is a couple of pixels narrower than the strip
+   * is. Sized from the table alone, dragging the strip to its end would leave
+   * the body short of its own. This matches the two maximums instead.
+   */
+  function syncScrollbar(bar: HTMLElement, inner: HTMLElement, tableWidth: number): void {
+    const track = bar.firstElementChild as HTMLElement | null;
+    if (!track) {
+      return;
+    }
+    const width = bar.clientWidth
+      ? tableWidth - inner.clientWidth + bar.clientWidth
+      : tableWidth;
+    const next = `${Math.round(width * 100) / 100}px`;
+    if (track.style.width !== next) {
+      track.style.width = next;
+    }
+  }
+
+  /**
    * Measure the pinned columns and publish their offsets on the wrapper.
    *
    * Offsets are cumulative widths, not rect.left deltas: once a cell is pinned
@@ -72,8 +142,14 @@
     // .table--overflow lands, .table--inner gains a border that shrinks its
     // clientWidth and would hold the condition true on its own. The epsilon
     // keeps the two from flapping at the boundary.
-    const hasOverflow = table.getBoundingClientRect().width > wrapper.clientWidth + 1;
+    const tableWidth = table.getBoundingClientRect().width;
+    const hasOverflow = tableWidth > wrapper.clientWidth + 1;
     wrapper.classList.toggle('table--overflow', hasOverflow);
+
+    const inner = table.closest<HTMLDivElement>('.table--inner');
+    if (hasOverflow && inner) {
+      syncScrollbar(ensureScrollbar(wrapper, inner), inner, tableWidth);
+    }
 
     const leftWidth = applyStickyOffsets(table, wrapper);
     // Pinning is switched off here rather than switched on, so that a JS failure
@@ -82,7 +158,6 @@
     // Left-pinned columns size to their content and can grow until pinning them
     // leaves nothing worth scrolling. The right group is exempt: it is narrow by
     // construction and pinning it is the behaviour that already shipped.
-    const inner = table.closest<HTMLDivElement>('.table--inner');
     const available = inner ? inner.clientWidth : wrapper.clientWidth;
     wrapper.classList.toggle('table--unpinned-left', leftWidth > available * 0.6);
   }
@@ -102,6 +177,16 @@
       getMeasureCells(table).forEach((cell) => {
         resizeObserver.observe(cell);
       });
+      // And the wrapper, which is the only one of the three that a change of
+      // viewport moves. Every measurement here is the table against the space
+      // it has, and a table already wider than that space keeps its width --
+      // and its cells keep theirs -- however narrow the window gets. Watching
+      // only those, a table that overflowed once stayed overflowing, and a
+      // column unpinned on a narrow screen never pinned itself again.
+      const wrapper = table.closest<HTMLDivElement>('.table--wrapper');
+      if (wrapper) {
+        resizeObserver.observe(wrapper);
+      }
     });
   }
 

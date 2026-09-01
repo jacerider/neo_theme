@@ -451,6 +451,40 @@ table {
   }
 }
 
+/* ---------------------------------------------------------------------------
+   The stand-in scrollbar.
+
+   .table--inner hides its own, and a table tall enough to be worth pinning a
+   header to keeps that scrollbar somewhere far below the fold. This strip is
+   the reachable one: table.ts builds it, gives it the same travel as the body,
+   and keeps the two in step.
+
+   It sticks to the bottom of the viewport, offset by --spacing-neo-b so that
+   anything displacing that edge -- a sticky form-actions bar, most of all on
+   the permissions form this was built for -- does not bury it. Sticky comes
+   from @apply rather than a `sticky` class on the element: sticky.ts matches
+   [class~="sticky"] and would give every table on the page an
+   IntersectionObserver and a sentinel for a stuck state nothing reads.
+   --------------------------------------------------------------------------- */
+
+.table--scroll {
+  @apply scrollbar-visible sticky bottom-neo-b z-20 overflow-y-hidden overflow-x-auto rounded-full;
+
+  height: 10px;
+}
+
+/* Only the tables that scroll. The element is built on the first overflow and
+   then left in place, so a table that has since grown its wrapper -- or been
+   widened past it again -- is answered here rather than by removing the node. */
+.table--wrapper:not(.table--overflow) .table--scroll {
+  @apply hidden;
+}
+
+/* The strip carries no content; it is this that gives it something to scroll. */
+.table--scroll-track {
+  height: 1px;
+}
+
 .table--sticky {
   .table--header {
     @apply sticky top-neo-t z-20 overflow-hidden border border-base-300 shadow-md;

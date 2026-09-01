@@ -15,6 +15,13 @@
 
 {% if neo_style == 'sticky' %}
   {% set end = '<div class="absolute top-full left-0 z-0 w-full bg-base-0 h-4 pointer-events-none"></div>' %}
+  {#
+    Held against the bottom of the viewport, so it displaces that edge for
+    anything else that wants to sit there -- the sticky table scrollbar, above
+    all. displace.ts reads the attribute and publishes the height as
+    --neo-displace-offset-bottom, which --spacing-neo-b feeds.
+  #}
+  {% set attributes = attributes.setAttribute('data-neo-offset-bottom', '') %}
 {% endif %}
 
 {% block end %}

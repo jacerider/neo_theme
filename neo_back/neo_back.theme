@@ -46,6 +46,12 @@ function neo_back_form_alter(&$form, FormStateInterface $form_state, $form_id) {
     case 'user_admin_permissions':
     case 'better_permissions_page_user_admin_permissions':
       $form['permissions']['#sticky'] = TRUE;
+      // The table is far wider than the screen and every column past the first
+      // is an anonymous row of checkboxes, so scrolling right without this
+      // leaves you able to see which role a checkbox belongs to but not which
+      // permission. The header keys here are role labels, which no auto default
+      // recognises, hence the explicit index.
+      $form['permissions']['#neo_sticky'][0] = 'left';
       $form['actions']['#neo_style'] = 'sticky';
       break;
 
