@@ -519,13 +519,38 @@ table {
   @apply hidden;
 }
 
+/* ---------------------------------------------------------------------------
+   The floating header sits *on top of* the real one.
+
+   The real header row stays in the layout and keeps defining the columns; it is
+   only painted out, and the clone is pulled back over it by a negative margin
+   equal to its own height, so it costs nothing in flow. tableheader.ts measures
+   that height into --table-header-height.
+
+   It used to be taken out of the layout instead -- visibility: collapse, height
+   0 -- and the columns were expected to keep the widths its cells asked for.
+   Whether they do is up to the engine: Blink and some Gecko builds keep a
+   collapsed row in the column width computation, Gecko 154 drops it. Where it
+   is dropped every role column on the permissions form fell to the 72px its
+   checkbox needed, and header labels wanting 110-259px spilled across their
+   neighbours. visibility: hidden is the difference that matters here: the row is
+   laid out in full, so every engine sizes the columns the same way.
+   --------------------------------------------------------------------------- */
+
 .table--sticky {
   .table--header {
     @apply sticky top-neo-t z-20 overflow-hidden border border-base-300 shadow-md;
 
-    th {
-      @apply border-b-0 border-t-0;
+    /* Sized and placed to land exactly on the row it covers: fixed to that
+       row's height rather than its own content, so the two cannot disagree by a
+       border and leave a seam, and pushed down past anything the scroller
+       carries above the table. The margins cancel out, so for all the clone is
+       laid out here it costs nothing in the flow. */
+    height: var(--table-header-height, auto);
+    margin-top: var(--table-header-lead, 0px);
+    margin-bottom: calc(-1 * (var(--table-header-height, 0px) + var(--table-header-lead, 0px)));
 
+    th {
       &:first-child {
         @apply border-l-0;
       }
@@ -539,16 +564,23 @@ table {
   .table--inner {
     @apply relative overflow-x-auto overflow-y-hidden border border-t-0;
 
+    /* Laid out, measured, and invisible. Not display: none or
+       visibility: collapse -- see above. */
     thead tr {
-      overflow: hidden;
-      height: 0px;
-      padding-top: 0;
-      padding-bottom: 0;
-      visibility: collapse;
-    }
+      visibility: hidden;
 
-    thead th {
-      @apply border-0;
+      /* Matching the clone's edge cells, which drop these so as not to double
+         up on the border .table--header draws around them. Invisible here
+         either way; it is the geometry that has to agree, since half a
+         collapsed border is enough to put the clone out of step with its own
+         columns. */
+      th:first-child {
+        @apply border-l-0;
+      }
+
+      th:last-child {
+        @apply border-r-0;
+      }
     }
 
     tbody tr {

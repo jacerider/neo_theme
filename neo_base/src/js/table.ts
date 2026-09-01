@@ -5,9 +5,9 @@
   /**
    * The row whose cells define the column widths.
    *
-   * Prefers the real <thead>, which stays measurable even under .table--sticky
-   * where the row is collapsed to zero height -- visibility: collapse does not
-   * affect the width a column reports.
+   * Prefers the real <thead>, which stays measurable even under .table--sticky:
+   * the row is painted out with visibility: hidden, which leaves it laid out and
+   * still defining the columns.
    */
   function getMeasureCells(table: HTMLElement): HTMLTableCellElement[] {
     const row = table.querySelector<HTMLTableRowElement>(':scope > thead > tr')

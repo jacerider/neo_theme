@@ -30,8 +30,9 @@
   /**
    * Measure every column, from the first row that lines up with the grid.
    *
-   * The real <thead> is preferred and usually wins: visibility: collapse zeroes
-   * the row's height without touching the width its cells report. A row whose
+   * The real <thead> is preferred and usually wins: under .table--sticky it is
+   * painted out with visibility: hidden, which leaves it laid out and still
+   * defining the columns. A row whose
    * cells span columns is skipped rather than guessed at -- a spanning cell
    * gives one width for several columns, and splitting it evenly would be a
    * fiction the body does not share.
@@ -73,6 +74,13 @@
     const next = px(value);
     if (element.style.width !== next) {
       element.style.width = next;
+    }
+  }
+
+  function setVar(element: HTMLElement, name: string, value: number): void {
+    const next = px(value);
+    if (element.style.getPropertyValue(name) !== next) {
+      element.style.setProperty(name, next);
     }
   }
 
@@ -167,7 +175,11 @@
       return;
     }
 
-    wrapper.classList.add('table--sticky');
+    // Narrowed once for the closures below, which lose it otherwise.
+    const host = wrapper;
+    const scroller = inner;
+
+    host.classList.add('table--sticky');
 
     // Clone the table (deep clone to get all child elements).
     //
@@ -199,6 +211,10 @@
 
     /**
      * Match the clone's column grid to the table it stands in for.
+     *
+     * Also publishes the height of the row it covers. The clone is laid over
+     * the real header rather than replacing it -- CSS reads the height back to
+     * size the clone and to cancel it out of the flow with a negative margin.
      */
     function syncHeaderWidths(): void {
       const totalWidth = table.getBoundingClientRect().width;
@@ -208,6 +224,18 @@
       }
       else {
         applyCellWidths(clonedTable, table, totalWidth);
+      }
+
+      const row = table.querySelector<HTMLTableRowElement>(':scope > thead > tr');
+      if (row) {
+        const rect = row.getBoundingClientRect();
+        // How far the real header sits below the top of the scroller. Usually
+        // nothing, but tabledrag puts its "Show row weights" link in there ahead
+        // of the table, and the clone has to come down over the header rather
+        // than over that.
+        const lead = Math.max(0, rect.top - scroller.getBoundingClientRect().top);
+        setVar(host, '--table-header-height', rect.height);
+        setVar(host, '--table-header-lead', lead);
       }
     }
 
@@ -238,6 +266,9 @@
     table.querySelectorAll('th').forEach(th => {
       resizeObserver.observe(th);
     });
+    // Anything the scroller gains or loses above the table -- tabledrag's row
+    // weights link appearing, say -- moves the header the clone has to cover.
+    resizeObserver.observe(inner);
   }
 
   Drupal.behaviors.neoBaseTableHeader = {};
