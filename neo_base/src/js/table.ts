@@ -22,28 +22,25 @@
     }
   }
 
-  /**
-   * Keep two scroll containers on the same horizontal offset.
-   *
-   * The equality guard is what lets several of these run at once -- the body,
-   * this scrollbar and the header tableheader.ts clones all listen to each
-   * other -- without a write bouncing back as another scroll event.
-   */
-  function syncScroll(from: HTMLElement, to: HTMLElement): void {
-    if (to.scrollLeft !== from.scrollLeft) {
-      to.scrollLeft = from.scrollLeft;
-    }
-  }
+  /** Never let the grip shrink past something you can still grab. */
+  const MIN_THUMB = 28;
 
   /**
    * The scrollbar that stands in for the one on .table--inner.
    *
    * The real one is unreachable: it sits at the foot of a table that can run
    * thousands of pixels past the bottom of the screen, and .table--inner hides
-   * it besides. This is an empty strip that scrolls the body from wherever the
-   * page happens to be -- sticky against the bottom of the viewport, clear of
-   * anything displacing that edge (a sticky form-actions bar, say) by way of
-   * --spacing-neo-b.
+   * it besides. This is a rail held against the bottom of the viewport, clear
+   * of anything displacing that edge (a sticky form-actions bar, say) by way of
+   * --spacing-neo-b, so the table can be scrolled from wherever the page is.
+   *
+   * The grip is drawn rather than being a real scrollbar on a real overflowing
+   * element. A native one cannot be relied on to be visible: Firefox on macOS
+   * gives it the platform's overlay scrollbar, which takes no layout space and
+   * fades out a moment after scrolling, so the control was invisible at rest in
+   * the one browser and a permanent styled bar in the other. A control whose
+   * whole purpose is to advertise that the table scrolls has to be there before
+   * you touch it.
    *
    * Built on the first tick that finds an overflow rather than up front, so the
    * many tables in a form that fit their wrapper never gain the node.
@@ -56,40 +53,81 @@
 
     const bar = document.createElement('div');
     bar.className = 'table--scroll';
-    // It carries no content of its own, and the body it scrolls is already in
+    // It carries no content of its own, and the table it scrolls is already in
     // the accessibility tree.
     bar.setAttribute('aria-hidden', 'true');
-    const track = document.createElement('div');
-    track.className = 'table--scroll-track';
-    bar.appendChild(track);
+    const thumb = document.createElement('div');
+    thumb.className = 'table--scroll-thumb';
+    bar.appendChild(thumb);
     wrapper.appendChild(bar);
 
-    bar.addEventListener('scroll', () => syncScroll(bar, inner));
-    inner.addEventListener('scroll', () => syncScroll(inner, bar));
+    inner.addEventListener('scroll', () => layoutScrollbar(bar, inner));
+
+    // Dragging the grip. The listeners go on the window rather than the grip,
+    // because the pointer leaves a 10px-tall strip almost at once and the drag
+    // has to keep following it.
+    let originX = 0;
+    let originScroll = 0;
+    const onMove = (event: PointerEvent) => {
+      const travel = bar.clientWidth - thumb.offsetWidth;
+      if (travel <= 0) {
+        return;
+      }
+      const scrollable = inner.scrollWidth - inner.clientWidth;
+      inner.scrollLeft = originScroll + ((event.clientX - originX) / travel) * scrollable;
+    };
+    const onUp = () => {
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup', onUp);
+      window.removeEventListener('pointercancel', onUp);
+      bar.classList.remove('is-dragging');
+    };
+    thumb.addEventListener('pointerdown', (event: PointerEvent) => {
+      originX = event.clientX;
+      originScroll = inner.scrollLeft;
+      window.addEventListener('pointermove', onMove);
+      window.addEventListener('pointerup', onUp);
+      window.addEventListener('pointercancel', onUp);
+      bar.classList.add('is-dragging');
+      // Otherwise the drag selects the rows behind it.
+      event.preventDefault();
+    });
+
+    // Clicking the rail jumps a screenful, as a real scrollbar's track does.
+    bar.addEventListener('pointerdown', (event: PointerEvent) => {
+      if (event.target === thumb) {
+        return;
+      }
+      const offset = event.clientX - bar.getBoundingClientRect().left;
+      const direction = offset < thumb.offsetLeft ? -1 : 1;
+      inner.scrollBy({left: direction * inner.clientWidth, behavior: 'smooth'});
+    });
 
     return bar;
   }
 
   /**
-   * Give the scrollbar the same travel as the body it drives.
-   *
-   * Not simply the table's width: .table--inner picks up a border once it
-   * overflows, so its scrollport is a couple of pixels narrower than the strip
-   * is. Sized from the table alone, dragging the strip to its end would leave
-   * the body short of its own. This matches the two maximums instead.
+   * Put the grip where the table is scrolled to, and size it to how much shows.
    */
-  function syncScrollbar(bar: HTMLElement, inner: HTMLElement, tableWidth: number): void {
-    const track = bar.firstElementChild as HTMLElement | null;
-    if (!track) {
+  function layoutScrollbar(bar: HTMLElement, inner: HTMLElement): void {
+    const thumb = bar.firstElementChild as HTMLElement | null;
+    if (!thumb) {
       return;
     }
-    const width = bar.clientWidth
-      ? tableWidth - inner.clientWidth + bar.clientWidth
-      : tableWidth;
-    const next = `${Math.round(width * 100) / 100}px`;
-    if (track.style.width !== next) {
-      track.style.width = next;
+    const rail = bar.clientWidth;
+    const scrollable = inner.scrollWidth - inner.clientWidth;
+    if (rail <= 0 || scrollable <= 0) {
+      return;
     }
+    const width = Math.max(MIN_THUMB, (inner.clientWidth / inner.scrollWidth) * rail);
+    // Against the travel the grip actually has, not the rail: the grip's own
+    // width is the part of the rail it can never reach past.
+    const offset = (inner.scrollLeft / scrollable) * (rail - width);
+    const nextWidth = `${Math.round(width * 100) / 100}px`;
+    if (thumb.style.width !== nextWidth) {
+      thumb.style.width = nextWidth;
+    }
+    thumb.style.transform = `translateX(${Math.round(offset * 100) / 100}px)`;
   }
 
   /**
@@ -148,7 +186,7 @@
 
     const inner = table.closest<HTMLDivElement>('.table--inner');
     if (hasOverflow && inner) {
-      syncScrollbar(ensureScrollbar(wrapper, inner), inner, tableWidth);
+      layoutScrollbar(ensureScrollbar(wrapper, inner), inner);
     }
 
     const leftWidth = applyStickyOffsets(table, wrapper);

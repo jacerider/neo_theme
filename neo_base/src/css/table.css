@@ -431,9 +431,26 @@ table {
   }
 }
 
+/* ---------------------------------------------------------------------------
+   Why .table--inner is positioned.
+
+   A scroll container only clips a descendant whose containing block is inside
+   it. An absolutely positioned box with no positioned ancestor resolves to the
+   initial containing block instead, so it hangs outside the scroller at its
+   static position -- for a table scrolled 1500px wide, out at x=2500 -- and
+   grows the *page's* scrollable width. The permissions form has one such box
+   per checkbox (label.visually-hidden, 8792 of them) and put a horizontal
+   scrollbar on the whole document, which then dragged the sticky header out of
+   the viewport when used. Making the scroller the containing block keeps them
+   where they belong. Dropbutton menus are unaffected: dropbutton-wrapper and
+   dropbutton-widget are already position: relative, so their containing block
+   was inside the scroller either way. `relative` and not `contain`/`transform`
+   on purpose -- those would capture position: fixed descendants too.
+   --------------------------------------------------------------------------- */
+
 .table--overflow {
   .table--inner {
-    @apply scrollbar-none overflow-x-auto overflow-y-hidden border border-t-0;
+    @apply scrollbar-none relative overflow-x-auto overflow-y-hidden border border-t-0;
 
     table tr th {
       &:first-child {
@@ -468,9 +485,31 @@ table {
    --------------------------------------------------------------------------- */
 
 .table--scroll {
-  @apply scrollbar-visible sticky bottom-neo-b z-20 overflow-y-hidden overflow-x-auto rounded-full;
+  @apply sticky bottom-neo-b z-20 rounded-full bg-base-200/70;
 
   height: 10px;
+  /* The grip is drawn, so nothing here scrolls; it is positioned instead. */
+  position: sticky;
+  touch-action: none;
+}
+
+.table--scroll-thumb {
+  @apply absolute rounded-full bg-base-400/80 transition-colors;
+
+  top: 0;
+  bottom: 0;
+  left: 0;
+  cursor: grab;
+}
+
+.table--scroll-thumb:hover {
+  @apply bg-base-500;
+}
+
+.table--scroll.is-dragging .table--scroll-thumb {
+  @apply bg-base-600;
+
+  cursor: grabbing;
 }
 
 /* Only the tables that scroll. The element is built on the first overflow and
@@ -478,11 +517,6 @@ table {
    widened past it again -- is answered here rather than by removing the node. */
 .table--wrapper:not(.table--overflow) .table--scroll {
   @apply hidden;
-}
-
-/* The strip carries no content; it is this that gives it something to scroll. */
-.table--scroll-track {
-  height: 1px;
 }
 
 .table--sticky {
@@ -503,7 +537,7 @@ table {
   }
 
   .table--inner {
-    @apply overflow-x-auto overflow-y-hidden border border-t-0;
+    @apply relative overflow-x-auto overflow-y-hidden border border-t-0;
 
     thead tr {
       overflow: hidden;
