@@ -386,6 +386,26 @@ table {
   }
 }
 
+/* ---------------------------------------------------------------------------
+   A label held at the edge of a row that spans every column.
+
+   A group row -- a module heading on the permissions form, a tabledrag region
+   title -- is one cell as wide as the table, so there is no column to pin and
+   the label scrolls out of sight along with it, leaving the rows beneath it
+   unattributed. The cell cannot be pinned either, being the full width of the
+   scrollport's content. Its label can: shrunk to its text so it has somewhere
+   to travel, and held at the same inset the cell's own padding gives it, so it
+   starts where it would have sat anyway and simply stops when the row moves on.
+
+   Nothing on these rows is pinned -- they carry no .sticky--left cell -- so the
+   label has the row's full width to itself and cannot end up behind a pinned
+   column.
+   --------------------------------------------------------------------------- */
+
+.table--overflow .sticky--label {
+  @apply sticky left-4 inline-block;
+}
+
 .tabledrag-toggle-weight-wrapper {
   @apply relative flex justify-end;
 

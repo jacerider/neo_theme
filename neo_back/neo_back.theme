@@ -10,6 +10,7 @@ use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
 
 /**
  * Implements hook_theme().
@@ -53,6 +54,21 @@ function neo_back_form_alter(&$form, FormStateInterface $form_state, $form_id) {
       // recognises, hence the explicit index.
       $form['permissions']['#neo_sticky'][0] = 'left';
       $form['actions']['#neo_style'] = 'sticky';
+      // The module group rows are a single cell spanning the whole table, so
+      // there is no column for ::resolveStickyColumns() to pin and the module
+      // name scrolls away with everything else -- leaving the permissions under
+      // it with nothing saying which module they belong to. The cell cannot be
+      // pinned itself, being as wide as the table, so the label inside it is:
+      // wrapping it gives .sticky--label something to hold in place at the
+      // scrollport's edge.
+      foreach (Element::children($form['permissions']) as $key) {
+        // Core builds these as a lone #markup cell at index 0; a permission row
+        // has a 'description' cell and one per role, and no #markup anywhere.
+        if (isset($form['permissions'][$key][0]['#markup'])) {
+          $form['permissions'][$key][0]['#prefix'] = '<div class="sticky--label">';
+          $form['permissions'][$key][0]['#suffix'] = '</div>';
+        }
+      }
       break;
 
     case 'dblog_filter_form':
