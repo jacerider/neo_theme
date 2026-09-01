@@ -21,4 +21,11 @@
       @apply text-2xs text-base-500;
     }
   }
+
+  .td--item {
+
+    .checkbox > .flex {
+      @apply justify-center;
+    }
+  }
 }
