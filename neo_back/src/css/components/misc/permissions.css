@@ -1,13 +1,24 @@
 .permissions {
   td {
     &.module {
-      @apply bg-base-100 font-bold;
+      @apply bg-base-100 text-base-500 font-bold;
     }
   }
 
   .td--permission {
+    @apply max-w-200 min-w-75;
+
+    .permission {
+      padding: 0;
+    }
+
+    .title {
+      @apply text-sm;
+      white-space: wrap;
+    }
+
     .description {
-      @apply text-xs text-base-500;
+      @apply text-2xs text-base-500;
     }
   }
 }
