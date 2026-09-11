@@ -2,5 +2,15 @@
 
 {#
   Specify the classes for the block.
+
+  Skipped entirely when the block is already visually hidden. neo_alchemist marks this
+  block `sr-only` on routes where a component tree renders its own title
+  (neo_alchemist_preprocess_block). `sr-only` sets `position: absolute`, and
+  `container-content`'s `width: 100%` — same layer, later in the sheet — beats `sr-only`'s
+  `width: 1px`. With no positioned ancestor that percentage resolves against the viewport
+  rather than <body>, so the box starts at body's toolbar-displacement margin and runs that
+  far past the right edge, scrolling the page sideways.
 #}
-{% set classes = ['page-title page-title-spacing-t page-title-spacing-b container px-container'] %}
+{% set classes = attributes.hasClass('sr-only')
+  ? []
+  : ['page-title page-title-spacing-t page-title-spacing-b container-content'] %}
