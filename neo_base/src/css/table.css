@@ -181,12 +181,16 @@ table {
   --sticky-right-1: 0px;
 }
 
-/* The gate is split by side on purpose. .table--unpinned is the "nothing to
-   scroll, so nothing to pin" case and covers both. .table--unpinned-left only
-   fires when the left group has grown wide enough that pinning it would eat the
-   scrollport -- possible because those columns size to their content -- and it
-   must not take the operations column down with it, which is narrow by
-   construction and pinned today. */
+/* The gate is split by side on purpose: the two classes are the rungs of one
+   ladder, and table.ts sheds the left group before the right.
+
+   .table--unpinned covers both, and means there is nothing worth pinning --
+   either the table fits its wrapper and has nothing to scroll, or the right
+   group alone would leave too little scrollport to read a column through.
+   .table--unpinned-left is the rung above it: the two groups together blow the
+   budget, but the operations column on its own does not, so it keeps its pin.
+   It holds the actions, which resolveStickyColumns() already ranks above a
+   readable label where the two groups collide. */
 .table--wrapper:not(.table--unpinned):not(.table--unpinned-left) table {
   th,
   td {
@@ -607,4 +611,49 @@ table {
       @apply border-0 border-b last:border-b-0;
     }
   }
+}
+
+
+/* ---------------------------------------------------------------------------
+   Lower-priority columns.
+
+   Core marks admin table columns `priority-low` / `priority-medium` and loads
+   tableresponsive.js, which watches for those cells becoming hidden and offers
+   a "Show all columns" button when any are. The hiding itself is left to the
+   theme -- Claro, Olivero and default_admin each write their own -- and neo
+   never did, so the classes rode along on every admin table doing nothing and
+   the button sat in the DOM at display: none. /admin/content carried 197px of
+   Author and Updated down to a 376px phone scrollport for want of these rules.
+
+   No !important, deliberately. The button reveals a column by way of jQuery
+   .show(), which writes an inline display onto each cell; an important here
+   would outrank that and leave the control dead.
+   --------------------------------------------------------------------------- */
+
+th.priority-low,
+td.priority-low {
+  @variant max-lg {
+    display: none;
+  }
+}
+
+th.priority-medium,
+td.priority-medium {
+  @variant max-md {
+    display: none;
+  }
+}
+
+/* tableresponsive.js inserts its button immediately before the table, which
+   puts it inside the horizontal scroller -- so left alone it slides out of
+   reach the moment the table is scrolled. Held at the scrolled edge instead,
+   the same way .sticky--label holds a group row's label. */
+.table--overflow .table--inner > .tableresponsive-toggle-columns {
+  @apply sticky left-0 inline-block;
+}
+
+/* Shown by tableresponsive.js only once something is actually hidden, so this
+   styles a control that is absent on wide screens. */
+.tableresponsive-toggle {
+  @apply text-base-100-content/60 hover:text-base-100-content cursor-pointer px-2 py-1 text-xs transition-colors;
 }

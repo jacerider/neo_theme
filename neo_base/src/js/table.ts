@@ -26,6 +26,26 @@
   const MIN_THUMB = 28;
 
   /**
+   * What pinning has to leave behind to be worth doing.
+   *
+   * Pinning is a trade: every pixel a pinned column holds is a pixel the
+   * scrollport loses, and every column between the two groups has to pass
+   * through what is left. The rule this replaced weighed the left group against
+   * 60% of the wrapper and never counted the right group at all, so the two
+   * could blow the budget together while each looked modest on its own. On
+   * /admin/content at a 500px viewport they pinned 92% of a 376px scrollport --
+   * 32px through which to read 402px of columns -- and the guard missed firing
+   * by 0.6px.
+   *
+   * So the budget is measured against what remains, never against one group.
+   * The share alone cannot carry it, because 40% of a phone-width scrollport is
+   * still too narrow to read a column through; the floor takes over below about
+   * 400px, where the share stops meaning anything.
+   */
+  const MIN_SCROLLPORT = 160;
+  const SCROLLPORT_SHARE = 0.4;
+
+  /**
    * The scrollbar that stands in for the one on .table--inner.
    *
    * The real one is unreachable: it sits at the foot of a table that can run
@@ -145,9 +165,9 @@
    * cloned header and the body disagree by a fraction, so one offset cannot suit
    * both -- is covered in CSS by .sticky--left/.sticky--right's seam overlay.
    *
-   * @return The width of the left-pinned group.
+   * @return The widths of the left- and right-pinned groups.
    */
-  function applyStickyOffsets(table: HTMLElement, wrapper: HTMLElement): number {
+  function applyStickyOffsets(table: HTMLElement, wrapper: HTMLElement): {left: number, right: number} {
     const cells = getMeasureCells(table);
     let left = 0;
     let right = 0;
@@ -168,7 +188,7 @@
       right += cells[i].getBoundingClientRect().width;
     }
 
-    return left;
+    return {left, right};
   }
 
   function processTable(table: HTMLElement): void {
@@ -189,15 +209,19 @@
       layoutScrollbar(ensureScrollbar(wrapper, inner), inner);
     }
 
-    const leftWidth = applyStickyOffsets(table, wrapper);
+    const {left, right} = applyStickyOffsets(table, wrapper);
+    const available = inner ? inner.clientWidth : wrapper.clientWidth;
+    const budget = Math.max(MIN_SCROLLPORT, available * SCROLLPORT_SHARE);
+
+    // The groups shed in one order only, left first. The operations column is
+    // the last thing to unpin because it holds the actions, which
+    // resolveStickyColumns() already ranks above a readable label where the two
+    // groups collide; a narrow screen is the same question asked again.
+    //
     // Pinning is switched off here rather than switched on, so that a JS failure
     // leaves the columns pinned as they were rather than unpinning them.
-    wrapper.classList.toggle('table--unpinned', !hasOverflow);
-    // Left-pinned columns size to their content and can grow until pinning them
-    // leaves nothing worth scrolling. The right group is exempt: it is narrow by
-    // construction and pinning it is the behaviour that already shipped.
-    const available = inner ? inner.clientWidth : wrapper.clientWidth;
-    wrapper.classList.toggle('table--unpinned-left', leftWidth > available * 0.6);
+    wrapper.classList.toggle('table--unpinned', !hasOverflow || available - right < budget);
+    wrapper.classList.toggle('table--unpinned-left', available - left - right < budget);
   }
 
   Drupal.behaviors.neoBaseTable = {};

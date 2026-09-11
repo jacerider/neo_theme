@@ -53,7 +53,21 @@
       if (cells.some((cell) => (cell.colSpan || 1) > 1)) {
         continue;
       }
-      return cells.map((cell) => cell.getBoundingClientRect().width);
+      // A column hidden by the responsive-priority rules is gone from its row,
+      // not merely zero-wide, so every cell after it shifts up onto the <col>
+      // the hidden one would have used. Giving the colgroup a zero-width entry
+      // for it therefore puts the clone one column out of step for the rest of
+      // the row -- on /admin/content the operations header came out at the
+      // status column's width. The clone hides the same columns by the same
+      // rule, so the grid is built from the cells that actually render and the
+      // two sides stay in agreement.
+      //
+      // getClientRects(), not a width test: under .table--sticky the real row
+      // is painted out with visibility: hidden, which still generates rects, and
+      // a genuinely zero-width column is a column all the same.
+      return cells
+        .filter((cell) => cell.getClientRects().length > 0)
+        .map((cell) => cell.getBoundingClientRect().width);
     }
     return null;
   }
@@ -191,6 +205,14 @@
     // inline values would freeze here and go stale on the next resize.
     const clonedTable = table.cloneNode(true) as HTMLTableElement;
     clonedTable.removeAttribute('id');
+    // The clone is aria-hidden decoration and must not register with core
+    // behaviours as a table in its own right. tableresponsive.js binds to
+    // `table.responsive-enabled` and inserts a "Show all columns" button before
+    // each one it finds, so leaving the class on gave the wrapper two buttons --
+    // and put one of them inside .table--header, where it displaced the very row
+    // the clone exists to hold still. Same reasoning as removeAttribute('id')
+    // above, and as the `.table--inner > table` scope in table.ts.
+    clonedTable.classList.remove('responsive-enabled');
 
     // Find and clear the tbody in the cloned table
     const clonedTbody = clonedTable.querySelector('tbody');
@@ -210,6 +232,37 @@
     inner.parentNode?.insertBefore(clonedWrapper, inner);
 
     /**
+     * Carry the real row's column visibility across to the clone.
+     *
+     * The responsive-priority CSS hides the same columns in both tables, so at
+     * rest the two agree on their own. Core's "Show all columns" button does
+     * not: it reveals a column by writing an inline display onto the cells of
+     * the table it was bound to, and the clone is a different table that never
+     * hears about it. Left alone the clone kept its columns hidden while the
+     * real one showed them, and the colgroup -- measured from the real row --
+     * went a column out of step.
+     *
+     * Copying the inline value rather than computing one keeps this a mirror:
+     * '' when the stylesheet is in charge, and whatever core wrote when it is.
+     */
+    function mirrorColumnVisibility(): void {
+      const realRows = table.querySelectorAll<HTMLTableRowElement>(':scope > thead > tr');
+      const cloneRows = clonedTable.querySelectorAll<HTMLTableRowElement>(':scope > thead > tr');
+      realRows.forEach((row, rowIndex) => {
+        const cloneRow = cloneRows[rowIndex];
+        if (!cloneRow) {
+          return;
+        }
+        Array.from(row.children).forEach((cell, cellIndex) => {
+          const target = cloneRow.children[cellIndex] as HTMLElement | undefined;
+          if (target) {
+            target.style.display = (cell as HTMLElement).style.display;
+          }
+        });
+      });
+    }
+
+    /**
      * Match the clone's column grid to the table it stands in for.
      *
      * Also publishes the height of the row it covers. The clone is laid over
@@ -217,6 +270,7 @@
      * size the clone and to cancel it out of the flow with a negative margin.
      */
     function syncHeaderWidths(): void {
+      mirrorColumnVisibility();
       const totalWidth = table.getBoundingClientRect().width;
       const widths = measureColumnWidths(table, getColumnCount(table));
       if (widths) {
