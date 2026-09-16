@@ -24,3 +24,19 @@
     }
   }
 }
+
+/* Commerce rows the dashboard's two report tables at >= 62em
+   (commerce.metrics.css). .table--wrapper carries the theme's block-flow
+   rhythm -- my-6, zeroed on :first-child / :last-child -- and in a row
+   :first-child is the leftmost wrapper, not the topmost, so the second table
+   keeps its 1.5rem block-start margin and hangs below the first, while the
+   first's block-end margin pads the bottom of the card. Commerce ships the
+   same override for Gin's .gin-layer-wrapper right below the flex rule.
+
+   The breakpoint is written out rather than using lg:, which is 64rem and
+   would leave the tables misaligned between 62em and 64rem. */
+@media (min-width: 62em) {
+  .metrics__tables > .table--wrapper {
+    @apply my-0;
+  }
+}

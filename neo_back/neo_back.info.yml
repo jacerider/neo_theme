@@ -31,6 +31,8 @@ libraries-extend:
     - neo_back/table
   commerce/admin-layout:
     - neo_back/commerce-admin
+  commerce/dashboard:
+    - neo_back/commerce-admin
 
 libraries-override:
   webform/webform.admin.dropbutton:
