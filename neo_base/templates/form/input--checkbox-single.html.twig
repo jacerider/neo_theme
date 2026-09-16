@@ -1,11 +1,25 @@
 {% extends 'input.html.twig' %}
 
+{#
+  `inline_buttons` renders the control as a segmented text button: the input goes
+  `sr-only` (not hidden — it stays focusable and operable by keyboard) and the
+  wrapping label becomes the chip. See form-element--type-checkbox-single.html.twig.
+
+  The grouped path (input--checkbox.html.twig) does the same thing, but its chip
+  styling keys off `checked-prev:` — an adjacent-sibling selector. It cannot be
+  reused here: this template nests the input inside a positioning div, so the
+  label is not the input's sibling. The single path uses `has-[:checked]:`.
+#}
+{%
+  set buttons = neo_style in ['inline_buttons', 'inline_buttons_outline', 'inline_buttons_text']
+%}
 {%
   set classes = [
     'block',
     'transition',
     'form-item-focus',
     disabled ? 'cursor-not-allowed' : 'cursor-pointer',
+    buttons ? 'sr-only',
     neo_style == 'reset' ? 'rounded checked:bg-form-item-primary checked:hover:bg-form-item-primary checked:focus:bg-form-item-primary',
     neo_style == 'default' ? 'peer form-item-border form-item-bg rounded-full checked:bg-none',
     neo_style == 'default' and neo_size == 'xl' ? 'w-14 h-10',
@@ -29,8 +43,13 @@
 %}
 
 {% block input %}
-  <div{{ container_attributes.addClass('relative p-0!') }}>
+  {% if buttons %}
+    {# No track and no knob — the label carries the whole visual. #}
     <input{{ attributes.addClass(classes) }} role="switch" />{{ children }}
-    <div{{ inner_attributes.addClass(inner_classes) }}></div>
-  </div>
+  {% else %}
+    <div{{ container_attributes.addClass('relative p-0!') }}>
+      <input{{ attributes.addClass(classes) }} role="switch" />{{ children }}
+      <div{{ inner_attributes.addClass(inner_classes) }}></div>
+    </div>
+  {% endif %}
 {% endblock %}

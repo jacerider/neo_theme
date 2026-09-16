@@ -1,7 +1,13 @@
 @theme {
-  /* Text sizes (md not provided by core) */
+  /* Text sizes (md not provided by core).
+
+     These carry no paired `--text-*--line-height`, unlike Tailwind's own ramp,
+     so a `text-2xs` / `text-3xs` call site sets font-size only and adds its own
+     `leading-*`. The floor is deliberately 10px: uppercase micro-labels stop
+     being comfortably readable below it. */
   --text-md: 1rem;
   --text-2xs: 0.6875rem;
+  --text-3xs: 0.625rem;
 
   /* Titles */
   --title-size: var(--text-3xl);
@@ -239,7 +245,9 @@
   line-height: var(--leading-tight);
   text-align: center;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  /* `border-color` is in here because the text variants make the outline their
+     hover state — without it the border would snap in while the colour eased. */
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   box-sizing: border-box;
 
   &:hover {
@@ -385,19 +393,27 @@
   }
 }
 
+/* Reads as text until you reach for it: the hover state is the outline arriving
+   rather than an underline, so the control announces itself as a button at the
+   moment you aim at it and stays quiet the rest of the time.
+   `neo_base_preprocess_input()` emits the same treatment for the `text*`
+   `#neo_style` values — the two paths have to agree or a `.btn-text` class and
+   a `#neo_style: text` button hover differently.
+   No `first:pl-0 / last:pr-0` here any more: that flush alignment assumed the
+   button never draws a box, and with an outline it would clip the text on the
+   first and last item of a row. */
 @utility btn-base-text {
   --btn-bg-transparent: transparent;
   --btn-bg-transparent-hover: transparent;
   --btn-border-color: transparent;
-  --btn-border-color-hover: transparent;
+  /* Follow the content colour rather than the base one, so each variant outlines
+     in its own colour — `btn-text-alert` gets an alert border, `btn-text-*` an
+     arbitrary one — without every variant having to restate it. The variants
+     set `--btn-content-color*` after this utility is applied, and `var()`
+     resolves against the final computed value, so the order is not a problem. */
+  --btn-border-color-hover: var(--btn-content-color-hover, var(--btn-content-color, rgb(var(--color-base-500))));
   --btn-decoration: var(--btn-text-decoration, none);
-  --btn-decoration-hover: var(--btn-text-decoration-hover, underline);
-  &:first-child {
-    padding-left: 0;
-  }
-  &:last-child {
-    padding-right: 0;
-  }
+  --btn-decoration-hover: var(--btn-text-decoration-hover, none);
 }
 
 @utility btn-text {
@@ -525,6 +541,16 @@
   padding-inline: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * --value(integer));
 }
 
+/* The single-edge members of the family. A label row needs a gap below it
+   without gaining one above, which neither `p-` nor `py-` can express. */
+@utility pt-form-item-inner-* {
+  padding-top: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * --value(integer));
+}
+
+@utility pb-form-item-inner-* {
+  padding-bottom: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * --value(integer));
+}
+
 @utility container-center {
   @apply container mx-auto!;
 }
@@ -566,8 +592,10 @@
   @apply btn btn-primary btn-xs md:btn-md;
 }
 
+/* `text-3xs` rather than the `text-[10px]` this carried before the token
+   existed — same value, but on the scale instead of beside it. */
 @utility badge {
-  @apply min-w-4 min-h-4 rounded-2xl leading-normal px-1 py-px text-center text-[10px] font-semibold;
+  @apply min-w-4 min-h-4 rounded-2xl leading-normal px-1 py-px text-center text-3xs font-semibold;
 }
 
 /* Text reset */

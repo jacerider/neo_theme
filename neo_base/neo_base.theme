@@ -390,15 +390,19 @@ function neo_base_preprocess_input__submit(array &$variables) {
         ";
         break;
 
+      // The text styles read as text until hovered, when the outline arrives.
+      // Kept in step with the `btn-base-text` utility in neo_base's
+      // _utilities.css, which is the class-based route to the same treatment.
       case 'text':
         $style[] = "
           --btn-bg-transparent: transparent;
           --btn-bg-color-hover: transparent;
           --btn-content-color: var(--btn-bg-color, rgb(var(--color-base-500)));
           --btn-content-color-hover: var(--btn-bg-color, rgb(var(--color-base-500)));
-          --btn-text-decoration-hover: underline;
+          --btn-border-color: transparent;
+          --btn-border-color-hover: var(--btn-line-color, var(--btn-bg-color, rgb(var(--color-base-500))));
+          --btn-text-decoration-hover: none;
         ";
-        $variables['attributes']['class'][] = 'first:pl-0 last:pr-0';
         break;
 
       case 'text-primary':
@@ -414,10 +418,9 @@ function neo_base_preprocess_input__submit(array &$variables) {
           --btn-content-color: var(--btn-$neoStyle-bg-color, rgb(var(--color-$neoStyle-500)));
           --btn-content-color-hover: var(--btn-$neoStyle-bg-color, rgb(var(--color-$neoStyle-700)));
           --btn-border-color: transparent;
-          --btn-border-color-hover: transparent;
-          --btn-text-decoration-hover: underline;
+          --btn-border-color-hover: var(--btn-$neoStyle-bg-color, rgb(var(--color-$neoStyle-500)));
+          --btn-text-decoration-hover: none;
         ";
-        $variables['attributes']['class'][] = 'first:pl-0 last:pr-0';
         break;
     }
   }

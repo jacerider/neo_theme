@@ -1,29 +1,42 @@
+{#
+/**
+ * @file
+ * The label of a radio — which, in the button styles, *is* the control.
+ *
+ * Kept in step with form-element-label--type-checkbox.html.twig, which carries
+ * the reasoning: the button styles render the label as a chip, so it steps one
+ * size quieter than its `neo_size`, and the two text ramps are guarded to be
+ * mutually exclusive because utility-vs-utility order is decided by the
+ * stylesheet, not by this list.
+ */
+#}
 {% extends 'form-element-label.html.twig' %}
 
 {%
+  set buttons = neo_style in ['inline_buttons', 'inline_buttons_outline', 'inline_buttons_text', 'grid_buttons']
+%}
+{%
   set classes = [
     'text-base',
+    neo_style == 'inline_buttons_text' ? 'text-form-item-description hover:text-form-item-label',
     disabled ? 'cursor-not-allowed' : 'cursor-pointer',
-    neo_size == 'xl' ? 'text-xl',
-    neo_size == 'lg' ? 'text-lg',
-    neo_size == 'md' ? 'text-md',
-    neo_size == 'sm' ? 'text-sm',
-    neo_size == 'xs' ? 'text-xs',
+    not buttons and neo_size == 'xl' ? 'text-xl',
+    not buttons and neo_size == 'lg' ? 'text-lg',
+    not buttons and neo_size == 'md' ? 'text-md',
+    not buttons and neo_size == 'sm' ? 'text-sm',
+    not buttons and neo_size == 'xs' ? 'text-xs',
+    not buttons and neo_size == '2xs' ? 'text-2xs',
+    buttons and neo_size == 'xl' ? 'text-lg p-form-item-inner-3',
+    buttons and neo_size == 'lg' ? 'text-md p-form-item-inner-2',
+    buttons and neo_size == 'md' ? 'text-sm p-form-item-inner-2',
+    buttons and neo_size == 'sm' ? 'text-xs p-form-item-inner-1',
+    buttons and neo_size in ['xs', '2xs'] ? 'text-3xs [--form-item-inner-spacing:0.5] p-form-item-inner-1',
     neo_style == 'default' ? 'pl-1.5',
     neo_style == 'inline' ? 'pl-1.5',
     neo_style == 'inline_buttons' ? 'block form-item-border form-item-border-radius form-item-focus form-item-bg leading-none ml-0 transition-all checked-prev:bg-form-item-primary checked-prev:text-form-item-primary-content',
     neo_style == 'inline_buttons_outline' ? 'block form-item-border form-item-border-radius form-item-focus border-item-border leading-none ml-0 transition-all checked-prev:bg-form-item-primary checked-prev:text-form-item-primary-content',
-    neo_style in ['inline_buttons', 'inline_buttons_outline'] and neo_size == 'xl' ? 'p-form-item-inner-4',
-    neo_style in ['inline_buttons', 'inline_buttons_outline'] and neo_size == 'lg' ? 'p-form-item-inner-3',
-    neo_style in ['inline_buttons', 'inline_buttons_outline'] and neo_size == 'md' ? 'p-form-item-inner-2',
-    neo_style in ['inline_buttons', 'inline_buttons_outline'] and neo_size == 'sm' ? 'p-form-item-inner-2',
-    neo_style in ['inline_buttons', 'inline_buttons_outline'] and neo_size == 'xs' ? 'p-form-item-inner-1',
+    neo_style == 'inline_buttons_text' ? 'block form-item-border form-item-border-radius form-item-focus leading-none ml-0 transition-all [--form-item-border:transparent] checked-prev:bg-form-item-primary checked-prev:text-form-item-primary-content',
     neo_style == 'inline_elements' ? 'pl-2 [&>div]:m-0',
     neo_style == 'grid_buttons' ? 'flex items-center justify-center flex-1 leading-none ml-0 form-item-border-radius form-item-border form-item-focus transition-all checked-prev:bg-form-item-primary checked-prev:text-form-item-primary-content',
-    neo_style == 'grid_buttons' and neo_size == 'xl' ? 'p-form-item-inner-4',
-    neo_style == 'grid_buttons' and neo_size == 'lg' ? 'p-form-item-inner-3',
-    neo_style == 'grid_buttons' and neo_size == 'md' ? 'p-form-item-inner-2',
-    neo_style == 'grid_buttons' and neo_size == 'sm' ? 'p-form-item-inner-2',
-    neo_style == 'grid_buttons' and neo_size == 'xs' ? 'p-form-item-inner-1',
   ]
 %}

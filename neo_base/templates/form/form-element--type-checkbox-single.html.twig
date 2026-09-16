@@ -14,6 +14,14 @@
   set inline = inline is defined ? inline : true
 %}
 
+{#
+  With `inline_buttons` the input renders bare (input--checkbox-single.html.twig
+  drops the switch's positioning wrapper), which makes it the immediate previous
+  sibling of the label below. That is precisely the shape `checked-prev:`
+  selects, so form-element-label--type-checkbox.html.twig's existing
+  `inline_buttons` chip styling applies here unchanged — the two paths share one
+  definition rather than each carrying its own.
+#}
 {% block children %}
   <label class="flex items-center select-none text-base" for="{{ element_id }}">
     {{ children }}
