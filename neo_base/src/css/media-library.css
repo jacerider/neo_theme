@@ -14,10 +14,14 @@
   @apply relative;
 
   .button.form-submit {
-    @apply text-alert-500-content hover:bg-alert-500-content absolute right-2 top-2 z-10 m-0 h-8 w-8 overflow-hidden rounded-full border-0 bg-alert-500 p-0 text-lg leading-8 shadow-lg hover:text-alert-500;
+    @apply text-alert-500-content hover:bg-alert-500-content absolute right-2 top-2 z-10 m-0 h-8 w-8 overflow-hidden rounded-full border-0 bg-alert-500 p-0 text-md leading-8 shadow-lg hover:text-alert-500 text-center;
 
-    &:before {
-      @apply icon-times flex h-8 w-8 items-center justify-center;
+    /* `:not(.has-icon)` is here for weight, not for filtering: the generic
+       `form .button:not(.has-icon)[data-label*='remove']:before` rule in
+       neo_back/form.css outscores a bare `&:before`, and its `mr-1` plus
+       inline display shove the glyph up and to the left of the circle. */
+    &:not(.has-icon):before {
+      @apply icon-trash flex h-8 w-8 items-center justify-center m-0 leading-none;
     }
   }
 
