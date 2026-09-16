@@ -5,6 +5,9 @@
  *
  * Available variables:
  * - attributes: HTML attributes for the <fieldset> element.
+ * - neo_tooltip_help: Set when the group's description was moved into a
+ *   tooltip. Carries only `label`, the accessible name for the trigger.
+ *   See neo_tooltip_preprocess_fieldset().
  * - errors: (optional) Any errors for this <fieldset> element, may not be set.
  * - required: Boolean indicating whether the <fieldset> element is required.
  * - legend: The <legend> element containing the following properties:
@@ -114,6 +117,20 @@
             {% if required %}
               <abbr class="font-normal form-required text-alert" aria-hidden="true">*</abbr>
               <span class="visually-hidden">{{ 'required'|t }}</span>
+            {% endif %}
+            {#
+              A group's label is a legend, which never goes through
+              form_element_label — so without this a checkboxes or radios group
+              was the one field type whose help had no visible trigger.
+              See neo_tooltip_preprocess_fieldset().
+            #}
+            {% if neo_tooltip_help %}
+              <button type="button"
+                      data-neo-tooltip-help
+                      class="form-label-help"
+                      aria-label="{{ neo_tooltip_help.label }}">
+                <i class="neo-icon neo-icon-font icon-regular-info-circle" aria-hidden="true"></i>
+              </button>
             {% endif %}
           </div>
           {% if description_display == 'before' and description.content %}

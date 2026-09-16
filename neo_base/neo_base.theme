@@ -510,10 +510,36 @@ function neo_base_preprocess_form_element(array &$variables) {
 }
 
 /**
- * Implements hook_preprocess_form_element().
+ * Whether a composite element's fieldset wrapper has taken its wrapper
+ * attributes already.
+ *
+ * `#wrapper_attributes` has no home of its own on a radios or checkboxes
+ * element: CompositeFormElementTrait::preRenderCompositeFormElement() swaps the
+ * `form_element` wrapper for a `fieldset`, and nothing renders them. The
+ * preprocess below hands them to the inner element so they are not simply lost.
+ *
+ * When the element does get a fieldset — which it only does when it has a title
+ * — neo_base_preprocess_fieldset() has already merged the same attributes onto
+ * the wrapper. Merging them again on the inside prints every one of them twice,
+ * on two nested elements: two ids, two of any data attribute, and for a tooltip
+ * two tippy instances, so hovering the group and hovering an option each opened
+ * their own copy of the same text.
+ *
+ * @param array $element
+ *   The composite element.
+ *
+ * @return bool
+ *   TRUE when the fieldset wrapper owns the wrapper attributes.
+ */
+function _neo_base_wrapper_attributes_taken(array $element): bool {
+  return in_array('fieldset', $element['#theme_wrappers'] ?? [], TRUE);
+}
+
+/**
+ * Implements hook_preprocess_radios().
  */
 function neo_base_preprocess_radios(array &$variables) {
-  if (!empty($variables['element']['#wrapper_attributes'])) {
+  if (!empty($variables['element']['#wrapper_attributes']) && !_neo_base_wrapper_attributes_taken($variables['element'])) {
     $attributes = new Attribute($variables['attributes']);
     $attributes->merge(new Attribute($variables['element']['#wrapper_attributes']));
     $variables['attributes'] = $attributes->toArray();
@@ -521,10 +547,10 @@ function neo_base_preprocess_radios(array &$variables) {
 }
 
 /**
- * Implements hook_preprocess_form_element().
+ * Implements hook_preprocess_checkboxes().
  */
 function neo_base_preprocess_checkboxes(array &$variables) {
-  if (!empty($variables['element']['#wrapper_attributes'])) {
+  if (!empty($variables['element']['#wrapper_attributes']) && !_neo_base_wrapper_attributes_taken($variables['element'])) {
     $attributes = new Attribute($variables['attributes']);
     $attributes->merge(new Attribute($variables['element']['#wrapper_attributes']));
     $variables['attributes'] = $attributes->toArray();
