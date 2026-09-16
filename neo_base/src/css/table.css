@@ -109,6 +109,39 @@ table {
       width: 1%;
       white-space: nowrap;
     }
+
+    /* This header is a field label, not a column heading.
+
+       A multi-value widget has no <label> of its own — the <th> names the whole
+       control the way a label names a single-value one — so left as a column
+       heading it read a size smaller and several shades lighter than the field
+       below it, and the two looked like different kinds of thing on the same
+       form.
+
+       Scoped to `.field-multiple-table`, which only field_multiple_value_form
+       emits, so no table used for anything else is touched. The declarations
+       land on the <h4> rather than on the cell: the cell keeps its own
+       background and border, and the utilities sizing it — `text-xs`,
+       `font-light`, `text-base-600` — reach the heading only by inheritance,
+       which any direct declaration beats whatever layer it sits in. */
+    > thead th.field-label h4 {
+      @apply form-label;
+
+      /* A label's bottom margin separates it from its control. Here the control
+         is the next row and the cell padding already does that. */
+      margin-bottom: 0;
+
+      /* Core prints no required marker in this header, while
+         form-element-label.html.twig prints an <abbr> beside every other label.
+         Drawn here so a required field looks required whichever widget renders
+         it. Decorative: the <h4> already carries `form-required`, and the
+         widget's own inputs carry `required` for anything listening. */
+      &.form-required::after {
+        @apply font-normal text-alert;
+
+        content: ' *';
+      }
+    }
   }
 
   .tablesort--asc,
