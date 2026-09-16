@@ -1,1 +1,21 @@
+{#
+/**
+ * @file
+ * A vertical-tabs pane.
+ *
+ * Above core's vertical-tabs breakpoint the JS takes these over: it wraps them
+ * in `.vertical-tabs`, adds `.vertical-tabs__pane`, and the summary becomes the
+ * tab in the rail rather than anything rendered here.
+ *
+ * Below it the JS does not run at all, and what is left is a bare <details> —
+ * plain details.html.twig gives it `details-wrapper` and nothing else, so it
+ * rendered with a native ▶ marker and no chrome on exactly the widths where the
+ * tab rail is gone. The class below is what vertical-tabs.css styles for that
+ * state, and it stops applying the moment the JS adds `.vertical-tabs__pane`.
+ */
+#}
 {% extends 'details.html.twig' %}
+
+{%
+  set classes = classes is defined ? classes : ['py-form-item', 'vertical-tabs__pane-fallback']
+%}

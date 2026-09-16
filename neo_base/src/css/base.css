@@ -103,6 +103,9 @@
     --color-form-item-description: var(--form-item-description);
     --color-form-item-help-icon: var(--form-item-help-icon);
     --color-form-item-help-icon-hover: var(--form-item-help-icon-hover);
+    --color-form-item-invalid: var(--form-item-invalid);
+    --color-form-item-base-invalid: var(--form-item-base-invalid);
+    --color-form-item-border-invalid: var(--form-item-border-invalid);
     --form-item-border: rgba(var(--color-base-300));
     --form-item-border-hover: rgba(var(--color-base-400));
     --form-item-border-focus: rgba(var(--color-base-400));
@@ -124,6 +127,10 @@
     --form-item-help-icon: var(--form-item-description);
     --form-item-help-icon-hover: var(--form-item-label);
     --form-item-ring: rgb(var(--color-primary-600));
+    --form-item-border-invalid: rgb(var(--color-alert-500));
+    --form-item-ring-invalid: rgb(var(--color-alert-600));
+    --form-item-base-invalid: rgb(var(--color-alert-50));
+    --form-item-invalid: rgb(var(--color-alert-600));
     /*
       Button base defaults reference base-* shades. Their :root values resolve
       var(--color-base-*) at the document root, so the resolved color inherits

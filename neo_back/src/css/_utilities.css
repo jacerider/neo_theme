@@ -1,6 +1,8 @@
 @theme {
   --form-spacing: calc(var(--spacing) * 6);
   --form-item-border-width: 1px;
+  /* Kept a step above the resting width, the way neo_base's pair is. */
+  --form-item-border-width-invalid: 2px;
 }
 
 @utility card {

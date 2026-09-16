@@ -41,3 +41,46 @@
     @apply hidden;
   }
 }
+
+/* The un-tabbed state.
+
+   Core's vertical-tabs JS only runs above its own breakpoint. Below it there is
+   no rail, no `.vertical-tabs` wrapper and no `.vertical-tabs__pane` — just the
+   bare <details> elements the form was built from, which arrived with a native
+   ▶ marker and none of the details treatment the rest of the form uses.
+
+   Scoped by `:not(.vertical-tabs__pane)` rather than a media query, so it keys
+   off whether the JS actually took over rather than off a breakpoint this file
+   would have to keep in step with core's. */
+.vertical-tabs__pane-fallback:not(.vertical-tabs__pane) {
+  @apply mb-3 rounded border border-form-item-base-200 bg-default py-0 last:mb-0;
+
+  > summary {
+    @apply flex cursor-pointer list-none items-center gap-2 rounded bg-form-item-base-50 p-form-item text-form-item-label;
+
+    /* The native marker is removed twice over: `list-none` covers the standards
+       path, `::-webkit-details-marker` the one Safari still uses. */
+    &::-webkit-details-marker {
+      @apply hidden;
+    }
+
+    &::before {
+      @apply icon-chevron-right text-xs transition-transform;
+    }
+  }
+
+  &[open] {
+    > summary {
+      @apply rounded-b-none border-b border-form-item-base-200;
+
+      &::before {
+        @apply rotate-90;
+      }
+    }
+  }
+
+  > .details--content,
+  > .vertical-tabs__pane-content {
+    @apply p-form-item;
+  }
+}

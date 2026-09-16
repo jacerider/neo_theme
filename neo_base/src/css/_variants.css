@@ -52,6 +52,17 @@
   }
 }
 
+/* A field that failed validation. `.error` and `[aria-invalid]` are what
+   RenderElementBase::setAttributes() puts on the control; `.form-item--error` is
+   the wrapper class form-element.html.twig prints, which only some templates
+   ever populate. All three are matched so a call site does not have to know
+   which path put it in this state. */
+@custom-variant is-invalid {
+  &.error, &[aria-invalid='true'], &.form-item--error, .form-item--error & {
+    @slot;
+  }
+}
+
 @custom-variant checked-prev {
   input:checked + & {
     @slot;

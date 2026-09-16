@@ -76,6 +76,72 @@
     @apply opacity-40;
   }
 
+  /* An invalid field. Nothing styled this before: a failed validation left the
+     control looking untouched, with only the page-level message to say so.
+
+     Keyed on the control, not on the wrapper. RenderElementBase::setAttributes()
+     puts `.error` and `aria-invalid` on the element itself whenever it carries
+     validation errors, and that is the only marker core reliably emits — the
+     `.form-item--error` wrapper class that form-element.html.twig has printed
+     for years depends on an `errors` variable nothing populates for a form
+     element, so styling it alone would have looked correct and done nothing.
+     It is matched below anyway, for the templates that do set it.
+
+     Three channels, not one. Colour alone does not carry this: a brand whose
+     primary is a red puts `--form-item-ring` within a rounding error of
+     `--color-alert`, so a focused field and an invalid one would be told apart
+     by nothing. The heavier border and the message with its icon are what a
+     reader actually notices, and they hold whatever the palette. */
+  input.error,
+  select.error,
+  textarea.error,
+  [aria-invalid='true'],
+  .form-item--error :is(input:not([type='checkbox']):not([type='radio']):not([type='submit']), select, textarea) {
+    /* Redefining the tokens rather than setting border-color and friends
+       directly. `form-item-border`, `form-item-bg` and `form-item-focus` are
+       Tailwind utilities, so they sit in the utilities layer and this file sits
+       in `base` — a plain declaration here loses to them however specific it is,
+       because layer order beats specificity. Custom properties are not layered,
+       so handing the utilities different values is the one route that works,
+       and it keeps the invalid state inside the same token system as the rest.
+
+       Hover and focus go too, or moving the pointer over a flagged field would
+       quietly clear the flag. */
+    --form-item-border: var(--form-item-border-invalid);
+    --form-item-border-hover: var(--form-item-border-invalid);
+    --form-item-border-focus: var(--form-item-border-invalid);
+    --form-item-base: var(--form-item-base-invalid);
+    --form-item-ring: var(--form-item-ring-invalid);
+    /* One step up from the resting width. The field reads as flagged before any
+       colour is resolved, which is what keeps this legible for a reader who
+       cannot separate the two reds. */
+    --form-item-border-width: var(--form-item-border-width-invalid);
+  }
+
+  /* The label goes with it, so a flagged field is findable while scrolling a
+     long form rather than only once the control is on screen. */
+  .form--item:has(> :is(input, select, textarea).error) > .form-label,
+  .form--item:has(> [aria-invalid='true']) > .form-label,
+  .form-item--error > .form-label {
+    color: var(--form-item-invalid);
+  }
+
+  .form-item--alert-message {
+    @apply form-description flex items-start gap-1;
+
+    color: var(--form-item-invalid);
+    font-weight: 500;
+
+    /* The icon is the non-colour half of the signal — it survives a palette
+       where alert and primary are the same hue, and a monochrome print. */
+    &::before {
+      @apply icon-exclamation-circle shrink-0;
+
+      /* Nudged onto the cap height of the first line rather than its box. */
+      margin-top: 0.15em;
+    }
+  }
+
   .form-item.description {
     @apply form-description my-form-item;
   }

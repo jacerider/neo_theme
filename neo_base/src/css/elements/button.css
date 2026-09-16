@@ -8,8 +8,18 @@ form,
     @apply btn btn-primary;
   }
 
+  /* Outlined, not filled. A destructive action and the primary action sit side
+     by side in the same actions row, and as two solid fills the only thing
+     separating them is hue — which on a brand whose primary is a red means
+     nothing separates them at all. Delete and Save were `rgb(238 49 36)` and
+     `rgb(202 51 37)` on this site, adjacent and the same size and weight.
+
+     An outline keeps the destructive action findable and readable while making
+     it plainly not the button you are being invited to press. A site that wants
+     it loud can say so: `--btn-alert-bg-color` and the rest are still what this
+     resolves through. */
   .button--danger {
-    @apply btn btn-alert;
+    @apply btn btn-outline-alert;
   }
 
   .ui-dialog-buttonset {
