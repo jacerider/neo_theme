@@ -15,6 +15,21 @@
 {%
   set buttons = neo_style in ['inline_buttons', 'inline_buttons_outline', 'inline_buttons_text', 'grid_buttons']
 %}
+
+{#
+  The help icon is an affordance for a label that sits *beside* a control. In
+  the button styles the label IS the control — a chip a few pixels taller than
+  its text — so an icon injected into it becomes part of the control, pads it
+  out and, at the `3xs` floor of the chip ramp, dwarfs the word beside it.
+
+  Dropping it costs nothing: with no icon in the form item, tooltip.ts falls
+  back to the nearest label, which here is the chip. The whole chip becomes the
+  trigger, which is a bigger and more obvious target than the icon would have
+  been.
+#}
+{%
+  set neo_tooltip_help = buttons ? null : (neo_tooltip_help ?? null)
+%}
 {%
   set classes = [
     'text-base',
