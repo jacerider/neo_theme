@@ -608,6 +608,17 @@ function neo_base_preprocess_field_multiple_value_form(array &$variables) {
     ];
   }
   if (!empty($variables['table'])) {
+    // Whether any row has something in its actions cell. Asked before the loop
+    // below, which writes `#neo_size` into that cell and would make an empty
+    // one look occupied.
+    $hasActions = FALSE;
+    foreach ($variables['table']['#rows'] as $row) {
+      if (!empty($row['data'][2]['data'])) {
+        $hasActions = TRUE;
+        break;
+      }
+    }
+
     foreach ($variables['table']['#rows'] as &$row) {
       foreach ($row['data'] as $key => $cell) {
         if (isset($row['data'][$key]['data']) && is_array($row['data'][$key]['data'])) {
@@ -619,6 +630,32 @@ function neo_base_preprocess_field_multiple_value_form(array &$variables) {
           }
         }
       }
+    }
+    unset($row);
+
+    // Drop the actions column when nothing fills it.
+    //
+    // FieldPreprocess gives every row an actions cell and the header a matching
+    // empty one, but the only thing that ever goes in it is the Remove button,
+    // and WidgetBase adds that to unlimited-cardinality fields only. A field
+    // with a fixed number of values therefore gets a column that is empty in
+    // every row — invisible in a borderless theme, and a 33px strip of cell
+    // padding with a border down both sides in this one.
+    //
+    // The header cell is removed only when it is the empty one core builds, so
+    // a future core that labels that column keeps its label and its column.
+    $headerEmpty = isset($variables['table']['#header'][1])
+      && $variables['table']['#header'][1] === [];
+    if (!$hasActions && $headerEmpty) {
+      foreach ($variables['table']['#rows'] as &$row) {
+        unset($row['data'][2]);
+        // Re-indexed because the table theme walks the cells in array order and
+        // a gap would leave the remaining cells keyed past the header.
+        $row['data'] = array_values($row['data']);
+      }
+      unset($row);
+      unset($variables['table']['#header'][1]);
+      $variables['table']['#header'] = array_values($variables['table']['#header']);
     }
   }
 }
