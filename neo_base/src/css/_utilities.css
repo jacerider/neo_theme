@@ -30,6 +30,8 @@
   --color-form-item-content: var(--form-item-content);
   --color-form-item-label: var(--form-item-label);
   --color-form-item-description: var(--form-item-description);
+  --color-form-item-help-icon: var(--form-item-help-icon);
+  --color-form-item-help-icon-hover: var(--form-item-help-icon-hover);
   --color-bg-default: rgb(var(--color-base-0));
   --color-text-default: rgb(var(--color-base-0-content));
   --color-border-default: rgb(var(--color-base-200));
@@ -69,7 +71,24 @@
   --form-item-content: rgb(var(--color-base-900));
   --form-item-label: rgb(var(--color-base-600));
   --form-item-placeholder: rgb(var(--color-base-600));
-  --form-item-description: rgb(var(--color-base-400));
+  /* base-500, not base-400. A description is set small and light, and at 400 on
+     a light surface it lands just over the AA floor — passing, but thin enough
+     to be hard work. This matters more than it used to: a description is no
+     longer always hidden behind a tooltip (see neo_tooltip's description_mode),
+     so it is text people actually read. */
+  --form-item-description: rgb(var(--color-base-500));
+  /* Typography tokens, so `form-description` can be tuned per site the way
+     `form-label` already can. */
+  --form-item-description-font-size: var(--text-xs);
+  --form-item-description-font-weight: 400;
+  --form-item-description-letter-spacing: normal;
+  --form-item-description-font-family: inherit;
+  --form-item-description-spacing: calc(var(--spacing) * 0.5);
+  /* The help trigger beside a label. Defaults to the description colour, so a
+     site that retunes one gets the other for free until it says otherwise. */
+  --form-item-help-icon: var(--form-item-description);
+  --form-item-help-icon-hover: var(--form-item-label);
+  --form-item-help-icon-size: var(--text-sm);
   --form-item-ring: rgb(var(--color-primary-600));
   --form-item-inner-spacing: 1;
 
@@ -617,9 +636,39 @@
 
 @utility form-description {
   color: var(--form-item-description);
-  font-size: var(--text-xs);
-  font-weight: 300;
-  margin-top: calc(var(--spacing) * 0.5);
+  font-size: var(--form-item-description-font-size, var(--text-xs));
+  font-weight: var(--form-item-description-font-weight, 400);
+  letter-spacing: var(--form-item-description-letter-spacing);
+  font-family: var(--form-item-description-font-family);
+  margin-top: var(--form-item-description-spacing, calc(var(--spacing) * 0.5));
+}
+
+/* The help trigger beside a label. Sized off the label's own line box rather
+   than given a fixed box, so it sits on the baseline of whatever size the label
+   is rather than needing a rung per `neo_size`.
+
+   The hit area is deliberately larger than the glyph: the icon reads at ~14px,
+   which is well under the 24px minimum, so the padding is what makes it
+   tappable. `-my-*` keeps that padding from growing the label's line height. */
+@utility form-label-help {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  margin-inline-start: calc(var(--spacing) * 1);
+  padding: calc(var(--spacing) * 1.5);
+  margin-block: calc(var(--spacing) * -1.5);
+  color: var(--form-item-help-icon);
+  font-size: var(--form-item-help-icon-size, var(--text-sm));
+  font-weight: 400;
+  line-height: 1;
+  cursor: help;
+  transition: color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--form-item-help-icon-hover);
+  }
 }
 
 @utility form-item-bg {

@@ -44,6 +44,19 @@
 {%
   set description_classes = description_classes is defined ? description_classes : ['details--description', 'text-xs', 'mb-4']
 %}
+{#
+  Built here rather than in preprocess, mirroring core's details.html.twig.
+  FormBuilder stamps `aria-describedby` on any element carrying a #description,
+  but preprocessDetails() hands the description over as a bare string with no
+  attributes — so the id the control is already pointing at exists nowhere
+  unless the template puts it back, leaving a dangling reference and a
+  description no screen reader ever reaches.
+#}
+{%
+  set description_attributes = description_attributes is defined
+    ? description_attributes
+    : create_attribute({ id: attributes['aria-describedby'] })
+%}
 {%
   set use_alpine = use_alpine is defined ? use_alpine : false
 %}

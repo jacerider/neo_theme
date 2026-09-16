@@ -101,6 +101,8 @@
     --color-form-item-content: var(--form-item-content);
     --color-form-item-label: var(--form-item-label);
     --color-form-item-description: var(--form-item-description);
+    --color-form-item-help-icon: var(--form-item-help-icon);
+    --color-form-item-help-icon-hover: var(--form-item-help-icon-hover);
     --form-item-border: rgba(var(--color-base-300));
     --form-item-border-hover: rgba(var(--color-base-400));
     --form-item-border-focus: rgba(var(--color-base-400));
@@ -115,7 +117,12 @@
     --form-item-content: rgb(var(--color-base-900));
     --form-item-label: rgb(var(--color-base-600));
     --form-item-placeholder: rgb(var(--color-base-600));
-    --form-item-description: rgb(var(--color-base-400));
+    --form-item-description: rgb(var(--color-base-500));
+    /* These two resolve to other form-item tokens rather than to a base shade,
+       so they only need re-declaring here to pick up the scheme's values of
+       those. Kept beside the rest for the same reason the others are. */
+    --form-item-help-icon: var(--form-item-description);
+    --form-item-help-icon-hover: var(--form-item-label);
     --form-item-ring: rgb(var(--color-primary-600));
     /*
       Button base defaults reference base-* shades. Their :root values resolve

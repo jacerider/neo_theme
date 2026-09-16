@@ -8,6 +8,9 @@
  * - title_display: Elements title_display setting.
  * - required: An indicator for whether the associated form element is required.
  * - attributes: A list of HTML attributes for the label.
+ * - neo_tooltip_help: Set when the field's description was moved into a
+ *   tooltip. Carries only `label`, the accessible name for the trigger; the
+ *   glyph and its sizing are decided here. See neo_tooltip_preprocess_form_element().
  *
  * @see template_preprocess_form_element_label()
  *
@@ -40,6 +43,31 @@
       {% else %}
         {# Support states #}
         <abbr class="hidden font-normal text-alert is-required:inline-block" aria-hidden="true">*</abbr>
+      {% endif %}
+      {#
+        A button, not the <a href="" onclick="return false"> the tooltip builder
+        reaches for elsewhere: this has to be reachable by Tab and operable on
+        touch, where there is no hover to reveal the tooltip at all, and a
+        button is both without any script to cancel a navigation.
+
+        No tooltip attributes on it. tooltip.ts adds it to the triggerTarget of
+        the instance already bound to the field, so the icon and the field open
+        one tooltip rather than two carrying the same sentence.
+      #}
+      {% if neo_tooltip_help %}
+        <button type="button"
+                data-neo-tooltip-help
+                class="form-label-help"
+                aria-label="{{ neo_tooltip_help.label }}">
+          {#
+            The glyph goes on a child <i>, carrying the library-prefixed class,
+            because that is the shape neo_icon emits and the only one the icon
+            font is wired for: the bare `icon-*` utility resolves its codepoint
+            from a theme variable that is emitted empty, so it renders nothing.
+            aria-hidden because the button's aria-label is the accessible name.
+          #}
+          <i class="neo-icon neo-icon-font icon-regular-info-circle" aria-hidden="true"></i>
+        </button>
       {% endif %}
     </{{ tag|default('label') }}>
   {% endblock %}
