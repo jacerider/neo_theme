@@ -1,3 +1,94 @@
+/* A <legend> lays out its label above its `legend_end` region until the `md`
+   breakpoint (48rem), which assumes the form has the full page width. Plenty of
+   admin surfaces never reach that — the Alchemist sidebar is 30rem at every
+   window size — so the per-field state controls stacked under the label and
+   cost a row on every fieldset. Keep them on the label row, wrapping only when
+   they genuinely do not fit. */
+legend {
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+
+  /* Only the stacking the base template applies below `md` is undone here. The
+     horizontal inset stays with `mr-form-item`, which the template pairs with
+     `p-form-item` on the label span so both sides answer to one token. */
+  > *:has(> .form--inline-min),
+  > .form--inline-min {
+    margin-top: 0;
+    margin-left: auto;
+  }
+}
+
+/* The summary is a header bar (see details--group.html.twig), so it only earns a
+   bottom border once there is a body under it. Keyed on [open] rather than set
+   in Twig because a native <details> toggles without re-rendering. */
+details.details {
+
+  > summary {
+    @apply border-b border-transparent;
+  }
+
+  /* Closed, the summary *is* the card and carries its full radius; open, only
+     the top, so the body squares up against it. This is what lets the card drop
+     `overflow-hidden` and stop clipping the summary's focus ring. */
+  &:not([open]) > summary {
+    @apply rounded-b;
+  }
+
+  &[open] > summary {
+    @apply border-form-item-base-200;
+  }
+}
+
+/* A card inside a card is noise. A nested fieldset is a *row* of its parent,
+   not a separate object, so it drops the card chrome and keeps only a hairline
+   to separate it from the row above. Border, fill and radius are spent on the
+   outermost object, which is what makes the nesting legible at a glance. */
+.fieldset--content > .fieldset-wrapper {
+  @apply border-0 bg-transparent rounded-none;
+
+  /* The gap below the label belongs to the legend, not to the label span. The
+     legend is a flex row, and its state controls are taller than the label
+     text, so they — not the span — set the row's height: padding on the span
+     is absorbed and never becomes space above the control. */
+  > fieldset > legend {
+    @apply bg-transparent border-0 px-0 pt-0 pb-form-item-inner-2;
+
+    /* The card spends its inset on the label span and on the region wrappers,
+       not on the legend (see fieldset--group.html.twig). A flattened row has to
+       clear it in both places or its label and its state controls sit one inset
+       further in than the control they belong to. */
+    > .fieldset--legend {
+      @apply p-0;
+    }
+
+    > *:has(> .form--inline-min),
+    > .form--inline-min {
+      @apply mr-0;
+    }
+  }
+
+  > fieldset > .fieldset--content {
+    @apply p-0;
+  }
+
+  + .fieldset-wrapper {
+    @apply border-t border-form-item-base-200 rounded-none pt-3 mt-3;
+  }
+}
+
+/* Inputs read as inset against the card they sit on, rather than as another
+   white plane, and never share the card's corner radius — a control with the
+   same radius as its container is the detail that makes nested UI look off. */
+.form--item {
+
+  input:not([type='checkbox']):not([type='radio']):not([type='submit']),
+  select,
+  textarea {
+    @apply form-item-radius-sm;
+  }
+}
+
 form {
 
   /* & > p:not(.ck p):not([class*='text-']):not([class*='font-']) {

@@ -1,0 +1,81 @@
+{#
+/**
+ * @file
+ * Admin fieldset: a card with a recessed header bar.
+ *
+ * Overrides neo_base's fieldset--group, which paints the whole card
+ * `bg-form-item-base-50` and pads the legend by `p-form-item` (1.5rem). That
+ * reads as one flat tinted block, and at the width of a sidebar panel the
+ * padding alone can outweigh the fields inside it.
+ *
+ * Here the card is the surface and only the legend is tinted, so a form of
+ * several fieldsets reads as a stack of titled cards rather than a stack of
+ * grey slabs. The legend is a row at every width — see the note on the `md`
+ * breakpoint in neo_back/src/css/form.css.
+ *
+ * Every inset is `p-form-item`, never a fixed step. `--spacing-form-item` is
+ * what `#neo_size` actually moves (neo_base_preprocess() stamps it per size),
+ * and the base template's `legend_start` / `legend_end` regions inset
+ * themselves by `ml-form-item` / `mr-form-item`. Padding the legend by hand
+ * makes those additive and leaves the label and the regions on different
+ * insets, and it strands anything positioned against the token — the media
+ * widget's `.compact-float` sits at `top/right-form-item` precisely because it
+ * used to line up with this padding.
+ */
+#}
+{% extends 'fieldset.html.twig' %}
+
+{#
+  No `overflow-hidden` on the card: `form-item-focus` draws its ring as a
+  box-shadow 5px outside the element, and the legend holds focusable controls
+  (the Alchemist per-field state chips) that sit flush against the card's top
+  and right edges — a clip cuts their ring off on three sides. The tinted bar
+  keeps to the card's corners by rounding its own instead.
+#}
+{%
+  set classes = [
+    'form--item',
+    'bg-default',
+    'rounded',
+    neo_style == 'default' ? 'border border-form-item-base-200',
+  ]
+%}
+{#
+  A row at every width, not `flex-col md:flex-row`: the legend holds the label
+  and the `legend_end` region (per-field state controls, contextual buttons),
+  and stacking those under the label costs a row per fieldset.
+#}
+{%
+  set legend_classes = [
+    'flex',
+    'flex-row',
+    'flex-wrap',
+    'items-center',
+    'rounded-t',
+    'bg-form-item-base-50',
+    'border-b',
+    'border-form-item-base-200',
+  ]
+%}
+{%
+  set legend_span_classes = [
+    'p-form-item',
+    '[&>.form-item]:my-0',
+    'leading-tight',
+    neo_size == 'xl' ? 'font-bold text-xl',
+    neo_size == 'lg' ? 'font-bold text-lg',
+    neo_size == 'md' ? 'font-bold text-base',
+    neo_size == 'sm' ? 'font-semibold text-sm',
+    neo_size == 'xs' ? 'font-semibold text-xs',
+    neo_size not in ['xl', 'lg', 'md', 'sm', 'xs'] ? 'font-semibold text-sm',
+  ]
+%}
+{%
+  set content_classes = [
+    'p-form-item',
+    '[&>p]:text-sm',
+    '[&>.field-prefix]:text-sm',
+    '[&>.field-prefix]:block',
+    '[&>.field-prefix]:mb-2',
+  ]
+%}

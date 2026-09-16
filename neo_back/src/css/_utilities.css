@@ -1,5 +1,6 @@
 @theme {
   --form-spacing: calc(var(--spacing) * 6);
+  --form-item-border-width: 1px;
 }
 
 @utility card {

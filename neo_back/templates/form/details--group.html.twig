@@ -1,0 +1,85 @@
+{#
+/**
+ * @file
+ * Admin details: the same card as fieldset--group, with a collapsible header.
+ *
+ * Overrides neo_base's details--group for the same reason (see
+ * fieldset--group.html.twig): the card is the surface, the summary is a
+ * recessed header bar, and the body is padded once rather than margined by
+ * 1.5rem on every side.
+ *
+ * The summary's bottom border and its closed-state bottom radius are applied in
+ * neo_back/src/css/form.css keyed on `[open]`, because a native <details>
+ * toggles without re-rendering — a Twig conditional here would freeze at its
+ * initial state.
+ *
+ * Padding is `p-form-item` rather than a fixed step, so the card tracks
+ * `#neo_size` like everything else — see the note in fieldset--group.html.twig.
+ */
+#}
+{% extends 'details.html.twig' %}
+
+{#
+  No `overflow-hidden`: the summary is focusable and fills the card exactly, and
+  `form-item-focus` draws its ring as a box-shadow 5px outside the element, so a
+  clip cuts the ring off on left, top and right. The tinted bar keeps to the
+  card's corners by rounding its own instead.
+#}
+{%
+  set classes = [
+    'form--item',
+    'details',
+    'bg-default',
+    'border border-form-item-base-200',
+    'rounded',
+  ]
+%}
+{%
+  set summary_classes = [
+    'relative',
+    'flex',
+    'flex-wrap',
+    'cursor-pointer',
+    'list-none',
+    'items-center',
+    'transition',
+    'p-form-item',
+    'rounded-t',
+    'bg-form-item-base-50',
+    'text-form-item-label',
+    'hover:text-form-item-primary',
+    'hover:bg-form-item-base-100',
+    'form-item-focus',
+    '[&>.summary]:w-full',
+    '[&>.summary]:text-xs',
+    '[&>.summary]:font-light',
+    '[&>.summary]:leading-tight',
+    '[&>.summary]:ml-7',
+    neo_size == 'xl' ? 'font-bold text-xl',
+    neo_size == 'lg' ? 'font-bold text-lg',
+    neo_size == 'md' ? 'font-bold text-base',
+    neo_size == 'sm' ? 'font-semibold text-sm',
+    neo_size == 'xs' ? 'font-semibold text-xs',
+    neo_size not in ['xl', 'lg', 'md', 'sm', 'xs'] ? 'font-semibold text-sm',
+    required ? 'js-form-required',
+    required ? 'form-required',
+  ]
+%}
+{%
+  set content_classes = [
+    'p-form-item',
+  ]
+%}
+
+{%
+  set use_alpine = use_alpine is defined ? use_alpine : false
+%}
+
+{% block summary %}
+  <div class="w-5 grow-0">
+    <svg class="transform transition-transform" fill="none" height="16" width="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"{% if use_alpine %} :class="{ 'rotate-180': expanded }"{% endif %}>
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </div>
+  <div{{ summary_title_attributes.addClass('details--title') }}>{{ title }}</div>
+{% endblock %}
