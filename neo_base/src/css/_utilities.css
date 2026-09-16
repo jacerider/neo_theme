@@ -524,6 +524,25 @@
   }
 }
 
+/* A form group that lays its own items out.
+
+   Any container that supplies a `gap` has to neutralise the items' margins as
+   well, and the two have to travel together — this class is that pair, so a
+   caller cannot take one without the other.
+
+   Why it cannot be automatic: `.form--item` spaces itself with `margin-block`
+   and trims the ends with `:first-child` / `:last-child`. In a grid those
+   selectors match the first and last of the *whole set*, not of each row, so
+   the second item in a two-column row keeps a top margin its row partner has
+   dropped and the row comes out misaligned — and every margin is additive to
+   the gap on top of that. CSS has no way to ask "is my parent a grid?", so the
+   container is the only place that can know.
+
+   Columns are left to the caller: `form--grid md:grid-cols-2`. */
+@utility form--grid {
+  @apply grid gap-form-item m-form-items-0;
+}
+
 @utility m-form-items-* {
   .form--item {
     margin: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * --value(integer));

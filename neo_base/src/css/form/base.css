@@ -113,12 +113,23 @@
      primary is a red puts `--form-item-ring` within a rounding error of
      `--color-alert`, so a focused field and an invalid one would be told apart
      by nothing. The heavier border and the message with its icon are what a
-     reader actually notices, and they hold whatever the palette. */
+     reader actually notices, and they hold whatever the palette.
+
+     `.ts-wrapper` is in the list because a select is usually not the element on
+     screen: neo's tom-select replaces it with a wrapper and hides the original,
+     and the border and fill are drawn by that wrapper. Tom-select copies the
+     original's classes onto it, so an errored select hands `.error` over along
+     with `form-item-border` and `form-item-bg` — the same tokens redefined here
+     then reach the control inside it by inheritance, with nothing to do per
+     part. It copies at init and neo defers that to an IntersectionObserver, so
+     this only holds because Drupal re-renders the whole form with the error
+     already in the markup; a class added to a live select would not follow. */
   input.error,
   select.error,
   textarea.error,
+  .ts-wrapper.error,
   [aria-invalid='true'],
-  .form-item--error :is(input:not([type='checkbox']):not([type='radio']):not([type='submit']), select, textarea) {
+  .form-item--error :is(input:not([type='checkbox']):not([type='radio']):not([type='submit']), select, textarea, .ts-wrapper) {
     /* Redefining the tokens rather than setting border-color and friends
        directly. `form-item-border`, `form-item-bg` and `form-item-focus` are
        Tailwind utilities, so they sit in the utilities layer and this file sits
@@ -141,11 +152,16 @@
   }
 
   /* The label goes with it, so a flagged field is findable while scrolling a
-     long form rather than only once the control is on screen. */
-  .form--item:has(> :is(input, select, textarea).error) > .form-label,
+     long form rather than only once the control is on screen.
+
+     The token again, not `color`: `form-label` is a utility and sets the colour
+     from `--form-item-label`, so a plain declaration here would lose to it on
+     layer order. Redefined on the label element itself rather than on the form
+     item, so it reaches the label and nothing else that reads the same token. */
+  .form--item:has(> :is(input, select, textarea, .ts-wrapper).error) > .form-label,
   .form--item:has(> [aria-invalid='true']) > .form-label,
   .form-item--error > .form-label {
-    color: var(--form-item-invalid);
+    --form-item-label: var(--form-item-invalid);
   }
 
   .form-item--alert-message {

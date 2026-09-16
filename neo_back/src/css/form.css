@@ -95,7 +95,14 @@ form {
     @apply text-xs font-normal;
   } */
 
-  .button:not(.has-icon) {
+  /* `:not([style*='--btn-'])` keeps this heuristic off any button that asked
+     for a style of its own. `neo_base_preprocess_input__submit()` emits the
+     `#neo_style` variants as inline `--btn-*` properties, and several of them
+     derive their *text* colour from `--btn-bg-color` — which `btn-alert` below
+     sets. The two then land on the same value and the button renders alert on
+     alert, with the label invisible. A button with no `#neo_style` is
+     unaffected, so this only reaches the ones that were already unreadable. */
+  .button:not(.has-icon):not([style*='--btn-']) {
     &[data-label*='save'],
     &[data-label*='update'],
     &[data-label*='apply'],
