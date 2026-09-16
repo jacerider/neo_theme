@@ -1,0 +1,47 @@
+{#
+/**
+ * @file
+ * The visible trigger for a description that was moved into a tooltip.
+ *
+ * Included rather than repeated, because a field's name is drawn in four
+ * different places — a label, a legend, and a details summary that three
+ * templates override — and a trigger missing from one of them is a field whose
+ * help nothing on screen admits to.
+ *
+ * Available variables:
+ * - neo_tooltip_help: Unset when this field has no tooltip, or when the trigger
+ *   belongs somewhere else. Otherwise carries:
+ *   - label: the accessible name for the trigger.
+ *   - target: empty when the trigger sits with the control it describes, and
+ *     otherwise the id of the control whose tooltip it opens — a control with
+ *     no visible label of its own is named by the group around it, so its
+ *     trigger is drawn on that group's legend or summary instead.
+ *
+ * No tooltip attributes here. js/tooltip.ts adds this button to the
+ * triggerTarget of the instance already bound to the field, so the trigger and
+ * the field open one tooltip rather than two carrying the same sentence.
+ *
+ * A button, not the <a href="" onclick="return false"> the tooltip builder
+ * reaches for elsewhere: this has to be reachable by Tab and operable on touch,
+ * where there is no hover to reveal the tooltip at all, and a button is both
+ * without any script to cancel a navigation.
+ *
+ * @see neo_tooltip_preprocess_form_element_label()
+ * @see neo_tooltip_preprocess_fieldset()
+ * @see neo_tooltip_preprocess_details()
+ */
+#}
+{% if neo_tooltip_help %}
+  <button type="button"
+          data-neo-tooltip-help="{{ neo_tooltip_help.target }}"
+          class="form-label-help"
+          aria-label="{{ neo_tooltip_help.label }}">
+    {#
+      A character, not an icon-font glyph: `form-label-help` draws the badge and
+      centres this inside it, so there is no baseline to correct and nothing to
+      render wrong if the icon font never loads. aria-hidden because the
+      button's aria-label is the accessible name.
+    #}
+    <span aria-hidden="true">?</span>
+  </button>
+{% endif %}

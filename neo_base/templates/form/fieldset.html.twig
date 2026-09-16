@@ -5,8 +5,11 @@
  *
  * Available variables:
  * - attributes: HTML attributes for the <fieldset> element.
- * - neo_tooltip_help: Set when the group's description was moved into a
- *   tooltip. Carries only `label`, the accessible name for the trigger.
+ * - neo_tooltip_help: Set when a description was moved into a tooltip that this
+ *   group is responsible for showing a trigger for — either its own, or that of
+ *   a control inside it with no visible label of its own. Carries `label`, the
+ *   accessible name for the trigger, and `target`, empty for the group's own
+ *   description and otherwise the id of the control whose tooltip it opens.
  *   See neo_tooltip_preprocess_fieldset().
  * - errors: (optional) Any errors for this <fieldset> element, may not be set.
  * - required: Boolean indicating whether the <fieldset> element is required.
@@ -124,14 +127,7 @@
               was the one field type whose help had no visible trigger.
               See neo_tooltip_preprocess_fieldset().
             #}
-            {% if neo_tooltip_help %}
-              <button type="button"
-                      data-neo-tooltip-help
-                      class="form-label-help"
-                      aria-label="{{ neo_tooltip_help.label }}">
-                <span aria-hidden="true">?</span>
-              </button>
-            {% endif %}
+            {% include '@neo_base/form/neo-tooltip-help.html.twig' %}
           </div>
           {% if description_display == 'before' and description.content %}
             <div{{ description.attributes.addClass('description') }}>{{ description.content }}</div>

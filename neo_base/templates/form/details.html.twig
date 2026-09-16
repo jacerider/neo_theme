@@ -12,6 +12,10 @@
  * - children: (optional) The children of the element, may not be set.
  * - value: (optional) The value of the element, may not be set.
  * - is_tab: (optional) Will be TRUE if the details element is a tab.
+ * - neo_tooltip_help: Set when a description was moved into a tooltip that this
+ *   group is responsible for showing a trigger for. Carries `label`, the
+ *   accessible name for the trigger, and `target`, the id of the control whose
+ *   tooltip it opens. See neo_tooltip_preprocess_details().
  *
  * @see template_preprocess_details()
  *
@@ -80,6 +84,12 @@
             <abbr class="font-normal form-required text-alert" aria-hidden="true">*</abbr>
             <span class="visually-hidden">{{ 'required'|t }}</span>
           {% endif %}
+          {#
+            A summary names the group the way a legend does, so a control inside
+            with no visible label of its own hands its help trigger up to here.
+            See neo_tooltip_preprocess_details().
+          #}
+          {% include '@neo_base/form/neo-tooltip-help.html.twig' %}
         </div>
       {% endblock %}
       {% if neo_region.legend_end %}
