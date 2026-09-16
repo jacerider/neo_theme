@@ -103,6 +103,8 @@
     --color-form-item-description: var(--form-item-description);
     --color-form-item-help-icon: var(--form-item-help-icon);
     --color-form-item-help-icon-hover: var(--form-item-help-icon-hover);
+    --color-form-item-help-icon-border: var(--form-item-help-icon-border);
+    --color-form-item-help-icon-bg: var(--form-item-help-icon-bg);
     --color-form-item-invalid: var(--form-item-invalid);
     --color-form-item-base-invalid: var(--form-item-base-invalid);
     --color-form-item-border-invalid: var(--form-item-border-invalid);
@@ -127,7 +129,9 @@
        so they only need re-declaring here to pick up the scheme's values of
        those. Kept beside the rest for the same reason the others are. */
     --form-item-help-icon: var(--form-item-description);
-    --form-item-help-icon-hover: var(--form-item-label);
+    --form-item-help-icon-hover: var(--form-item-primary);
+    --form-item-help-icon-border: var(--form-item-border);
+    --form-item-help-icon-bg: var(--form-item-base);
     --form-item-ring: rgb(var(--color-primary-600));
     --form-item-border-invalid: rgb(var(--color-alert-500));
     --form-item-ring-invalid: rgb(var(--color-alert-600));

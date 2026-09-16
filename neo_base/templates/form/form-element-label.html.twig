@@ -60,13 +60,12 @@
                 class="form-label-help"
                 aria-label="{{ neo_tooltip_help.label }}">
           {#
-            The glyph goes on a child <i>, carrying the library-prefixed class,
-            because that is the shape neo_icon emits and the only one the icon
-            font is wired for: the bare `icon-*` utility resolves its codepoint
-            from a theme variable that is emitted empty, so it renders nothing.
+            A character, not an icon-font glyph: `form-label-help` draws the
+            badge and centres this inside it, so there is no baseline to correct
+            and nothing to render wrong if the icon font never loads.
             aria-hidden because the button's aria-label is the accessible name.
           #}
-          <i class="neo-icon neo-icon-font icon-regular-info-circle" aria-hidden="true"></i>
+          <span aria-hidden="true">?</span>
         </button>
       {% endif %}
     </{{ tag|default('label') }}>

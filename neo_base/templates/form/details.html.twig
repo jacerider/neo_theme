@@ -67,7 +67,7 @@
   {%- if title -%}
     <{% if use_alpine %}div{% else %}summary{% endif %}{{ summary_attributes.addClass(base_summary_classes, summary_classes) }}{% if use_alpine %} @click="expanded = ! expanded"{% endif %}>
       {% if neo_region.legend_start %}
-        <div class="flex align-center mb-form-item md:mb-0 md:ml-form-item">
+        <div class="flex items-center mb-form-item md:mb-0 md:ml-form-item">
           {{ neo_region.legend_start }}
         </div>
       {% endif %}
@@ -83,7 +83,7 @@
         </div>
       {% endblock %}
       {% if neo_region.legend_end %}
-        <div class="flex gap-form-item align-center mt-form-item md:mt-0 md:ml-auto">
+        <div class="flex gap-form-item items-center mt-form-item md:mt-0 md:ml-auto">
           {{ neo_region.legend_end }}
         </div>
       {% endif %}

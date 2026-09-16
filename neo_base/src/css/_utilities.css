@@ -32,6 +32,8 @@
   --color-form-item-description: var(--form-item-description);
   --color-form-item-help-icon: var(--form-item-help-icon);
   --color-form-item-help-icon-hover: var(--form-item-help-icon-hover);
+  --color-form-item-help-icon-border: var(--form-item-help-icon-border);
+  --color-form-item-help-icon-bg: var(--form-item-help-icon-bg);
   --color-form-item-invalid: var(--form-item-invalid);
   --color-form-item-base-invalid: var(--form-item-base-invalid);
   --color-form-item-border-invalid: var(--form-item-border-invalid);
@@ -89,11 +91,19 @@
   --form-item-description-letter-spacing: normal;
   --form-item-description-font-family: inherit;
   --form-item-description-spacing: calc(var(--spacing) * 0.5);
-  /* The help trigger beside a label. Defaults to the description colour, so a
-     site that retunes one gets the other for free until it says otherwise. */
+  /* The help trigger beside a label — a bordered badge holding a `?`, not an
+     icon-font glyph. Drawn rather than typeset so it centres on its own box
+     instead of on a font's baseline, and so it still renders if the icon font
+     never loads. */
   --form-item-help-icon: var(--form-item-description);
-  --form-item-help-icon-hover: var(--form-item-label);
-  --form-item-help-icon-size: var(--text-sm);
+  --form-item-help-icon-hover: var(--form-item-primary);
+  --form-item-help-icon-size: 1.0625rem;
+  --form-item-help-icon-font-size: var(--text-3xs);
+  --form-item-help-icon-border: var(--form-item-border);
+  --form-item-help-icon-bg: var(--form-item-base);
+  /* The pointer target, which is larger than the badge and contributes nothing
+     to layout — see `form-label-help`. */
+  --form-item-help-icon-target: 2rem;
   --form-item-ring: rgb(var(--color-primary-600));
   --form-item-ring-width: 3px;
   --form-item-ring-offset: 2px;
@@ -694,51 +704,59 @@
   margin-top: var(--form-item-description-spacing, calc(var(--spacing) * 0.5));
 }
 
-/* The help trigger beside a label.
+/* The help trigger beside a label: a bordered badge holding a `?`.
 
-   `line-height: inherit` and no block padding, so the button's box is exactly
-   the label's line box and the glyph centres inside it. The previous version
-   padded the button out to 26px against a 21px line and leaned on
-   `vertical-align: middle`, which aligns to the baseline plus half an x-height
-   rather than to the text's centre — the box then overflowed the line by 1.3px
-   above and 3.7px below, and the glyph sat about a pixel low. Matching the line
-   box removes both the overflow and the guesswork, at any label size.
+   Drawn, not typeset. An icon-font glyph brings its own metrics — it sits on a
+   baseline, and a round glyph on a baseline reads high — so aligning one beside
+   a label meant measuring a correction and hoping it held at every size. A
+   character centred in a box with `place-items: center` has nothing to correct,
+   and it still renders if the icon font never arrives, which a glyph does not.
 
-   The hit area is the line box rather than the 24px minimum. Padding it out is
-   what caused the misalignment, and an inline control in a label cannot grow
-   vertically without pushing the row around; the pointer target is the whole
-   glyph and the keyboard reaches it by Tab. */
+   `?` rather than `i`: this is something you reach for when you have a question
+   about the field, not a passive notice.
+
+   The badge stays small enough to sit inside a label's line box; the pointer
+   target does not have to. `::after` is hit-tested but takes no space, so the
+   target is 32px while the badge is 17px and the row height is untouched. This
+   only works because nothing here clips — inside a control that sets
+   `overflow: hidden` the same trick is clipped away with the paint. */
 @utility form-label-help {
-  /* inline-block, not inline-flex. A flex container takes its height from its
-     content, so `line-height` never applies to it and the button collapsed to
-     the 14px glyph. Inline-block keeps a real line box, and the glyph then sits
-     on the same baseline as the label text — which is what an icon font is cut
-     for, and needs no nudge. */
-  display: inline-block;
-  margin-inline-start: calc(var(--spacing) * 1);
-  padding-block: 0;
-  padding-inline: calc(var(--spacing) * 0.5);
+  display: inline-grid;
+  place-items: center;
+  position: relative;
+  /* Raised off the baseline rather than `vertical-align: middle`, which aligns
+     to the baseline plus half an x-height and leaves the badge ~1.2px low. In
+     em, so it holds as the badge's size changes. Measured to 0px from the
+     label text's centre. */
+  vertical-align: 0.15em;
+  width: var(--form-item-help-icon-size);
+  height: var(--form-item-help-icon-size);
+  margin-inline-start: calc(var(--spacing) * 1.5);
+  padding: 0;
+  border: 1px solid var(--form-item-help-icon-border);
+  border-radius: 9999px;
+  background: var(--form-item-help-icon-bg);
   color: var(--form-item-help-icon);
-  font-size: var(--form-item-help-icon-size, var(--text-sm));
-  font-weight: 400;
-  line-height: inherit;
+  font-size: var(--form-item-help-icon-font-size, var(--text-3xs));
+  font-weight: 700;
+  line-height: 1;
   cursor: help;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, border-color 0.2s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: var(--form-item-help-icon-target, 2rem);
+    height: var(--form-item-help-icon-target, 2rem);
+    transform: translate(-50%, -50%);
+  }
 
   &:hover,
   &:focus-visible {
+    border-color: var(--form-item-help-icon-hover);
     color: var(--form-item-help-icon-hover);
-  }
-
-  /* Optical centring, in em so it tracks the icon size.
-
-     The glyph is a circle, and a circle on the baseline reads high because it
-     has nothing below it — measured 1.5px above the label text's centre.
-     `vertical-align: middle` overcorrects to 1.2px low, since it aligns to the
-     baseline plus half an x-height rather than to the text's centre. This lands
-     within 0.1px of centred. */
-  > i {
-    vertical-align: -0.1em;
   }
 }
 
