@@ -66,6 +66,28 @@
     label {
       @apply text-xs! font-normal!;
     }
+
+    /* A description is not always one sentence — allowed values and worked
+       examples arrive as lists. Preflight strips list markers, and without
+       these the items render as unindented lines that read as one run-on
+       paragraph. The tooltip theme already restores them on its side; this is
+       the same treatment for the inline path. */
+    ul,
+    ol {
+      @apply my-1 ps-4;
+    }
+
+    ul {
+      @apply list-disc;
+    }
+
+    ol {
+      @apply list-decimal;
+    }
+
+    p {
+      @apply my-1 first:mt-0 last:mb-0;
+    }
   }
 
   .ck-powered-by-balloon {

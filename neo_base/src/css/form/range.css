@@ -1,0 +1,83 @@
+/* A range input arrives as the browser's own control — on Chrome that is a blue
+   slider, which is nobody's brand colour and was the one form element on the
+   page still announcing the platform rather than the site.
+
+   `appearance: none` gives up the native widget entirely, which means every
+   part has to be drawn here, twice: WebKit and Gecko expose the track and the
+   thumb under different pseudo-elements and will not accept them in the same
+   rule — one unknown selector invalidates the whole list, so the two engines
+   are written out separately below even though the declarations match. */
+@layer base {
+  input[type='range'] {
+    @apply w-full cursor-pointer bg-transparent;
+
+    appearance: none;
+    height: var(--form-item-range-thumb-size);
+
+    &:disabled {
+      @apply cursor-not-allowed opacity-40;
+    }
+
+    /* WebKit. */
+    &::-webkit-slider-runnable-track {
+      height: var(--form-item-range-track-size);
+      border-radius: var(--form-item-range-track-size);
+      background-color: var(--form-item-range-track);
+    }
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      width: var(--form-item-range-thumb-size);
+      height: var(--form-item-range-thumb-size);
+      /* Half the difference between the two, so the thumb sits centred on the
+         track rather than hanging off its top edge. */
+      margin-top: calc(
+        (var(--form-item-range-track-size) - var(--form-item-range-thumb-size)) / 2
+      );
+      border-radius: 9999px;
+      background-color: var(--form-item-range-thumb);
+      transition: transform 0.15s ease;
+    }
+
+    &:active::-webkit-slider-thumb {
+      transform: scale(0.94);
+    }
+
+    /* Gecko. */
+    &::-moz-range-track {
+      height: var(--form-item-range-track-size);
+      border-radius: var(--form-item-range-track-size);
+      background-color: var(--form-item-range-track);
+    }
+
+    &::-moz-range-thumb {
+      width: var(--form-item-range-thumb-size);
+      height: var(--form-item-range-thumb-size);
+      border: 0;
+      border-radius: 9999px;
+      background-color: var(--form-item-range-thumb);
+      transition: transform 0.15s ease;
+    }
+
+    &:active::-moz-range-thumb {
+      transform: scale(0.94);
+    }
+
+    /* The focus ring goes on the thumb, not the input: the input's box is the
+       full width of the track, and a ring around that says the whole row is
+       focused rather than the handle you are about to move. */
+    &:focus-visible {
+      outline: none;
+
+      &::-webkit-slider-thumb {
+        box-shadow: 0 0 0 var(--form-item-ring-offset) var(--form-item-base),
+          0 0 0 calc(var(--form-item-ring-width) + var(--form-item-ring-offset)) var(--form-item-ring);
+      }
+
+      &::-moz-range-thumb {
+        box-shadow: 0 0 0 var(--form-item-ring-offset) var(--form-item-base),
+          0 0 0 calc(var(--form-item-ring-width) + var(--form-item-ring-offset)) var(--form-item-ring);
+      }
+    }
+  }
+}
