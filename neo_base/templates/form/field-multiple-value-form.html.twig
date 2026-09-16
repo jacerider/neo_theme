@@ -14,6 +14,9 @@
  * - description: The description element containing the following properties:
  *   - content: The description content of the form element.
  *   - attributes: HTML attributes to apply to the description container.
+ *   - display: 'invisible' when the description was moved into a tooltip. It is
+ *     still rendered, because the table points at it with aria-describedby.
+ *     See neo_tooltip_preprocess_field_multiple_value_form().
  * - button: "Add another item" button.
  *
  * @see template_preprocess_field_multiple_value_form()
@@ -31,7 +34,7 @@
   <div{{ attributes.addClass(classes) }}>
     {{ table }}
     {% if description.content %}
-      <div{{ description.attributes.addClass('description') }} >{{ description.content }}</div>
+      <div{{ description.attributes.addClass('description', description.display == 'invisible' ? 'visually-hidden') }}>{{ description.content }}</div>
     {% endif %}
     {% if button %}
       {{ button }}

@@ -16,10 +16,14 @@
  *     otherwise the id of the control whose tooltip it opens — a control with
  *     no visible label of its own is named by the group around it, so its
  *     trigger is drawn on that group's legend or summary instead.
+ *   - attributes: (optional) tooltip attributes, set only where this button is
+ *     the whole trigger rather than a second one.
  *
- * No tooltip attributes here. js/tooltip.ts adds this button to the
+ * Usually no tooltip attributes: js/tooltip.ts adds this button to the
  * triggerTarget of the instance already bound to the field, so the trigger and
- * the field open one tooltip rather than two carrying the same sentence.
+ * the field open one tooltip rather than two carrying the same sentence. The
+ * exception is a field named by a table header, where there is no control
+ * holding an instance to join — there this button carries its own.
  *
  * A button, not the <a href="" onclick="return false"> the tooltip builder
  * reaches for elsewhere: this has to be reachable by Tab and operable on touch,
@@ -32,10 +36,20 @@
  */
 #}
 {% if neo_tooltip_help %}
-  <button type="button"
-          data-neo-tooltip-help="{{ neo_tooltip_help.target }}"
-          class="form-label-help"
-          aria-label="{{ neo_tooltip_help.label }}">
+  {#
+    One attribute object, not a literal `class` beside a printed one: the
+    tooltip attributes carry `use-neo-tooltip`, and a second `class` attribute
+    on the same tag is dropped by the parser rather than merged — which left the
+    badge looking right and never opening anything.
+  #}
+  {%
+    set help_attributes = (neo_tooltip_help.attributes|default(create_attribute()))
+      .setAttribute('type', 'button')
+      .setAttribute('data-neo-tooltip-help', neo_tooltip_help.target)
+      .setAttribute('aria-label', neo_tooltip_help.label)
+      .addClass('form-label-help')
+  %}
+  <button{{ help_attributes }}>
     {#
       A character, not an icon-font glyph: `form-label-help` draws the badge and
       centres this inside it, so there is no baseline to correct and nothing to

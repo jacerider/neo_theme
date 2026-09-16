@@ -581,6 +581,32 @@ function neo_base_preprocess_field_multiple_value_form(array &$variables) {
   if (!empty($variables['button'])) {
     $variables['button']['#attributes']['class'][] = 'btn btn-xs';
   }
+  // A multi-value field's name is a table header, so that is where its help
+  // trigger goes — neo_tooltip decides there should be one and hands over the
+  // attributes, and this puts it in the cell. Done in PHP because the header is
+  // a render array inside `table`, out of the template's reach.
+  //
+  // Wrapped in a flex row of its own: the header cell is laid out with
+  // `justify-between`, which would push a second child to the far end of the
+  // column rather than leaving it beside the title.
+  if (!empty($variables['neo_tooltip_help']) && isset($variables['table']['#header'][0]['data'])) {
+    // This table scrolls sideways once it outgrows its wrapper, and the wrapper
+    // that does the scrolling hides anything overflowing it vertically — which
+    // is where a tooltip above the header goes. Hang this one off the body.
+    if (isset($variables['neo_tooltip_help']['attributes'])) {
+      $variables['neo_tooltip_help']['attributes']->setAttribute('data-neo-tooltip-detach', 'true');
+    }
+    $variables['table']['#header'][0]['data'] = [
+      '#prefix' => '<div class="flex items-center gap-1">',
+      '#suffix' => '</div>',
+      'title' => $variables['table']['#header'][0]['data'],
+      'help' => [
+        '#type' => 'inline_template',
+        '#template' => "{% include '@neo_base/form/neo-tooltip-help.html.twig' %}",
+        '#context' => ['neo_tooltip_help' => $variables['neo_tooltip_help']],
+      ],
+    ];
+  }
   if (!empty($variables['table'])) {
     foreach ($variables['table']['#rows'] as &$row) {
       foreach ($row['data'] as $key => $cell) {
