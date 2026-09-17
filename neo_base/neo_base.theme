@@ -723,11 +723,90 @@ function neo_base_form_alter_views_bulk_operations(&$form) {
  * Form after build callback.
  */
 function neo_base_form_after_build($form, FormStateInterface $form_state) {
+  // A form's own `#neo_size` sizes the <form> element and stops there, so the
+  // seed below starts at the children with nothing inherited.
+  foreach ($form as $key => $child) {
+    if (is_array($child) && (!is_string($key) || !str_starts_with($key, '#'))) {
+      _neo_base_neo_size_seed($form[$key], NULL);
+    }
+  }
   $form['#neo_style'] = $form['#neo_style'] ?? 'default';
   $form['#neo_size'] = $form['#neo_size'] ?? 'default';
   $form['#attributes']['data-neo-style'] = $form['#neo_style'];
   $form['#attributes']['data-neo-size'] = $form['#neo_size'];
   return $form;
+}
+
+/**
+ * The element types NeoBasePreRender::neoSize() is registered on.
+ *
+ * Only these start a cascade; once one has, it reaches every typed descendant
+ * whatever their own type. Keep in step with neo_base_element_info_alter().
+ *
+ * @return string[]
+ *   The element type names.
+ */
+function _neo_base_neo_size_roots(): array {
+  return ['accordion', 'container', 'details', 'fieldset'];
+}
+
+/**
+ * Writes the inherited `#neo_size` into the built form.
+ *
+ * NeoBasePreRender::neoSize() hands a size down at render time, which is too
+ * late for anything that leaves the tree before then. An AJAX callback returns
+ * a slice of the form — NestedArray::getValue($form, array_slice($trigger
+ * ['#array_parents'], ...)) — and the renderer is handed that slice as a root,
+ * so the ancestors that declared the size never render and never pass it on.
+ * The slice falls back to `md` and comes back a size larger than the markup it
+ * replaced.
+ *
+ * Doing the same walk here, on the finished form, puts the value in the form
+ * array itself, so an extraction carries the size its ancestors gave it.
+ *
+ * This is not a second cascade, and the two conditions below are what keep it
+ * from becoming one. A size has to be *declared* to travel, so the `md`
+ * default stays the pre_render's to apply; and it only starts travelling from
+ * the types the pre_render is registered on, so this walk reaches exactly what
+ * that one reaches. Every value written here is therefore one the pre_render
+ * would have written anyway — it still supplies that default, and still covers
+ * anything built after this point.
+ *
+ * The walk stops at an untyped child for the same reason neoSize() does: a
+ * bare array is not an element, and a size written to it would be inherited by
+ * whatever is nested beneath without ever being visible on the thing carrying
+ * it.
+ *
+ * @param array $element
+ *   The element to seed, modified by reference.
+ * @param string|null $inherited
+ *   The size being cascaded from an ancestor, or NULL when none is.
+ */
+function _neo_base_neo_size_seed(array &$element, ?string $inherited): void {
+  if (!isset($element['#type'])) {
+    return;
+  }
+  if ($inherited === NULL) {
+    // A declared size on one of the cascading types opens the cascade. Every
+    // other element passes whatever it was handed straight through.
+    if (isset($element['#neo_size']) && in_array($element['#type'], _neo_base_neo_size_roots(), TRUE)) {
+      $inherited = $element['#neo_size'];
+    }
+  }
+  elseif (isset($element['#neo_size'])) {
+    $inherited = $element['#neo_size'];
+  }
+  else {
+    $element['#neo_size'] = $inherited;
+  }
+  if (($element['#neo_size_inherit'] ?? TRUE) === FALSE) {
+    $inherited = NULL;
+  }
+  foreach ($element as $key => $child) {
+    if (is_array($child) && (!is_string($key) || !str_starts_with($key, '#'))) {
+      _neo_base_neo_size_seed($element[$key], $inherited);
+    }
+  }
 }
 
 /**
