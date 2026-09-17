@@ -10,7 +10,7 @@
     disabled ? 'cursor-not-allowed' : 'cursor-pointer',
     neo_style in ['inline_buttons', 'inline_buttons_outline', 'inline_buttons_text'] ? 'sr-only',
     neo_style == 'inline_elements' ? '',
-    neo_style == 'grid_buttons' ? 'sr-only',
+    neo_style in ['grid_buttons', 'grid_tiles'] ? 'sr-only',
     neo_size == 'xs' ? 'w-4 h-4',
     neo_size == 'sm' ? 'w-4 h-4',
     neo_size == 'md' ? 'w-5 h-5',

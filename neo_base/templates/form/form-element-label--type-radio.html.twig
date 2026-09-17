@@ -28,7 +28,7 @@
   been.
 #}
 {%
-  set neo_tooltip_help = buttons ? null : (neo_tooltip_help ?? null)
+  set neo_tooltip_help = (buttons or neo_style == 'grid_tiles') ? null : (neo_tooltip_help ?? null)
 %}
 {%
   set classes = [
@@ -53,5 +53,6 @@
     neo_style == 'inline_buttons_text' ? 'block form-item-border form-item-border-radius form-item-focus leading-none ml-0 transition-all [--form-item-border:transparent] checked-prev:bg-form-item-primary checked-prev:text-form-item-primary-content',
     neo_style == 'inline_elements' ? 'pl-2 [&>div]:m-0',
     neo_style == 'grid_buttons' ? 'flex items-center justify-center flex-1 leading-none ml-0 form-item-border-radius form-item-border form-item-focus transition-all checked-prev:bg-form-item-primary checked-prev:text-form-item-primary-content',
+    neo_style == 'grid_tiles' ? 'flex flex-col items-center justify-start flex-1 gap-1 p-1 ml-0 form-item-border form-item-border-radius form-item-focus transition-all text-form-item-description checked-prev:text-form-item-primary-content checked-prev:border-form-item-primary checked-prev:ring-3 checked-prev:ring-form-item-primary/20',
   ]
 %}

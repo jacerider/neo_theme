@@ -25,11 +25,12 @@
     neo_style == 'inline_elements' and neo_size == 'sm' ? 'gap-1.5',
     neo_style == 'inline_elements' and neo_size == 'xs' ? 'gap-1',
     neo_style == 'grid_buttons' ? 'grid',
-    neo_style == 'grid_buttons' and neo_size == 'xl' ? 'gap-4',
-    neo_style == 'grid_buttons' and neo_size == 'lg' ? 'gap-3',
-    neo_style == 'grid_buttons' and neo_size == 'md' ? 'gap-2',
-    neo_style == 'grid_buttons' and neo_size == 'sm' ? 'gap-1.5',
-    neo_style == 'grid_buttons' and neo_size == 'xs' ? 'gap-1',
+    neo_style == 'grid_tiles' ? 'grid grid-cols-[repeat(auto-fill,minmax(5rem,1fr))]',
+    neo_style in ['grid_buttons', 'grid_tiles'] and neo_size == 'xl' ? 'gap-4',
+    neo_style in ['grid_buttons', 'grid_tiles'] and neo_size == 'lg' ? 'gap-3',
+    neo_style in ['grid_buttons', 'grid_tiles'] and neo_size == 'md' ? 'gap-2',
+    neo_style in ['grid_buttons', 'grid_tiles'] and neo_size == 'sm' ? 'gap-1.5',
+    neo_style in ['grid_buttons', 'grid_tiles'] and neo_size == 'xs' ? 'gap-1',
   ]
 %}
 <div{{ attributes.addClass('form-checkboxes', classes) }}>{{ children }}</div>

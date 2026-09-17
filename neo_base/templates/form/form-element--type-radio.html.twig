@@ -5,7 +5,7 @@
     neo_style == 'default' ? 'my-1 first:mt-0 last:mb-0',
     neo_style == 'inline' ? 'mr-form-item last:mr-0',
     neo_style == 'inline_elements' ? 'mt-0 mb-0 form-item-border rounded p-1 px-2',
-    neo_style == 'grid_buttons' ? 'flex items-stretch',
+    neo_style in ['grid_buttons', 'grid_tiles'] ? 'flex items-stretch',
     disabled ? 'opacity-50',
   ]
 %}
@@ -17,7 +17,7 @@
   ]
 %}
 
-{% if neo_style not in ['inline_buttons', 'inline_buttons_outline', 'inline_buttons_text', 'grid_buttons'] %}
+{% if neo_style not in ['inline_buttons', 'inline_buttons_outline', 'inline_buttons_text', 'grid_buttons', 'grid_tiles'] %}
   {%
     set inline = inline is defined ? inline : true
   %}
