@@ -40,6 +40,18 @@ details.details {
   }
 }
 
+/* A legend is the same kind of header bar (see fieldset--group.html.twig) and
+   earns its separation on the same terms. A prop switched to Default or Hide
+   renders no `.fieldset--content` at all — the base template only opens that
+   wrapper when it has something to put in it — which left the bar ruling a
+   hairline across the bottom of the card with nothing under it, and squaring
+   off two corners the card had rounded. The border is kept and cleared rather
+   than removed so the row does not shift by a pixel as it empties; the bar's
+   own background paints under it. */
+fieldset:not(:has(> .fieldset--content)) > legend {
+  @apply border-b-transparent rounded-b;
+}
+
 /* A card inside a card is noise. A nested fieldset is a *row* of its parent,
    not a separate object, so it drops the card chrome and keeps only a hairline
    to separate it from the row above. Border, fill and radius are spent on the
@@ -47,12 +59,8 @@ details.details {
 .fieldset--content > .fieldset-wrapper {
   @apply border-0 bg-transparent rounded-none;
 
-  /* The gap below the label belongs to the legend, not to the label span. The
-     legend is a flex row, and its state controls are taller than the label
-     text, so they — not the span — set the row's height: padding on the span
-     is absorbed and never becomes space above the control. */
   > fieldset > legend {
-    @apply bg-transparent border-0 px-0 pt-0 pb-form-item-inner-2;
+    @apply bg-transparent border-0 px-0 py-0;
 
     /* The card spends its inset on the label span and on the region wrappers,
        not on the legend (see fieldset--group.html.twig). A flattened row has to
@@ -66,6 +74,17 @@ details.details {
     > .form--inline-min {
       @apply mr-0;
     }
+  }
+
+  /* The gap below the label belongs to the legend, not to the label span. The
+     legend is a flex row, and its state controls are taller than the label
+     text, so they — not the span — set the row's height: padding on the span
+     is absorbed and never becomes space above the control. It is also spacing
+     *between* two things, so a row with nothing under it does not get it —
+     otherwise a hidden prop pads out to the height of a filled one and its
+     label stops sitting centred in its own row. */
+  > fieldset:has(> .fieldset--content) > legend {
+    @apply pb-form-item-inner-2;
   }
 
   > fieldset > .fieldset--content {
