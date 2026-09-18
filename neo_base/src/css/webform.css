@@ -31,8 +31,11 @@ a.button.button-webform-table-setting {
 
 .webform-filter-form {
 
-  .m-form-item {
-    @apply flex gap-2;
+  /* Webform puts `container-inline` on the details, but the fields live in its
+     body. Keyed on structure, not on the body's spacing utility, which the
+     details templates are free to change. */
+  details.container-inline > div {
+    @apply flex flex-wrap items-center gap-2;
   }
 
   .form-item {
@@ -50,6 +53,12 @@ a.button.button-webform-table-setting {
     .form-item {
       @apply my-0;
     }
+  }
+
+  /* The element after a table owns the gap between them, and webform's lower
+     submit is a bare button rather than a .form-actions that would supply it. */
+  .table--wrapper + .button {
+    @apply mt-form-item;
   }
 }
 
