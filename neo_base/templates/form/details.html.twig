@@ -9,6 +9,10 @@
  * - title: (optional) The title of the element, may not be set.
  * - summary_attributes: A list of HTML attributes for the summary element.
  * - description: (optional) The description of the element, may not be set.
+ * - description_display: (optional) `invisible` keeps the description in the
+ *   page for screen readers but hides it from view. Set by
+ *   neo_tooltip_preprocess_details() when the description became the
+ *   summary's tooltip.
  * - children: (optional) The children of the element, may not be set.
  * - value: (optional) The value of the element, may not be set.
  * - is_tab: (optional) Will be TRUE if the details element is a tab.
@@ -109,6 +113,14 @@
     {% endif %}
 
     {% if description %}
+      {#
+        Hidden, not dropped: once the description is the summary's tooltip,
+        printing it here as well shows the same help twice, but the control's
+        aria-describedby still points at this and has to keep resolving.
+      #}
+      {% if description_display == 'invisible' %}
+        {% set description_classes = description_classes|merge(['visually-hidden']) %}
+      {% endif %}
       <div{{ description_attributes.addClass(description_classes) }}>
         {{ description }}
       </div>
