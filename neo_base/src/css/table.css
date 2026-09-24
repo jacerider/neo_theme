@@ -663,9 +663,15 @@ td.priority-medium {
 /* tableresponsive.js inserts its button immediately before the table, which
    puts it inside the horizontal scroller -- so left alone it slides out of
    reach the moment the table is scrolled. Held at the scrolled edge instead,
-   the same way .sticky--label holds a group row's label. */
+   the same way .sticky--label holds a group row's label.
+
+   Block with a fit-content width rather than inline-block. The wrapper stays in
+   the DOM while its button sits at display: none, and an inline-block, even an
+   empty one, opens a line box a full line-height tall. That strip pushed the
+   table 24px down inside the bordered scroller, so the scroller's side borders
+   ran up past the header as two loose rules. An empty block takes no height. */
 .table--overflow .table--inner > .tableresponsive-toggle-columns {
-  @apply sticky left-0 inline-block;
+  @apply sticky left-0 block w-fit;
 }
 
 /* Shown by tableresponsive.js only once something is actually hidden, so this
