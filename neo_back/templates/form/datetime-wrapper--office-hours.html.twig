@@ -1,0 +1,58 @@
+{#
+/**
+ * @file
+ * Theme override of a datetime form wrapper inside an office_hours table.
+ *
+ * The same as neo_base's datetime-wrapper.html.twig, less the .form--inline
+ * div. That wrapper lays a date and a time side by side at a flex basis sized
+ * for a form column; in an office hours cell there is a single time control,
+ * and the basis only widened the column.
+ *
+ * Selected by NeoBackOfficeHours::processSlot().
+ *
+ * Available variables:
+ * - content: The form element to be output, usually a datelist, or datetime.
+ * - title: The title of the form element.
+ * - title_attributes: HTML attributes for the title wrapper.
+ * - description: Description text for the form element.
+ * - required: An indicator for whether the associated form element is required.
+ *
+ * @see template_preprocess_datetime_wrapper()
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="form-item">
+{%
+  set title_classes = [
+    required ? 'js-form-required',
+    required ? 'form-required',
+    'form-label',
+  ]
+%}
+{% if title %}
+  <label{{ title_attributes.addClass(title_classes) }}>
+    {{ title }}
+    {% if required %}
+      <abbr class="font-normal form-required text-alert" aria-hidden="true">{% if title is empty %}<span class="text-xs">{{ 'Required'|t }}</span>{% endif %} *</abbr>
+      {% if title is not empty %}
+        <span class="visually-hidden">{{ 'required'|t }}</span>
+      {% endif %}
+    {% else %}
+      {# Support states #}
+      <abbr class="hidden font-normal text-alert is-required:inline-block" aria-hidden="true">*</abbr>
+    {% endif %}
+  </label>
+{% endif %}
+{{ content }}
+{% if errors %}
+  <div>
+    {{ errors }}
+  </div>
+{% endif %}
+{% if description %}
+  <div{{ description_attributes.addClass('description') }}>
+    {{ description }}
+  </div>
+{% endif %}
+</div>

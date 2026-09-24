@@ -11,6 +11,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
+use Drupal\neo_back\NeoBackOfficeHours;
 
 /**
  * Implements hook_theme().
@@ -21,6 +22,19 @@ function neo_back_theme() {
       'render element' => 'form',
     ],
   ];
+}
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function neo_back_element_info_alter(array &$info) {
+  // Appended, so it runs after the module's own processOfficeHoursSlot() has
+  // built the cells and operation links it adjusts.
+  foreach (['office_hours_slot', 'office_hours_exceptions_slot'] as $type) {
+    if (isset($info[$type])) {
+      $info[$type]['#process'][] = [NeoBackOfficeHours::class, 'processSlot'];
+    }
+  }
 }
 
 /**

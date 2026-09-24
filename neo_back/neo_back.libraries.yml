@@ -60,3 +60,17 @@ commerce-admin:
   css:
     theme:
       src/css/commerce-admin.css: { minified: true }
+
+# Reached via libraries-extend on office_hours/office_hours_widget. The markup
+# it styles is tagged by NeoBackOfficeHours::processSlot().
+office-hours:
+  version: VERSION
+  neo: { scope: back }
+  js:
+    src/js/office-hours.ts: {}
+  css:
+    theme:
+      src/css/office-hours.css: { minified: true }
+  dependencies:
+    - core/drupal
+    - core/once

@@ -33,9 +33,18 @@ libraries-extend:
     - neo_back/commerce-admin
   commerce/dashboard:
     - neo_back/commerce-admin
+  office_hours/office_hours_widget:
+    - neo_back/office-hours
 
 libraries-override:
   webform/webform.admin.dropbutton:
     css:
       theme:
         css/webform.admin.dropbutton.css: {}
+  # Its widget rules stack the operation links (display: block) and style the
+  # day labels; office-hours.css replaces both. The formatter library ships the
+  # same file separately and keeps it.
+  office_hours/office_hours_widget:
+    css:
+      theme:
+        css/office_hours.css: false

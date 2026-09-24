@@ -1,0 +1,180 @@
+/* ---------------------------------------------------------------------------
+   Office Hours widget.
+
+   office_hours builds its widget from core table, datetime and link elements
+   with no template of its own. NeoBackOfficeHours::processSlot() tags what this
+   file reaches for:
+
+   - .office-hours-cell--{day|from|to|comment|operations} on each cell,
+   - .office-hours-slot--more on a day's second time slot,
+   - .office-hours-slot--exception on a holiday row,
+   - .office-hours-actions around the operation links, now icon buttons,
+   - .office-hours-closed, the marker office-hours.ts shows via tr.is-closed.
+
+   The cell class also lands on the .form-item div inside the comment and date
+   cells, so every cell rule goes through the row: `tr > .office-hours-cell`.
+
+   neo_base's own unlayered form rules still apply here, so the selectors are
+   kept at least as specific as theirs rather than relying on load order.
+   --------------------------------------------------------------------------- */
+
+.field--type-office-hours {
+
+  tr.office-hours-slot {
+    /* A form row, not a record in a listing: nothing to pick out on hover. */
+    &:hover {
+      background-color: transparent;
+    }
+
+    > .office-hours-cell {
+      @apply px-2 py-2 align-middle;
+
+      input:not([type='hidden']),
+      select {
+        @apply px-2 text-sm;
+      }
+    }
+
+    /* Every column but Comment is sized to its content, so Comment takes what
+       the scrollport has left. That keeps the table from overflowing a form
+       column, which used to scroll the Day column out of view and leave the
+       comment -- the only label a holiday has -- at 96px. */
+    > .office-hours-cell--day,
+    > .office-hours-cell--from,
+    > .office-hours-cell--to,
+    > .office-hours-cell--operations {
+      width: 1%;
+      white-space: nowrap;
+    }
+
+    /* Wide enough for "10:30 PM" and the picker icon at text-sm, and no wider:
+       the input's own w-full would take whatever the column gave it. The
+       date is sized the same way. Both are measured, not rounded up -- the
+       exceptions table only just fits a 1280px form column with these. */
+    > .office-hours-cell--from input[type='time'],
+    > .office-hours-cell--to input[type='time'] {
+      width: 7.75rem;
+      min-width: 0;
+    }
+
+    > .office-hours-cell--day input[type='date'] {
+      width: 8.5rem;
+      min-width: 0;
+    }
+
+    > .office-hours-cell--comment input {
+      @apply w-full min-w-28;
+    }
+
+    /* A day's second slot continues the first: no rule between them, and the
+       "and" stands in the day column as a quiet connective. `hidden` beats the
+       first row's bottom border in the collapsed border model; `none` would
+       lose to it. */
+    &.office-hours-slot--more {
+      border-top-style: hidden;
+
+      > .office-hours-cell {
+        @apply pt-0;
+      }
+    }
+  }
+
+  .office-hours-label {
+    @apply font-bold;
+  }
+
+  .office-hours-more-label {
+    @apply text-right text-xs font-normal text-base-500;
+  }
+
+  /* On a holiday the date is the row header; the weekday above it is a
+     reading aid, and the "Closed" marker sits beside it. */
+  tr.office-hours-slot--exception {
+    .office-hours-label {
+      @apply mb-1 inline-block text-xs font-normal text-base-500;
+    }
+  }
+
+  /* ---------------------------------------------------------------------------
+     Closed days.
+     --------------------------------------------------------------------------- */
+
+  .office-hours-closed {
+    display: none;
+  }
+
+  tr.is-closed {
+    .office-hours-closed {
+      @apply badge mt-1 block w-fit bg-base-200 px-1.5 text-base-700;
+    }
+
+    &.office-hours-slot--exception .office-hours-closed {
+      @apply mt-0 ml-1 inline-block;
+    }
+
+    /* Still editable -- typing a time is how a day opens again. */
+    > .office-hours-cell--from,
+    > .office-hours-cell--to {
+      opacity: 0.55;
+    }
+  }
+
+  /* ---------------------------------------------------------------------------
+     Operations.
+
+     Three fixed slots rather than a flowing row, so each icon keeps its column
+     down the table: a first slot offers add/clear/copy, a second one only
+     clear, and office_hours.js hides a day's Add link once its second slot is
+     showing.
+     --------------------------------------------------------------------------- */
+
+  th.th--operations {
+    @apply font-light;
+  }
+
+  .office-hours-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1.625rem);
+    justify-content: end;
+  }
+
+  .office-hours-actions .office-hours-action {
+    @apply btn btn-xs btn-text inline-flex items-center justify-center;
+
+    width: 1.625rem;
+    height: 1.625rem;
+    padding: 0;
+
+    &:before {
+      @apply text-sm leading-none;
+    }
+  }
+
+  .office-hours-actions .office-hours-action--add {
+    grid-column: 1;
+
+    &:before {
+      @apply icon-plus;
+    }
+  }
+
+  .office-hours-actions .office-hours-action--clear {
+    grid-column: 2;
+
+    &:before {
+      @apply icon-eraser;
+    }
+  }
+
+  .office-hours-actions .office-hours-action--copy {
+    grid-column: 3;
+
+    &:before {
+      @apply icon-copy;
+    }
+  }
+
+  .field-add-more-submit {
+    @apply mt-4;
+  }
+}
