@@ -30,7 +30,13 @@ class NeoBaseProcess {
    * Process callback for elements that support groups.
    */
   public static function submit(&$element, FormStateInterface $form_state, &$complete_form) {
-    $element['#title'] = $element['#title'] ?? $element['#value'];
+    if (!isset($element['#title'])) {
+      $element['#title'] = $element['#value'];
+      // Kept so neo_base_preprocess_input__submit() can tell this copy from a
+      // title somebody set: an #after_build may relabel the button after this
+      // has run, as Office Hours does for "Add exception".
+      $element['#neo_title_from_value'] = $element['#value'];
+    }
 
     // Add the label as a data attribute. This allows styling on the value.
     if (!is_array($element['#value'])) {

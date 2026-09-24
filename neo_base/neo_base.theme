@@ -334,7 +334,17 @@ function neo_base_preprocess_details(array &$variables) {
  * Implements hook_preprocess_input__submit().
  */
 function neo_base_preprocess_input__submit(array &$variables) {
-  $variables['title'] = $variables['element']['#title'] ?? $variables['element']['#value'];
+  $element = $variables['element'];
+  $title = $element['#title'] ?? $element['#value'];
+  // Still the copy NeoBaseProcess::submit() took of #value: follow #value, in
+  // case an #after_build relabelled the button since.
+  if (
+    array_key_exists('#neo_title_from_value', $element)
+    && $title === $element['#neo_title_from_value']
+  ) {
+    $title = $element['#value'];
+  }
+  $variables['title'] = $title;
   $variables['as_input'] = !empty($variables['element']['#as_input']);
   $variables['disabled'] = !empty($variables['element']['#disabled']);
   if (!is_array($variables['title'])) {
