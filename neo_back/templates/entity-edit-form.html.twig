@@ -15,13 +15,18 @@
  * @see neo_back_form_node_form_alter()
  */
 #}
+{#
+  `min-w-0` lets the main column shrink below its widest content. Without it a
+  wide widget table held the column open and pushed the sidebar out of the
+  viewport, instead of scrolling inside .table--inner.
+#}
 <div class="layout-entity-form">
   <div class="lg:flex lg:gap-form">
-    <div class="layout-entity-form--main flex-1">
+    <div class="layout-entity-form--main flex-1 min-w-0">
       {{ form|without('advanced', 'footer', 'actions') }}
     </div>
     {% if form.advanced %}
-      {{ form.advanced|neo_class('layout-entity-form--advanced mt-form-item lg:mt-0 lg:w-96') }}
+      {{ form.advanced|neo_class('layout-entity-form--advanced mt-form-item lg:mt-0 lg:w-96 lg:shrink-0') }}
     {% endif %}
   </div>
   {{ form.footer }}

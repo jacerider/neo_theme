@@ -29,9 +29,10 @@
   set detailsWrapperClass = 'grid text-sm text-base-600 p-form-item'
 %}
 
+{# `min-w-0`: see entity-edit-form.html.twig. #}
 <div class="layout-entity-form">
   <div class="layout-order-admin layout-commerce-admin lg:flex lg:gap-form">
-    <div class="flex-1">
+    <div class="flex-1 min-w-0">
       <div class="layout-region__content">
         {{ order.order_items }}
         <div class="mt-2 text-sm">
@@ -44,7 +45,7 @@
         {% endif %}
       </div>
     </div>
-    <div class="mt-form-item lg:mt-0 lg:w-96">
+    <div class="mt-form-item lg:mt-0 lg:w-96 lg:shrink-0">
       <div class="entity-meta mt-form-item lg:mt-0 lg:w-96 accordion card w-full divide-y divide-base-200">
         <div class="entity-meta__header p-card text-sm !m-0 !pt-0 accordion-item js-form-wrapper form-wrapper form--item">
           <div class="entity-meta__title mt-0 mb-4 -ml-form-item -mr-form-item px-form-item py-4 font-bold text-xl rounded-t-sm {{ meta_color }} form-no-label form--item">
