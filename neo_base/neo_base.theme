@@ -350,6 +350,14 @@ function neo_base_preprocess_input__submit(array &$variables) {
   if (!is_array($variables['title'])) {
     $variables['attributes']['data-label'] = Html::getClass(trim(strip_tags(strtolower($variables['title']))));
   }
+  // A widget's add button is small whatever size its form is, unless the
+  // button already names a size of its own.
+  if (_neo_base_is_add_item_button($variables['element'])) {
+    $classes = implode(' ', (array) ($variables['attributes']['class'] ?? []));
+    if (!preg_match('/(^|\s)btn-(xs|sm|md|lg|xl)(\s|$)/', $classes)) {
+      $variables['neo_size'] = 'xs';
+    }
+  }
   $style = [];
   if (!empty($variables['neo_size'])) {
     switch ($variables['neo_size']) {
@@ -475,6 +483,39 @@ function neo_base_preprocess_input__submit(array &$variables) {
     }
     $variables['attributes']['style'] .= str_replace(array("\r", "\n"), '', implode("", $style));
   }
+}
+
+/**
+ * Whether a button adds an item to a multi-value widget.
+ *
+ * Every widget marks its add button its own way, and only core's asks to be
+ * small, through #button_type. Recognised here so they all come out the same
+ * size, whichever widget built them and whichever template renders them.
+ *
+ * Checked at preprocess rather than in NeoBaseProcess::submit(): the media
+ * library's button is a `button` element, which that process never sees, and
+ * both types render through input__submit.
+ *
+ * @param array $element
+ *   The button element.
+ *
+ * @return bool
+ *   TRUE for core's "Add another item", Inline Entity Form's add buttons and
+ *   the media library's "Add media".
+ */
+function _neo_base_is_add_item_button(array $element): bool {
+  // Inline Entity Form's "Add new" and "Add existing", and anything copied
+  // from them, such as neo_inline_entity_form's per-bundle buttons.
+  $ief_form = $element['#ief_form'] ?? NULL;
+  if (in_array($ief_form, ['add', 'ief_add_existing'], TRUE)) {
+    return TRUE;
+  }
+  // Core's add-more button, from WidgetBase::formMultipleElements(), also
+  // where a widget renders it without field_multiple_value_form; and the
+  // media library widget's open button.
+  $classes = (array) ($element['#attributes']['class'] ?? []);
+  $markers = ['field-add-more-submit', 'js-media-library-open-button'];
+  return (bool) array_intersect($markers, $classes);
 }
 
 /**
@@ -616,9 +657,6 @@ function neo_base_preprocess_textarea(array &$variables) {
  * Implements hook_preprocess_field_multiple_value_form().
  */
 function neo_base_preprocess_field_multiple_value_form(array &$variables) {
-  if (!empty($variables['button'])) {
-    $variables['button']['#attributes']['class'][] = 'btn btn-xs';
-  }
   // A multi-value field's name is a table header, so that is where its help
   // trigger goes — neo_tooltip decides there should be one and hands over the
   // attributes, and this puts it in the cell. Done in PHP because the header is

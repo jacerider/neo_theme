@@ -471,6 +471,16 @@ table {
   @apply p-2;
 }
 
+/* A button placed straight after a table, a multi-value widget's add button
+   above all, is set off from it by the step that separates form items. It sat
+   flush against the table's bottom edge before, or against the stand-in
+   scrollbar once the table scrolled. A widget that wraps its buttons in a
+   container of their own, as Inline Entity Form does, already gets the same
+   step from .form--item, so the two now line up. */
+.table--wrapper ~ .button {
+  @apply mt-form-item;
+}
+
 /* ---------------------------------------------------------------------------
    Why .table--inner is positioned.
 
