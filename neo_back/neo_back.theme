@@ -245,6 +245,89 @@ function neo_back_preprocess_views_view(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_HOOK() for inline_entity_form_entity_table.
+ *
+ * NeoBasePreRender::table() styles a column by its header key: a label as a
+ * heading, a status narrow and centred. IEF keys its headers by position, so
+ * none of that reaches this table and every column gets an equal share of the
+ * width. The same props are set here on each cell instead of on the table,
+ * because a positional table prop would also land on the one cell of the row
+ * that holds an open edit form.
+ */
+function neo_back_preprocess_inline_entity_form_entity_table(array &$variables) {
+  if (empty($variables['table'])) {
+    return;
+  }
+  $fields = $variables['form']['#table_fields'] ?? [];
+  $labelKey = NULL;
+  foreach ($fields as $name => $field) {
+    if (($field['type'] ?? NULL) === 'label') {
+      $labelKey = $name;
+      break;
+    }
+  }
+
+  $table = &$variables['table'];
+  $hasStatusIcon = FALSE;
+  foreach (Element::children($table) as $key) {
+    $row = &$table[$key];
+    if (!in_array('ief-row-entity', $row['#attributes']['class'] ?? [], TRUE)) {
+      continue;
+    }
+    // The label column takes whatever width the others leave, so each of the
+    // others is sized to its content. The delta select and the operations are
+    // not touched: the first is hidden, the second is already sized by its
+    // header, and #neo_size on either would restyle it as a form item.
+    $handleClasses = $row[0]['#wrapper_attributes']['class'] ?? [];
+    if (in_array('ief-tabledrag-handle', $handleClasses, TRUE)) {
+      $row[0]['#neo_size'] = 'min';
+    }
+    foreach (array_keys($fields) as $name) {
+      if (!isset($row[$name])) {
+        continue;
+      }
+      if ($name === $labelKey) {
+        $row[$name]['#neo_style'] = 'heading';
+      }
+      // Only a field cell carries #items. One without them was denied view
+      // access or built by a callback, and is left as it came.
+      elseif ($name === 'status' && isset($row[$name]['#items'])) {
+        $published = (bool) $row[$name]['#items']->value;
+        // IconTrait::statusIcon(), which a theme cannot call.
+        $row[$name] = [
+          '#markup' => neo_icon($published ? 'Published' : 'Unpublished')
+            ->iconLookup($published ? 'enabled' : 'disabled')
+            ->iconOnly(),
+          '#neo_size' => 'min',
+          '#neo_align' => 'center',
+          '#wrapper_attributes' => $row[$name]['#wrapper_attributes'] ?? [],
+          '#cache' => $row[$name]['#cache'] ?? [],
+        ];
+        $hasStatusIcon = TRUE;
+      }
+      else {
+        $row[$name]['#neo_size'] = 'min';
+      }
+    }
+  }
+  unset($row);
+
+  if ($hasStatusIcon) {
+    $statusClass = 'inline-entity-form-'
+      . $variables['form']['#entity_type'] . '-status';
+    foreach ($table['#header'] as &$header) {
+      if (!is_array($header)) {
+        continue;
+      }
+      if (in_array($statusClass, $header['class'] ?? [], TRUE)) {
+        $header['class'][] = 'align--center';
+      }
+    }
+    unset($header);
+  }
+}
+
+/**
  * Implements hook_form_alter().
  */
 function neo_back_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
