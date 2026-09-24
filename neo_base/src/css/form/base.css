@@ -52,6 +52,15 @@
     }
   }
 
+  /* A field widget whose element was moved into another group -- the path
+     alias into an entity form's sidebar, say -- leaves its wrapper behind with
+     nothing in it, and an empty wrapper still takes its form-item margin. A
+     widget's wrapper only ever holds elements, so no element child means
+     nothing is left. Hidden rather than removed: it keeps its id for #ajax. */
+  [class*='field--widget-']:not(:has(> *)) {
+    display: none;
+  }
+
   /* Previous sibling selectors for form--item. */
   input[type='hidden']:first-child,
   div[style*='display: none;']:first-child,
