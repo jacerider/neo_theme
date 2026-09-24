@@ -1,16 +1,24 @@
-.ief-row-entity-form {
-  .table--cell {
-    &:before {
-      @apply icon-edit mr-1;
-    }
+/* The row whose entity is open in the form below it. Only its first cell takes
+   the marker: on every cell it also landed on block-level field output (a
+   status field), where it stacked above the value on a line of its own. IEF
+   drops tabledrag while any row is in form mode, so the first cell is always
+   the label column and never the drag handle. */
+.ief-row-entity-form > .table--cell:first-child {
+  &:before {
+    @apply icon-edit mr-1;
   }
 }
 
-.ief-form {
-  @apply p-form-item;
+/* An IEF form carries no inset of its own; it takes the one its host gives,
+   the same one step every other nested form surface uses. The edit and remove
+   forms open in a table row, whose cell supplies it. The add and
+   reference-existing forms are a fieldset nested in the widget, which form.css
+   flattens into a row, so their fields line up with the table's edge.
 
-  > .form-wrapper {
-    @apply m-form-item;
-    @apply -mt-form-item;
-  }
+   Padding here stacked on top of the host's: 48px inside a row instead of 16px,
+   and on the flattened fieldset an indent with no border to explain it. The
+   negative top margin that trimmed it also cancelled the gap between siblings,
+   which ran the remove prompt into its buttons. */
+.ief-row-form > .table--cell {
+  @apply p-form-item;
 }
