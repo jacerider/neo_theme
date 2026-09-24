@@ -50,6 +50,9 @@ libraries-extend:
   media_library/ui:
     - neo_base/media-library
     - neo_base/media-library-preview
+  media_library/view:
+    - neo_base/media-library
+    - neo_base/media-library-preview
   file/drupal.file:
     - neo_base/media-library-preview
   canvas/canvas-ui:

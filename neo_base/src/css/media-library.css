@@ -83,6 +83,62 @@
   }
 }
 
+.media-library-item--status {
+  @apply pointer-events-none absolute bottom-2 left-2 rounded bg-warning-500 px-2 py-0.5 text-xs text-warning-500-content;
+}
+
+/* The media grid page's per-item links, named by neo_base_views_pre_render().
+   Icon circles in the tile's free top corner, the selection toggle holding the
+   other, shown while the tile is hovered or holds focus. The link text stays
+   as the accessible name, clipped by the circle the way the widget's remove
+   button clips its label. */
+.media-library-item__edit,
+.media-library-item__remove {
+  /* The icon utility displays through this variable. */
+  --icon-display: flex;
+  @apply absolute top-2 z-10 flex h-8 w-8 overflow-hidden whitespace-nowrap rounded-full no-underline opacity-0 shadow-lg transition;
+
+  &::before {
+    @apply h-8 w-8 shrink-0 items-center justify-center leading-none;
+  }
+
+  .media-library-item:hover &,
+  .media-library-item:focus-within & {
+    @apply opacity-100;
+  }
+
+  /* A touch screen has no hover to reveal them. */
+  @media (hover: none) {
+    @apply opacity-100;
+  }
+}
+
+.media-library-item__edit {
+  @apply left-2 bg-base-0 text-base-0-content hover:bg-primary-500 hover:text-primary-500-content;
+
+  &::before {
+    @apply icon-edit;
+  }
+}
+
+.media-library-item__remove {
+  @apply left-12 bg-alert-500 text-alert-500-content hover:bg-alert-500-content hover:text-alert-500;
+
+  &::before {
+    @apply icon-trash;
+  }
+}
+
+/* Core's media_library.view.js puts its "Select all media" checkbox in front
+   of the first item, which makes it a cell of the grid. */
+.media-library-select-all {
+  @apply col-span-full flex cursor-pointer select-none items-center gap-2 text-sm;
+
+  input {
+    @apply form-item-border form-item-bg form-item-focus cursor-pointer rounded p-2 text-form-item-primary-content transition checked:bg-form-item-primary checked:hover:bg-form-item-primary-active;
+  }
+}
+
 .media-library-selection {
   @apply flex flex-wrap gap-3;
 
@@ -92,7 +148,9 @@
     }
   }
 
-  .views-field-media-library-select-form {
+  /* The modal's select checkbox, and the grid page's bulk-form checkbox. */
+  .views-field-media-library-select-form,
+  .views-field-media-bulk-form {
     @apply absolute right-2 top-2 z-10;
 
     .form-item {
@@ -114,7 +172,9 @@
     @apply grid grid-cols-2 gap-form-item md:grid-cols-4 lg:grid-cols-6;
   }
 
-  .view-filters {
+  /* In the modal the filters close the box the display-link tabs open. The
+     grid page has no tabs, and its filters are a card of their own. */
+  .view-header + .view-filters {
     @apply p-3 border rounded-b;
   }
 

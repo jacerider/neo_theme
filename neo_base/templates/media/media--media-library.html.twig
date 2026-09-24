@@ -42,10 +42,10 @@
   {% if content %}
     <div{{ preview_attributes.addClass('media-library-item--preview js-media-library-item-preview') }}>
       {{ content|without('name') }}
+      {% if not status %}
+        <div class="media-library-item--status">{{ "unpublished"|t }}</div>
+      {% endif %}
     </div>
-    {% if not status %}
-      <div class="media-library-item--status">{{ "unpublished"|t }}</div>
-    {% endif %}
     <div{{ metadata_attributes.addClass('media-library-item--attributes') }}>
       <div class="mt-1 text-xs text-center truncate media-library-item--name">
         {{ name }}

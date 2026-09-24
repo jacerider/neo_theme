@@ -148,14 +148,9 @@ password:
 media-library:
   version: VERSION
   neo: true
-  js:
-    src/js/media-library.js: {}
   css:
     theme:
       src/css/media-library.css: { minified: true }
-  dependencies:
-    - core/drupal
-    - core/once
 
 media-library-preview:
   version: VERSION
