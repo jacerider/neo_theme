@@ -122,9 +122,10 @@
    * where what it draws is light, light), but only the pixels can say which
    * images those are.
    *
-   * An image field's widget preview and the media library's upload preview
-   * have the first failure and not the second: they show the image whole, on
-   * the form's white. There the image is marked itself, and
+   * An image field's widget preview, the media library's upload preview and a
+   * media thumbnail in a view's table have the first failure and not the
+   * second: they show the image whole, on white. There the image is marked
+   * itself, and
    * media-library-preview.css draws the checkerboard as its background, which
    * shows through exactly where the image is clear. Nothing wraps or pads it,
    * so focal point's crosshair still lands where it was dropped.
@@ -136,7 +137,7 @@
       (img) => img.closest<HTMLElement>('.media-library-item--preview'),
     );
     watch(
-      once('neoBase.imagePreview', '.image-widget img, .js-media-library-add-form-added-media img', context),
+      once('neoBase.imagePreview', '.image-widget img, .js-media-library-add-form-added-media img, .views-field-thumbnail__target-id img', context),
       (img) => img,
     );
   };

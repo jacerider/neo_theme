@@ -144,6 +144,11 @@ function neo_base_preprocess_views_view_table(array &$variables) {
  * Implements hook_views_pre_render().
  */
 function neo_base_views_pre_render(ViewExecutable $view) {
+  // A media thumbnail can be a white logo, which a white row swallows.
+  // media-library-preview.ts finds those and puts them on a checkerboard.
+  if (isset($view->field['thumbnail__target_id'])) {
+    $view->element['#attached']['library'][] = 'neo_base/media-library-preview';
+  }
   if ($view->id() !== 'media_library' || $view->current_display !== 'page') {
     return;
   }
