@@ -79,16 +79,37 @@
     };
   }
 
-  function classify(img: HTMLImageElement): void {
-    const preview = img.closest<HTMLElement>('.media-library-item--preview');
+  function classify(img: HTMLImageElement, target: HTMLElement): void {
     const result = analyse(img);
-    if (!preview || !result) {
+    if (!result) {
       return;
     }
-    preview.classList.toggle('is-transparent', result.transparent);
+    target.classList.toggle('is-transparent', result.transparent);
     // Only a transparent image shows the tile behind it, so only one can need
     // the tile darkened. An opaque light photo covers it either way.
-    preview.classList.toggle('is-light', result.transparent && result.light);
+    target.classList.toggle('is-light', result.transparent && result.light);
+  }
+
+  /**
+   * Classify each image once it has loaded.
+   */
+  function watch(images: HTMLElement[], target: (img: HTMLImageElement) => HTMLElement | null): void {
+    images.forEach((img: HTMLElement) => {
+      if (!(img instanceof HTMLImageElement)) {
+        return;
+      }
+      const element = target(img);
+      if (!element) {
+        return;
+      }
+      // The picker's grid loads its images lazily, so most are not there yet.
+      if (img.complete && img.naturalWidth) {
+        classify(img, element);
+      }
+      else {
+        img.addEventListener('load', () => classify(img, element), {once: true});
+      }
+    });
   }
 
   /**
@@ -100,21 +121,24 @@
    * media-library.css answers both once an image is marked transparent (and,
    * where what it draws is light, light), but only the pixels can say which
    * images those are.
+   *
+   * An image field's widget preview and the media library's upload preview
+   * have the first failure and not the second: they show the image whole, on
+   * the form's white. There the image is marked itself, and
+   * media-library-preview.css draws the checkerboard as its background, which
+   * shows through exactly where the image is clear. Nothing wraps or pads it,
+   * so focal point's crosshair still lands where it was dropped.
    */
   Drupal.behaviors.neoBaseMediaLibraryPreview = {};
   Drupal.behaviors.neoBaseMediaLibraryPreview.attach = (context: HTMLElement) => {
-    once('neoBase.mediaLibraryPreview', '.media-library-item--preview img', context).forEach((img: HTMLElement) => {
-      if (!(img instanceof HTMLImageElement)) {
-        return;
-      }
-      // The picker's grid loads its images lazily, so most are not there yet.
-      if (img.complete && img.naturalWidth) {
-        classify(img);
-      }
-      else {
-        img.addEventListener('load', () => classify(img), {once: true});
-      }
-    });
+    watch(
+      once('neoBase.mediaLibraryPreview', '.media-library-item--preview img', context),
+      (img) => img.closest<HTMLElement>('.media-library-item--preview'),
+    );
+    watch(
+      once('neoBase.imagePreview', '.image-widget img, .js-media-library-add-form-added-media img', context),
+      (img) => img,
+    );
   };
 
 })(Drupal, once);

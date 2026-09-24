@@ -1,0 +1,21 @@
+/* An image field's widget preview, and the media library's upload preview,
+   marked by media-library-preview.ts. Unlike the library's tiles (see
+   media-library.css) these show the image whole and already sit on the form's
+   white, so the image is the tile: the checkerboard is its own background, and
+   shows through exactly where the image is clear. No padding, because focal
+   point positions its crosshair over the image's box. */
+.image-widget img,
+.js-media-library-add-form-added-media img {
+  &.is-transparent {
+    --media-checker: rgb(var(--color-base-200));
+    background-image: conic-gradient(var(--media-checker) 25%, transparent 0 50%, var(--media-checker) 0 75%, transparent 0);
+    background-size: 0.5rem 0.5rem;
+  }
+
+  /* What the image draws is light, a white wordmark say, which the white
+     form would swallow. The script only marks transparent images light. */
+  &.is-light {
+    --media-checker: rgb(var(--color-base-800));
+    @apply bg-base-900;
+  }
+}

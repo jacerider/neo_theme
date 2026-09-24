@@ -162,6 +162,9 @@ media-library-preview:
   neo: true
   js:
     src/js/media-library-preview.ts: { minified: true }
+  css:
+    theme:
+      src/css/media-library-preview.css: { minified: true }
   dependencies:
     - core/drupal
     - core/once
