@@ -188,7 +188,13 @@ form {
   a {
     &[id$='cancel'],
     &[id$='delete'] {
-      @apply btn btn-alert;
+      /* Not over `.button--danger`, which neo_base deliberately outlines. The
+         solid fill's white label on the outline's transparent background left
+         an entity form's Delete link as an empty red box. */
+      &:not(.button--danger) {
+        @apply btn btn-alert;
+      }
+
       &:before {
         @apply icon-times-square mr-1;
       }
