@@ -8,6 +8,27 @@
   .field {
     @apply m-0;
   }
+
+  /* An image with transparency, marked by media-library-preview.ts. The white
+     tile and the crop are for photos: a logo is fitted whole instead of cut to
+     a slice from its middle, and sits on a checkerboard that says the empty
+     space around it is empty rather than white. */
+  &.is-transparent {
+    --media-checker: rgb(var(--color-base-200));
+    background-image: conic-gradient(var(--media-checker) 25%, transparent 0 50%, var(--media-checker) 0 75%, transparent 0);
+    background-size: 1rem 1rem;
+
+    img {
+      @apply object-contain p-3;
+    }
+  }
+
+  /* What the image draws is light, a white wordmark say, which the light tile
+     would swallow. The script only marks transparent images light. */
+  &.is-light {
+    --media-checker: rgb(var(--color-base-800));
+    @apply bg-base-900;
+  }
 }
 
 .media-library-item {

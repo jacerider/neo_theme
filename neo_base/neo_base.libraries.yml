@@ -157,6 +157,15 @@ media-library:
     - core/drupal
     - core/once
 
+media-library-preview:
+  version: VERSION
+  neo: true
+  js:
+    src/js/media-library-preview.ts: { minified: true }
+  dependencies:
+    - core/drupal
+    - core/once
+
 vertical-tabs:
   version: VERSION
   neo: true
