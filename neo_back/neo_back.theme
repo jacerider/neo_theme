@@ -140,6 +140,9 @@ function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterf
   if (!empty($form['url_redirects'])) {
     $form['url_redirects']['#icon'] = 'directions';
   }
+  if (!empty($form['menu'])) {
+    $form['menu']['#icon'] = 'list-alt';
+  }
   if (!empty($form['author'])) {
     $form['author']['#icon'] = 'user';
   }
