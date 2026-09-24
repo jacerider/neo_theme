@@ -1,0 +1,29 @@
+/* ---------------------------------------------------------------------------
+   Form actions in the page header.
+
+   NeoBackFormActions copies a content entity form's actions beside the page
+   title, in the sticky header region, and marks the originals it stands in
+   for. The originals stay in the form, hidden, because the copies click them.
+   --------------------------------------------------------------------------- */
+
+.neo-header-actions {
+  @apply flex shrink-0 flex-wrap items-center gap-2 md:ml-auto;
+
+  /* neo_base maps Drupal's button classes onto btn inside `form` and dialog
+     button sets only, and these sit outside the form they submit. */
+  .button:not([class*='btn']) {
+    @apply btn;
+  }
+
+  .button--primary {
+    @apply btn btn-primary;
+  }
+
+  .button--danger {
+    @apply btn btn-outline-alert;
+  }
+}
+
+.neo-form-actions--in-header {
+  display: none;
+}

@@ -11,6 +11,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
+use Drupal\neo_back\NeoBackFormActions;
 use Drupal\neo_back\NeoBackOfficeHours;
 
 /**
@@ -34,6 +35,23 @@ function neo_back_element_info_alter(array &$info) {
     if (isset($info[$type])) {
       $info[$type]['#process'][] = [NeoBackOfficeHours::class, 'processSlot'];
     }
+  }
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function neo_back_preprocess_page(array &$variables) {
+  // A content entity form's actions, copied beside the page title in the
+  // sticky header. See NeoBackFormActions.
+  if ($actions = NeoBackFormActions::getHeaderActions()) {
+    $header = &$variables['page']['header'];
+    // A header with no blocks placed arrives as a bare array.
+    if (empty($header['#theme_wrappers'])) {
+      $header['#theme_wrappers'] = ['region'];
+      $header['#region'] = 'header';
+    }
+    $header['neo_back_form_actions'] = $actions;
   }
 }
 
@@ -122,6 +140,7 @@ function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterf
   }
   if (!empty($form['actions'])) {
     $form['actions']['#weight'] = 1000;
+    $form['#after_build'][] = [NeoBackFormActions::class, 'afterBuild'];
   }
   $moderationStateLabel = NULL;
   if (!empty($form['moderation_state'])) {

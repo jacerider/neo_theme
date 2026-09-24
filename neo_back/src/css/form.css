@@ -108,7 +108,10 @@ fieldset:not(:has(> .fieldset--content)) > legend {
   }
 }
 
-form {
+/* `.neo-header-actions` holds a form's buttons copied into the page header,
+   outside the form, and they take the same icons as the originals. */
+form,
+.neo-header-actions {
 
   /* & > p:not(.ck p):not([class*='text-']):not([class*='font-']) {
     @apply text-xs font-normal;
