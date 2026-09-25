@@ -1,17 +1,19 @@
 {#
 /**
  * @file
- * Admin fieldset: a card with a recessed header bar.
+ * Admin fieldset: a card with a title row.
  *
  * Overrides neo_base's fieldset--group, which paints the whole card
  * `bg-form-item-base-50` and pads the legend by `p-form-item` (1.5rem). That
  * reads as one flat tinted block, and at the width of a sidebar panel the
  * padding alone can outweigh the fields inside it.
  *
- * Here the card is the surface and only the legend is tinted, so a form of
- * several fieldsets reads as a stack of titled cards rather than a stack of
- * grey slabs. The legend is a row at every width — see the note on the `md`
- * breakpoint in neo_back/src/css/form.css.
+ * Here the card is the surface and the legend is a title row divided from the
+ * body by a hairline, so a form of several fieldsets reads as a stack of titled
+ * cards rather than a stack of grey slabs. The legend used to be a tinted bar
+ * too; on a white surface that made each group a box within the card rather
+ * than a section of it. The legend is a row at every width — see the note on
+ * the `md` breakpoint in neo_back/src/css/form.css.
  *
  * Every inset is `p-form-item`, never a fixed step. `--spacing-form-item` is
  * what `#neo_size` actually moves (neo_base_preprocess() stamps it per size),
@@ -29,7 +31,7 @@
   No `overflow-hidden` on the card: `form-item-focus` draws its ring as a
   box-shadow 5px outside the element, and the legend holds focusable controls
   (the Alchemist per-field state chips) that sit flush against the card's top
-  and right edges — a clip cuts their ring off on three sides. The tinted bar
+  and right edges — a clip cuts their ring off on three sides. The legend
   keeps to the card's corners by rounding its own instead.
 #}
 {%
@@ -52,7 +54,6 @@
     'flex-wrap',
     'items-center',
     'rounded-t',
-    'bg-form-item-base-50',
     'border-b',
     'border-form-item-base-200',
   ]

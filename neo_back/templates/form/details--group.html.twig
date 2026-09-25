@@ -4,9 +4,10 @@
  * Admin details: the same card as fieldset--group, with a collapsible header.
  *
  * Overrides neo_base's details--group for the same reason (see
- * fieldset--group.html.twig): the card is the surface, the summary is a
- * recessed header bar, and the body is padded once rather than margined by
- * 1.5rem on every side.
+ * fieldset--group.html.twig): the card is the surface, the summary is a title
+ * row with a hairline under it, and the body is padded once rather than
+ * margined by 1.5rem on every side. The summary is only tinted on hover, which
+ * is the one state where it needs to read as a control.
  *
  * The summary's bottom border and its closed-state bottom radius are applied in
  * neo_back/src/css/form.css keyed on `[open]`, because a native <details>
@@ -22,8 +23,8 @@
 {#
   No `overflow-hidden`: the summary is focusable and fills the card exactly, and
   `form-item-focus` draws its ring as a box-shadow 5px outside the element, so a
-  clip cuts the ring off on left, top and right. The tinted bar keeps to the
-  card's corners by rounding its own instead.
+  clip cuts the ring off on left, top and right. The summary keeps its hover
+  tint to the card's corners by rounding its own instead.
 #}
 {%
   set classes = [
@@ -45,10 +46,9 @@
     'transition',
     'p-form-item',
     'rounded-t',
-    'bg-form-item-base-50',
     'text-form-item-label',
     'hover:text-form-item-primary',
-    'hover:bg-form-item-base-100',
+    'hover:bg-form-item-base-50',
     'form-item-focus',
     '[&>.summary]:w-full',
     '[&>.summary]:text-xs',

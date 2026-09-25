@@ -1,4 +1,5 @@
 @import "./components/misc/block-layout.css";
+@import "./components/misc/buttons.css";
 @import "./components/misc/inline-entity-form.css";
 @import "./components/misc/links.css";
 @import "./components/misc/messages.css";
@@ -7,12 +8,64 @@
 
 @import "./components/view/view.css";
 
+/* The admin's depth and light. Every value resolves through the site's own
+   tokens, so each site's admin is lit and shadowed in its brand rather than in
+   a neutral grey: `--color-shadow-*` is neo_color's brand-tinted shadow ramp.
+
+   The canvas washes are exposed so a site whose accent is loud can quiet it
+   from its own back theme without touching the gradient itself. */
+:root {
+  --neo-lift-1:
+    0 1px 2px -1px rgb(var(--color-shadow-500) / 0.14),
+    0 3px 8px -2px rgb(var(--color-shadow-500) / 0.08);
+  --neo-lift-2:
+    var(--neo-lift-1),
+    0 6px 16px -4px rgb(var(--color-shadow-500) / 0.12),
+    0 24px 40px -20px rgb(var(--color-shadow-500) / 0.2);
+  --neo-canvas-wash-1: rgb(var(--color-primary-500) / 0.16);
+  --neo-canvas-wash-2: rgb(var(--color-accent-500) / 0.22);
+  --neo-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
 body {
   @apply relative z-0 text-base font-normal;
 }
 
+/* The wash is its own fixed layer rather than the wrapper's background, so it
+   stays behind the sticky header as the page scrolls and the header frosts over
+   it. A fixed layer avoids the repaint cost of `background-attachment: fixed`.
+   `isolation` keeps the layer's negative z-index inside the wrapper, above its
+   fill. */
 .page-wrapper {
   @apply bg-base-50;
+  isolation: isolate;
+
+  &::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 60% 55% at 12% -12%, var(--neo-canvas-wash-1), transparent 72%),
+      radial-gradient(ellipse 50% 50% at 95% -10%, var(--neo-canvas-wash-2), transparent 70%),
+      radial-gradient(ellipse 70% 50% at 70% 115%, rgb(var(--color-primary-500) / 0.06), transparent 70%),
+      rgb(var(--color-base-50));
+  }
+}
+
+/* A card's corner is larger than the 6px buttons that sit inside it. This is a
+   plain rule rather than part of the `card` utility because neo_base's `card`
+   utility compiles after neo_back's and its `rounded-sm` always wins there (see
+   neo_back's _utilities.css). Unlayered, this beats it. */
+.card {
+  border-radius: var(--radius-lg);
+}
+
+/* Paired with the frosted fill in region--header.html.twig: a long, soft,
+   brand-tinted falloff instead of `shadow-lg`, which read as a hard ledge. */
+.region--header.is-stuck {
+  box-shadow: 0 10px 30px -18px rgb(var(--color-shadow-500) / 0.35);
 }
 
 .container {

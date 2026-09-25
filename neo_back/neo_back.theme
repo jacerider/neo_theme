@@ -69,6 +69,12 @@ function neo_back_form_alter(&$form, FormStateInterface $form_state, $form_id) {
       $form['#neo_entity_form'] = TRUE;
       $entity = $form_object->getEntity();
       $form['#theme'] = 'entity_edit_form';
+      // Not a card: the main column and the sidebar are each a surface of
+      // their own (see form.css), and a card around both would hide the canvas
+      // behind them. 'default' only drops the card class. 'flush' would also
+      // zero --spacing-form, which the column gap and the sidebar accordion's
+      // inset are measured in.
+      $form['#neo_style'] = $form['#neo_style'] ?? 'default';
       neo_back_form_meta($form, $form_state, $entity);
     }
   }
@@ -203,27 +209,34 @@ function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterf
       $form['meta']['published']['#wrapper_attributes']['class'][] = 'px-form-item';
       $form['meta']['published']['#wrapper_attributes']['class'][] = 'py-4';
       $form['meta']['published']['#wrapper_attributes']['class'][] = 'font-bold';
-      $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-xl';
-      $form['meta']['published']['#wrapper_attributes']['class'][] = 'rounded-t-sm';
+      $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-md';
+      $form['meta']['published']['#wrapper_attributes']['class'][] = 'rounded-t-lg';
+      $form['meta']['published']['#wrapper_attributes']['class'][] = 'border-b';
+      // Tinted, not filled. A solid status block was the loudest thing on the
+      // form and outshouted the Save button; the state still reads from its
+      // colour and icon without competing for the eye.
       if ($entity->isNew()) {
         $form['meta']['published']['#access'] = TRUE;
         $form['meta']['published']['#markup'] = neo_icon('Draft');
-        $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-base-500';
-        $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-base-500-content';
+        $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-base-100';
+        $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-base-700';
+        $form['meta']['published']['#wrapper_attributes']['class'][] = 'border-base-200';
       }
       elseif ($entity instanceof EntityPublishedInterface) {
         if ($entity instanceof EntityPublishedInterface && $entity->isPublished()) {
           $form['meta']['published']['#markup'] = neo_icon('Published');
-          $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-success-500';
-          $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-success-500-content';
+          $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-success-50';
+          $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-success-800';
+          $form['meta']['published']['#wrapper_attributes']['class'][] = 'border-success-200';
           if ($moderationStateLabel && $moderationStateLabel !== 'Published') {
             $form['meta']['published']['#markup'] .= ' <span class="font-light">(' . $moderationStateLabel . ')</span>';
           }
         }
         else {
           $form['meta']['published']['#markup'] = neo_icon('Unpublished');
-          $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-warning-500';
-          $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-warning-500-content';
+          $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-warning-50';
+          $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-warning-800';
+          $form['meta']['published']['#wrapper_attributes']['class'][] = 'border-warning-200';
           if ($moderationStateLabel) {
             $form['meta']['published']['#markup'] .= ' <span class="font-light">(' . $moderationStateLabel . ')</span>';
           }
@@ -250,6 +263,13 @@ function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterf
  * Implements hook_preprocess_form().
  */
 function neo_back_preprocess_form(&$variables) {
+  // An entity form's surfaces are its columns (see form.css), so its inner
+  // wrapper stays clear and unmargined: the columns line up with the page
+  // title instead of sitting one form inset further in.
+  if (!empty($variables['element']['#neo_entity_form'])) {
+    $variables['inner_attributes']->addClass('!m-0');
+    return;
+  }
   $variables['inner_attributes']->addClass('bg-default');
 }
 

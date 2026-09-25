@@ -19,7 +19,7 @@ legend {
   }
 }
 
-/* The summary is a header bar (see details--group.html.twig), so it only earns a
+/* The summary is a title row (see details--group.html.twig), so it only earns a
    bottom border once there is a body under it. Keyed on [open] rather than set
    in Twig because a native <details> toggles without re-rendering. */
 details.details {
@@ -40,14 +40,13 @@ details.details {
   }
 }
 
-/* A legend is the same kind of header bar (see fieldset--group.html.twig) and
+/* A legend is the same kind of title row (see fieldset--group.html.twig) and
    earns its separation on the same terms. A prop switched to Default or Hide
    renders no `.fieldset--content` at all — the base template only opens that
-   wrapper when it has something to put in it — which left the bar ruling a
+   wrapper when it has something to put in it — which left the row ruling a
    hairline across the bottom of the card with nothing under it, and squaring
    off two corners the card had rounded. The border is kept and cleared rather
-   than removed so the row does not shift by a pixel as it empties; the bar's
-   own background paints under it. */
+   than removed so the row does not shift by a pixel as it empties. */
 fieldset:not(:has(> .fieldset--content)) > legend {
   @apply border-b-transparent rounded-b;
 }
@@ -105,6 +104,65 @@ fieldset:not(:has(> .fieldset--content)) > legend {
   select,
   textarea {
     @apply form-item-radius-sm;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Content entity forms: two surfaces on the canvas.
+
+   The form itself is not a card here (neo_back_form_alter() gives entity forms
+   the `default` style), so the main column and the sidebar each lift off the
+   canvas on their own. One white slab holding both columns hid the canvas and
+   made every group inside it a box within a box within a box.
+
+   The main column is the page's primary surface and sits one step higher than
+   the sidebar card (`--neo-lift-2` against the card's `--neo-lift-1`).
+   --------------------------------------------------------------------------- */
+
+.layout-entity-form--main {
+  @apply rounded-lg bg-default p-4 md:p-form;
+  box-shadow: var(--neo-lift-2);
+}
+
+/* A dialog is already a surface; a card inside it is only a frame. */
+.neo-modal .layout-entity-form--main {
+  @apply rounded-none bg-transparent p-0;
+  box-shadow: none;
+}
+
+/* The horizontal tabs are a card of their own (neo_base horizontal-tabs.css).
+   On the main surface that would nest a card in a card, so here they become an
+   underline tab bar that belongs to the surface, and the panes drop their
+   chrome and let the surface's padding be the gutter. */
+.layout-entity-form--main .horizontal-tabs {
+  .horizontal-tabs-list {
+    @apply gap-1 rounded-none border-0 border-b border-base-200 bg-transparent p-0;
+    box-shadow: none;
+
+    li a,
+    li a.active,
+    li.selected a {
+      @apply rounded-none border-0 bg-transparent px-3 py-3.5 font-medium text-base-600 hover:text-primary;
+      box-shadow: inset 0 -2px 0 transparent;
+      transition: color 0.2s ease, box-shadow 0.2s var(--neo-ease-out);
+    }
+
+    /* The label is wrapped in a <strong>, which computes `bolder` than the
+       link, so a semibold tab became black. The link sets the weight alone. */
+    li a strong {
+      font-weight: inherit;
+    }
+
+    li a.active,
+    li.selected a {
+      @apply font-semibold text-primary;
+      box-shadow: inset 0 -2px 0 rgb(var(--color-primary));
+    }
+  }
+
+  .horizontal-tabs-panes {
+    @apply rounded-none border-0 bg-transparent px-0;
+    box-shadow: none;
   }
 }
 

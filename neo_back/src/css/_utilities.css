@@ -5,8 +5,17 @@
   --form-item-border-width-invalid: 2px;
 }
 
+/* A card lifts off the canvas on a brand-tinted shadow (`--neo-lift-1`, see
+   base-back.css) rather than being drawn by its outline. The border stays,
+   softened, because the horizontal tabs join two cards by dropping one edge
+   each.
+
+   The radius is not set here. neo_base defines `card` too, and Tailwind emits
+   its `rounded-sm` after this definition whatever this one says, so the card's
+   radius is a plain rule in base-back.css instead. */
 @utility card {
-  @apply block rounded-sm border border-base-200 bg-default shadow-sm;
+  @apply block border border-base-200/70 bg-default;
+  box-shadow: var(--neo-lift-1);
 }
 
 @utility form--inner {
