@@ -1,9 +1,13 @@
-# Icons for form buttons in the admin.
+# Icons for form buttons and groups in the admin.
 #
-# NeoBackButtonIcon looks a submit's label up under the `button` prefix, and a
-# form's Cancel and Delete link's. The lookup sees these definitions and the
+# NeoBackIcon looks a submit's label up under the `button` prefix, and a form's
+# Cancel and Delete link's. That lookup sees these definitions and the
 # unprefixed ones every module shares, never the `admin` set, which is tuned
 # for menu labels ("Load more" would take its spinner).
+#
+# Groups (accordion items, such as the entity form sidebar's) are looked up by
+# title under the `group` prefix, and only a `group` definition counts there;
+# see the section at the end of this file.
 #
 # The glyph for a word is the one the admin toolbar and local tasks already
 # use for it (neo_icon_admin), so an action looks the same in the toolbar and on
@@ -14,7 +18,7 @@
 # check-square here rather than neo_icon's check-circle.
 #
 # A site adds or overrides a word from its own back theme, in a
-# `{theme}.neo.icon.yml` carrying `prefix: button`.
+# `{theme}.neo.icon.yml` carrying `prefix: button` or `prefix: group`.
 
 button.save:
   start: save
@@ -91,3 +95,39 @@ button.filter:
   icon: filter
   prefix: button
   weight: -20
+
+# Groups. Matched on a title's words wherever they fall, so a module's own
+# phrasing ("Simple XML Sitemap", "Search engine settings") is found without
+# naming the form key or field it came from.
+group.menu_settings:
+  word: menu settings
+  icon: list-alt
+  prefix: group
+group.url_alias:
+  word: url alias
+  icon: brackets-curly
+  prefix: group
+group.sitemap:
+  word: sitemap
+  icon: sitemap
+  prefix: group
+group.search_engine:
+  word: search engine
+  icon: tags
+  prefix: group
+group.meta_tags:
+  word: meta tags
+  icon: tags
+  prefix: group
+group.authoring:
+  word: authoring
+  icon: user
+  prefix: group
+group.scheduling:
+  word: scheduling
+  icon: clock
+  prefix: group
+group.redirect:
+  word: redirect
+  icon: directions
+  prefix: group

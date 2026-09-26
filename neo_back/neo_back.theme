@@ -11,7 +11,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
-use Drupal\neo_back\NeoBackButtonIcon;
+use Drupal\neo_back\NeoBackIcon;
 use Drupal\neo_back\NeoBackFormActions;
 use Drupal\neo_back\NeoBackOfficeHours;
 
@@ -42,7 +42,7 @@ function neo_back_element_info_alter(array &$info) {
   if (isset($info['link'])) {
     array_unshift(
       $info['link']['#pre_render'],
-      [NeoBackButtonIcon::class, 'preRenderLink'],
+      [NeoBackIcon::class, 'preRenderLink'],
     );
   }
 }
@@ -171,28 +171,11 @@ function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterf
   if (!empty($form['unpublish_state']['widget'][0]['#options']) && count($form['unpublish_state']['widget'][0]['#options']) === 1) {
     $form['unpublish_state']['#access'] = FALSE;
   }
-  if (!empty($form['field_metatags']['widget'][0])) {
-    $form['field_metatags']['widget'][0]['#icon'] = 'tags';
-  }
-  if (!empty($form['simple_sitemap'])) {
-    $form['simple_sitemap']['#icon'] = 'sitemap';
-  }
-  if (!empty($form['scheduler_settings'])) {
-    $form['scheduler_settings']['#icon'] = 'clock';
-  }
+  // The sidebar groups take their icons from their titles (see
+  // neo_back_preprocess_accordion_item()).
   if (!empty($form['path']['widget'][0])) {
     // Collapse the path alias fieldset by default.
     $form['path']['widget'][0]['#open'] = FALSE;
-    $form['path']['widget'][0]['#icon'] = 'brackets-curly';
-  }
-  if (!empty($form['url_redirects'])) {
-    $form['url_redirects']['#icon'] = 'directions';
-  }
-  if (!empty($form['menu'])) {
-    $form['menu']['#icon'] = 'list-alt';
-  }
-  if (!empty($form['author'])) {
-    $form['author']['#icon'] = 'user';
   }
   if (!empty($form['advanced'])) {
     $form['advanced']['#type'] = 'accordion';
@@ -286,7 +269,7 @@ function neo_back_preprocess_form(&$variables) {
  * Implements hook_preprocess_HOOK() for input__submit.
  *
  * Marks a Remove button destructive, and gives a button the icon its label
- * names (see NeoBackButtonIcon).
+ * names (see NeoBackIcon).
  *
  * Both are done here rather than in a form alter because many buttons are
  * built by widgets (inline entity form rows, media and multi-value items) and
@@ -324,7 +307,31 @@ function neo_back_preprocess_input__submit(array &$variables) {
     return;
   }
   $iconOnly = (bool) preg_match('/(^|\s)icon-only(\s|$)/', $classes);
-  $icon = NeoBackButtonIcon::lookup($variables['title'] ?? NULL, $iconOnly);
+  $icon = NeoBackIcon::forButton($variables['title'] ?? NULL, $iconOnly);
+  if ($icon) {
+    $variables['title'] = $icon;
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for accordion_item.
+ *
+ * Gives a group, such as one of the entity form sidebar's, the icon its title
+ * names (see NeoBackIcon::forGroup() and neo_back.neo.icon.yml). Read from the
+ * title rather than the form key, so it holds whatever a site named the field
+ * and in any form that uses an accordion.
+ *
+ * A group that set its own #icon keeps it: neo_icon's preprocess has already
+ * made its title an icon element by the time this one runs.
+ */
+function neo_back_preprocess_accordion_item(array &$variables) {
+  if (!empty($variables['element']['#icon'])) {
+    return;
+  }
+  $icon = NeoBackIcon::forGroup(
+    $variables['element']['#title'] ?? NULL,
+    $variables['title'] ?? NULL,
+  );
   if ($icon) {
     $variables['title'] = $icon;
   }
