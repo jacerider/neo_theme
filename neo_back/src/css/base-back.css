@@ -66,9 +66,9 @@ body {
     z-index: -1;
     pointer-events: none;
     background:
-      linear-gradient(to right, var(--neo-canvas-edge), transparent 2.5rem),
-      linear-gradient(to left, var(--neo-canvas-edge), transparent 2.5rem),
-      linear-gradient(to right, var(--neo-canvas-vignette), transparent 22%, transparent 78%, var(--neo-canvas-vignette)),
+      linear-gradient(to right, var(--neo-canvas-edge), transparent 1.5rem),
+      linear-gradient(to left, var(--neo-canvas-edge), transparent 1.5rem),
+      linear-gradient(to right, var(--neo-canvas-vignette), transparent 10%, transparent 90%, var(--neo-canvas-vignette)),
       radial-gradient(ellipse 60% 55% at 12% -12%, var(--neo-canvas-wash-1), transparent 72%),
       radial-gradient(ellipse 50% 50% at 95% -10%, var(--neo-canvas-wash-2), transparent 70%),
       radial-gradient(ellipse 70% 50% at 70% 115%, rgb(var(--color-primary-500) / 0.06), transparent 70%),
