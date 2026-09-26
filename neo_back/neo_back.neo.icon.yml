@@ -36,6 +36,11 @@ button.publish:
   icon: check-square
   prefix: button
   weight: -20
+button.done:
+  start: done
+  icon: check-square
+  prefix: button
+  weight: -20
 button.preview:
   start: preview
   icon: eye
