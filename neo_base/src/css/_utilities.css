@@ -149,6 +149,11 @@
   --btn-decoration-hover: none;
   --btn-py: var(--btn-py-md);
   --btn-px: var(--btn-px-md);
+  /* How strongly a filled button casts its own light (see the `btn` utility):
+     0 is off, 1 is the full glow. Off here, so a front theme's buttons look as
+     they were designed until it opts in; neo_back turns it on for the admin.
+     A plain number, so it inherits into schemes without resolving early. */
+  --btn-glow: 0;
 
   /* Button: XS */
   --btn-py-xs: calc(var(--spacing) * var(--form-item-inner-spacing, 1) * 1);
@@ -307,15 +312,49 @@
   text-align: center;
   cursor: pointer;
   /* `border-color` is in here because the text variants make the outline their
-     hover state — without it the border would snap in while the colour eased. */
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+     hover state — without it the border would snap in while the colour eased.
+     `box-shadow` and `transform` are for the glow below and for any theme that
+     presses the button on `:active`. */
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.16s cubic-bezier(0.23, 1, 0.32, 1);
   box-sizing: border-box;
+
+  /* The glow is the fill's own light. It reads the same variables the
+     background does, so it follows the fill through every route a button gets
+     styled: a slot class, an `@apply` in a contextual rule, or the inline
+     `--btn-*` properties a `#neo_style` emits. A transparent fill (outline,
+     text, reset) has zero alpha, so it casts nothing, and an outline glows only
+     while hover fills it.
+
+     A slot utility's `--btn-fill` is read first because its own `background`
+     wins over this one's: an outline in a table that `btn-alert` then fills is
+     solid, whatever `--btn-bg-transparent` says.
+
+     Every layer is scaled by `--btn-glow`, which is 0 unless a theme turns it
+     on. The glow itself is the fill lifted towards white, so it reads as light
+     rather than shadow even on a nearly black brand colour; its offsets are in
+     `em` so a small button glows in proportion. */
+  --btn-glow-source: var(--btn-fill, var(--btn-bg-transparent, var(--btn-bg-color)));
+  box-shadow:
+    inset 0 1px 0 rgb(from var(--btn-glow-source) 255 255 255 / calc(alpha * 0.18 * var(--btn-glow, 0))),
+    0 1px 2px oklch(from var(--btn-glow-source) calc(l * 0.45) c h / calc(alpha * 0.4 * var(--btn-glow, 0))),
+    0 0.375em 1.25em -0.25em oklch(from var(--btn-glow-source) calc(l + (1 - l) * 0.4) c h / calc(alpha * 0.8 * var(--btn-glow, 0)));
 
   &:hover {
     background-color: var(--btn-bg-transparent-hover, var(--btn-bg-color-hover));
     color: var(--btn-content-color-hover);
     text-decoration: var(--btn-decoration-hover);
     border-color: var(--btn-border-color-hover);
+    /* Mirrors the hover background above, slot fill first as at rest. */
+    --btn-glow-source: var(--btn-fill-hover, var(--btn-bg-transparent-hover, var(--btn-bg-color-hover)));
+    box-shadow:
+      inset 0 1px 0 rgb(from var(--btn-glow-source) 255 255 255 / calc(alpha * 0.18 * var(--btn-glow, 0))),
+      0 1px 2px oklch(from var(--btn-glow-source) calc(l * 0.45) c h / calc(alpha * 0.4 * var(--btn-glow, 0))),
+      0 0.625em 1.75em -0.25em oklch(from var(--btn-glow-source) calc(l + (1 - l) * 0.4) c h / calc(alpha * 0.95 * var(--btn-glow, 0)));
   }
 }
 
@@ -341,7 +380,11 @@
   --btn-font-size: --value(--text-*);
 }
 
+/* A slot utility paints its own `background` from its slot colour, so it also
+   publishes that colour as `--btn-fill(-hover)` for the glow to read. */
 @utility btn-primary {
+  --btn-fill: var(--btn-primary-bg-color, var(--btn-bg-color));
+  --btn-fill-hover: var(--btn-primary-bg-color-hover, var(--btn-bg-color-hover));
   background: var(--btn-primary-bg-color, var(--btn-bg-color));
   color: var(--btn-primary-content-color, var(--btn-content-color));
 
@@ -352,6 +395,8 @@
 }
 
 @utility btn-secondary {
+  --btn-fill: var(--btn-secondary-bg-color, var(--btn-bg-color));
+  --btn-fill-hover: var(--btn-secondary-bg-color-hover, var(--btn-bg-color-hover));
   background: var(--btn-secondary-bg-color, var(--btn-bg-color));
   color: var(--btn-secondary-content-color, var(--btn-content-color));
 
@@ -362,6 +407,8 @@
 }
 
 @utility btn-accent {
+  --btn-fill: var(--btn-accent-bg-color, var(--btn-bg-color));
+  --btn-fill-hover: var(--btn-accent-bg-color-hover, var(--btn-bg-color-hover));
   background: var(--btn-accent-bg-color, var(--btn-bg-color));
   color: var(--btn-accent-content-color, var(--btn-content-color));
 
@@ -372,6 +419,8 @@
 }
 
 @utility btn-success {
+  --btn-fill: var(--btn-success-bg-color, var(--btn-bg-color));
+  --btn-fill-hover: var(--btn-success-bg-color-hover, var(--btn-bg-color-hover));
   background: var(--btn-success-bg-color, var(--btn-bg-color));
   color: var(--btn-success-content-color, var(--btn-content-color));
 
@@ -382,6 +431,8 @@
 }
 
 @utility btn-warning {
+  --btn-fill: var(--btn-warning-bg-color, var(--btn-bg-color));
+  --btn-fill-hover: var(--btn-warning-bg-color-hover, var(--btn-bg-color-hover));
   background: var(--btn-warning-bg-color, var(--btn-bg-color));
   color: var(--btn-warning-content-color, var(--btn-content-color));
 
@@ -392,6 +443,8 @@
 }
 
 @utility btn-alert {
+  --btn-fill: var(--btn-alert-bg-color, var(--btn-bg-color));
+  --btn-fill-hover: var(--btn-alert-bg-color-hover, var(--btn-bg-color-hover));
   background: var(--btn-alert-bg-color, var(--btn-bg-color));
   color: var(--btn-alert-content-color, var(--btn-content-color));
 
@@ -422,6 +475,9 @@
 }
 
 @utility btn-outline-primary {
+  /* Its hover fill is the slot colour, not `--btn-bg-color-hover`, so the
+     glow has to be told (see the `btn` utility). */
+  --btn-fill-hover: var(--btn-primary-bg-color, var(--btn-bg-color-hover));
   color: var(--btn-primary-bg-color, var(--btn-content-color));
   border-color: var(--btn-primary-bg-color, var(--btn-border-color));
 
@@ -433,6 +489,9 @@
 }
 
 @utility btn-outline-secondary {
+  /* Its hover fill is the slot colour, not `--btn-bg-color-hover`, so the
+     glow has to be told (see the `btn` utility). */
+  --btn-fill-hover: var(--btn-secondary-bg-color, var(--btn-bg-color-hover));
   color: var(--btn-secondary-bg-color, var(--btn-content-color));
   border-color: var(--btn-secondary-bg-color, var(--btn-border-color));
 
@@ -444,6 +503,9 @@
 }
 
 @utility btn-outline-accent {
+  /* Its hover fill is the slot colour, not `--btn-bg-color-hover`, so the
+     glow has to be told (see the `btn` utility). */
+  --btn-fill-hover: var(--btn-accent-bg-color, var(--btn-bg-color-hover));
   color: var(--btn-accent-bg-color, var(--btn-content-color));
   border-color: var(--btn-accent-bg-color, var(--btn-border-color));
 

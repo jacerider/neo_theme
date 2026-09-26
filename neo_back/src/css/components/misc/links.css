@@ -11,6 +11,13 @@ small .admin-link {
 table .button:not([class*='btn-']),
 form table .button:not([class*='btn-']) {
   @apply btn btn-outline btn-xs;
+
+  /* A destructive row action (Remove, marked by neo_back_preprocess_input__
+     submit()) keeps the table's size but not its colour: at this weight the
+     base outline would beat neo_base's `form .button--danger`. */
+  &.button--danger {
+    @apply btn-outline-alert;
+  }
 }
 
 .compact-link {

@@ -25,6 +25,9 @@
   --neo-canvas-wash-1: rgb(var(--color-primary-500) / 0.16);
   --neo-canvas-wash-2: rgb(var(--color-accent-500) / 0.22);
   --neo-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  /* Every filled button casts its own light (neo_base's `btn` utility), which
+     front themes leave off. */
+  --btn-glow: 1;
 }
 
 body {

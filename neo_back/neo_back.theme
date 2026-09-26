@@ -274,6 +274,33 @@ function neo_back_preprocess_form(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_HOOK() for input__submit.
+ *
+ * A Remove button is destructive, so it is marked `button--danger` and drawn
+ * the way an entity form's Delete is: outlined in the alert colour rather than
+ * filled, so a column of them does not outweigh the actions around them.
+ *
+ * Done here rather than in a form alter because Remove buttons are built by
+ * widgets (inline entity form rows, multi-value items) and rebuilt over AJAX;
+ * every one of them passes through this preprocess, after neo_base's has set
+ * the `data-label` it is recognised by.
+ *
+ * The media library's Remove is left filled. It is an icon circle laid over
+ * the thumbnail, and an outline over a photograph would not read.
+ */
+function neo_back_preprocess_input__submit(array &$variables) {
+  $label = $variables['attributes']['data-label'] ?? '';
+  if (!is_string($label) || !str_contains($label, 'remove')) {
+    return;
+  }
+  $name = $variables['element']['#name'] ?? '';
+  if (str_ends_with($name, 'media-library-remove-button')) {
+    return;
+  }
+  $variables['attributes']['class'][] = 'button--danger';
+}
+
+/**
  * Implements template_preprocess_views_view().
  */
 function neo_back_preprocess_views_view(&$variables) {

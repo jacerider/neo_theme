@@ -1,33 +1,15 @@
 /* ---------------------------------------------------------------------------
-   Button depth and states for the admin.
+   Button states for the admin.
 
-   neo_base's `btn` utility is shared with every front theme and only has a
-   hover state, so the admin's feel is added here rather than there: a front
-   theme's buttons are designed per site and must not pick up a glow.
-
-   Only the primary action glows. It is the one thing on a form the editor is
-   being invited to press, and a glow on every solid button would spend the
-   accent until it meant nothing. Everything else gets the same press and focus
-   feedback, and stays flat.
+   The glow itself lives in neo_base's `btn` utility, so it reaches every button
+   however it was styled; the admin only switches it on (`--btn-glow` in
+   base-back.css). What is here is the rest of the admin's feel, which front
+   themes are left to decide for themselves: press feedback and a focus ring in
+   the brand's colour.
    --------------------------------------------------------------------------- */
 
 .btn,
 .button {
-  /* The utility's list, plus the two properties the states below move.
-
-     `!important` because `btn` is applied to Drupal's buttons by contextual
-     rules (`form .button:not([class*='btn'])`, `.neo-header-actions
-     .button--primary`, `form table .button…`) that each carry the utility's
-     own `transition` at a higher specificity than a bare class. Out-ranking
-     every one of them by selector would mean mirroring each context here; the
-     property list is the same everywhere, so it is asserted once. */
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease,
-    box-shadow 0.2s var(--neo-ease-out),
-    transform 0.16s var(--neo-ease-out) !important;
-
   /* The brand's own action colour, not the browser's blue. Resolved through
      the primary button token so a scheme's contrast pick carries over. */
   &:focus-visible {
@@ -43,51 +25,16 @@
   }
 }
 
-/* The glow is the button's own colour lifted towards white, so it reads as
-   light rather than shadow even when the brand's primary is nearly black.
-   Offsets are in `em` so a small primary button glows in proportion. The inset
-   top highlight is what makes the face read as raised rather than printed. */
-.button--primary,
-.btn-primary {
-  --neo-glow: color-mix(
-    in oklab,
-    var(--btn-primary-bg-color, rgb(var(--color-primary-500))) 60%,
-    white
-  );
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.18),
-    0 1px 2px rgb(var(--color-shadow-700) / 0.3),
-    0 0.375em 1.25em -0.25em color-mix(in oklab, var(--neo-glow) 80%, transparent);
-
-  &:hover {
-    box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.18),
-      0 1px 2px rgb(var(--color-shadow-700) / 0.3),
-      0 0.625em 1.75em -0.25em color-mix(in oklab, var(--neo-glow) 95%, transparent);
-  }
-
-  &:active {
-    box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.12),
-      0 1px 2px rgb(var(--color-shadow-700) / 0.3),
-      0 0.25em 0.75em -0.25em color-mix(in oklab, var(--neo-glow) 70%, transparent);
-  }
-}
-
 .btn:disabled,
 .button:disabled,
 .button.is-disabled {
-  box-shadow: none;
+  --btn-glow: 0;
   transform: none;
 }
 
 /* neo_color's scheme preview shows what a scheme's buttons look like on the
-   front end, where there is no glow. It renders inside the admin, so it opts
-   back out rather than showing an effect no front theme will have. */
-.neo-scheme-preview .btn-primary {
-  &,
-  &:hover,
-  &:active {
-    box-shadow: none;
-  }
+   front end, where there is no glow. It renders inside the admin, so it turns
+   the glow back off rather than showing an effect no front theme has. */
+.neo-scheme-preview {
+  --btn-glow: 0;
 }

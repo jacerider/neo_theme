@@ -192,10 +192,15 @@ form,
       }
     }
 
+    /* A button already marked `button--danger` keeps neo_base's outline, the
+       way an entity form's Delete does; neo_back_preprocess_input__submit()
+       marks Remove buttons so. Only an unmarked one is filled here. */
     &[data-label*='delete'],
     &[data-label*='cancel'],
     &[data-label*='remove'] {
-      @apply btn-alert;
+      &:not(.button--danger) {
+        @apply btn-alert;
+      }
       &:before {
         @apply icon-times-square mr-1;
       }
@@ -208,7 +213,6 @@ form,
     }
 
     &[data-label*='remove'] {
-      @apply btn-alert;
       &:before {
         @apply icon-trash mr-1;
       }
