@@ -111,6 +111,11 @@ group.url_alias:
   word: url alias
   icon: brackets-curly
   prefix: group
+# Commerce's name for the same setting on a product: "URL path settings".
+group.url_path:
+  word: url path
+  icon: brackets-curly
+  prefix: group
 group.sitemap:
   word: sitemap
   icon: sitemap
