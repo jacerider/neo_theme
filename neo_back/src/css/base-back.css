@@ -13,7 +13,8 @@
    a neutral grey: `--color-shadow-*` is neo_color's brand-tinted shadow ramp.
 
    The canvas washes are exposed so a site whose accent is loud can quiet it
-   from its own back theme without touching the gradient itself. */
+   from its own back theme without touching the gradient itself, and the edge
+   shading so a site can deepen or drop it the same way. */
 :root {
   --neo-lift-1:
     0 1px 2px -1px rgb(var(--color-shadow-500) / 0.14),
@@ -24,6 +25,12 @@
     0 24px 40px -20px rgb(var(--color-shadow-500) / 0.2);
   --neo-canvas-wash-1: rgb(var(--color-primary-500) / 0.16);
   --neo-canvas-wash-2: rgb(var(--color-accent-500) / 0.22);
+  /* The canvas darkens towards its left and right edges, as if the toolbar
+     and the window edge cast a little shade onto it: a narrow falloff at each
+     edge over a broad, fainter one, so the middle, where the work is, reads
+     as the lightest part of the page. */
+  --neo-canvas-edge: rgb(var(--color-shadow-500) / 0.04);
+  --neo-canvas-vignette: rgb(var(--color-shadow-500) / 0.025);
   --neo-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   /* Every filled button casts its own light (neo_base's `btn` utility), which
      front themes leave off. */
@@ -38,7 +45,12 @@ body {
    stays behind the sticky header as the page scrolls and the header frosts over
    it. A fixed layer avoids the repaint cost of `background-attachment: fixed`.
    `isolation` keeps the layer's negative z-index inside the wrapper, above its
-   fill. */
+   fill.
+
+   It is inset by Drupal's displacement offsets, so it covers the canvas and
+   not the toolbars: the edge shading has to start at the toolbar's edge to
+   read as shade the toolbar casts, and would otherwise sit hidden beneath it.
+   The offsets follow the toolbars as they open and close. */
 .page-wrapper {
   @apply bg-base-50;
   isolation: isolate;
@@ -46,10 +58,17 @@ body {
   &::before {
     content: '';
     position: fixed;
-    inset: 0;
+    inset:
+      var(--drupal-displace-offset-top, 0px)
+      var(--drupal-displace-offset-right, 0px)
+      var(--drupal-displace-offset-bottom, 0px)
+      var(--drupal-displace-offset-left, 0px);
     z-index: -1;
     pointer-events: none;
     background:
+      linear-gradient(to right, var(--neo-canvas-edge), transparent 2.5rem),
+      linear-gradient(to left, var(--neo-canvas-edge), transparent 2.5rem),
+      linear-gradient(to right, var(--neo-canvas-vignette), transparent 22%, transparent 78%, var(--neo-canvas-vignette)),
       radial-gradient(ellipse 60% 55% at 12% -12%, var(--neo-canvas-wash-1), transparent 72%),
       radial-gradient(ellipse 50% 50% at 95% -10%, var(--neo-canvas-wash-2), transparent 70%),
       radial-gradient(ellipse 70% 50% at 70% 115%, rgb(var(--color-primary-500) / 0.06), transparent 70%),
