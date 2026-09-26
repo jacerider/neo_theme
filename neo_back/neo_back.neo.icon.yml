@@ -99,6 +99,10 @@ button.filter:
 # Groups. Matched on a title's words wherever they fall, so a module's own
 # phrasing ("Simple XML Sitemap", "Search engine settings") is found without
 # naming the form key or field it came from.
+#
+# Search engine settings are a page with a magnifier, not `tags`, which the
+# admin already uses for taxonomy, and not `search`, which is the admin's own
+# search (valet).
 group.menu_settings:
   word: menu settings
   icon: list-alt
@@ -113,11 +117,11 @@ group.sitemap:
   prefix: group
 group.search_engine:
   word: search engine
-  icon: tags
+  icon: file-search
   prefix: group
 group.meta_tags:
   word: meta tags
-  icon: tags
+  icon: file-search
   prefix: group
 group.authoring:
   word: authoring
