@@ -38,28 +38,17 @@
     @apply text-alert-500-content hover:bg-alert-500-content absolute right-2 top-2 z-10 m-0 h-8 w-8 overflow-hidden rounded-full border-0 bg-alert-500 p-0 text-md leading-8 shadow-lg hover:text-alert-500 text-center;
 
     /* An icon-only circle, so the glyph is a box that fills it rather than a
-       letter sitting on a line.
+       letter sitting on a line. The icon utility displays through
+       `--icon-display`, so it is set here: without `flex` the size and the
+       centring below go inert on an inline box, and the glyph drops to the
+       baseline, off-centre in the circle.
 
-       The generic `form .button[data-label*='remove']:before` rule in
-       neo_back/form.css also matches this button, and the two live in separate
-       stylesheets — so the winner is settled per property, by weight. That rule
-       sets `display` and `mr-1`; this one sets the size and the centring. Lose
-       `display` and the size and centring go inert on an inline box, and the
-       glyph drops to the baseline, off-centre in the circle.
-
-       `--icon-display` is the way out, and the reason this no longer turns on
-       weight: the generic rule reads `display: var(--icon-display, …)`, so
-       setting the variable here steers that declaration instead of trying to
-       outscore it. Matching its weight is what failed before — this block once
-       carried `:not(.has-icon)` purely to outrank it, and a later
-       `:not([style*='--btn-'])` on that rule quietly took the lead back.
+       neo_back draws the glyph for every other button from neo_icon's registry
+       and leaves this one to draw its own (neo_back_preprocess_input__submit()).
 
        @see neo_base/src/css/elements/messages.css, which uses the same hook. */
     --icon-display: flex;
 
-    /* The generic rule's `mr-1` is left to lose harmlessly: once the glyph box
-       is block-level and sized to the circle, an end margin is over-constrained
-       against that width and dropped. */
     &:before {
       @apply icon-trash h-8 w-8 items-center justify-center leading-none;
     }

@@ -1,0 +1,88 @@
+# Icons for form buttons in the admin.
+#
+# NeoBackButtonIcon looks a submit's label up under the `button` prefix, and a
+# form's Cancel and Delete link's. The lookup sees these definitions and the
+# unprefixed ones every module shares, never the `admin` set, which is tuned
+# for menu labels ("Load more" would take its spinner).
+#
+# The glyph for a word is the one the admin toolbar and local tasks already
+# use for it (neo_icon_admin), so an action looks the same in the toolbar and on
+# the form. `start` matches a label that begins with the word, which a button's
+# verb does, and not one that merely contains it: "Unpublish" is not "Publish".
+#
+# The weight puts these ahead of the unprefixed definitions, so "Save" is a
+# check-square here rather than neo_icon's check-circle.
+#
+# A site adds or overrides a word from its own back theme, in a
+# `{theme}.neo.icon.yml` carrying `prefix: button`.
+
+button.save:
+  start: save
+  icon: check-square
+  prefix: button
+  weight: -20
+button.update:
+  start: update
+  icon: check-square
+  prefix: button
+  weight: -20
+button.apply:
+  start: apply
+  icon: check-square
+  prefix: button
+  weight: -20
+button.publish:
+  start: publish
+  icon: check-square
+  prefix: button
+  weight: -20
+button.preview:
+  start: preview
+  icon: eye
+  prefix: button
+  weight: -20
+button.edit:
+  start: edit
+  icon: edit
+  prefix: button
+  weight: -20
+button.delete:
+  start: delete
+  icon: trash
+  prefix: button
+  weight: -20
+button.remove:
+  start: remove
+  icon: trash
+  prefix: button
+  weight: -20
+button.cancel:
+  start: cancel
+  icon: times-square
+  prefix: button
+  weight: -20
+button.add:
+  start: add
+  icon: plus
+  prefix: button
+  weight: -20
+button.clone:
+  start: clone
+  icon: clone
+  prefix: button
+  weight: -20
+button.duplicate:
+  start: duplicate
+  icon: clone
+  prefix: button
+  weight: -20
+button.copy:
+  start: copy
+  icon: copy
+  prefix: button
+  weight: -20
+button.filter:
+  start: filter
+  icon: filter
+  prefix: button
+  weight: -20

@@ -167,7 +167,11 @@ fieldset:not(:has(> .fieldset--content)) > legend {
 }
 
 /* `.neo-header-actions` holds a form's buttons copied into the page header,
-   outside the form, and they take the same icons as the originals. */
+   outside the form, and they take the same colours as the originals.
+
+   Icons are not drawn here. A button's label is looked up in neo_icon's
+   registry (neo_back_preprocess_input__submit(), neo_back.neo.icon.yml) and
+   renders with its icon in the markup. */
 form,
 .neo-header-actions {
 
@@ -181,71 +185,17 @@ form,
      derive their *text* colour from `--btn-bg-color` — which `btn-alert` below
      sets. The two then land on the same value and the button renders alert on
      alert, with the label invisible. A button with no `#neo_style` is
-     unaffected, so this only reaches the ones that were already unreadable. */
-  .button:not(.has-icon):not([style*='--btn-']) {
-    &[data-label*='save'],
-    &[data-label*='update'],
-    &[data-label*='apply'],
-    &[data-label*='publish'] {
-      &:before {
-        @apply icon-check-square mr-1;
-      }
-    }
+     unaffected, so this only reaches the ones that were already unreadable.
 
-    /* A button already marked `button--danger` keeps neo_base's outline, the
-       way an entity form's Delete does; neo_back_preprocess_input__submit()
-       marks Remove buttons so. Only an unmarked one is filled here. */
+     A button already marked `button--danger` keeps neo_base's outline, the way
+     an entity form's Delete does; neo_back_preprocess_input__submit() marks
+     Remove buttons so. Only an unmarked one is filled here. */
+  .button:not(.has-icon):not([style*='--btn-']) {
     &[data-label*='delete'],
     &[data-label*='cancel'],
     &[data-label*='remove'] {
       &:not(.button--danger) {
         @apply btn-alert;
-      }
-      &:before {
-        @apply icon-times-square mr-1;
-      }
-    }
-
-    &[data-label*='edit'] {
-      &:before {
-        @apply icon-edit mr-1;
-      }
-    }
-
-    &[data-label*='remove'] {
-      &:before {
-        @apply icon-trash mr-1;
-      }
-    }
-
-    &[data-label*='add'],
-    &[data-drupal-selector*='add'] {
-      &:before {
-        @apply icon-plus-square mr-1;
-      }
-    }
-
-    &[data-label*='clone'],
-    &[data-label*='copy'],
-    &[data-label*='duplicate'] {
-      &:before {
-        @apply icon-clone mr-1;
-      }
-    }
-
-    &[data-label*='filter'] {
-      &:before {
-        @apply icon-filter mr-1;
-      }
-    }
-
-    &.icon-only {
-      &:before {
-        @apply mr-0;
-      }
-
-      span {
-        display: none;
       }
     }
   }
@@ -258,10 +208,6 @@ form,
          an entity form's Delete link as an empty red box. */
       &:not(.button--danger) {
         @apply btn btn-alert;
-      }
-
-      &:before {
-        @apply icon-times-square mr-1;
       }
     }
   }

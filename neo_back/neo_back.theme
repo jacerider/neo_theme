@@ -11,6 +11,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
+use Drupal\neo_back\NeoBackButtonIcon;
 use Drupal\neo_back\NeoBackFormActions;
 use Drupal\neo_back\NeoBackOfficeHours;
 
@@ -35,6 +36,14 @@ function neo_back_element_info_alter(array &$info) {
     if (isset($info[$type])) {
       $info[$type]['#process'][] = [NeoBackOfficeHours::class, 'processSlot'];
     }
+  }
+  // Prepended: core's own pre-render turns a link's #title into markup, and
+  // the icon has to be in the #title before it does.
+  if (isset($info['link'])) {
+    array_unshift(
+      $info['link']['#pre_render'],
+      [NeoBackButtonIcon::class, 'preRenderLink'],
+    );
   }
 }
 
@@ -276,28 +285,49 @@ function neo_back_preprocess_form(&$variables) {
 /**
  * Implements hook_preprocess_HOOK() for input__submit.
  *
- * A Remove button is destructive, so it is marked `button--danger` and drawn
- * the way an entity form's Delete is: outlined in the alert colour rather than
- * filled, so a column of them does not outweigh the actions around them.
+ * Marks a Remove button destructive, and gives a button the icon its label
+ * names (see NeoBackButtonIcon).
  *
- * Done here rather than in a form alter because Remove buttons are built by
- * widgets (inline entity form rows, multi-value items) and rebuilt over AJAX;
- * every one of them passes through this preprocess, after neo_base's has set
- * the `data-label` it is recognised by.
+ * Both are done here rather than in a form alter because many buttons are
+ * built by widgets (inline entity form rows, media and multi-value items) and
+ * rebuilt over AJAX; every one of them passes through this preprocess, after
+ * neo_base's has set the `data-label` and inline style it reads.
  *
- * The media library's Remove is left filled. It is an icon circle laid over
- * the thumbnail, and an outline over a photograph would not read.
+ * A Remove button is marked `button--danger` and drawn the way an entity
+ * form's Delete is: outlined in the alert colour rather than filled, so a
+ * column of them does not outweigh the actions around them.
+ *
+ * The media library's Remove is left alone on both counts. It is an icon
+ * circle laid over the thumbnail that draws its own glyph (media-library.css),
+ * and an outline over a photograph would not read.
  */
 function neo_back_preprocess_input__submit(array &$variables) {
-  $label = $variables['attributes']['data-label'] ?? '';
-  if (!is_string($label) || !str_contains($label, 'remove')) {
-    return;
-  }
   $name = $variables['element']['#name'] ?? '';
   if (str_ends_with($name, 'media-library-remove-button')) {
     return;
   }
-  $variables['attributes']['class'][] = 'button--danger';
+  $label = $variables['attributes']['data-label'] ?? '';
+  if (is_string($label) && str_contains($label, 'remove')) {
+    $variables['attributes']['class'][] = 'button--danger';
+  }
+
+  // Left as it is: a button that brought its own icon (see
+  // neo_base_preprocess_buttons()), one that asked for a style of its own, and
+  // one rendered as an <input>, which cannot hold an icon.
+  $classes = implode(' ', (array) ($variables['attributes']['class'] ?? []));
+  $style = (string) ($variables['attributes']['style'] ?? '');
+  if (
+    !empty($variables['as_input'])
+    || preg_match('/(^|\s)has-icon(\s|$)/', $classes)
+    || str_contains($style, '--btn-')
+  ) {
+    return;
+  }
+  $iconOnly = (bool) preg_match('/(^|\s)icon-only(\s|$)/', $classes);
+  $icon = NeoBackButtonIcon::lookup($variables['title'] ?? NULL, $iconOnly);
+  if ($icon) {
+    $variables['title'] = $icon;
+  }
 }
 
 /**
