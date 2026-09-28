@@ -12,9 +12,13 @@
       z-index: 1;
     }
 
+    /* The fill clears at once rather than easing out: a tab is clicked while
+       the pointer is over it, and its hover fill fading under the arriving
+       card read as a second, lagging background. */
     .vertical-tabs__menu-item.is-selected .vertical-tabs__menu-link {
       background-color: transparent;
       --tw-shadow: 0 0 #0000;
+      transition-property: color, box-shadow;
 
       &::before {
         display: none;
