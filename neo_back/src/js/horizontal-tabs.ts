@@ -27,10 +27,24 @@
     const padEnd = parseFloat(style.paddingRight) || 0;
     const box = wrapper.getBoundingClientRect();
     const rect = link.getBoundingClientRect();
+    const x = `${rect.left - box.left + padStart}px`;
+    const y = `${rect.bottom - box.top}px`;
+    const w = `${rect.width - padStart - padEnd}px`;
+    const vars = wrapper.style;
+    // Nothing to do when the marker would land where it already is: a resize
+    // that did not move the tabs would otherwise cut a slide short.
+    if (
+      marker.classList.contains('is-placed')
+      && vars.getPropertyValue('--neo-tab-x') === x
+      && vars.getPropertyValue('--neo-tab-y') === y
+      && vars.getPropertyValue('--neo-tab-w') === w
+    ) {
+      return;
+    }
     marker.classList.toggle('is-animated', animate);
-    wrapper.style.setProperty('--neo-tab-x', `${rect.left - box.left + padStart}px`);
-    wrapper.style.setProperty('--neo-tab-y', `${rect.bottom - box.top}px`);
-    wrapper.style.setProperty('--neo-tab-w', `${rect.width - padStart - padEnd}px`);
+    vars.setProperty('--neo-tab-x', x);
+    vars.setProperty('--neo-tab-y', y);
+    vars.setProperty('--neo-tab-w', w);
     marker.classList.add('is-placed');
   }
 
