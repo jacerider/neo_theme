@@ -142,9 +142,25 @@ fieldset:not(:has(> .fieldset--content)) > legend {
     li a,
     li a.active,
     li.selected a {
-      @apply rounded-none border-0 bg-transparent px-3 py-3.5 font-medium text-base-600 hover:text-primary;
-      box-shadow: inset 0 -2px 0 transparent;
-      transition: color 0.2s ease, box-shadow 0.2s var(--neo-ease-out);
+      @apply relative rounded-none border-0 bg-transparent px-3 py-3.5 font-medium text-base-600 hover:text-primary;
+      box-shadow: none;
+      transition: color 0.2s ease;
+
+      /* The selected marker: the same 3px rounded bar the toolbar rail and the
+         vertical tabs draw on their edge, laid under the label here and sized
+         to it (the link's `px-3` either side). It sits on the list's
+         hairline, which the link's `-mb-px` overlaps. */
+      &::after {
+        content: '';
+        position: absolute;
+        right: 0.75rem;
+        bottom: 0;
+        left: 0.75rem;
+        height: 3px;
+        border-radius: 3px 3px 0 0;
+        background: transparent;
+        transition: background-color 0.2s var(--neo-ease-out);
+      }
     }
 
     /* The label is wrapped in a <strong>, which computes `bolder` than the
@@ -156,7 +172,10 @@ fieldset:not(:has(> .fieldset--content)) > legend {
     li a.active,
     li.selected a {
       @apply font-semibold text-primary;
-      box-shadow: inset 0 -2px 0 rgb(var(--color-primary));
+
+      &::after {
+        background: rgb(var(--color-primary));
+      }
     }
   }
 
