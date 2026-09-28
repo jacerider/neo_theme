@@ -9,15 +9,40 @@
 .vertical-tabs__menu-item {
   @apply mx-3 text-base;
 
+  /* The selected tab says where you are, the way the admin toolbar marks the
+     section you are in: a surface raised off the track, the label in the
+     primary colour, and a bar on the track's edge. It used to be a solid
+     primary fill, which read as a second primary action beside the form's
+     Save.
+
+     `text-primary` is neo_color's contrast pick against the scheme's surface,
+     which is what this tab sits on, so the label holds on a brand whose
+     primary is light. The lift goes through `--tw-shadow` so the focus ring
+     `form-item-focus` draws, which composes it, still shows. */
   &.is-selected {
     .vertical-tabs__menu-link {
-      @apply z-20 border-form-item-base-100 bg-form-item-primary p-3 text-form-item-primary-content shadow;
+      @apply z-20 bg-form-item-base p-3 text-primary shadow;
+      --tw-shadow:
+        0 1px 2px -1px rgb(var(--color-shadow-500) / 0.14),
+        0 3px 8px -2px rgb(var(--color-shadow-500) / 0.12);
+
+      /* Out to the track's inner edge: the item's own `mx-3`. */
+      &::before {
+        content: '';
+        position: absolute;
+        top: 25%;
+        bottom: 25%;
+        left: -0.75rem;
+        width: 3px;
+        border-radius: 0 3px 3px 0;
+        background: rgb(var(--color-primary));
+      }
     }
   }
 }
 
 .vertical-tabs__menu-link {
-  @apply form-item-focus relative block rounded p-3 text-form-item-label transition hover:bg-form-item-base-200 hover:text-form-item-label;
+  @apply form-item-focus relative block rounded-md p-3 text-form-item-label transition hover:bg-form-item-base-200 hover:text-form-item-label;
 }
 
 .vertical-tabs__menu-item-title {
