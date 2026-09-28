@@ -74,6 +74,17 @@ body {
       radial-gradient(ellipse 70% 50% at 70% 115%, rgb(var(--color-primary-500) / 0.06), transparent 70%),
       rgb(var(--color-base-50));
   }
+
+  /* A modal that blurs the page (neo_modal's body blur, which the toolbar's
+     panels use) puts a `filter` on this wrapper, and a filtered element
+     becomes the box a fixed descendant is placed in. The offsets above would
+     then push the layer down and in from the wrapper's own edge, uncovering a
+     strip of plain fill under the toolbar. For as long as the transition
+     runs, the layer fills the wrapper instead; it is blurred and veiled
+     throughout, so the change of box does not show. */
+  &.neo-modal--body-transition::before {
+    inset: 0;
+  }
 }
 
 /* A card's corner is larger than the 6px buttons that sit inside it. This is a
