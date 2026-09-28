@@ -35,6 +35,8 @@ libraries-extend:
     - neo_back/commerce-admin
   office_hours/office_hours_widget:
     - neo_back/office-hours
+  field_group/element.horizontal_tabs:
+    - neo_back/horizontal-tabs
 
 libraries-override:
   webform/webform.admin.dropbutton:

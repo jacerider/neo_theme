@@ -183,6 +183,70 @@ fieldset:not(:has(> .fieldset--content)) > legend {
     @apply rounded-none border-0 bg-transparent px-0;
     box-shadow: none;
   }
+
+  /* One marker that slides from tab to tab (horizontal-tabs.ts), in place of
+     each tab's own bar. It is placed by the script's measurements and only
+     travels when the selection changes: on load, and when the tabs reflow, it
+     is simply put where it belongs. Without the script, each tab keeps its
+     own bar. */
+  &.has-neo-tab-marker {
+    position: relative;
+
+    .horizontal-tabs-list li a::after {
+      display: none;
+    }
+  }
+
+  .neo-tab-marker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    width: var(--neo-tab-w, 0);
+    height: 3px;
+    border-radius: 3px 3px 0 0;
+    background: rgb(var(--color-primary));
+    translate: var(--neo-tab-x, 0) calc(var(--neo-tab-y, 0px) - 3px);
+    opacity: 0;
+    pointer-events: none;
+
+    &.is-placed {
+      opacity: 1;
+    }
+
+    &.is-animated {
+      transition:
+        translate 250ms var(--neo-ease-out),
+        width 250ms var(--neo-ease-out);
+    }
+  }
+
+  /* The incoming pane fades in as the marker arrives, so the switch reads as
+     one movement. Opacity only: a transform here would trap the fixed
+     inline entity form shelves that open from inside a pane. Not on the first
+     pane, which should simply be there when the page loads; the script marks
+     the tabs ready on the first change of selection. */
+  &.is-neo-tabs-ready .horizontal-tabs-pane:not(.horizontal-tab-hidden) {
+    animation: neo-tab-pane-in 180ms var(--neo-ease-out);
+  }
+}
+
+@keyframes neo-tab-pane-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .layout-entity-form--main .horizontal-tabs {
+    .neo-tab-marker.is-animated {
+      transition: none;
+    }
+
+    &.is-neo-tabs-ready .horizontal-tabs-pane {
+      animation: none;
+    }
+  }
 }
 
 /* `.neo-header-actions` holds a form's buttons copied into the page header,
