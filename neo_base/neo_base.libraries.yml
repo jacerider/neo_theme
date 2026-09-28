@@ -175,9 +175,10 @@ vertical-tabs:
   dependencies:
     # Reached via libraries-extend on core/drupal.vertical-tabs, which happens
     # to load these first. State them anyway: the chunk is invoked with
-    # (jQuery, Drupal).
+    # (jQuery, Drupal), and the sliding card calls once().
     - core/jquery
     - core/drupal
+    - core/once
 
 horizontal-tabs:
   version: VERSION
