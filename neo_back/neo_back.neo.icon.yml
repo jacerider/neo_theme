@@ -128,6 +128,12 @@ group.meta_tags:
   word: meta tags
   icon: file-search
   prefix: group
+# The same settings as one word, as a metatag field's widget can be titled:
+# "MetaTags".
+group.metatag:
+  word: metatag
+  icon: file-search
+  prefix: group
 group.authoring:
   word: authoring
   icon: user
