@@ -48,6 +48,7 @@ class NeoBackFormActions {
     if (empty($form['actions']) || empty($form['#id'])) {
       return $form;
     }
+    static::putDeleteLast($form['actions']);
     // Only a form that renders a page of its own has a header to put them in.
     // One opened in a modal or dialog keeps its actions. The first such form
     // claims the header; any later one on the same page is left alone.
@@ -80,7 +81,32 @@ class NeoBackFormActions {
   }
 
   /**
+   * Moves an entity form's Delete after every other action.
+   *
+   * Done to the form's own actions, so the header copies, which follow their
+   * order, and a form that keeps its actions in a modal agree. A module that
+   * adds an action after Delete, as neo_alchemist's layout button is, would
+   * otherwise leave the destructive one in the middle of the row.
+   *
+   * @param array $actions
+   *   The form's actions.
+   */
+  protected static function putDeleteLast(array &$actions): void {
+    if (!isset($actions['delete'])) {
+      return;
+    }
+    $weights = array_map(
+      fn ($key) => $actions[$key]['#weight'] ?? 0,
+      Element::children($actions),
+    );
+    $actions['delete']['#weight'] = max($weights) + 1;
+  }
+
+  /**
    * Copies the form's visible actions for the header.
+   *
+   * Delete is shown as its icon alone, and so is any button that asks to be
+   * (see showIconOnly()).
    */
   protected static function buildHeaderActions(array $form): array {
     $build = [
@@ -114,7 +140,7 @@ class NeoBackFormActions {
       if (isset($element['#url']) && $element['#url'] instanceof Url) {
         $element['#url'] = clone $element['#url'];
       }
-      if (!empty($element['#neo_header_icon_only'])) {
+      if ($key === 'delete' || !empty($element['#neo_header_icon_only'])) {
         static::showIconOnly($element);
       }
       $build[$key] = $element;
@@ -125,10 +151,15 @@ class NeoBackFormActions {
   /**
    * Shows a header copy as its icon alone, with its label as a tooltip.
    *
-   * A button asks for this with `#neo_header_icon_only`: a secondary action
-   * whose full label would crowd the page title, such as neo_alchemist's
-   * "Save and Configure Layout". Only the copy changes; the original keeps its
-   * label wherever the form shows its own actions.
+   * Every entity form's Delete gets this, and a button can ask for it with
+   * `#neo_header_icon_only`: a secondary action whose full label would crowd
+   * the page title, such as neo_alchemist's "Save and Configure Layout". Only
+   * the copy changes; the original keeps its label wherever the form shows its
+   * own actions.
+   *
+   * A label that has no icon yet is looked up the way neo_back gives one to
+   * any other button or link (NeoBackIcon::forButton()). One that names none
+   * is left as it is, since an icon-only button needs an icon.
    *
    * The label is still rendered, for screen readers, and the #value the Form
    * API matches a click by is left alone. The tooltip only repeats the label,
@@ -141,7 +172,10 @@ class NeoBackFormActions {
    */
   protected static function showIconOnly(array &$element): void {
     $title = $element['#title'] ?? $element['#value'] ?? NULL;
-    if (!$title instanceof IconElementInterface || !$title->getIcon()) {
+    if (!$title instanceof IconElementInterface) {
+      $title = NeoBackIcon::forButton($title);
+    }
+    if (!$title || !$title->getIcon()) {
       return;
     }
     // A copy: the original button holds the same object as its own label.

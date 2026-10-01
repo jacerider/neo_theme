@@ -19,15 +19,30 @@
     @apply btn btn-primary;
   }
 
-  .button--danger {
+  .button--danger:not(.neo-header-action--icon-only) {
     @apply btn btn-outline-alert;
+  }
+
+  /* Delete, as its icon alone, is filled rather than outlined. A red outline
+     round a small glyph read as faint beside the filled buttons; at this size
+     a solid square no longer outweighs the labelled Save. */
+  .button--danger.neo-header-action--icon-only {
+    @apply btn btn-alert;
   }
 
   /* A copy shown as its icon alone (NeoBackFormActions::showIconOnly()) is
      square, as tall as the buttons beside it: the inline padding makes up the
-     difference between the icon, 1em wide, and the line it sits on. */
+     difference between the icon and the line it sits on. The icon is boxed at
+     1em, because glyphs are not all as wide (the trash can is narrower than
+     the compass) and would leave each button a different width. */
   .neo-header-action--icon-only {
     --btn-px: calc(var(--btn-py) + (1lh - 1em) / 2);
+
+    .neo-icon {
+      display: inline-block;
+      width: 1em;
+      text-align: center;
+    }
   }
 }
 
