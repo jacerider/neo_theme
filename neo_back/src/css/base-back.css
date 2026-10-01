@@ -9,12 +9,12 @@
 @import "./components/view/view.css";
 
 /* The admin's depth and light. Every value resolves through the site's own
-   tokens, so each site's admin is lit and shadowed in its brand rather than in
-   a neutral grey: `--color-shadow-*` is neo_color's brand-tinted shadow ramp.
+   tokens, so each site's admin is shadowed in its own base colour rather than
+   in a neutral grey: `--color-shadow-*` is neo_color's shadow ramp, taken from
+   the base pallet and kept darker than the surface in any scheme.
 
-   The canvas washes are exposed so a site whose accent is loud can quiet it
-   from its own back theme without touching the gradient itself, and the edge
-   shading so a site can deepen or drop it the same way. */
+   The edge shading is exposed so a site can deepen or drop it from its own
+   back theme without touching the gradient itself. */
 :root {
   --neo-lift-1:
     0 1px 2px -1px rgb(var(--color-shadow-500) / 0.14),
@@ -23,8 +23,6 @@
     var(--neo-lift-1),
     0 6px 16px -4px rgb(var(--color-shadow-500) / 0.12),
     0 24px 40px -20px rgb(var(--color-shadow-500) / 0.2);
-  --neo-canvas-wash-1: rgb(var(--color-primary-500) / 0.16);
-  --neo-canvas-wash-2: rgb(var(--color-accent-500) / 0.22);
   /* The canvas darkens towards its left and right edges, as if the toolbar
      and the window edge cast a little shade onto it: a narrow falloff at each
      edge over a wider, fainter one, so the middle, where the work is, reads
@@ -41,9 +39,9 @@ body {
   @apply relative z-0 text-base font-normal;
 }
 
-/* The wash is its own fixed layer rather than the wrapper's background, so it
-   stays behind the sticky header as the page scrolls and the header frosts over
-   it. A fixed layer avoids the repaint cost of `background-attachment: fixed`.
+/* The shading is its own fixed layer rather than the wrapper's background, so
+   it stays behind the sticky header as the page scrolls and the header frosts
+   over it. A fixed layer avoids the repaint cost of `background-attachment: fixed`.
    `isolation` keeps the layer's negative z-index inside the wrapper, above its
    fill.
 
@@ -54,7 +52,8 @@ body {
 
    Each edge falloff carries a color hint that puts its midpoint close to the
    edge, so the shade drops away quickly and then trails off, rather than
-   fading evenly across the whole run. */
+   fading evenly across the whole run. The two sides mirror each other, and
+   nothing else tints the canvas: it is the base colour throughout. */
 .page-wrapper {
   @apply bg-base-50;
   isolation: isolate;
@@ -73,9 +72,6 @@ body {
       linear-gradient(to right, var(--neo-canvas-edge), 0.25rem, transparent 1rem),
       linear-gradient(to left, var(--neo-canvas-edge), 0.25rem, transparent 1rem),
       linear-gradient(to right, var(--neo-canvas-vignette), 1.5%, transparent 6%, transparent 94%, 98.5%, var(--neo-canvas-vignette)),
-      radial-gradient(ellipse 60% 55% at 12% -12%, var(--neo-canvas-wash-1), transparent 72%),
-      radial-gradient(ellipse 50% 50% at 95% -10%, var(--neo-canvas-wash-2), transparent 70%),
-      radial-gradient(ellipse 70% 50% at 70% 115%, rgb(var(--color-primary-500) / 0.06), transparent 70%),
       rgb(var(--color-base-50));
   }
 
