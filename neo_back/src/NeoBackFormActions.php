@@ -32,6 +32,14 @@ class NeoBackFormActions {
   const HIDDEN_CLASS = 'neo-form-actions--in-header';
 
   /**
+   * The entity form actions whose header copies show as their icon alone.
+   *
+   * Core's own keys, so any entity form that has them is covered: Preview
+   * (node) and Delete. Only Save keeps its label.
+   */
+  const ICON_ONLY_KEYS = ['preview', 'delete'];
+
+  /**
    * The copies for this page, once a form has claimed the header.
    *
    * @var array|null
@@ -105,8 +113,8 @@ class NeoBackFormActions {
   /**
    * Copies the form's visible actions for the header.
    *
-   * Delete is shown as its icon alone, and so is any button that asks to be
-   * (see showIconOnly()).
+   * Preview and Delete are shown as their icon alone, and so is any button
+   * that asks to be (see showIconOnly()).
    */
   protected static function buildHeaderActions(array $form): array {
     $build = [
@@ -140,7 +148,10 @@ class NeoBackFormActions {
       if (isset($element['#url']) && $element['#url'] instanceof Url) {
         $element['#url'] = clone $element['#url'];
       }
-      if ($key === 'delete' || !empty($element['#neo_header_icon_only'])) {
+      if (
+        in_array($key, static::ICON_ONLY_KEYS, TRUE)
+        || !empty($element['#neo_header_icon_only'])
+      ) {
         static::showIconOnly($element);
       }
       $build[$key] = $element;
@@ -151,11 +162,11 @@ class NeoBackFormActions {
   /**
    * Shows a header copy as its icon alone, with its label as a tooltip.
    *
-   * Every entity form's Delete gets this, and a button can ask for it with
-   * `#neo_header_icon_only`: a secondary action whose full label would crowd
-   * the page title, such as neo_alchemist's "Save and Configure Layout". Only
-   * the copy changes; the original keeps its label wherever the form shows its
-   * own actions.
+   * Every entity form's Preview and Delete get this (ICON_ONLY_KEYS), and a
+   * button can ask for it with `#neo_header_icon_only`: a secondary action
+   * whose full label would crowd the page title, such as neo_alchemist's "Save
+   * and Configure Layout". Only the copy changes; the original keeps its label
+   * wherever the form shows its own actions.
    *
    * A label that has no icon yet is looked up the way neo_back gives one to
    * any other button or link (NeoBackIcon::forButton()). One that names none
