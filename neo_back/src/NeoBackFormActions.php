@@ -6,6 +6,8 @@ use Drupal\Core\EventSubscriber\MainContentViewSubscriber;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Url;
+use Drupal\neo_icon\IconElementInterface;
+use Drupal\neo_tooltip\Tooltip;
 
 /**
  * Puts a content entity form's actions in the sticky page header.
@@ -112,9 +114,48 @@ class NeoBackFormActions {
       if (isset($element['#url']) && $element['#url'] instanceof Url) {
         $element['#url'] = clone $element['#url'];
       }
+      if (!empty($element['#neo_header_icon_only'])) {
+        static::showIconOnly($element);
+      }
       $build[$key] = $element;
     }
     return $build;
+  }
+
+  /**
+   * Shows a header copy as its icon alone, with its label as a tooltip.
+   *
+   * A button asks for this with `#neo_header_icon_only`: a secondary action
+   * whose full label would crowd the page title, such as neo_alchemist's
+   * "Save and Configure Layout". Only the copy changes; the original keeps its
+   * label wherever the form shows its own actions.
+   *
+   * The label is still rendered, for screen readers, and the #value the Form
+   * API matches a click by is left alone. The tooltip only repeats the label,
+   * so it is marked as described elsewhere and not announced a second time,
+   * and the icon drops the native title it would otherwise carry, which would
+   * open a second tooltip over the first.
+   *
+   * @param array $element
+   *   The header copy of the button.
+   */
+  protected static function showIconOnly(array &$element): void {
+    $title = $element['#title'] ?? $element['#value'] ?? NULL;
+    if (!$title instanceof IconElementInterface || !$title->getIcon()) {
+      return;
+    }
+    // A copy: the original button holds the same object as its own label.
+    $element['#title'] = (clone $title)->iconOnly()->assignTitle(FALSE);
+    $element['#attributes']['class'][] = 'neo-header-action--icon-only';
+    $label = trim(strip_tags((string) $title->getText()));
+    if (\Drupal::moduleHandler()->moduleExists('neo_tooltip')) {
+      $tooltip = new Tooltip($label, ['placement' => 'bottom']);
+      $tooltip->setDescribedElsewhere();
+      $tooltip->applyTo($element);
+    }
+    else {
+      $element['#attributes']['title'] = $label;
+    }
   }
 
 }
