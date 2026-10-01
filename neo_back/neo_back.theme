@@ -195,15 +195,19 @@ function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterf
           '#markup' => $form['meta']['published']['#value'],
         ];
       }
-      $form['meta']['published']['#wrapper_attributes']['class'][] = 'mt-0';
-      $form['meta']['published']['#wrapper_attributes']['class'][] = '-ml-form-item';
-      $form['meta']['published']['#wrapper_attributes']['class'][] = '-mr-form-item';
+      // Outlined all round in the state's colour, so the pale tint does not
+      // fade into the canvas behind the card. The band reaches 1px further
+      // than the card's padding, laying its border over the card's own edge
+      // rather than doubling it.
+      $form['meta']['published']['#wrapper_attributes']['class'][] = '-mt-px';
+      $form['meta']['published']['#wrapper_attributes']['class'][] = '-ml-[calc(var(--spacing-form-item)+1px)]';
+      $form['meta']['published']['#wrapper_attributes']['class'][] = '-mr-[calc(var(--spacing-form-item)+1px)]';
       $form['meta']['published']['#wrapper_attributes']['class'][] = 'px-form-item';
       $form['meta']['published']['#wrapper_attributes']['class'][] = 'py-4';
       $form['meta']['published']['#wrapper_attributes']['class'][] = 'font-bold';
       $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-md';
       $form['meta']['published']['#wrapper_attributes']['class'][] = 'rounded-t-lg';
-      $form['meta']['published']['#wrapper_attributes']['class'][] = 'border-b';
+      $form['meta']['published']['#wrapper_attributes']['class'][] = 'border';
       // Tinted, not filled. A solid status block was the loudest thing on the
       // form and outshouted the Save button; the state still reads from its
       // colour and icon without competing for the eye.
@@ -212,14 +216,14 @@ function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterf
         $form['meta']['published']['#markup'] = neo_icon('Draft');
         $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-base-100';
         $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-base-700';
-        $form['meta']['published']['#wrapper_attributes']['class'][] = 'border-base-200';
+        $form['meta']['published']['#wrapper_attributes']['class'][] = 'border-base-300';
       }
       elseif ($entity instanceof EntityPublishedInterface) {
         if ($entity instanceof EntityPublishedInterface && $entity->isPublished()) {
           $form['meta']['published']['#markup'] = neo_icon('Published');
           $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-success-50';
           $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-success-800';
-          $form['meta']['published']['#wrapper_attributes']['class'][] = 'border-success-200';
+          $form['meta']['published']['#wrapper_attributes']['class'][] = 'border-success-300';
           if ($moderationStateLabel && $moderationStateLabel !== 'Published') {
             $form['meta']['published']['#markup'] .= ' <span class="font-light">(' . $moderationStateLabel . ')</span>';
           }
@@ -228,7 +232,7 @@ function neo_back_form_meta(&$form, FormStateInterface $form_state, EntityInterf
           $form['meta']['published']['#markup'] = neo_icon('Unpublished');
           $form['meta']['published']['#wrapper_attributes']['class'][] = 'bg-warning-50';
           $form['meta']['published']['#wrapper_attributes']['class'][] = 'text-warning-800';
-          $form['meta']['published']['#wrapper_attributes']['class'][] = 'border-warning-200';
+          $form['meta']['published']['#wrapper_attributes']['class'][] = 'border-warning-300';
           if ($moderationStateLabel) {
             $form['meta']['published']['#markup'] .= ' <span class="font-light">(' . $moderationStateLabel . ')</span>';
           }
