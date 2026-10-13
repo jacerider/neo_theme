@@ -134,6 +134,11 @@ group.metatag:
   word: metatag
   icon: file-search
   prefix: group
+# neo_seo's overrides widget, which stands in for metatag's: "SEO".
+group.seo:
+  word: seo
+  icon: file-search
+  prefix: group
 group.authoring:
   word: authoring
   icon: user
