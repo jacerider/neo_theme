@@ -107,12 +107,10 @@ body {
   }
 }
 
-.block--back-page-title h1 {
-
-  .neo-icon,
-  .neo-icon-label {
-    display: inline-block;
-  }
+/* Only the icon is inline-block. The label stays inline so a long title wraps
+   on from the icon; as an inline-block it wraps whole, onto a line of its own. */
+.block--back-page-title h1 .neo-icon {
+  display: inline-block;
 }
 
 @layer base {
