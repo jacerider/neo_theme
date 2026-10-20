@@ -284,13 +284,18 @@ function neo_back_preprocess_form(&$variables) {
  * form's Delete is: outlined in the alert colour rather than filled, so a
  * column of them does not outweigh the actions around them.
  *
- * The media library's Remove is left alone on both counts. It is an icon
- * circle laid over the thumbnail that draws its own glyph (media-library.css),
- * and an outline over a photograph would not read.
+ * The media library's Remove and Edit are left alone on both counts. Each is
+ * an icon circle laid over the thumbnail that draws its own glyph
+ * (media-library.css), and an outline over a photograph would not read.
  */
 function neo_back_preprocess_input__submit(array &$variables) {
   $name = $variables['element']['#name'] ?? '';
   if (str_ends_with($name, 'media-library-remove-button')) {
+    return;
+  }
+  // Core's Edit button beside it (core issue #2985168) has no name of its own,
+  // only core's `edit-media` class, and draws its glyph the same way.
+  if (in_array('edit-media', (array) ($variables['element']['#attributes']['class'] ?? []), TRUE)) {
     return;
   }
   $label = $variables['attributes']['data-label'] ?? '';

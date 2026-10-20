@@ -54,6 +54,24 @@
     }
   }
 
+  /* The Edit button on a selected item, beside the remove circle: a link from
+     neo's neo_media_library_edit today, core's own submit button once core
+     issue #2985168 lands. Keyed on core's `edit-media` class so the circle
+     carries over, and doubled up with the remove rule's own selector so it
+     wins over that rule's trash glyph when the button is a submit. The label
+     stays as the accessible name, clipped by the circle the way the remove
+     button clips its own. */
+  .edit-media,
+  .button.form-submit.edit-media {
+    --icon-display: flex;
+    @apply absolute right-12 top-2 z-10 m-0 flex h-8 w-8 overflow-hidden whitespace-nowrap rounded-full border-0 bg-base-0 p-0 text-md text-base-0-content no-underline shadow-lg transition hover:bg-primary-500 hover:text-primary-500-content focus-visible:ring focus-visible:ring-primary-600;
+
+    &::before,
+    &:before {
+      @apply icon-edit h-8 w-8 shrink-0 items-center justify-center leading-none;
+    }
+  }
+
   .media-library-item--preview {
     img {
       @apply h-20 w-full min-w-20 lg:h-32 lg:min-w-32;
