@@ -381,10 +381,17 @@
 }
 
 /* A slot utility paints its own `background` from its slot colour, so it also
-   publishes that colour as `--btn-fill(-hover)` for the glow to read. */
+   publishes that colour as `--btn-fill(-hover)` for the glow to read, and as
+   the border. A solid button's border sits over its own fill, so this changes
+   nothing on its own; it matters when a slot fills an outline button
+   (`btn-outline is-active:btn-primary`), whose border otherwise stays the
+   outline's text-grade `--btn-line-color` — a dark ring round a coloured
+   button inside any scheme that defines it. */
 @utility btn-primary {
   --btn-fill: var(--btn-primary-bg-color, var(--btn-bg-color));
   --btn-fill-hover: var(--btn-primary-bg-color-hover, var(--btn-bg-color-hover));
+  --btn-border-color: var(--btn-fill);
+  --btn-border-color-hover: var(--btn-fill-hover);
   background: var(--btn-primary-bg-color, var(--btn-bg-color));
   color: var(--btn-primary-content-color, var(--btn-content-color));
 
@@ -397,6 +404,8 @@
 @utility btn-secondary {
   --btn-fill: var(--btn-secondary-bg-color, var(--btn-bg-color));
   --btn-fill-hover: var(--btn-secondary-bg-color-hover, var(--btn-bg-color-hover));
+  --btn-border-color: var(--btn-fill);
+  --btn-border-color-hover: var(--btn-fill-hover);
   background: var(--btn-secondary-bg-color, var(--btn-bg-color));
   color: var(--btn-secondary-content-color, var(--btn-content-color));
 
@@ -409,6 +418,8 @@
 @utility btn-accent {
   --btn-fill: var(--btn-accent-bg-color, var(--btn-bg-color));
   --btn-fill-hover: var(--btn-accent-bg-color-hover, var(--btn-bg-color-hover));
+  --btn-border-color: var(--btn-fill);
+  --btn-border-color-hover: var(--btn-fill-hover);
   background: var(--btn-accent-bg-color, var(--btn-bg-color));
   color: var(--btn-accent-content-color, var(--btn-content-color));
 
@@ -421,6 +432,8 @@
 @utility btn-success {
   --btn-fill: var(--btn-success-bg-color, var(--btn-bg-color));
   --btn-fill-hover: var(--btn-success-bg-color-hover, var(--btn-bg-color-hover));
+  --btn-border-color: var(--btn-fill);
+  --btn-border-color-hover: var(--btn-fill-hover);
   background: var(--btn-success-bg-color, var(--btn-bg-color));
   color: var(--btn-success-content-color, var(--btn-content-color));
 
@@ -433,6 +446,8 @@
 @utility btn-warning {
   --btn-fill: var(--btn-warning-bg-color, var(--btn-bg-color));
   --btn-fill-hover: var(--btn-warning-bg-color-hover, var(--btn-bg-color-hover));
+  --btn-border-color: var(--btn-fill);
+  --btn-border-color-hover: var(--btn-fill-hover);
   background: var(--btn-warning-bg-color, var(--btn-bg-color));
   color: var(--btn-warning-content-color, var(--btn-content-color));
 
@@ -445,6 +460,8 @@
 @utility btn-alert {
   --btn-fill: var(--btn-alert-bg-color, var(--btn-bg-color));
   --btn-fill-hover: var(--btn-alert-bg-color-hover, var(--btn-bg-color-hover));
+  --btn-border-color: var(--btn-fill);
+  --btn-border-color-hover: var(--btn-fill-hover);
   background: var(--btn-alert-bg-color, var(--btn-bg-color));
   color: var(--btn-alert-content-color, var(--btn-content-color));
 
