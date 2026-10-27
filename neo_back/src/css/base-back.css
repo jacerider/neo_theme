@@ -35,6 +35,12 @@
   --btn-glow: 1;
 }
 
+/* The admin reads in the site's UI font: neo_font's `ui` role, which it sets as
+   --font-ui-family at runtime. Without neo_font, Tailwind's default stack. */
+html {
+  font-family: var(--font-ui-family, var(--default-font-family));
+}
+
 body {
   @apply relative z-0 text-base font-normal;
 }
