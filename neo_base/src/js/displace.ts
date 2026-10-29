@@ -1,5 +1,5 @@
 
-(function ($, Drupal, debounce) {
+(function (Drupal, debounce) {
 
   type DisplaceOffset = {
     top: number;
@@ -42,6 +42,46 @@
       }])
     ))
   );
+
+  const VIEWPORT_OFFSET_CHANGE = 'drupalViewportOffsetChange';
+
+  /**
+   * Announces new offsets as `drupalViewportOffsetChange`.
+   *
+   * Through jQuery when the page has it -- exactly what core's drupal.displace
+   * does, so jQuery listeners keep receiving the offsets as their second
+   * argument -- and otherwise as a native CustomEvent with the offsets in
+   * `detail`.
+   */
+  function triggerViewportOffsetChange(offsets: DisplaceOffset): void {
+    if (typeof jQuery !== 'undefined') {
+      jQuery(document).trigger(VIEWPORT_OFFSET_CHANGE, offsets);
+      return;
+    }
+    document.dispatchEvent(new CustomEvent(VIEWPORT_OFFSET_CHANGE, {detail: offsets}));
+  }
+
+  /**
+   * Calls a handler on every `drupalViewportOffsetChange`, however announced.
+   *
+   * Core's drupal.displace announces it with jQuery's trigger(), which never
+   * reaches an addEventListener() listener; without jQuery on the page it can
+   * only arrive as a native event. So listen natively always, and through
+   * jQuery too when the page has it. jQuery is looked up, never required: core
+   * loads it unaggregated at weight -20, ahead of any script of ours.
+   */
+  function onViewportOffsetChange(handler: () => void, namespace: string): void {
+    document.addEventListener(VIEWPORT_OFFSET_CHANGE, () => handler());
+    if (typeof jQuery !== 'undefined') {
+      jQuery(document).on(`${VIEWPORT_OFFSET_CHANGE}.${namespace}`, (event) => {
+        // A native dispatch reaches jQuery's handler too, as originalEvent.
+        // The native listener above has already run for that one.
+        if (!event.originalEvent) {
+          handler();
+        }
+      });
+    }
+  }
 
   /**
    * Debounced function to handle resize observer entries.
@@ -156,18 +196,20 @@
       offsets[edge] = newOffsets[edge];
     });
     if (!hasDrupalDisplace) {
-      $(document).trigger('drupalViewportOffsetChange', offsets);
+      triggerViewportOffsetChange(offsets);
     }
     return offsets;
   }
 
+  const handleResize = debounce(displace, 200) as () => void;
+
   if (hasDrupalDisplace) {
-    $(document).on('drupalViewportOffsetChange.neoDisplace', (_event, _offsets) => {
+    onViewportOffsetChange(() => {
       displace();
       // Remove the event listener since we can rely on drupalViewportOffsetChange
       // being triggered on resize events.
-      $(window).off('resize.neoDisplace');
-    });
+      window.removeEventListener('resize', handleResize);
+    }, 'neoDisplace');
   }
 
   /**
@@ -185,12 +227,12 @@
       }
       this.displaceProcessed = true;
       if (!hasDrupalDisplace) {
-        $(window).on({'resize.neoDisplace': debounce(displace, 200)});
+        window.addEventListener('resize', handleResize);
       }
       displace();
     },
   };
 
-})(jQuery, Drupal, Drupal.debounce);
+})(Drupal, Drupal.debounce);
 
 export {};

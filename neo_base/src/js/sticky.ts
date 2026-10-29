@@ -1,4 +1,4 @@
-(function ($) {
+(function () {
 
   interface StickyObserverEntry {
     observer: IntersectionObserver;
@@ -17,6 +17,30 @@
   interface StickyMeasurement {
     top: number;
     height: number;
+  }
+
+  const VIEWPORT_OFFSET_CHANGE = 'drupalViewportOffsetChange';
+
+  /**
+   * Calls a handler on every `drupalViewportOffsetChange`, however announced.
+   *
+   * Core's drupal.displace announces it with jQuery's trigger(), which never
+   * reaches an addEventListener() listener; without jQuery on the page it can
+   * only arrive as a native event. So listen natively always, and through
+   * jQuery too when the page has it. jQuery is looked up, never required: core
+   * loads it unaggregated at weight -20, ahead of any script of ours.
+   */
+  function onViewportOffsetChange(handler: () => void, namespace: string): void {
+    document.addEventListener(VIEWPORT_OFFSET_CHANGE, () => handler());
+    if (typeof jQuery !== 'undefined') {
+      jQuery(document).on(`${VIEWPORT_OFFSET_CHANGE}.${namespace}`, (event) => {
+        // A native dispatch reaches jQuery's handler too, as originalEvent.
+        // The native listener above has already run for that one.
+        if (!event.originalEvent) {
+          handler();
+        }
+      });
+    }
   }
 
   const main = document.querySelector('[data-off-canvas-main-canvas]') as HTMLElement;
@@ -256,10 +280,8 @@
     observerManager.activate();
   }
 
-  $(document).on('drupalViewportOffsetChange.neoBase', (_event, _offsets) => {
-    sticky();
-  });
+  onViewportOffsetChange(sticky, 'neoBase');
 
-})(jQuery);
+})();
 
 export {};

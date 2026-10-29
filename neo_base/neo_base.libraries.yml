@@ -27,9 +27,6 @@ sticky:
   css: {}
   js:
     src/js/sticky.ts: { minified: true }
-  dependencies:
-    # Remove dependency as soon as drupal.display removes jquery.
-    - core/jquery
 
 displace:
   version: VERSION
@@ -38,8 +35,6 @@ displace:
   js:
     src/js/displace.ts: { minified: true }
   dependencies:
-    # Remove dependency as soon as drupal.display removes jquery.
-    - core/jquery
     - core/drupal
     - core/drupal.debounce
 
