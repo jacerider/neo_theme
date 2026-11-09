@@ -51,6 +51,26 @@
     }
   }
 
+  /* Not a core type, but modules emit it — webform's message element does,
+     and also ships its own `.messages.messages--info` theme (icon background
+     image, offset left shadow) at this same specificity, so reset that too. */
+  &.messages--info {
+    @apply border-info-500 bg-info-100 text-info-900 shadow-md;
+    background-image: none;
+
+    &:not(.messages--container),
+    .messages--message {
+
+      &:before {
+        @apply icon-info-circle text-info-500-content bg-info-500;
+      }
+    }
+
+    a {
+      @apply font-bold text-info-700 hover:text-info-900;
+    }
+  }
+
   &.messages--warning {
     @apply border-warning-500 bg-warning-100 text-warning-900;
 
@@ -82,4 +102,10 @@
       @apply font-bold text-alert-700 hover:text-alert-900;
     }
   }
+}
+
+/* Webform's dismissible messages pin the close link 11px from the top, which
+   sits low against our taller single-line message. Center it instead. */
+html.js .webform-message--close .messages .webform-message__link {
+  @apply top-1/2 -translate-y-1/2 leading-none;
 }
