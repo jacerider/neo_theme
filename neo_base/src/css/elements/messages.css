@@ -104,8 +104,23 @@
   }
 }
 
-/* Webform's dismissible messages pin the close link 11px from the top, which
-   sits low against our taller single-line message. Center it instead. */
+/* Webform's dismissible messages. Webform reserves room for the close link with
+   35px of right padding on `.messages`, but here the link is positioned inside
+   `.messages--message`, so that padding only narrowed the message and pushed the
+   link in from the edge. Reserve the room on the message instead, mirroring the
+   icon on the left: pl-12 there, pr-12 here, with the link centered where the
+   icon box would be (4px in, 32px wide). Webform also pins it 11px from the top,
+   which sits low against our taller message, so center it vertically too. */
+.webform-message--close {
+  .messages.messages--container {
+    @apply pr-0;
+  }
+
+  .messages .messages--message {
+    @apply pr-12;
+  }
+}
+
 html.js .webform-message--close .messages .webform-message__link {
-  @apply top-1/2 -translate-y-1/2 leading-none;
+  @apply top-1/2 right-1 flex w-8 -translate-y-1/2 justify-center leading-none;
 }
