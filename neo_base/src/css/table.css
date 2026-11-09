@@ -1,3 +1,15 @@
+/* @tailwindcss/forms (strategy: base) styles every `[multiple]` element as a
+   select box: base-500 border, white background, padding and 1rem/1.5rem text.
+   Tableselects (core's and webform's) put `multiple` on the <table> itself, so
+   the dark border showed wherever rows drop their own edge borders -- the
+   sticky and overflow layouts below -- and the text size leaked into cells
+   everywhere. Take it all back off. */
+table[multiple] {
+  @apply rounded-none border-0 bg-transparent p-0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
 table {
   a {
     @apply transition-colors;
