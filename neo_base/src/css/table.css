@@ -601,7 +601,11 @@ table {
 
 .table--sticky {
   .table--header {
-    @apply sticky top-neo-t z-20 overflow-hidden border border-base-300 shadow-md;
+    /* No top border: the cloned th cells already draw that edge, the way they
+       do on a table without a sticky header, and a second one stacked on it
+       read as a 2px rule. The clone is sized to the real row, so the border box
+       has to be the cells' alone to fit it. */
+    @apply sticky top-neo-t z-20 overflow-hidden border border-t-0 border-base-300 shadow-md;
 
     /* Sized and placed to land exactly on the row it covers: fixed to that
        row's height rather than its own content, so the two cannot disagree by a
